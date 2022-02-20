@@ -23,12 +23,25 @@ public class Project {
     private String tag4; // Tag 4 of the project
     private boolean complete; // Is the project marked as complete?
     private Component[] components; // List of project components
+    private int manid; // manid of project manager
 
     /* Class Constructors */
     /**
      * Default constructor.
      */
     public Project(ResultSet projectInfo, ResultSet componentInfo) throws SQLException {
+        // Save data
+        update(projectInfo);
+
+        // Save components
+            // TODO: finish this constructor
+    }
+
+    /* Class Methods */
+    /**
+     *  Update project object and project record
+     */
+    public void update(ResultSet projectInfo) throws SQLException {
         // Save data
         this.title = projectInfo.getString("title");
         this.investmentCosts = projectInfo.getFloat("investmentCosts");
@@ -42,21 +55,10 @@ public class Project {
         this.tag3 = projectInfo.getString("tag3");
         this.tag4 = projectInfo.getString("tag4");
         this.complete = projectInfo.getBoolean("complete");
+        this.manid = projectInfo.getInt("manid");
 
-        // Save components
-            // TODO: finish this constructor
-    }
-
-    /* Class Methods */
-    /**
-     *  Update project object and project record
-     */
-    public void update() {
-        // Update project object
-            // TODO: finish this method
-
-        // Update project record
-            // TODO: add line to update database record
+        // Check for overbudget
+            // TODO: add this functionality
     }
 
     /**
@@ -184,8 +186,16 @@ public class Project {
         return components;
     }
 
-    public void setComponents(Component[] components) {
+    private void setComponents(Component[] components) {
         this.components = components;
+    }
+
+    public int getManid() {
+        return manid;
+    }
+
+    private void setManid(int manid) {
+        this.manid = manid;
     }
 
     /*
