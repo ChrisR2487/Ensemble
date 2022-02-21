@@ -8,7 +8,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class Main extends Application {
-    private final boolean isFullscreen = false;
+    private final boolean isFullscreen = true;
     private FXMLLoader fxmlLoader;
     private Scene mainScene;
     private Stage mainStage;
@@ -22,7 +22,7 @@ public class Main extends Application {
             //stage.initStyle(StageStyle.UNDECORATED); TODO: change to login screen, then use this
 
         // Show startup screen
-        show("projCreator");
+        show("Dashboard");
         mainStage.show();
     }
 
