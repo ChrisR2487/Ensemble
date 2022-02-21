@@ -116,5 +116,12 @@
          </children>
       </VBox>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+      <ImageView fx:id="exitButton" layoutX="1814.0" layoutY="30.0" onMouseClicked="#mousePressed">
+         <Image url="@../button_imgs/close button.png">
+
+         </Image>
+      </ImageView>
+
+
    </children>
 </AnchorPane>
