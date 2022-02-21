@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class Main extends Application {
     private static final boolean isFullscreen = true;
+    public static Project curProject;
     private static FXMLLoader fxmlLoader;
     private Scene mainScene;
     private static Stage mainStage;

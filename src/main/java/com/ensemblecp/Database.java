@@ -41,6 +41,15 @@ public class Database {
          */
     }
 
+    public ResultSet getProject(String projectTitle) throws SQLException {
+        // Get tuple
+        PreparedStatement preparedStmt = conn.prepareStatement("select * from guestbook.Project where title = ?");
+        preparedStmt.setString(1, projectTitle);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on create project");
+        return rs;
+    }
+
 
     /* Class Methods */
     /**

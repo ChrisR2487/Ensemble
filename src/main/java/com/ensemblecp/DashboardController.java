@@ -1,6 +1,7 @@
 package com.ensemblecp;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -68,11 +69,33 @@ public class DashboardController implements Initializable {
         kickoffColumn.setCellValueFactory(new PropertyValueFactory("kickoff"));
         deadlineColumn.setCellValueFactory(new PropertyValueFactory("deadline"));
         projectTable.setItems(projectRows);
+        TableView.TableViewSelectionModel mod = projectTable.getSelectionModel();
+        ObservableList sel = mod.getSelectedItems();
+        sel.addListener(new ListChangeListener<ProjectRow>() {
+            @Override public void onChanged(Change<? extends ProjectRow> change) {
+                try {
+                    onChange(change);
+                } catch (IOException | SQLException e) {
+                    e.printStackTrace(); // TODO: Handle error better
+                }
+            }
+        });
     }
 
     @FXML
     public void add_onClick() throws IOException {
         Main.show("projCreator");
+    }
+
+    @FXML void onChange(ListChangeListener.Change change) throws IOException, SQLException {
+        // Get data
+        ObservableList<ProjectRow> selectedList = change.getList();
+        String projectTitle = selectedList.get(0).getTitle();
+        Database db = new Database();
+        Main.curProject = (new Project(db.getProject(projectTitle), null));
+
+        // Display screen
+        Main.show("projectView"); // TODO: fix to give correct name
     }
 
     @FXML
