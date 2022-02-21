@@ -36,12 +36,12 @@ public class ProjCreator {
         info.put("tag2", tag1Field.getText());
         info.put("tag3", tag1Field.getText());
         info.put("tag4", tag1Field.getText());
-        info.put("complete", "false"); // TODO: Fix this late to get correct status
+        info.put("complete", "false"); // TODO: Fix this later to get correct status
         Database db = new Database();
         ResultSet rs = db.createProject(info);
         Main.projects.add(new Project(rs, null));
         db.closeDB();
-        Main.show("Dashboard"); // TODO: get correct name of project view screen
+        Main.show("projectView"); // TODO: get correct name of project view screen
     }
 
     @FXML
