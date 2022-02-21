@@ -114,4 +114,8 @@ public class DashboardController implements Initializable {
     public void mousePressed(MouseEvent mouseEvent) {
         System.exit(-1);
     }
+
+    public void mousePressed(MouseEvent mouseEvent) {
+        System.exit(-1);
+    }
 }
