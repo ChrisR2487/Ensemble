@@ -27,15 +27,14 @@ public class Project {
     /**
      * Default constructor.
      */
-    //
-    // To test constructor use the code below and pass it in as parameters
-    // Statement stmt = conn.createStatement();
-    // ResultSet projectInfo = stmt.executeQuery("select * from Project");
-    // ResultSet componentInfo;
-    //
-    public Project(ResultSet projectInfo, ResultSet componentInfo) throws SQLException {
+    public Project() throws SQLException {
+        this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306/test","root","G6DevsOP2487!");
+        Statement stmt = conn.createStatement();
+        ResultSet projectInfo = stmt.executeQuery("select * from Project");
+        //If we pass in an index variable we can access a different row/project by running next multiple times
+        projectInfo.next();
         // Save data
-        this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
+        this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306/test","root","G6DevsOP2487!");
         this.title = projectInfo.getString("title");
         this.investmentCosts = projectInfo.getFloat("investmentCosts");
         this.budget = projectInfo.getFloat("budget");
@@ -48,12 +47,35 @@ public class Project {
         this.tag3 = projectInfo.getString("tag3");
         this.tag4 = projectInfo.getString("tag4");
         this.complete = projectInfo.getBoolean("complete");
-
-        // Save components
-        // TODO: finish this constructor
+        System.out.println("Success");
     }
+//    //
+//    // To test constructor use the code below and pass it in as parameters
+//    // Statement stmt = conn.createStatement();
+//    // ResultSet projectInfo = stmt.executeQuery("select * from Project");
+//    // ResultSet componentInfo;
+//    //
+//    public Project(ResultSet projectInfo, ResultSet componentInfo) throws SQLException {
+//        // Save data
+//        this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306/test","root","G6DevsOP2487!");
+//        this.title = projectInfo.getString("title");
+//        this.investmentCosts = projectInfo.getFloat("investmentCosts");
+//        this.budget = projectInfo.getFloat("budget");
+//        this.roi = projectInfo.getFloat("roi");
+//        this.kickoff = projectInfo.getDate("kickoff");
+//        this.deadline = projectInfo.getDate("deadline");
+//        this.issueScore = projectInfo.getFloat("issueScore");
+//        this.tag1 = projectInfo.getString("tag1");
+//        this.tag2 = projectInfo.getString("tag2");
+//        this.tag3 = projectInfo.getString("tag3");
+//        this.tag4 = projectInfo.getString("tag4");
+//        this.complete = projectInfo.getBoolean("complete");
+//
+//        // Save components
+//        // TODO: finish this constructor
+//    }
     public Project(String title) throws SQLException {
-        this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
+        this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306/test","root","G6DevsOP2487!");
         String createTable = "create table Project\n" +
                 "(\n" +
                 "    title           varchar(30) not null,\n" +
@@ -72,7 +94,7 @@ public class Project {
                 "        primary key (title)\n" +
                 ");\n";
         Statement stmt = conn.createStatement();
-        stmt.executeQuery(createTable);
+        stmt.executeUpdate(createTable);
         String query = " insert into Project (title)"
                 + " values (?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -126,8 +148,7 @@ public class Project {
         }
         else { error(field); }
 
-        String query = " insert into Project (this.field)"
-                + " values (?)";
+        String query = "update Project set " + field + "= ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setString (1, value);
         preparedStmt.execute();
@@ -140,8 +161,7 @@ public class Project {
     public void update(String field, Boolean value) throws SQLException {
         // Update project object
         setComplete(value);
-        String query = " insert into Project (this.field)"
-                + " values (?)";
+        String query = "update Project set complete = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setBoolean (1, value);
         preparedStmt.execute();
@@ -166,8 +186,7 @@ public class Project {
             setIssueScore(value);
         }
         else { error(field); }
-        String query = " insert into Project (this.field)"
-                + " values (?)";
+        String query = "update Project set " + field + "= ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setFloat (1, value);
         preparedStmt.execute();
@@ -186,8 +205,7 @@ public class Project {
             setDeadline(value);
         }
         else { error(field); }
-        String query = " insert into Project (this.field)"
-                + " values (?)";
+        String query = "update Project set " + field + "= ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setDate (1, value);
         preparedStmt.execute();
@@ -196,6 +214,10 @@ public class Project {
     }
     private void error(String field) {
         System.out.println("Invalid field name:" + field);
+    }
+    public void remove() throws SQLException {
+        Statement stmt = conn.createStatement();
+        stmt.executeQuery("drop table Project");
     }
     /**
      * Set project timeline dates
