@@ -1,7 +1,5 @@
 package com.ensemblecp;// Imports
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 // Project Class
 /**
@@ -10,6 +8,7 @@ import java.sql.SQLException;
  */
 public class Project {
     /* Class variables */
+    public Connection conn;
     private String title; // Title of the project
     private float investmentCosts; // Investment costs of the project
     private float budget; // Budget of the project
@@ -30,6 +29,7 @@ public class Project {
      */
     public Project(ResultSet projectInfo, ResultSet componentInfo) throws SQLException {
         // Save data
+        this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
         this.title = projectInfo.getString("title");
         this.investmentCosts = projectInfo.getFloat("investmentCosts");
         this.budget = projectInfo.getFloat("budget");
@@ -44,21 +44,114 @@ public class Project {
         this.complete = projectInfo.getBoolean("complete");
 
         // Save components
-            // TODO: finish this constructor
+        // TODO: finish this constructor
+    }
+    public Project(String title) throws SQLException {
+        this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
+        String createTable = "create table Project\n" +
+                "(\n" +
+                "    title           varchar(30) null,\n" +
+                "    investmentCosts float       null,\n" +
+                "    budget          float       null,\n" +
+                "    roi             float       null,\n" +
+                "    kickoff         date        null,\n" +
+                "    deadline        date        null,\n" +
+                "    issueScore      float       null,\n" +
+                "    tag1            varchar(30) null,\n" +
+                "    tag2            varchar(30) null,\n" +
+                "    tag3            varchar(30) null,\n" +
+                "    tag4            varchar(30) null,\n" +
+                "    complete        boolean     null,\n" +
+                "    constraint Project_pk\n" +
+                "        primary key (title)\n" +
+                ");\n";
+        Statement stmt = conn.createStatement();
+        stmt.executeQuery(createTable);
+        String query = " insert into Project (title)"
+                + " values (?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setString (1, title);
+        preparedStmt.execute();
+        System.out.println("Success");
+        // Save components
+        // TODO: finish this constructor
     }
 
     /* Class Methods */
+    //public void query()
     /**
      *  Update project object and project record
      */
-    public void update() {
+    public void update(String field, String value) {
         // Update project object
-            // TODO: finish this method
+        if(field.equals("title")) {
+            setTitle(value);
+        }
+        else if(field.equals("tag1")) {
+            setTag1(value);
+        }
+        else if(field.equals("tag2")) {
+            setTag2(value);
+        }
+        else if(field.equals("tag3")) {
+            setTag3(value);
+        }
+        else if(field.equals("tag4")) {
+            setTag4(value);
+        }
+        else { error(field); }
+        // Update project record
+        // TODO: add line to update database record
+    }
+    /**
+     *  Update project object and project record
+     */
+    public void update(String field, Boolean value) {
+        // Update project object
+        setComplete(value);
 
         // Update project record
-            // TODO: add line to update database record
+        // TODO: add line to update database record
     }
-
+    /**
+     *  Update project object and project record
+     */
+    public void update(String field, Float value) {
+        // Update project object
+        if(field.equals("investmentCosts")) {
+            setInvestmentCosts(value);
+        }
+        else if(field.equals("budget")) {
+            setBudget(value);
+        }
+        else if(field.equals("roi")) {
+            setRoi(value);
+        }
+        else if(field.equals("issueScore")) {
+            setIssueScore(value);
+        }
+        else { error(field); }
+        // Update project record
+        // TODO: add line to update database record
+    }
+    /**
+     *  Update project object and project record
+     */
+    public void update(String field, Date value) {
+        // Update project object
+        if(field.equals("kickoff")){
+            setKickoff(value);
+        }
+        else if(field.equals("deadline")) {
+            setDeadline(value);
+        }
+        else { error(field); }
+        // Update project record
+        // TODO: add line to update database record
+    }
+    private void error(String field) {
+        System.out.println("Invalid field name:" + field);
+    }
     /**
      * Set project timeline dates
      * @param kickoff Starting date of project
@@ -200,3 +293,4 @@ public class Project {
     */
 }
 // End of Project Class
+
