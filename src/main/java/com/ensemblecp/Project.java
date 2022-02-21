@@ -43,6 +43,7 @@ public class Project {
      */
     public void update(ResultSet projectInfo) throws SQLException {
         // Save data
+        projectInfo.next();
         this.title = projectInfo.getString("title");
         this.investmentCosts = projectInfo.getFloat("investmentCosts");
         this.budget = projectInfo.getFloat("budget");
@@ -55,7 +56,7 @@ public class Project {
         this.tag3 = projectInfo.getString("tag3");
         this.tag4 = projectInfo.getString("tag4");
         this.complete = projectInfo.getBoolean("complete");
-        this.manid = projectInfo.getInt("manid");
+        //this.manid = projectInfo.getInt("manid");
 
         // Check for overbudget
             // TODO: add this functionality
