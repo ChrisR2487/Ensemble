@@ -27,6 +27,12 @@ public class Project {
     /**
      * Default constructor.
      */
+    //
+    // To test constructor use the code below and pass it in as parameters
+    // Statement stmt = conn.createStatement();
+    // ResultSet projectInfo = stmt.executeQuery("select * from Project");
+    // ResultSet componentInfo;
+    //
     public Project(ResultSet projectInfo, ResultSet componentInfo) throws SQLException {
         // Save data
         this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
@@ -50,7 +56,7 @@ public class Project {
         this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
         String createTable = "create table Project\n" +
                 "(\n" +
-                "    title           varchar(30) null,\n" +
+                "    title           varchar(30) not null,\n" +
                 "    investmentCosts float       null,\n" +
                 "    budget          float       null,\n" +
                 "    roi             float       null,\n" +
@@ -78,11 +84,30 @@ public class Project {
     }
 
     /* Class Methods */
-    //public void query()
+    public void update() throws SQLException {
+        String query = " update Project"
+                + " set title = ?, investmentCosts = ?, budget = ?,"
+                + " roi = ?, kickoff = ?, deadline = ?, issueScore = ?,"
+                + " tag1 = ?, tag2 = ?, tag3 = ?, tag4 = ?, complete = ?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setString (1, this.title);
+        preparedStmt.setFloat(2, this.investmentCosts);
+        preparedStmt.setFloat (3, this.budget);
+        preparedStmt.setFloat (4, this.roi);
+        preparedStmt.setDate (5, this.kickoff);
+        preparedStmt.setDate (6, this.deadline);
+        preparedStmt.setFloat (7, this.issueScore);
+        preparedStmt.setString (8, this.tag1);
+        preparedStmt.setString (9, this.tag2);
+        preparedStmt.setString (10, this.tag3);
+        preparedStmt.setString (11, this.tag4);
+        preparedStmt.setBoolean (12, this.complete);
+        preparedStmt.execute();
+    }
     /**
      *  Update project object and project record
      */
-    public void update(String field, String value) {
+    public void update(String field, String value) throws SQLException {
         // Update project object
         if(field.equals("title")) {
             setTitle(value);
@@ -100,23 +125,33 @@ public class Project {
             setTag4(value);
         }
         else { error(field); }
+
+        String query = " insert into Project (this.field)"
+                + " values (?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setString (1, value);
+        preparedStmt.execute();
         // Update project record
         // TODO: add line to update database record
     }
     /**
      *  Update project object and project record
      */
-    public void update(String field, Boolean value) {
+    public void update(String field, Boolean value) throws SQLException {
         // Update project object
         setComplete(value);
-
+        String query = " insert into Project (this.field)"
+                + " values (?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setBoolean (1, value);
+        preparedStmt.execute();
         // Update project record
         // TODO: add line to update database record
     }
     /**
      *  Update project object and project record
      */
-    public void update(String field, Float value) {
+    public void update(String field, Float value) throws SQLException {
         // Update project object
         if(field.equals("investmentCosts")) {
             setInvestmentCosts(value);
@@ -131,13 +166,18 @@ public class Project {
             setIssueScore(value);
         }
         else { error(field); }
+        String query = " insert into Project (this.field)"
+                + " values (?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setFloat (1, value);
+        preparedStmt.execute();
         // Update project record
         // TODO: add line to update database record
     }
     /**
      *  Update project object and project record
      */
-    public void update(String field, Date value) {
+    public void update(String field, Date value) throws SQLException {
         // Update project object
         if(field.equals("kickoff")){
             setKickoff(value);
@@ -146,6 +186,11 @@ public class Project {
             setDeadline(value);
         }
         else { error(field); }
+        String query = " insert into Project (this.field)"
+                + " values (?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setDate (1, value);
+        preparedStmt.execute();
         // Update project record
         // TODO: add line to update database record
     }
