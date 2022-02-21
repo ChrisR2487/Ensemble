@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -99,7 +100,7 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    public void selectItem(ContextMenuEvent contextMenuEvent) {
+    public void mousePressed(MouseEvent mouseEvent) {
+        System.exit(-1);
     }
-
 }
