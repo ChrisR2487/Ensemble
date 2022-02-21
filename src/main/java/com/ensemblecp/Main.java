@@ -1,11 +1,14 @@
 package com.ensemblecp;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 
 public class Main extends Application {
     private final boolean isFullscreen = true;
@@ -35,4 +38,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+
 }
