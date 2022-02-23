@@ -39,8 +39,18 @@ public class ProjCreator {
         info.put("complete", "false"); // TODO: Fix this later to get correct status
         Database db = new Database();
         ResultSet rs = db.createProject(info);
-        Main.projects.add(new Project(rs, null));
+
+        // Create empty component ResultSet
+            // TODO: Implement once RS format is known
+
+        // Add project to Main cache
+        Main.projects.add(0, new Project(rs, null));
+        Main.trimCache();
+
+        // Close database
         db.closeDB();
+
+        // Display proper view
         Main.show("projectView"); // TODO: get correct name of project view screen
     }
 

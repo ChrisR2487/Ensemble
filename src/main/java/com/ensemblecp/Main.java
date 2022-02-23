@@ -22,8 +22,8 @@ public class Main extends Application {
         mainStage = stage;
         mainStage.setFullScreen(isFullscreen);
         mainStage.setTitle("Ensemble");
-            //stage.initStyle(StageStyle.UNDECORATED); TODO: change to login screen, then use this
-        projects = new ArrayList<Project>();
+            //stage.initStyle(StageStyle.UNDECORATED); TODO: change to startup on login screen, then use this
+        projects = new ArrayList<Project>(5);
 
         // Show startup screen
         show("Dashboard");
@@ -35,6 +35,30 @@ public class Main extends Application {
         Scene newScene = new Scene(fxmlLoader.load(), 1600, 900);
         mainStage.setScene(newScene);
         mainStage.setFullScreen(isFullscreen);
+    }
+
+    public static void update() throws IOException {
+        // TODO: Implement update stuff on view
+    }
+
+    public static void trimCache() {
+        // Trims the Main.projects cache if necessary
+        if (Main.projects.size() > 5) {
+            Main.projects.remove(5); // TODO: Confirm this works
+        }
+    }
+
+    public static Project inCache(int pid) {
+        // Finds if project is in cache, returns null otherwise
+        for (Project proj : Main.projects) {
+            if (proj.getPid() == pid) return proj;
+        }
+        return null;
+    }
+
+    public static void refreshCache(Project proj) {
+        Main.projects.remove(proj);
+        Main.projects.add(0, proj);
     }
 
     public static void main(String[] args) {

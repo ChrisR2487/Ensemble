@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
 
@@ -32,7 +33,7 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Create projectRow list
-        ArrayList<ProjectRow> temp0 = new ArrayList<ProjectRow>();
+        ArrayList<ProjectRow> rowArrayList = new ArrayList<ProjectRow>();
         try {
             Database db = new Database();
             ResultSet rs = db.getProjects();
@@ -43,7 +44,8 @@ public class DashboardController implements Initializable {
                 pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
                 pr.setKickoff(rs.getDate("kickoff").toString());
                 pr.setDeadline(rs.getDate("deadline").toString());
-                temp0.add(pr);
+                pr.setPid(String.valueOf(rs.getInt("pid")));
+                rowArrayList.add(pr);
             }
             db.closeDB();
         }
@@ -52,16 +54,11 @@ public class DashboardController implements Initializable {
         }
 
         // Convert to array
-        ProjectRow[] temp1 = new ProjectRow[temp0.size()];
-        int indx = 0;
-        for (ProjectRow pr: temp0) {
-            temp1[indx] = pr;
-            indx++;
-        }
+        ProjectRow[] rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
 
         // Cast to ObservableList
-        List<ProjectRow> temp2 = List.of(temp1);
-        ObservableList<ProjectRow> projectRows = FXCollections.observableList(temp2);
+        List<ProjectRow> rows = List.of(rowList);
+        ObservableList<ProjectRow> projectRows = FXCollections.observableList(rows);
 
         // Set row data
         titleColumn.setCellValueFactory(new PropertyValueFactory("title"));
@@ -91,9 +88,22 @@ public class DashboardController implements Initializable {
     @FXML void onChange(ListChangeListener.Change change) throws IOException, SQLException {
         // Get data
         ObservableList<ProjectRow> selectedList = change.getList();
-        String projectTitle = selectedList.get(0).getTitle();
-        Database db = new Database();
-        Main.curProject = (new Project(db.getProject(projectTitle), null));
+        int pid = Integer.parseInt(selectedList.get(0).getPid());
+
+        // Check if project is in cache
+        Project projInCache = Main.inCache(pid); // Get pid of current project, check if in cache
+        if (projInCache == null) {
+            // Not in cache, get project data and save to cache
+            Database db = new Database();
+            projInCache = new Project(db.getProject(pid), null); // TODO: Get component RS format
+            Main.projects.add(0, projInCache);
+            Main.trimCache();
+        }
+        else {
+            // Project in cache, change cache ordering
+            Main.refreshCache(projInCache);
+        }
+        Main.curProject = projInCache;
 
         // Display screen
         Main.show("projectView"); // TODO: fix to give correct name

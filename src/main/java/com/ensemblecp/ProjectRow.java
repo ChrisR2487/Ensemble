@@ -1,10 +1,17 @@
 package com.ensemblecp;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class ProjectRow {
+    private StringProperty pid;
+    public void setPid(String value) { pidProperty().set(value); }
+    public String getPid() { return pidProperty().get(); }
+    public StringProperty pidProperty() {
+        if (pid == null) pid = new SimpleStringProperty(this, "pid");
+        return pid;
+    }
+
     private StringProperty title;
     public void setTitle(String value) { titleProperty().set(value); }
     public String getTitle() { return titleProperty().get(); }

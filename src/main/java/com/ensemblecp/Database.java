@@ -10,7 +10,8 @@ import java.util.HashMap;
 public class Database {
     /* Class variables */
     public Connection conn;
-    public static int pid = 0;
+    public static int pid = 0; // TODO: Set up database to use pid system
+    public static String databaseName = ""; // Name of database in system, prepended on table names
 
     /* Class Constructors */
     /**
@@ -41,10 +42,10 @@ public class Database {
          */
     }
 
-    public ResultSet getProject(String projectTitle) throws SQLException {
-        // Get tuple
-        PreparedStatement preparedStmt = conn.prepareStatement("select * from guestbook.Project where title = ?");
-        preparedStmt.setString(1, projectTitle);
+    public ResultSet getProject(int pid) throws SQLException {
+        // Get tuple TODO: Fix table so this works
+        PreparedStatement preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where pid = ?");
+        preparedStmt.setInt(1, pid);
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on create project");
         return rs;
@@ -57,7 +58,7 @@ public class Database {
      */
     public ResultSet createProject(HashMap<String, String> info) throws SQLException {
         // Insert record
-        String query = " insert into guestbook.Project"
+        String query = " insert into "+ databaseName + ".Project"
                 + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setString (1, info.get("title"));
@@ -75,7 +76,7 @@ public class Database {
         preparedStmt.execute();
 
         // Get tuple
-        preparedStmt = conn.prepareStatement("select * from guestbook.Project where title = ?");
+        preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where title = ?");
         preparedStmt.setString(1, info.get("title"));
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on create project");
@@ -112,7 +113,7 @@ public class Database {
     }
 
     public void removeProject(String title) throws SQLException {
-        String query = " delete from guestbook.Project where title = ?";
+        String query = " delete from " + databaseName + ".Project where title = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setString(1, title);
         preparedStmt.execute();
@@ -120,7 +121,7 @@ public class Database {
     }
 
     public ResultSet getProjects() throws SQLException {
-        String query = "select * from guestbook.Project";
+        String query = "select * from " + databaseName + ".Project";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on querying project table");

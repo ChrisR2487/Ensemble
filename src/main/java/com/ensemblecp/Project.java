@@ -10,6 +10,7 @@ import java.sql.SQLException;
  */
 public class Project {
     /* Class variables */
+    private int pid; // Id of project
     private String title; // Title of the project
     private float investmentCosts; // Investment costs of the project
     private float budget; // Budget of the project
@@ -44,6 +45,7 @@ public class Project {
     public void update(ResultSet projectInfo) throws SQLException {
         // Save data
         projectInfo.next();
+        this.pid = projectInfo.getInt("pid"); // TODO: Make sure database uses this
         this.title = projectInfo.getString("title");
         this.investmentCosts = projectInfo.getFloat("investmentCosts");
         this.budget = projectInfo.getFloat("budget");
@@ -87,6 +89,14 @@ public class Project {
     }
 
     /* Getters & Setters */
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
     public String getTitle() {
         return title;
     }
