@@ -11,7 +11,7 @@ public class Database {
     /* Class variables */
     public Connection conn;
     public static int pid = 0; // TODO: Set up database to use pid system
-    public static String databaseName = ""; // Name of database in system, prepended on table names
+    public static String databaseName = "Ensemble"; // Name of database in system, prepended on table names
 
     /* Class Constructors */
     /**
