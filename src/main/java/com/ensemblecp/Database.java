@@ -20,8 +20,9 @@ public class Database {
     public Database() throws SQLException {
         this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
         /*
-        String createTable = "create table guestbook.Project\n" +
+        String createTable = "create table " + databaseName + ".Project\n" +
                 "(\n" +
+                "    pid             int         not null,\n" +
                 "    title           varchar(30) not null,\n" +
                 "    investmentCosts float       not null,\n" +
                 "    budget          float       not null,\n" +
@@ -35,7 +36,7 @@ public class Database {
                 "    tag4            varchar(30) not null,\n" +
                 "    complete        boolean     not null,\n" +
                 "    constraint Project_pk\n" +
-                "        primary key (title)\n" +
+                "        primary key (pid)\n" +
                 ");\n";
         Statement stmt = conn.createStatement();
         stmt.execute(createTable);
@@ -59,20 +60,21 @@ public class Database {
     public ResultSet createProject(HashMap<String, String> info) throws SQLException {
         // Insert record
         String query = " insert into "+ databaseName + ".Project"
-                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setString (1, info.get("title"));
-        preparedStmt.setFloat(2, Float.parseFloat(info.get("investmentCosts")));
-        preparedStmt.setFloat(3, Float.parseFloat(info.get("budget")));
-        preparedStmt.setFloat(4, Float.parseFloat(info.get("roi")));
-        preparedStmt.setDate(5, Date.valueOf(info.get("kickoff")));
-        preparedStmt.setDate(6, Date.valueOf(info.get("deadline")));
-        preparedStmt.setFloat(7, Float.parseFloat(info.get("issueScore")));
-        preparedStmt.setString(8, info.get("tag1"));
-        preparedStmt.setString(9, info.get("tag2"));
-        preparedStmt.setString(10, info.get("tag3"));
-        preparedStmt.setString(11, info.get("tag4"));
-        preparedStmt.setBoolean(12, Boolean.parseBoolean(info.get("complete")));
+        preparedStmt.setInt(1, Integer.parseInt(info.get("pid")));
+        preparedStmt.setString (2, info.get("title"));
+        preparedStmt.setFloat(3, Float.parseFloat(info.get("investmentCosts")));
+        preparedStmt.setFloat(4, Float.parseFloat(info.get("budget")));
+        preparedStmt.setFloat(5, Float.parseFloat(info.get("roi")));
+        preparedStmt.setDate(6, Date.valueOf(info.get("kickoff")));
+        preparedStmt.setDate(7, Date.valueOf(info.get("deadline")));
+        preparedStmt.setFloat(8, Float.parseFloat(info.get("issueScore")));
+        preparedStmt.setString(9, info.get("tag1"));
+        preparedStmt.setString(10, info.get("tag2"));
+        preparedStmt.setString(11, info.get("tag3"));
+        preparedStmt.setString(12, info.get("tag4"));
+        preparedStmt.setBoolean(13, Boolean.parseBoolean(info.get("complete")));
         preparedStmt.execute();
 
         // Get tuple
@@ -88,7 +90,7 @@ public class Database {
         String query = " update guestbook.Project" +
                 " set investmentCosts = ?, budget = ?, roi = ?, kickoff = ?," +
                 " deadline = ?, issueScore = ?, tag1 = ?, tag2 = ?, tag3 = ?, tag4 = ?," +
-                " complete = ? where title = ?";
+                " complete = ? where pid = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setFloat(1, Float.parseFloat(info.get("investmentCosts")));
         preparedStmt.setFloat(2, Float.parseFloat(info.get("budget")));
@@ -101,12 +103,12 @@ public class Database {
         preparedStmt.setString(9, info.get("tag3"));
         preparedStmt.setString(10, info.get("tag4"));
         preparedStmt.setBoolean(11, Boolean.parseBoolean(info.get("complete")));
-        preparedStmt.setString(12, info.get("title"));
+        preparedStmt.setInt(12, Integer.parseInt(info.get("pid")));
         preparedStmt.execute();
 
         // Get tuple
-        preparedStmt = conn.prepareStatement("select * from guestbook.Project where title = (?)");
-        preparedStmt.setString(1, info.get("title"));
+        preparedStmt = conn.prepareStatement("select * from guestbook.Project where pid = ?");
+        preparedStmt.setInt(1, Integer.parseInt(info.get("pid")));
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on update project");
         return rs;

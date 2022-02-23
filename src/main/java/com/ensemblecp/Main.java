@@ -9,12 +9,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main extends Application {
-    private static final boolean isFullscreen = true;
+    private final static boolean isFullscreen = true;
     public static Project curProject;
     private static FXMLLoader fxmlLoader;
     private Scene mainScene;
     private static Stage mainStage;
     public static ArrayList<Project> projects;
+    public final static int cacheLimit = 5;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -23,7 +24,7 @@ public class Main extends Application {
         mainStage.setFullScreen(isFullscreen);
         mainStage.setTitle("Ensemble");
             //stage.initStyle(StageStyle.UNDECORATED); TODO: change to startup on login screen, then use this
-        projects = new ArrayList<Project>(5);
+        projects = new ArrayList<Project>(cacheLimit);
 
         // Show startup screen
         show("Dashboard");
@@ -43,8 +44,8 @@ public class Main extends Application {
 
     public static void trimCache() {
         // Trims the Main.projects cache if necessary
-        if (Main.projects.size() > 5) {
-            Main.projects.remove(5); // TODO: Confirm this works
+        if (Main.projects.size() > cacheLimit) {
+            Main.projects.remove(cacheLimit); // TODO: Confirm this works
         }
     }
 

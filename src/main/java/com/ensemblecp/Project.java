@@ -58,7 +58,7 @@ public class Project {
         this.tag3 = projectInfo.getString("tag3");
         this.tag4 = projectInfo.getString("tag4");
         this.complete = projectInfo.getBoolean("complete");
-        //this.manid = projectInfo.getInt("manid");
+        //this.manid = projectInfo.getInt("manid"); TODO: Fix this to get id of currently logged in user
 
         // Check for overbudget
             // TODO: add this functionality
