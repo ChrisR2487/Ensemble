@@ -57,7 +57,7 @@ public class ProjCreator {
             // TODO: Implement once RS format is known
 
         // Add project to Main cache
-        Main.projects.add(0, new Project(rs, null));
+        Main.projects.add(0, new Project(rs, null, db));
         Main.trimCache();
 
         // Close database

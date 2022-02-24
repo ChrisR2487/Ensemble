@@ -1,7 +1,8 @@
 package com.ensemblecp;// Imports
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javafx.scene.chart.PieChart;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 // Project Class
 /**
@@ -23,19 +24,19 @@ public class Project {
     private String tag3; // Tag 3 of the project
     private String tag4; // Tag 4 of the project
     private boolean complete; // Is the project marked as complete?
-    private Component[] components; // List of project components
+    private ArrayList<Component> components; // List of project components
     private int manid; // manid of project manager
 
     /* Class Constructors */
     /**
      * Default constructor.
      */
-    public Project(ResultSet projectInfo, ResultSet componentInfo) throws SQLException {
+    public Project(ResultSet projectInfo, ResultSet componentInfo, Database db) throws SQLException {
         // Save data
         update(projectInfo);
 
         // Save components
-            // TODO: finish this constructor
+        this.components = parseComponents(componentInfo, db);
     }
 
     /* Class Methods */
@@ -62,6 +63,35 @@ public class Project {
 
         // Check for overbudget
             // TODO: add this functionality
+    }
+
+    /**
+     * Parse component info to create all component objects
+     * @param compInfo List of components in project
+     * @return List of Component objects for project
+     */
+    private ArrayList<Component> parseComponents(ResultSet compInfo, Database db) throws SQLException {
+        // Initial setup
+        if (!compInfo.next()) return new ArrayList<Component>(); // Check for no components
+
+        // Parse each component and its data
+        ArrayList<Component> componentsAL = new ArrayList<Component>();
+        do {
+            // Create component object
+            Component comp = new Component(this.pid, compInfo.getInt("cid"), compInfo.getString("template"), db); // Pass parameters to constructor
+            componentsAL.add(comp);
+        } while (compInfo.next());
+
+        // Return components
+        return componentsAL;
+    }
+
+    public String getCompPartData(int cIndex, int pIndex) {
+        return getCompParts(cIndex).get(pIndex).getData();
+    }
+
+    public ArrayList<Component.Part> getCompParts(int cIndex) {
+        return this.components.get(cIndex).getParts();
     }
 
     /**
@@ -193,11 +223,11 @@ public class Project {
         this.complete = complete;
     }
 
-    public Component[] getComponents() {
+    public ArrayList<Component> getComponents() {
         return components;
     }
 
-    private void setComponents(Component[] components) {
+    private void setComponents(ArrayList<Component> components) {
         this.components = components;
     }
 
@@ -208,16 +238,5 @@ public class Project {
     private void setManid(int manid) {
         this.manid = manid;
     }
-
-    /*
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("FlowTest");
-        JFrame frame2 = new JFrame();
-        frame.setContentPane(new FlowTest().panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
-    */
 }
 // End of Project Class
