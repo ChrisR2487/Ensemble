@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class ProjCreator {
+public class ProjCreatorController {
     @FXML TextField investmentCostsField;
     @FXML TextField descriptionField;
     @FXML TextField titleField;

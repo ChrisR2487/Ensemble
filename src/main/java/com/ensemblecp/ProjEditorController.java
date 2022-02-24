@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class ProjEditor {
+public class ProjEditorController {
     @FXML TextField investmentCostsField;
     @FXML TextField descriptionField;
     @FXML TextField titleField;
