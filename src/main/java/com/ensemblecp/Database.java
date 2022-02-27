@@ -10,7 +10,6 @@ import java.util.HashMap;
 public class Database {
     /* Class variables */
     public Connection conn;
-    public static int pid = 0; // TODO: Set up database to use pid system
     public static String databaseName = "Ensemble"; // Name of database in system, prepended on table names
 
     /* Class Constructors */
@@ -132,6 +131,14 @@ public class Database {
 
     public void closeDB() throws SQLException {
         conn.close();
+    }
+
+    public ResultSet getComponentData(int pid, int cid) {
+        return null;
+    }
+
+    public ResultSet getComponentTablePart(int pid, int cid, int partid) {
+        return null;
     }
 }
 // End of Database Class
