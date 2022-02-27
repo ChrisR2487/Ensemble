@@ -12,6 +12,7 @@ public class Project {
     /* Class variables */
     private int pid; // Id of project
     private String title; // Title of the project
+    private String description; // Description of the project
     private float investmentCosts; // Investment costs of the project
     private float budget; // Budget of the project
     private float roi; // Return on investment of the project
@@ -47,6 +48,7 @@ public class Project {
         projectInfo.next();
         this.pid = projectInfo.getInt("pid"); // TODO: Make sure database uses this
         this.title = projectInfo.getString("title");
+        this.description = projectInfo.getString("description");
         this.investmentCosts = projectInfo.getFloat("investmentCosts");
         this.budget = projectInfo.getFloat("budget");
         this.roi = projectInfo.getFloat("roi");

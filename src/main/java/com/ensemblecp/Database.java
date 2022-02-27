@@ -60,10 +60,11 @@ public class Database {
     public ResultSet createProject(HashMap<String, String> info) throws SQLException {
         // Insert record
         String query = " insert into "+ databaseName + ".Project"
-                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Integer.parseInt(info.get("pid")));
         preparedStmt.setString (2, info.get("title"));
+        preparedStmt.setString (2, info.get("description"));
         preparedStmt.setFloat(3, Float.parseFloat(info.get("investmentCosts")));
         preparedStmt.setFloat(4, Float.parseFloat(info.get("budget")));
         preparedStmt.setFloat(5, Float.parseFloat(info.get("roi")));
@@ -76,6 +77,16 @@ public class Database {
         preparedStmt.setString(12, info.get("tag4"));
         preparedStmt.setBoolean(13, Boolean.parseBoolean(info.get("complete")));
         preparedStmt.execute();
+
+        String createTable = "create table " + databaseName + ".Component\n" +
+                "(\n" +
+                "    cid             int         not null,\n" +
+                "    template        varchar(128) not null,\n" +
+                "    constraint Component_pk\n" +
+                "        primary key (cid)\n" +
+                ");\n";
+        Statement stmt = conn.createStatement();
+        stmt.execute(createTable);
 
         // Get tuple
         preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where title = ?");
