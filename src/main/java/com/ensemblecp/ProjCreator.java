@@ -35,7 +35,7 @@ public class ProjCreator {
         info.put("tag2", tag1Field.getText());
         info.put("tag3", tag1Field.getText());
         info.put("tag4", tag1Field.getText());
-        info.put("complete", "false"); // TODO: Fix this later to get correct status
+        info.put("complete", "false");
 
         // Get roi
         info.put("roi", "0"); // TODO: Fix this to get predicated ROI, set as value of hashmap
@@ -53,9 +53,6 @@ public class ProjCreator {
         // Add team members
             // TODO: Create Team Project table and add members selected
 
-        // Create empty component ResultSet
-            // TODO: Implement once RS format is known
-
         // Add project to Main cache
         Main.projects.add(0, new Project(rs, null, db));
         Main.trimCache();
@@ -64,7 +61,7 @@ public class ProjCreator {
         db.closeDB();
 
         // Display proper view
-        Main.show("projectView"); // TODO: get correct name of project view screen
+        Main.show("projViewScreen");
     }
 
     @FXML

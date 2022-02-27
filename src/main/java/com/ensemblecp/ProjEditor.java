@@ -26,7 +26,7 @@ public class ProjEditor {
         HashMap<String, String> info = new HashMap<String, String>();
         info.put("title", titleField.getText());
         info.put("investmentCosts", investmentCostsField.getText());
-        info.put("budget", "1000000"); // TODO: Fix this to get real budget
+        info.put("budget", "1000000");
         info.put("roi", "0"); // TODO: Fix this to get predicated ROI
         info.put("kickoff", kickoffField.getText());
         info.put("deadline", deadlineField.getText());
@@ -35,12 +35,12 @@ public class ProjEditor {
         info.put("tag2", tag1Field.getText());
         info.put("tag3", tag1Field.getText());
         info.put("tag4", tag1Field.getText());
-        info.put("complete", "false"); // TODO: Fix this late to get correct status
+        info.put("complete", "false");
         Database db = new Database();
         ResultSet rs = db.updateProject(info);
-        Main.projects.get(0).update(rs); // TODO: Fix this later to reference correct index
+        Main.curProject.update(rs);
         db.closeDB();
-        Main.show("projectView"); // TODO: get correct name of project view screen
+        Main.show("projViewScreen");
     }
 
     @FXML

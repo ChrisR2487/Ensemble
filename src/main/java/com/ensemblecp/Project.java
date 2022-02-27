@@ -25,7 +25,7 @@ public class Project {
     private String tag4; // Tag 4 of the project
     private boolean complete; // Is the project marked as complete?
     private ArrayList<Component> components; // List of project components
-    private int manid; // manid of project manager
+    private int manid = 0; // manid of project manager
 
     /* Class Constructors */
     /**
@@ -36,7 +36,7 @@ public class Project {
         update(projectInfo);
 
         // Save components
-        this.components = parseComponents(componentInfo, db);
+        if (componentInfo != null) this.components = parseComponents(componentInfo, db);
     }
 
     /* Class Methods */
@@ -46,7 +46,7 @@ public class Project {
     public void update(ResultSet projectInfo) throws SQLException {
         // Save data
         projectInfo.next();
-        this.pid = projectInfo.getInt("pid"); // TODO: Make sure database uses this
+        this.pid = projectInfo.getInt("pid");
         this.title = projectInfo.getString("title");
         this.investmentCosts = projectInfo.getFloat("investmentCosts");
         this.budget = projectInfo.getFloat("budget");

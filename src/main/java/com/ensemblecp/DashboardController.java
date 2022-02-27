@@ -107,7 +107,7 @@ public class DashboardController implements Initializable {
         Main.curProject = projInCache;
 
         // Display screen
-        Main.show("projectView"); // TODO: fix to give correct name
+        Main.show("projViewScreen");
     }
 
     @FXML

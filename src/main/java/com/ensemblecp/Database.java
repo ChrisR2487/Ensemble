@@ -18,32 +18,10 @@ public class Database {
      */
     public Database() throws SQLException {
         this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
-        /*
-        String createTable = "create table " + databaseName + ".Project\n" +
-                "(\n" +
-                "    pid             int         not null,\n" +
-                "    title           varchar(30) not null,\n" +
-                "    investmentCosts float       not null,\n" +
-                "    budget          float       not null,\n" +
-                "    roi             float       not null,\n" +
-                "    kickoff         date        not null,\n" +
-                "    deadline        date        not null,\n" +
-                "    issueScore      float       not null,\n" +
-                "    tag1            varchar(30) not null,\n" +
-                "    tag2            varchar(30) not null,\n" +
-                "    tag3            varchar(30) not null,\n" +
-                "    tag4            varchar(30) not null,\n" +
-                "    complete        boolean     not null,\n" +
-                "    constraint Project_pk\n" +
-                "        primary key (pid)\n" +
-                ");\n";
-        Statement stmt = conn.createStatement();
-        stmt.execute(createTable);
-         */
     }
 
     public ResultSet getProject(int pid) throws SQLException {
-        // Get tuple TODO: Fix table so this works
+        // Get tuple
         PreparedStatement preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where pid = ?");
         preparedStmt.setInt(1, pid);
         ResultSet rs = preparedStmt.executeQuery();
