@@ -88,6 +88,16 @@ public class Project {
         return componentsAL;
     }
 
+    public static String PIDtoChars(int pid) {
+        String sPid = String.valueOf(pid);
+        char[] cPid = sPid.toCharArray();
+        char[] charPid = new char[cPid.length];
+        for (int i = 0; i < cPid.length; i++) {
+            charPid[i] = (char) (Integer.parseInt(String.valueOf(cPid[i])) + 65); // Convert number to letter
+        }
+        return String.valueOf(charPid);
+    }
+
     public String getCompPartData(int cIndex, int pIndex) {
         return getCompParts(cIndex).get(pIndex).getData();
     }

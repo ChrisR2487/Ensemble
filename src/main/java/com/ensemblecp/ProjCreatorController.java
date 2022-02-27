@@ -25,7 +25,7 @@ public class ProjCreatorController {
     public void createProject_onClick(Event e) throws SQLException, IOException {
         // Get data
         HashMap<String, String> info = new HashMap<String, String>();
-        info.put("pid", String.valueOf(titleField.getText().hashCode()));
+        info.put("pid", String.valueOf(Math.abs(titleField.getText().hashCode()))); // Use Math.abs() for no negative PIDs
         info.put("title", titleField.getText());
         info.put("description", descriptionField.getText());
         info.put("investmentCosts", investmentCostsField.getText());

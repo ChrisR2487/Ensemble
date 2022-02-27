@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjViewScreen">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjViewScreen">
     <children>
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
             <children>
                 <HBox prefHeight="25.0" prefWidth="160.0">
                     <children>
                         <ImageView fitHeight="36.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 7;">
-                            <Image url="@../css/Screen%20Shot%202022-02-27%20at%203.13.40%20PM.png" />
+                            <Image url="@../css/ScreenShot2022-02-27at3.13.40PM.png" />
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
@@ -38,7 +38,7 @@
                 <HBox prefHeight="28.0" prefWidth="160.0">
                     <children>
                         <ImageView fitHeight="27.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 7;">
-                            <Image url="@../css/Screen%20Shot%202022-02-27%20at%203.13.47%20PM.png" />
+                            <Image url="@../css/ScreenShot2022-02-27at3.13.47PM.png" />
                         </ImageView>
                         <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: transparent; -fx-translate-x: -10;" text="Projects" textFill="WHITE">
                             <HBox.margin>
@@ -52,7 +52,7 @@
                 <HBox prefHeight="35.0" prefWidth="160.0">
                     <children>
                         <ImageView fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 7;">
-                            <Image url="@../css/Screen%20Shot%202022-02-27%20at%203.14.02%20PM.png" />
+                            <Image url="@../css/ScreenShot2022-02-27at3.14.02PM.png" />
                         </ImageView>
                         <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="121.0" style="-fx-background-color: transparent; -fx-translate-x: -10;" text="Archives" textFill="WHITE">
                             <HBox.margin>
