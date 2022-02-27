@@ -135,7 +135,7 @@
                         <Insets top="25.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="investmentCostsField1" layoutX="10.0" layoutY="796.0" prefHeight="25.0" prefWidth="524.0" promptText="Budget">
+                  <TextField fx:id="budgetField" layoutX="10.0" layoutY="796.0" prefHeight="25.0" prefWidth="524.0" promptText="Budget">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

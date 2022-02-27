@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class ProjCreatorController {
     @FXML TextField investmentCostsField;
     @FXML TextField descriptionField;
+    @FXML TextField budgetField;
     @FXML TextField titleField;
     @FXML TextField kickoffField;
     @FXML TextField deadlineField;
@@ -28,7 +29,7 @@ public class ProjCreatorController {
         info.put("pid", String.valueOf(titleField.getText().hashCode()));
         info.put("title", titleField.getText());
         info.put("investmentCosts", investmentCostsField.getText());
-        info.put("budget", "1000000"); // TODO: Fix this to get real budget
+        info.put("budget", budgetField.getText());
         info.put("kickoff", kickoffField.getText());
         info.put("deadline", deadlineField.getText());
         info.put("tag1", tag1Field.getText());
