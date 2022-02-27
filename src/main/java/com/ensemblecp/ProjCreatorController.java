@@ -3,7 +3,6 @@ package com.ensemblecp;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -28,6 +27,7 @@ public class ProjCreatorController {
         HashMap<String, String> info = new HashMap<String, String>();
         info.put("pid", String.valueOf(titleField.getText().hashCode()));
         info.put("title", titleField.getText());
+        info.put("description", descriptionField.getText());
         info.put("investmentCosts", investmentCostsField.getText());
         info.put("budget", budgetField.getText());
         info.put("kickoff", kickoffField.getText());
