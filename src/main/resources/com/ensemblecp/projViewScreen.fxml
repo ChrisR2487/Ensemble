@@ -15,54 +15,51 @@
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ProjViewScreen">
     <children>
-        <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="160.0" AnchorPane.leftAnchor="27.0">
+        <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
             <children>
                 <HBox prefHeight="25.0" prefWidth="160.0">
                     <children>
-                        <ImageView fitHeight="36.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="36.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 7;">
                             <Image url="@../css/Screen%20Shot%202022-02-27%20at%203.13.40%20PM.png" />
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
+                        <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="143.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
-                            <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" />
-                            </HBox.margin>
                             <font>
-                                <Font size="18.0" />
+                                <Font size="22.0" />
                             </font>
                         </Button>
                     </children>
                 </HBox>
                 <HBox prefHeight="28.0" prefWidth="160.0">
                     <children>
-                        <ImageView fitHeight="27.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="27.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 7;">
                             <Image url="@../css/Screen%20Shot%202022-02-27%20at%203.13.47%20PM.png" />
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" style="-fx-background-color: transparent;" text="Projects" textFill="WHITE">
+                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: transparent; -fx-translate-x: -10;" text="Projects" textFill="WHITE">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" />
                             </HBox.margin>
                             <font>
-                                <Font size="18.0" />
+                                <Font size="22.0" />
                             </font></Button>
                     </children>
                 </HBox>
                 <HBox prefHeight="35.0" prefWidth="160.0">
                     <children>
-                        <ImageView fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 7;">
                             <Image url="@../css/Screen%20Shot%202022-02-27%20at%203.14.02%20PM.png" />
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="104.0" style="-fx-background-color: transparent;" text="Archives" textFill="WHITE">
+                        <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="121.0" style="-fx-background-color: transparent; -fx-translate-x: -10;" text="Archives" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
                             <font>
-                                <Font size="18.0" />
+                                <Font size="22.0" />
                             </font>
                         </Button>
                     </children>
@@ -81,7 +78,7 @@
             <font>
                 <Font size="26.0" />
             </font></Label>
-        <Label layoutX="209.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Project 1" textFill="WHITE">
+        <Label layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
@@ -141,7 +138,7 @@
          </children></VBox>
         <Label layoutX="219.0" layoutY="434.0" prefHeight="38.0" prefWidth="141.0" text="Files" textFill="WHITE">
             <font>
-                <Font size="26.0" />
+                <Font size="35.0" />
             </font>
         </Label>
         <Button layoutX="307.0" layoutY="438.0" mnemonicParsing="false" onAction="#add_onClick" text="+" />
@@ -159,24 +156,9 @@
         <ImageView fx:id="exitButton" layoutX="1814.0" layoutY="30.0" onMouseClicked="#mousePressed">
             <Image url="@../button_imgs/close_button.png" />
         </ImageView>
-        <Label layoutX="211.0" layoutY="103.0" prefHeight="38.0" prefWidth="135.0" text="Overview" textFill="WHITE">
-            <font>
-                <Font size="26.0" />
-            </font>
-        </Label>
-        <Label layoutX="524.0" layoutY="96.0" prefHeight="56.0" prefWidth="265.0" text="Benchmark Timeline" textFill="#a1a1a1">
-            <font>
-                <Font size="26.0" />
-            </font>
-        </Label>
-        <Label layoutX="974.0" layoutY="97.0" prefHeight="55.0" prefWidth="164.0" text="Members" textFill="#a1a1a1">
-            <font>
-                <Font size="26.0" />
-            </font>
-        </Label>
         <Label layoutX="218.0" layoutY="723.0" prefHeight="53.0" prefWidth="244.0" text="Issues" textFill="WHITE">
             <font>
-                <Font size="26.0" />
+                <Font size="35.0" />
             </font>
         </Label>
         <Button layoutX="1761.0" layoutY="116.0" mnemonicParsing="false" text="Refresh ROI">
@@ -184,9 +166,9 @@
                 <Font size="14.0" />
             </font>
         </Button>
-        <Label layoutX="1453.0" layoutY="114.0" text="Insights" textFill="WHITE">
+        <Label layoutX="1453.0" layoutY="94.0" text="Insights" textFill="WHITE">
             <font>
-                <Font size="26.0" />
+                <Font size="35.0" />
             </font>
         </Label>
         <Button layoutX="1363.0" layoutY="115.0" mnemonicParsing="false" text="Edit" />
@@ -200,8 +182,29 @@
             </Label>
             </children>
         </VBox>
-      <Button layoutX="976.0" layoutY="107.0" mnemonicParsing="false" opacity="0.12" prefHeight="38.0" prefWidth="115.0" text="Edit" />
-      <Button layoutX="521.0" layoutY="105.0" mnemonicParsing="false" opacity="0.12" prefHeight="38.0" prefWidth="248.0" text="Edit" />
-      <Button layoutX="208.0" layoutY="103.0" mnemonicParsing="false" opacity="0.12" prefHeight="38.0" prefWidth="122.0" text="Edit" />
+      <Button layoutX="176.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="WHITE">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Button>
+      <Button layoutX="527.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" text="Benchmark Timeline" textFill="#a1a1a1">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Button>
+      <Button layoutX="1057.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Members" textFill="#a1a1a1">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>
