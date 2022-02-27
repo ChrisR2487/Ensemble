@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjEditorController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjEditorController">
    <children>
       <Label layoutX="14.0" prefHeight="74.0" prefWidth="1920.0" text="   E N S E M B L E" textFill="WHITE">
          <font>
@@ -29,7 +29,7 @@
                         <Insets top="25.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField promptText="Project One">
+                  <TextField fx:id="titleField" promptText="Project One">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -157,7 +157,7 @@
                                  <content>
                                     <VBox prefHeight="234.0" prefWidth="765.0">
                                        <children>
-                                          <TextField fx:id="titleField" prefHeight="27.0" prefWidth="704.0" />
+                                          <TextField fx:id="fileField" prefHeight="27.0" prefWidth="704.0" />
                                        </children>
                                     </VBox>
                                  </content></ScrollPane>

@@ -58,8 +58,8 @@ public class Database {
         // Add related tables TODO: Add other tables to add
         String createTable = "create table " + databaseName + "." + info.get("pid") + "-Component\n" +
                 "(\n" +
-                "    cid             int         not null,\n" +
-                "    template        varchar(128) not null,\n" +
+                "    cid int not null,\n" +
+                "    template varchar(128) not null,\n" +
                 "    constraint Component_pk\n" +
                 "        primary key (cid)\n" +
                 ");\n";
