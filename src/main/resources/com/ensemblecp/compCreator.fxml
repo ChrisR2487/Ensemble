@@ -19,7 +19,7 @@
             </Label>
             <HBox prefHeight="45.0" prefWidth="806.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="Use Existing Template" onAction="#showComps" textFill="WHITE">
+                  <RadioButton mnemonicParsing="false" onAction="#showComps" text="Use Existing Template" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -27,15 +27,18 @@
                         <Insets left="70.0" top="10.0" />
                      </HBox.margin>
                   </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Create Custom Template" onAction="#showCustomComp" textFill="WHITE">
+                  <RadioButton mnemonicParsing="false" onAction="#showCustomComp" text="Create Custom Template" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="110.0" top="10.0" />
+                        <Insets left="150.0" top="10.0" />
                      </HBox.margin>
                   </RadioButton>
                </children>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
             </HBox>
          </children></VBox>
    </center>

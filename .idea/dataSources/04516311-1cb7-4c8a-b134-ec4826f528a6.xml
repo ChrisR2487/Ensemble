@@ -253,12 +253,16 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Collation>utf8_general_ci</Collation>
     </schema>
     <schema id="4" parent="1" name="mysql">
+      <Grants>general_log|||cloudsqlsuperuser||INSERT|G
+slow_log|||cloudsqlsuperuser||INSERT|G
+user|||mysql.session|localhost|SELECT|G</Grants>
       <Collation>utf8_general_ci</Collation>
     </schema>
     <schema id="5" parent="1" name="performance_schema">
       <Collation>utf8mb4_0900_ai_ci</Collation>
     </schema>
     <schema id="6" parent="1" name="sys">
+      <Grants>sys_config|||mysql.sys|localhost|SELECT|G</Grants>
       <Collation>utf8mb4_0900_ai_ci</Collation>
     </schema>
     <collation id="7" parent="1" name="armscii8_bin">
@@ -1205,58 +1209,58 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="301" parent="297" name="description">
+    <column id="301" parent="297" name="title">
       <Position>2</Position>
+      <DataType>varchar(30)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="302" parent="297" name="description">
+      <Position>3</Position>
       <DataType>varchar(256)|0s</DataType>
     </column>
-    <column id="302" parent="297" name="investmentCosts">
-      <Position>3</Position>
-      <DataType>decimal(14,2 digit)|0s</DataType>
-    </column>
-    <column id="303" parent="297" name="budget">
+    <column id="303" parent="297" name="investmentCosts">
       <Position>4</Position>
       <DataType>decimal(14,2 digit)|0s</DataType>
     </column>
-    <column id="304" parent="297" name="roi">
+    <column id="304" parent="297" name="budget">
       <Position>5</Position>
+      <DataType>decimal(14,2 digit)|0s</DataType>
+    </column>
+    <column id="305" parent="297" name="roi">
+      <Position>6</Position>
       <DataType>decimal(8,4 digit)|0s</DataType>
     </column>
-    <column id="305" parent="297" name="kickoff">
-      <Position>6</Position>
-      <DataType>date|0s</DataType>
-    </column>
-    <column id="306" parent="297" name="deadline">
+    <column id="306" parent="297" name="kickoff">
       <Position>7</Position>
       <DataType>date|0s</DataType>
     </column>
-    <column id="307" parent="297" name="issueScore">
+    <column id="307" parent="297" name="deadline">
       <Position>8</Position>
+      <DataType>date|0s</DataType>
+    </column>
+    <column id="308" parent="297" name="issueScore">
+      <Position>9</Position>
       <DataType>decimal(5,2 digit)|0s</DataType>
     </column>
-    <column id="308" parent="297" name="tag1">
-      <Position>9</Position>
-      <DataType>varchar(30)|0s</DataType>
-    </column>
-    <column id="309" parent="297" name="tag2">
+    <column id="309" parent="297" name="tag1">
       <Position>10</Position>
       <DataType>varchar(30)|0s</DataType>
     </column>
-    <column id="310" parent="297" name="tag3">
+    <column id="310" parent="297" name="tag2">
       <Position>11</Position>
       <DataType>varchar(30)|0s</DataType>
     </column>
-    <column id="311" parent="297" name="tag4">
+    <column id="311" parent="297" name="tag3">
       <Position>12</Position>
       <DataType>varchar(30)|0s</DataType>
     </column>
-    <column id="312" parent="297" name="complete">
+    <column id="312" parent="297" name="tag4">
       <Position>13</Position>
-      <DataType>tinyint(1)|0s</DataType>
-    </column>
-    <column id="313" parent="297" name="title">
-      <Position>14</Position>
       <DataType>varchar(30)|0s</DataType>
-      <NotNull>1</NotNull>
+    </column>
+    <column id="313" parent="297" name="complete">
+      <Position>14</Position>
+      <DataType>tinyint(1)|0s</DataType>
     </column>
     <index id="314" parent="297" name="Project_title_uindex">
       <ColNames>title</ColNames>
