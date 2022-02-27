@@ -24,7 +24,7 @@ public class Main extends Application {
         mainStage.setFullScreen(isFullscreen);
         mainStage.setTitle("Ensemble");
             //stage.initStyle(StageStyle.UNDECORATED); TODO: change to startup on login screen, then use this
-        projects = new ArrayList<Project>(cacheLimit);
+        projects = new ArrayList<Project>(cacheLimit+1);
 
         // Show startup screen
         show("Dashboard");

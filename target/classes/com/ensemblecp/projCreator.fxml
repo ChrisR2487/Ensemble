@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjCreator">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjCreatorController">
    <children>
       <Label layoutX="14.0" prefHeight="74.0" prefWidth="1920.0" text="   E N S E M B L E" textFill="WHITE">
          <font>
@@ -21,7 +21,20 @@
          <children>
             <VBox prefHeight="970.0" prefWidth="785.0">
                <children>
-                  <TitledPane animated="false" prefHeight="128.0" prefWidth="725.0" text="Timeline">
+                  <Label prefHeight="17.0" prefWidth="473.0" text="Project Title" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField promptText="Project One">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <TitledPane animated="false" collapsible="false" prefHeight="128.0" prefWidth="725.0" text="Timeline">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="235.0" prefWidth="723.0">
                            <children>
@@ -30,8 +43,14 @@
                                     <Font size="16.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="kickoffField" layoutX="14.0" layoutY="44.0" promptText="2022-1-9" />
-                              <TextField fx:id="deadlineField" layoutX="356.0" layoutY="45.0" promptText="2023-10-30" />
+                              <TextField fx:id="kickoffField" layoutX="14.0" layoutY="44.0" promptText="2022-1-9">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextField>
+                              <TextField fx:id="deadlineField" layoutX="356.0" layoutY="45.0" promptText="2023-10-30">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextField>
                            </children>
                         </AnchorPane>
                      </content>
@@ -43,25 +62,43 @@
                      </VBox.margin>
                   </TitledPane>
                   <Pane prefHeight="57.0" prefWidth="725.0" />
-                  <TitledPane animated="false" layoutX="10.0" layoutY="35.0" prefHeight="443.0" prefWidth="725.0" text="Description">
+                  <TitledPane animated="false" collapsible="false" layoutX="10.0" layoutY="35.0" prefHeight="374.0" prefWidth="779.0" text="Description">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="723.0">
                            <children>
-                              <ScrollPane layoutX="-1.0" layoutY="35.0" prefHeight="373.0" prefWidth="785.0" vbarPolicy="ALWAYS">
+                              <ScrollPane layoutX="-1.0" layoutY="35.0" prefHeight="309.0" prefWidth="785.0" vbarPolicy="ALWAYS">
                                  <content>
-                                    <TextField fx:id="descriptionField" alignment="TOP_LEFT" prefHeight="372.0" prefWidth="764.0" promptText="Enter Description Here" />
+                                    <TextField fx:id="descriptionField" alignment="TOP_LEFT" prefHeight="300.0" prefWidth="764.0" promptText="Enter Description Here">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
                                  </content>
                               </ScrollPane>
                               <HBox layoutX="1.0" layoutY="5.0" prefHeight="31.0" prefWidth="785.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="128.0" text="Tags:" />
-                                    <TextField fx:id="tag1Field" promptText="Tag1" />
+                                    <Label alignment="CENTER" prefHeight="40.0" prefWidth="128.0" text="Tags:">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font></Label>
+                                    <TextField fx:id="tag1Field" promptText="Tag1">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
                                     <Pane prefHeight="200.0" prefWidth="10.0" />
-                                    <TextField fx:id="tag2Field" promptText="Tag2" />
+                                    <TextField fx:id="tag2Field" promptText="Tag2">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
                                     <Pane layoutX="291.0" layoutY="10.0" prefHeight="200.0" prefWidth="10.0" />
-                                    <TextField fx:id="tag3Field" promptText="Tag3" />
+                                    <TextField fx:id="tag3Field" promptText="Tag3">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
                                     <Pane layoutX="459.0" layoutY="10.0" prefHeight="200.0" prefWidth="10.0" />
-                                    <TextField fx:id="tag4Field" promptText="Tag4" />
+                                    <TextField fx:id="tag4Field" promptText="Tag4">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></TextField>
                                  </children>
                               </HBox>
                            </children>
@@ -86,57 +123,44 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                   </TextField>
-               </children></VBox>
-            <VBox prefHeight="970.0" prefWidth="150.0" />
-            <VBox prefHeight="970.0" prefWidth="785.0">
-               <children>
-                  <TitledPane animated="false" prefHeight="362.0" prefWidth="725.0" text="Members">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="723.0">
-                           <children>
-                              <ScrollPane layoutX="-1.0" layoutY="35.0" prefHeight="268.0" prefWidth="785.0" vbarPolicy="ALWAYS">
-                                 <content>
-                                    <HBox prefHeight="261.0" prefWidth="762.0">
-                                       <children>
-                                          <VBox prefHeight="261.0" prefWidth="392.0">
-                                             <children>
-                                                <TextField />
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" text="+">
-                                                   <VBox.margin>
-                                                      <Insets left="15.0" top="15.0" />
-                                                   </VBox.margin>
-                                                   <font>
-                                                      <Font name="System Bold" size="12.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </VBox>
-                                          <VBox layoutX="10.0" layoutY="10.0" prefHeight="261.0" prefWidth="393.0">
-                                             <children>
-                                                <TextField />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </HBox>
-                                 </content></ScrollPane>
-                              <Label layoutX="14.0" layoutY="6.0" prefHeight="26.0" prefWidth="684.0" text="Name                                                                             Role">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                    </content>
+                  <Label layoutX="10.0" layoutY="770.0" prefHeight="26.0" prefWidth="786.0" text="Budget" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                      <VBox.margin>
                         <Insets top="25.0" />
                      </VBox.margin>
-                  </TitledPane>
-                  <Pane prefHeight="57.0" prefWidth="725.0" />
-                  <TitledPane animated="false" prefHeight="317.0" prefWidth="725.0" text="Project Files">
+                  </Label>
+                  <TextField fx:id="investmentCostsField1" layoutX="10.0" layoutY="796.0" prefHeight="25.0" prefWidth="524.0" promptText="Budget">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children></VBox>
+            <VBox prefHeight="970.0" prefWidth="150.0" />
+            <VBox prefHeight="970.0" prefWidth="785.0">
+               <children>
+                  <TableView prefHeight="345.0" prefWidth="785.0">
+                    <columns>
+                      <TableColumn prefWidth="67.0" text="Include" />
+                      <TableColumn prefWidth="349.0" text="Name" />
+                        <TableColumn prefWidth="149.0" text="Position" />
+                        <TableColumn prefWidth="109.0" text="Member ID" />
+                        <TableColumn prefWidth="110.0" text="Status" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <Pane prefHeight="100.0" prefWidth="725.0" />
+                  <TitledPane animated="false" collapsible="false" prefHeight="355.0" prefWidth="785.0" text="Project Files">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -145,22 +169,19 @@
                                     <VBox prefHeight="234.0" prefWidth="765.0">
                                        <children>
                                           <TextField fx:id="titleField" prefHeight="27.0" prefWidth="704.0" />
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" text="+">
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets left="15.0" top="15.0" />
-                                             </VBox.margin>
-                                          </Button>
                                        </children>
                                     </VBox>
                                  </content></ScrollPane>
-                              <Label layoutX="14.0" layoutY="1.0" prefHeight="26.0" prefWidth="769.0" text="Name ">
+                              <Label layoutX="42.0" layoutY="2.0" prefHeight="26.0" prefWidth="769.0" text="Name ">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </Label>
+                              <Button alignment="TOP_LEFT" layoutX="11.0" layoutY="3.0" mnemonicParsing="false" text="+">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                     </content>
@@ -178,7 +199,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets left="25.0" top="25.0" />
+                                    <Insets left="25.0" top="60.0" />
                                  </HBox.margin>
                               </Button>
                               <Pane prefHeight="183.0" prefWidth="135.0" />
@@ -187,7 +208,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets top="25.0" />
+                                    <Insets top="60.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
