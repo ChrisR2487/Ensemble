@@ -19,7 +19,7 @@ public class Database {
      */
     public Database() throws SQLException {
         this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
-        /*
+
         String createTable = "create table " + databaseName + ".Project\n" +
                 "(\n" +
                 "    pid             int         not null,\n" +
@@ -40,7 +40,7 @@ public class Database {
                 ");\n";
         Statement stmt = conn.createStatement();
         stmt.execute(createTable);
-         */
+
     }
 
     public ResultSet getProject(int pid) throws SQLException {

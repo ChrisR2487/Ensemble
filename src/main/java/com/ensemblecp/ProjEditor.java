@@ -33,8 +33,8 @@ public class ProjEditor {
         info.put("issueScore", "0"); // TODO: Fix this later for real issue score
         info.put("tag1", tag1Field.getText());
         info.put("tag2", tag1Field.getText());
-        info.put("tag3", tag1Field.getText());
         info.put("tag4", tag1Field.getText());
+        info.put("tag3", tag1Field.getText());
         info.put("complete", "false"); // TODO: Fix this late to get correct status
         Database db = new Database();
         ResultSet rs = db.updateProject(info);
