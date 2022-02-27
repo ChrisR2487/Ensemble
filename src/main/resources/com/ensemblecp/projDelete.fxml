@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjDeleteController">
+   <children>
+      <Label layoutX="14.0" prefHeight="74.0" prefWidth="1920.0" text="   E N S E M B L E" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+      <HBox layoutX="100.0" layoutY="112.0" prefHeight="970.0" prefWidth="1720.0">
+         <children>
+            <VBox prefHeight="970.0" prefWidth="360.0" />
+            <VBox prefHeight="970.0" prefWidth="1000.0">
+               <children>
+                  <Pane prefHeight="137.0" prefWidth="1000.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="1000.0" text="Delete a Project" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                        </Label>
+                        <CheckBox alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="53.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="304.0" text="Delete &lt;ProjectName&gt;?" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </CheckBox>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="161.0" prefWidth="1000.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="1000.0" text="Verify Identity" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField layoutX="406.0" layoutY="48.0" prefHeight="22.0" prefWidth="280.0" promptText="USERNAME">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <PasswordField layoutX="406.0" layoutY="97.0" prefHeight="30.0" prefWidth="280.0" promptText="PASSWORD">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </PasswordField>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="315.0" layoutY="44.0" prefHeight="38.0" prefWidth="91.0" text="Username:" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="315.0" layoutY="93.0" prefHeight="38.0" prefWidth="91.0" text="Password:" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="373.0" prefWidth="1000.0">
+                     <children>
+                        <TitledPane animated="false" collapsible="false" layoutX="203.0" prefHeight="349.0" prefWidth="595.0" text="Removal Log">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="351.0" prefWidth="593.0">
+                                 <children>
+                                    <Label contentDisplay="CENTER" layoutX="14.0" layoutY="-1.0" prefHeight="30.0" prefWidth="587.0" text="Detail Reason for Deletion:" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <ScrollPane layoutY="28.0" prefHeight="288.0" prefWidth="595.0" vbarPolicy="ALWAYS">
+                                       <content>
+                                          <TextField prefHeight="286.0" prefWidth="573.0" />
+                                       </content></ScrollPane>
+                                 </children></AnchorPane>
+                          </content>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </TitledPane>
+                     </children>
+                  </Pane>
+                  <HBox prefHeight="183.0" prefWidth="725.0">
+                     <children>
+                        <Pane prefHeight="183.0" prefWidth="1016.0">
+                           <children>
+                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="325.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #fb5656;" text="Cancel">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="535.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #7ed957;" text="Delete Project">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+               </children></VBox>
+
+            <VBox prefHeight="970.0" prefWidth="360.0" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
