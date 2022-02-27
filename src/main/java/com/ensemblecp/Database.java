@@ -56,15 +56,11 @@ public class Database {
         preparedStmt.execute();
 
         // Add related tables TODO: Add other tables to add
-        String createTable = "create table " + databaseName + "." + info.get("pid") + "-Component\n" +
-                "(\n" +
-                "    cid int not null,\n" +
-                "    template varchar(128) not null,\n" +
-                "    constraint Component_pk\n" +
-                "        primary key (cid)\n" +
-                ");\n";
+        String createTable = "create table " + databaseName + "." + info.get("pid") + "-Component("
+                + " cid int not null, template varchar(128) not null, primary key (cid));";
         Statement stmt = conn.createStatement();
         stmt.execute(createTable);
+        /// constraint " + info.get("pid") + "Component_pk
 
         // Get tuple
         preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where pid = ?");
