@@ -147,6 +147,14 @@ public class Project {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    private void setDescription(String description) {
+        this.description = description;
+    }
+
     public float getInvestmentCosts() {
         return investmentCosts;
     }

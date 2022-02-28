@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjDeleteController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjDeleteController">
    <children>
       <Label layoutX="14.0" prefHeight="74.0" prefWidth="1920.0" text="   E N S E M B L E" textFill="WHITE">
          <font>
@@ -23,7 +23,7 @@
                               <Font name="System Bold" size="36.0" />
                            </font>
                         </Label>
-                        <CheckBox alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="53.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="304.0" text="Delete &lt;ProjectName&gt;?" textAlignment="CENTER" textFill="WHITE">
+                        <CheckBox alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="53.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="304.0" text="Delete " textAlignment="CENTER" textFill="WHITE" fx:id="remCheckBox">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -86,12 +86,12 @@
                      <children>
                         <Pane prefHeight="183.0" prefWidth="1016.0">
                            <children>
-                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="325.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #fb5656;" text="Cancel">
+                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="325.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCancel_onClick" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #fb5656;" text="Cancel">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Button>
-                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="535.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #7ed957;" text="Delete Project" onAction="#onSubmit_onClick">
+                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="535.0" layoutY="14.0" mnemonicParsing="false" onAction="#onSubmit_onClick" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #7ed957;" text="Delete Project">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

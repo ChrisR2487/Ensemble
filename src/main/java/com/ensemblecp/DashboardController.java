@@ -3,6 +3,8 @@ package com.ensemblecp;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -111,7 +113,18 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    public void mousePressed(MouseEvent mouseEvent) {
+    public void exitButton_onClick(MouseEvent mouseEvent) {
         System.exit(-1);
     }
+
+    public void dashButton_onClick(Event actionEvent) throws IOException {
+        Main.show("Dashboard");
+    }
+
+    public void projListButton_onClick(Event actionEvent) {
+    }
+
+    public void archiveButton_onClick(Event actionEvent) {
+    }
+
 }

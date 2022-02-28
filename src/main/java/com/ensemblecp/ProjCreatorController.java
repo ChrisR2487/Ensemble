@@ -33,9 +33,9 @@ public class ProjCreatorController {
         info.put("kickoff", kickoffField.getText());
         info.put("deadline", deadlineField.getText());
         info.put("tag1", tag1Field.getText());
-        info.put("tag2", tag1Field.getText());
-        info.put("tag3", tag1Field.getText());
-        info.put("tag4", tag1Field.getText());
+        info.put("tag2", tag2Field.getText());
+        info.put("tag3", tag3Field.getText());
+        info.put("tag4", tag4Field.getText());
         info.put("complete", "false");
 
         // Get roi
@@ -55,7 +55,8 @@ public class ProjCreatorController {
             // TODO: Create Team Project table and add members selected
 
         // Add project to Main cache
-        Main.projects.add(0, new Project(rs, null, db));
+        Main.curProject = new Project(rs, null, db);
+        Main.projects.add(0, Main.curProject);
         Main.trimCache();
 
         // Close database

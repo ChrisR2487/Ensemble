@@ -23,7 +23,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         // Initialize stage
         mainStage = stage;
-        mainStage.setFullScreen(isFullscreen);
+        ///mainStage.setFullScreen(isFullscreen);
         mainStage.setTitle("Ensemble");
             //stage.initStyle(StageStyle.UNDECORATED); TODO: change to startup on login screen, then use this
         projects = new ArrayList<Project>(cacheLimit+1);
@@ -35,9 +35,9 @@ public class Main extends Application {
 
     public static void show(String screenName) throws IOException {
         fxmlLoader = new FXMLLoader(Main.class.getResource(screenName+".fxml"));
-        Scene newScene = new Scene(fxmlLoader.load(), 1600, 900);
+        Scene newScene = new Scene(fxmlLoader.load(), 1920, 1080);
         mainStage.setScene(newScene);
-        mainStage.setFullScreen(isFullscreen);
+        ///mainStage.setFullScreen(isFullscreen);
     }
 
     public static void update() throws IOException {

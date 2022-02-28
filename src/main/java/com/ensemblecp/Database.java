@@ -25,7 +25,7 @@ public class Database {
         PreparedStatement preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where pid = ?");
         preparedStmt.setInt(1, pid);
         ResultSet rs = preparedStmt.executeQuery();
-        System.out.println("Success on create project");
+        System.out.println("Success on get project");
         return rs;
     }
 
@@ -57,7 +57,7 @@ public class Database {
 
         // Add related tables TODO: Add other tables to add
         String charPid = Project.PIDtoChars(Integer.parseInt(info.get("pid")));
-        String createTable = "create table " + databaseName + "." + charPid + "Component("
+        String createTable = "create table " + databaseName + "." + charPid + "_Component("
                 + " cid int not null, template varchar(128) not null, constraint " + charPid + "Component_pk primary key (cid));";
         Statement stmt = conn.createStatement();
         stmt.execute(createTable);
@@ -104,13 +104,15 @@ public class Database {
 
     public void removeProject(int pid) throws SQLException {
         // Delete record
+        String charPid = Project.PIDtoChars(pid);
         String query = " delete from " + databaseName + ".Project where pid = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, pid);
         preparedStmt.execute();
 
         // Delete related tables TODO: Add other removes
-        String createTable = "drop table " + databaseName + "." + String.valueOf(pid) + "-Component;";
+        ///String charPid = Project.PIDtoChars(pid);
+        String createTable = "drop table " + databaseName + "." + charPid + "_Component;";
         Statement stmt = conn.createStatement();
         stmt.execute(createTable);
 
