@@ -56,7 +56,7 @@ public class Database {
         preparedStmt.execute();
 
         // Add related tables TODO: Add other tables to add
-        String createTable = "create table " + databaseName + "." + info.get("pid") + "-Component("
+        String createTable = "create table " + databaseName + "." + info.get("pid") + "Component("
                 + " cid int not null, template varchar(128) not null, primary key (cid));";
         Statement stmt = conn.createStatement();
         stmt.execute(createTable);

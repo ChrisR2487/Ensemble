@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="475.0" prefWidth="686.0" stylesheets="@../../css/compCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CompController">
+<BorderPane prefHeight="475.0" prefWidth="686.0" stylesheets="@../../css/compCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.fileCompController">
    <top>
       <HBox prefHeight="41.0" prefWidth="686.0" BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +28,6 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label text="Label" />
             <HBox prefHeight="153.0" prefWidth="686.0" />
          </children>
       </VBox>
