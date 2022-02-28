@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="546.0" prefWidth="806.0" stylesheets="@../../css/compCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CompController">
+<BorderPane prefHeight="546.0" prefWidth="806.0" stylesheets="@../../css/compCreatorStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CompController">
    <center>
       <VBox prefHeight="200.0" prefWidth="614.0" BorderPane.alignment="CENTER">
          <children>
@@ -40,6 +40,15 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </HBox>
+            <TableView visible="false" fx:id="existingTable"> <!-- Width=606 -->
+              <columns>
+                <TableColumn fx:id="titleColumn" prefWidth="175.0" text="C1" />
+                <TableColumn fx:id="templateColumn" prefWidth="431.0" text="C2" />
+              </columns>
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" top="20.0" bottom="30.0" />
+               </VBox.margin>
+            </TableView>
          </children></VBox>
    </center>
    <top>

@@ -131,6 +131,14 @@ public class Database {
         return rs;
     }
 
+    public ResultSet getComponents() throws SQLException {
+        String query = "select * from " + databaseName + ".Component";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying component table");
+        return rs;
+    }
+
     public void closeDB() throws SQLException {
         conn.close();
     }
@@ -142,6 +150,7 @@ public class Database {
     public ResultSet getComponentTablePart(int pid, int cid, int partid) {
         return null;
     }
+
 }
 // End of Database Class
 
