@@ -63,7 +63,7 @@ public class ProjViewScreenController implements Initializable {
     }
 
     public void addComponentButton_onClick(ActionEvent event) throws IOException {
-        Main.show("compoCreator"); // TODO: Get correct name
+        Main.show("compCreator");
     }
 }
 

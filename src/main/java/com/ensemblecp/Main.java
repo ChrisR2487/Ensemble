@@ -47,7 +47,7 @@ public class Main extends Application {
     public static void trimCache() {
         // Trims the Main.projects cache if necessary
         if (Main.projects.size() > cacheLimit) {
-            Main.projects.remove(cacheLimit); // TODO: Confirm this works
+            Main.projects.remove(cacheLimit);
         }
     }
 
