@@ -61,5 +61,9 @@ public class ProjViewScreenController implements Initializable {
     public void removeProjectButton_onClick(ActionEvent actionEvent) throws IOException {
         Main.show("projDelete");
     }
+
+    public void addComponentButton_onClick(ActionEvent event) throws IOException {
+        Main.show("compoCreator"); // TODO: Get correct name
+    }
 }
 
