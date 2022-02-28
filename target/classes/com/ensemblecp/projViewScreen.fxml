@@ -72,7 +72,7 @@
             <font>
                 <Font size="26.0" />
             </font></Label>
-        <Label layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE" fx:id="titleLabel">
+        <Label fx:id="titleLabel" layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
@@ -150,7 +150,7 @@
                 <Font size="35.0" />
             </font>
         </Label>
-        <Button layoutX="307.0" layoutY="438.0" mnemonicParsing="false" onAction="#addFile_onClick" text="+" />
+        <Button layoutX="298.0" layoutY="447.0" mnemonicParsing="false" onAction="#addFile_onClick" text="+" />
         <VBox layoutX="233.0" layoutY="795.0" prefHeight="200.0" prefWidth="1180.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
             <children>
                 <HBox prefHeight="26.0" prefWidth="443.0" />
@@ -182,6 +182,11 @@
         </Label>
         <Button layoutX="1286.0" layoutY="119.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" text="Edit" />
         <Button layoutX="1337.0" layoutY="119.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" text="Remove" />
+      <Button layoutX="1453.0" layoutY="515.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" prefHeight="40.0" prefWidth="172.0" text="Add Component">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
         <VBox layoutX="237.0" layoutY="497.0" prefHeight="200.0" prefWidth="1174.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
             <children>
                 <HBox prefHeight="26.0" prefWidth="443.0" />

@@ -5,9 +5,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import java.sql.*;
 
 public class Main extends Application {
@@ -34,8 +34,9 @@ public class Main extends Application {
     }
 
     public static void show(String screenName) throws IOException {
-        fxmlLoader = new FXMLLoader(Main.class.getResource(screenName+".fxml"));
-        Scene newScene = new Scene(fxmlLoader.load(), 1920, 1080);
+        fxmlLoader = new FXMLLoader(Main.class.getResource(screenName+".fxml")); // Get FXML file
+        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        Scene newScene = new Scene(fxmlLoader.load(), screen.getWidth(), screen.getHeight());
         mainStage.setScene(newScene);
         ///mainStage.setFullScreen(isFullscreen);
     }
