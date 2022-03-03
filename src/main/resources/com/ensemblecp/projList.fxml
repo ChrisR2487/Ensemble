@@ -73,12 +73,12 @@
       <TableView fx:id="projectTable" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="120.0">
         <columns> <!-- Width = 1525 for rightAnchor=150.0, leftAnchor=245.0 -->
            <TableColumn fx:id="statusColumn" text="Status" />
-           <TableColumn fx:id="pidColumn" text="Pid" />
+           <TableColumn fx:id="issueScoreColumn" text="Issue Score" />
            <TableColumn fx:id="titleColumn" text="Title" />
+           <TableColumn fx:id="pidColumn" text="Pid" />
            <TableColumn fx:id="kickoffColumn" text="Start Date" />
            <TableColumn fx:id="deadlineColumn" text="End Date" />
            <TableColumn fx:id="manidNameColumn" text="Project Manager" />
-           <TableColumn fx:id="issu"
         </columns>
       </TableView>
       <ImageView fx:id="exitButton" layoutX="1814.0" layoutY="30.0" onMouseClicked="#exitButton_onClick">
