@@ -16,6 +16,17 @@
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjViewScreenController">
     <children>
+      <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="1819.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../button_imgs/RefreshROI.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="1389.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../button_imgs/Remove.png" />
+         </image>
+      </ImageView>
+        <Button layoutX="1387.0" layoutY="102.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="43.0" prefWidth="41.0" text="R" />
       <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="1342.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../button_imgs/Edit.png" />
@@ -27,15 +38,9 @@
             <Image url="@../button_imgs/AddCom.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="1389.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../button_imgs/Remove.png" />
-         </image>
-      </ImageView>
       <Button layoutX="1282.0" layoutY="100.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="47.0" prefWidth="41.0" text="A" />
-        <Button layoutX="1387.0" layoutY="102.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="43.0" prefWidth="41.0" text="R" />
       <ScrollPane layoutX="206.0" layoutY="157.0" opacity="0.15" prefHeight="877.0" prefWidth="1223.0" />
-        <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
+        <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="177.0" AnchorPane.leftAnchor="27.0">
             <children>
                 <HBox onMouseClicked="#dashButton_onClick" prefHeight="25.0" prefWidth="160.0">
                     <children>
@@ -188,7 +193,7 @@
             </children>
         </VBox>
         <ButtonBar prefHeight="40.0" prefWidth="200.0" />
-        <ImageView fx:id="exitButton" layoutX="1814.0" layoutY="30.0" onMouseClicked="#exitButton_onClick">
+        <ImageView fx:id="exitButton" fitHeight="32.0" fitWidth="30.0" layoutX="1869.0" layoutY="22.0" onMouseClicked="#exitButton_onClick">
             <Image url="@../button_imgs/close_button.png" />
         </ImageView>
         <Label layoutX="225.0" layoutY="723.0" prefHeight="53.0" prefWidth="79.0" text="Files" textFill="WHITE">
@@ -196,16 +201,16 @@
                 <Font size="35.0" />
             </font>
         </Label>
-        <Button layoutX="1761.0" layoutY="116.0" mnemonicParsing="false" text="Refresh ROI">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </Button>
-        <Label layoutX="1453.0" layoutY="94.0" text="Insights" textFill="WHITE">
+        <Label layoutX="1455.0" layoutY="100.0" text="Insights" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
         </Label>
+        <Button layoutX="1818.0" layoutY="105.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="RR">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
         <VBox layoutX="237.0" layoutY="497.0" prefHeight="200.0" prefWidth="1174.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
             <children>
                 <HBox prefHeight="26.0" prefWidth="443.0" />
