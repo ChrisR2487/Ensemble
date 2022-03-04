@@ -103,7 +103,7 @@
             <font>
                 <Font size="26.0" />
             </font></Label>
-        <Label fx:id="titleLabel" layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE">
+        <Label fx:id="titleLabel" layoutX="212.0" layoutY="67.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
