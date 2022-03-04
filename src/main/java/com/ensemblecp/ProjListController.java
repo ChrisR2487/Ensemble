@@ -19,12 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
-public class DashboardController implements Initializable {
+public class ProjListController implements Initializable {
     @FXML private TableView<ProjectRow> projectTable;
+    @FXML private TableColumn<ProjectRow, String> issueScoreColumn;
+    @FXML private TableColumn<ProjectRow, String> pidColumn;
+    @FXML private TableColumn<ProjectRow, String> manidNameColumn;
+    @FXML private TableColumn<ProjectRow, String> tagsColumn;
     @FXML private TableColumn<ProjectRow, String> statusColumn;
     @FXML private TableColumn<ProjectRow, String> titleColumn;
-    @FXML private TableColumn<ProjectRow, String> remainColumn;
     @FXML private TableColumn<ProjectRow, String> kickoffColumn;
     @FXML private TableColumn<ProjectRow, String> deadlineColumn;
 
@@ -39,15 +41,24 @@ public class DashboardController implements Initializable {
                 ProjectRow pr = new ProjectRow();
                 pr.setTitle(rs.getString("title"));
                 pr.setComplete(String.valueOf(rs.getBoolean("complete")));
-                pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
                 pr.setKickoff(rs.getDate("kickoff").toString());
                 pr.setDeadline(rs.getDate("deadline").toString());
                 pr.setPid(String.valueOf(rs.getInt("pid")));
+                pr.setIssueScore(String.valueOf(rs.getFloat("issueScore")));
+                pr.setManid("N/A"); // TODO: String.valueOf(rs.getInt("manid"))
+
+                String tags = rs.getString("tag1");
+                for (int i = 2; i < 5; i++) {
+                    String nextTag = rs.getString("tag"+String.valueOf(i));
+                    if (nextTag == null) break;
+                    tags += ", " + nextTag;
+                }
+                pr.setTags(tags);
+
                 rowArrayList.add(pr);
             }
             db.closeDB();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace(); // TODO: Add better handling for loop
         }
 
@@ -59,54 +70,26 @@ public class DashboardController implements Initializable {
         ObservableList<ProjectRow> projectRows = FXCollections.observableList(rows);
 
         // Set row data
-        titleColumn.setCellValueFactory(new PropertyValueFactory("title"));
-        remainColumn.setCellValueFactory(new PropertyValueFactory("remain"));
-        statusColumn.setCellValueFactory(new PropertyValueFactory("complete"));
-        kickoffColumn.setCellValueFactory(new PropertyValueFactory("kickoff"));
-        deadlineColumn.setCellValueFactory(new PropertyValueFactory("deadline"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("complete"));
+        kickoffColumn.setCellValueFactory(new PropertyValueFactory<>("kickoff"));
+        deadlineColumn.setCellValueFactory(new PropertyValueFactory<>("deadline"));
+        manidNameColumn.setCellValueFactory(new PropertyValueFactory<>("manid")); // TODO: Change to manager name
+        issueScoreColumn.setCellValueFactory(new PropertyValueFactory<>("issueScore"));
+        tagsColumn.setCellValueFactory(new PropertyValueFactory<>("tags"));
+        pidColumn.setCellValueFactory(new PropertyValueFactory<>("pid"));
         projectTable.setItems(projectRows);
         TableView.TableViewSelectionModel<ProjectRow> mod = projectTable.getSelectionModel();
         ObservableList<ProjectRow> sel = mod.getSelectedItems();
         sel.addListener((ListChangeListener<ProjectRow>) change -> {
             try {
-                onChange(change);
+                new DashboardController().onChange(change);
             } catch (IOException | SQLException e) {
                 e.printStackTrace(); // TODO: Handle error better
             }
         });
     }
 
-    @FXML
-    public void add_onClick() throws IOException {
-        Main.show("projCreator");
-    }
-
-    @FXML void onChange(ListChangeListener.Change change) throws IOException, SQLException {
-        // Get data
-        ObservableList<ProjectRow> selectedList = change.getList();
-        int pid = Integer.parseInt(selectedList.get(0).getPid());
-
-        // Check if project is in cache
-        Project projInCache = Main.inCache(pid); // Get pid of current project, check if in cache
-        if (projInCache == null) {
-            // Not in cache, get project data and save to cache
-            Database db = new Database();
-            projInCache = new Project(db.getProject(pid), null, db); // TODO: Get component RS format
-            db.closeDB();
-            Main.projects.add(0, projInCache);
-            Main.trimCache();
-        }
-        else {
-            // Project in cache, change cache ordering
-            Main.refreshCache(projInCache);
-        }
-        Main.curProject = projInCache;
-
-        // Display screen
-        Main.show("projViewScreen");
-    }
-
-    @FXML
     public void exitButton_onClick(MouseEvent mouseEvent) {
         System.exit(-1);
     }
@@ -121,5 +104,4 @@ public class DashboardController implements Initializable {
 
     public void archiveButton_onClick(Event actionEvent) {
     }
-
 }

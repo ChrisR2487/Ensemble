@@ -44,7 +44,8 @@ public class ProjViewScreenController implements Initializable {
         Main.show("Dashboard");
     }
 
-    public void projListButton_onClick(Event mouseEvent) {
+    public void projListButton_onClick(Event mouseEvent) throws IOException {
+        Main.show("projList");
     }
 
     public void archiveButton_onClick(Event mouseEvent) {

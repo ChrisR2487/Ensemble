@@ -55,13 +55,17 @@ public class Database {
         preparedStmt.setBoolean(14, Boolean.parseBoolean(info.get("complete")));
         preparedStmt.execute();
 
-        // Add related tables TODO: Add other tables to add
         String charPid = Project.PIDtoChars(Integer.parseInt(info.get("pid")));
-        String createTable = "create table " + databaseName + "." + charPid + "_Component("
-                + " cid int not null, template varchar(128) not null, constraint " + charPid + "Component_pk primary key (cid));";
-        Statement stmt = conn.createStatement();
+        String createTable;
+        Statement stmt = conn.createStatement();;
+        // Add related tables TODO: Add other tables to add (Issues, benchmark)
+        createTable = "create table " + databaseName + "." + charPid + "_Component("
+                + " cid int not null, template varchar(128) not null, constraint " + charPid + "_Component_pk primary key (cid));";
         stmt.execute(createTable);
-        /// constraint " + info.get("pid") + "Component_pk
+
+        createTable = "create table " + databaseName + "." + charPid + "_Team("
+                + " cid int, constraint " + charPid + "_Team_pk primary key (cid));";
+        stmt.execute(createTable);
 
         // Get tuple
         preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where pid = ?");
@@ -104,17 +108,20 @@ public class Database {
 
     public void removeProject(int pid) throws SQLException {
         // Delete record
-        String charPid = Project.PIDtoChars(pid);
         String query = " delete from " + databaseName + ".Project where pid = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, pid);
         preparedStmt.execute();
 
-        // Delete related tables TODO: Add other removes
-        ///String charPid = Project.PIDtoChars(pid);
-        String createTable = "drop table " + databaseName + "." + charPid + "_Component;";
+        String charPid = Project.PIDtoChars(pid);
+        String dropTable;
         Statement stmt = conn.createStatement();
-        stmt.execute(createTable);
+        // Delete related tables TODO: Add other removes (Issues, benchmark)
+        dropTable = "drop table " + databaseName + "." + charPid + "_Component;";
+        stmt.execute(dropTable);
+
+        dropTable = "drop table " + databaseName + "." + charPid + "_Team;";
+        stmt.execute(dropTable);
 
         // Remove all component tables
             // TODO: implement this
@@ -151,6 +158,14 @@ public class Database {
         return null;
     }
 
+    public ResultSet getProjectMembers(int pid) throws SQLException {
+        String charPid = Project.PIDtoChars(pid);
+        String query = "select * from " + databaseName + ".ProjectMembers INNER JOIN " + databaseName + "." + charPid + "_Team USING(memid)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying project team table");
+        return rs;
+    }
 }
 // End of Database Class
 
