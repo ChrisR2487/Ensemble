@@ -166,6 +166,14 @@ public class Database {
         System.out.println("Success on querying project team table");
         return rs;
     }
+
+    public ResultSet getTimelines() throws SQLException {
+        String query = "select title, kickoff, deadline from " + databaseName + ".Project";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying project timelines");
+        return rs;
+    }
 }
 // End of Database Class
 

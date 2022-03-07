@@ -10,7 +10,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="EnsembleCP" target="11" />
+      <module name="EnsembleCP" target="16" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="EnsembleCP" options="--add-exports com.flexganttfx.core/com.flexganttfx=com.ensemblecp" />
+    </option>
   </component>
 </project>

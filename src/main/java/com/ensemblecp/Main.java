@@ -1,7 +1,10 @@
 package com.ensemblecp;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -34,8 +37,11 @@ public class Main extends Application {
     }
 
     public static void show(String screenName) throws IOException {
+        // Load FXML file and initial dimensions
         fxmlLoader = new FXMLLoader(Main.class.getResource(screenName+".fxml")); // Get FXML file
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+
+        // Determine scene data
         Scene newScene = new Scene(fxmlLoader.load(), screen.getWidth(), screen.getHeight());
         mainStage.setScene(newScene);
         ///mainStage.setFullScreen(isFullscreen);

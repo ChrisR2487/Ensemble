@@ -16,5 +16,10 @@
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="license4j-runtime-library" />
+      <option name="name" value="License4J Runtime Library Maven Repository" />
+      <option name="url" value="http://www.license4j.com/maven/" />
+    </remote-repository>
   </component>
 </project>
