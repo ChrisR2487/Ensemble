@@ -38,7 +38,7 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Create projectRow list
-        ArrayList<ProjectRow> rowArrayList = new ArrayList<ProjectRow>();
+        ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
         try {
             Database db = new Database();
             ResultSet rs = db.getProjects();
@@ -159,7 +159,6 @@ public class DashboardController implements Initializable {
         Main.show("projViewScreen");
     }
 
-    @FXML
     public void exitButton_onClick(MouseEvent mouseEvent) {
         System.exit(-1);
     }

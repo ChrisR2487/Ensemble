@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="root" prefHeight="540" prefWidth="960" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.LoginController">
+   <children>
+      <Label text="E N S E M B L E" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font></Label>
+      <ImageView fx:id="exitButton" onMouseClicked="#exitButton_onClick">
+         <Image url="@../button_imgs/close_button.png" />
+      </ImageView>
+   </children>
+</AnchorPane>
