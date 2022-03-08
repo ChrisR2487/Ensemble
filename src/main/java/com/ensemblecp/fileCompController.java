@@ -1,25 +1,52 @@
 package com.ensemblecp;
 
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.net.URL;
 import java.nio.file.Files;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
-public class fileCompController {
+public class fileCompController implements Initializable {
     public TextArea textArea;
     public Pane dropInstructions;
+    public ImageView imgView;
 
-    public void initialize() {
-        makeTextAreaDragTarget(textArea);
+    @FXML
+    private Label label;
+
+    @FXML
+    private BorderPane borderPane;
+
+    @FXML
+    public void handleButton(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File Dialog");
+        Stage stage = (Stage)borderPane.getScene().getWindow();
+
+        fileChooser.showOpenDialog(stage);
     }
+
 
     private void makeTextAreaDragTarget(Node node) {
         node.setOnDragOver(event -> {
@@ -88,5 +115,11 @@ public class fileCompController {
 
         return loadFileTask;
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //makeTextAreaDragTarget(textArea);
+    }
+
 
 }

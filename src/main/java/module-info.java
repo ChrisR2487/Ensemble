@@ -4,6 +4,6 @@ module com.ensemblecp {
     requires java.sql;
 
 
-    opens com.ensemblecp to javafx.fxml;
+    opens com.ensemblecp to javafx.fxml, javafx.base;
     exports com.ensemblecp;
 }
