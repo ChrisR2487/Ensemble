@@ -1,10 +1,7 @@
 package com.ensemblecp;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -16,11 +13,11 @@ import java.sql.*;
 public class Main extends Application {
     private final static boolean isFullscreen = true;
     public static Project curProject;
-    private static FXMLLoader fxmlLoader;
     private Scene mainScene;
     private static Stage mainStage;
     public static ArrayList<Project> projects;
     public final static int cacheLimit = 5;
+    public static Account account;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,23 +25,57 @@ public class Main extends Application {
         mainStage = stage;
         ///mainStage.setFullScreen(isFullscreen);
         mainStage.setTitle("Ensemble");
-            //stage.initStyle(StageStyle.UNDECORATED); TODO: change to startup on login screen, then use this
+        stage.initStyle(StageStyle.UNDECORATED); // TODO: Make sure to undo after login
         projects = new ArrayList<Project>(cacheLimit+1);
 
         // Show startup screen
-        show("Dashboard");
+        show("login");
         mainStage.show();
     }
 
     public static void show(String screenName) throws IOException {
         // Load FXML file and initial dimensions
-        fxmlLoader = new FXMLLoader(Main.class.getResource(screenName+".fxml")); // Get FXML file
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(screenName + ".fxml")); // Get FXML file
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
         // Determine scene data
-        Scene newScene = new Scene(fxmlLoader.load(), screen.getWidth(), screen.getHeight());
+        Scene newScene;
+        if (screenName.equals("login")) newScene = new Scene(fxmlLoader.load(), 800, 450);
+        else newScene = new Scene(fxmlLoader.load(), screen.getWidth(), screen.getHeight());
         mainStage.setScene(newScene);
-        ///mainStage.setFullScreen(isFullscreen);
+    }
+
+    public static void disableScreen() {
+        // Change screen view
+        mainStage.hide();
+        mainStage.setX(0.0);
+        mainStage.setY(0.0);
+    }
+
+    public static void enableScreen() {
+        mainStage.show();
+    }
+
+    public static void setCredentials(int id) throws SQLException { // TODO: Confirm this works
+        Database db = new Database();
+        ResultSet rs = db.getManagerAccount(id); // Get tuple with info
+        if (!rs.next()) {
+            // Member account
+            rs = db.getMemberAccount(id);
+            rs.next(); // Move pointer
+            try {
+                account = new Account(rs, AccountType.MEMBER);
+            } catch (SQLException e) {
+                // TODO: No matches found despite login successful, throw error
+                throw new IllegalStateException("Error while processing login.");
+            }
+        }
+        else {
+            // Manager account
+            account = new Account(rs, AccountType.MANAGER);
+        }
+        db.closeDB(); // Close db connection
+
     }
 
     public static void update() throws IOException {

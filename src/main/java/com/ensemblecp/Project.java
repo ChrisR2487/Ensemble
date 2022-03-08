@@ -1,5 +1,4 @@
 package com.ensemblecp;// Imports
-import javafx.scene.chart.PieChart;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class Project {
         this.tag3 = projectInfo.getString("tag3");
         this.tag4 = projectInfo.getString("tag4");
         this.complete = projectInfo.getBoolean("complete");
-        //this.manid = projectInfo.getInt("manid"); TODO: Fix this to get id of currently logged in user
+        this.manid = Main.account.getId();
 
         // Check for overbudget
             // TODO: add this functionality
@@ -88,7 +87,7 @@ public class Project {
         return componentsAL;
     }
 
-    public static String PIDtoChars(int pid) {
+    public static String IDtoChars(int pid) {
         String sPid = String.valueOf(pid);
         char[] cPid = sPid.toCharArray();
         char[] charPid = new char[cPid.length];

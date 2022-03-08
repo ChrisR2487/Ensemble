@@ -111,6 +111,7 @@ public class DashboardController implements Initializable {
             pj.addActivity(allLayer, new Timeline(new TimelineData(rs))); // Set ProjectTimeline data with Timeline
             timelines.add(pj); // Add ProjectTimeline to timelines collection
         }
+        db.closeDB(); // Close database
 
         // Add ProjectTimeline collection to CompanyTimeline
         ct.getChildren().addAll(timelines);
