@@ -1,28 +1,33 @@
 package com.ensemblecp;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.MouseEvent;
-
+// Java libraries
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.ResourceBundle;
 
+// JavaFX libraries
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+
+// Flexgantt libraries
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.view.GanttChart;
 
 public class DashboardController implements Initializable {
+    @FXML private AnchorPane root;
     @FXML private TableView<ProjectRow> projectTable;
     @FXML private TableColumn<ProjectRow, String> statusColumn;
     @FXML private TableColumn<ProjectRow, String> titleColumn;
@@ -33,7 +38,7 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Create projectRow list
-        ArrayList<ProjectRow> rowArrayList = new ArrayList<ProjectRow>();
+        ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
         try {
             Database db = new Database();
             ResultSet rs = db.getProjects();
@@ -67,17 +72,62 @@ public class DashboardController implements Initializable {
         kickoffColumn.setCellValueFactory(new PropertyValueFactory("kickoff"));
         deadlineColumn.setCellValueFactory(new PropertyValueFactory("deadline"));
         projectTable.setItems(projectRows);
-        TableView.TableViewSelectionModel mod = projectTable.getSelectionModel();
-        ObservableList sel = mod.getSelectedItems();
-        sel.addListener(new ListChangeListener<ProjectRow>() {
-            @Override public void onChanged(Change<? extends ProjectRow> change) {
-                try {
-                    onChange(change);
-                } catch (IOException | SQLException e) {
-                    e.printStackTrace(); // TODO: Handle error better
-                }
+        TableView.TableViewSelectionModel<ProjectRow> mod = projectTable.getSelectionModel();
+        ObservableList<ProjectRow> sel = mod.getSelectedItems();
+        sel.addListener((ListChangeListener<ProjectRow>) change -> {
+            try {
+                onChange(change);
+            } catch (IOException | SQLException e) {
+                e.printStackTrace(); // TODO: Handle error better
             }
         });
+
+        // Setup company timeline
+        try {
+            setupCompanyTimeline();
+        } catch (SQLException e) {
+            e.printStackTrace(); // TODO: Handle error better
+        }
+    }
+
+    private void setupCompanyTimeline() throws SQLException {
+        // Get ResultSet data
+        Database db = new Database();
+        ResultSet rs = db.getTimelines();
+
+        // Create root timeline
+        CompanyTimeline ct = new CompanyTimeline();
+        ct.setExpanded(true);
+        GanttChart<CompanyTimeline> gantt = new GanttChart<>(ct);
+
+        // Set timeline layers
+        Layer allLayer = new Layer("All");
+        gantt.getLayers().addAll(allLayer);
+
+        // Create ProjectTimelines & Create Timelines with TimelineData (Loop here)
+        ArrayList<ProjectTimeline> timelines = new ArrayList<>();
+        while (rs.next()) {
+            ProjectTimeline pj = new ProjectTimeline(rs.getString("title")); // Create ProjectTimeline object
+            pj.addActivity(allLayer, new Timeline(new TimelineData(rs))); // Set ProjectTimeline data with Timeline
+            timelines.add(pj); // Add ProjectTimeline to timelines collection
+        }
+        db.closeDB(); // Close database
+
+        // Add ProjectTimeline collection to CompanyTimeline
+        ct.getChildren().addAll(timelines);
+        ct.setName("Projects");
+        gantt.setDisplayMode(GanttChart.DisplayMode.STANDARD); // Standard view, names and times
+        gantt.setTableMenuButtonVisible(false); // Disable add button
+
+        // TODO: Disable table editing.
+            /// gantt.getGraphics().setRowEditingMode(GraphicsBase.RowEditingMode.NONE);
+
+        // Set layout attributes & add chart to view
+        gantt.setLayoutX(212.0);
+        gantt.setLayoutY(103.0);
+        gantt.setPrefHeight(638.0);
+        gantt.setPrefWidth(1181.0);
+        root.getChildren().add(gantt);
     }
 
     @FXML
@@ -110,9 +160,19 @@ public class DashboardController implements Initializable {
         Main.show("projViewScreen");
     }
 
-    @FXML
-    public void mousePressed(MouseEvent mouseEvent) {
+    public void exitButton_onClick(MouseEvent mouseEvent) {
         System.exit(-1);
+    }
+
+    public void dashButton_onClick(Event actionEvent) throws IOException {
+        Main.show("Dashboard");
+    }
+
+    public void projListButton_onClick(Event actionEvent) throws IOException {
+        Main.show("projList");
+    }
+
+    public void archiveButton_onClick(Event actionEvent) {
     }
 
 }

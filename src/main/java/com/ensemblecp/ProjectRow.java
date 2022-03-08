@@ -44,6 +44,30 @@ public class ProjectRow {
         return deadline;
     }
 
+    private StringProperty tags;
+    public void setTags(String value) { tagsProperty().set(value); }
+    public String getTags() { return tagsProperty().get(); }
+    public StringProperty tagsProperty() {
+        if (tags == null) tags = new SimpleStringProperty(this, "tags");
+        return tags;
+    }
+
+    private StringProperty manid; // TODO: Change to manager name
+    public void setManid(String value) { manidProperty().set(value); }
+    public String getManid() { return manidProperty().get(); }
+    public StringProperty manidProperty() {
+        if (manid == null) manid = new SimpleStringProperty(this, "manid");
+        return manid;
+    }
+
+    private StringProperty issueScore;
+    public void setIssueScore(String value) { issueScoreProperty().set(value); }
+    public String getIssueScore() { return issueScoreProperty().get(); }
+    public StringProperty issueScoreProperty() {
+        if (issueScore== null) issueScore = new SimpleStringProperty(this, "issueScore");
+        return issueScore;
+    }
+
     private StringProperty remain;
     public void setRemain(String value) { remainProperty().set(value); }
     public String getRemain() { return remainProperty().get(); }

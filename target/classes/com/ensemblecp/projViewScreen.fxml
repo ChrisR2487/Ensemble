@@ -1,46 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BubbleChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjViewScreen">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjViewScreenController">
     <children>
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
             <children>
-                <HBox prefHeight="25.0" prefWidth="160.0">
+                <HBox onMouseClicked="#dashButton_onClick" prefHeight="25.0" prefWidth="160.0">
                     <children>
-                        <ImageView fitHeight="36.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 7;">
-                            <Image url="@../css/Screen%20Shot%202022-02-27%20at%203.13.40%20PM.png" />
+                        <ImageView fitHeight="36.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
+                            <Image url="@../button_imgs/dashboard-icon.png" />
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="143.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#dashButton_onClick" prefHeight="43.0" prefWidth="143.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" />
+                            </HBox.margin>
                             <font>
                                 <Font size="22.0" />
                             </font>
                         </Button>
                     </children>
                 </HBox>
-                <HBox prefHeight="28.0" prefWidth="160.0">
+                <HBox onMouseClicked="#projListButton_onClick" prefHeight="28.0" prefWidth="160.0">
                     <children>
-                        <ImageView fitHeight="27.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 7;">
-                            <Image url="@../css/Screen%20Shot%202022-02-27%20at%203.13.47%20PM.png" />
+                        <ImageView fitHeight="27.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
+                            <Image url="@../button_imgs/projlist-icon.png" />
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: transparent; -fx-translate-x: -10;" text="Projects" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#projListButton_onClick" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: transparent;" text="Projects" textFill="WHITE">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" />
                             </HBox.margin>
@@ -49,19 +46,18 @@
                             </font></Button>
                     </children>
                 </HBox>
-                <HBox prefHeight="35.0" prefWidth="160.0">
+                <HBox onMouseClicked="#archiveButton_onClick" prefHeight="35.0" prefWidth="160.0">
                     <children>
-                        <ImageView fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 7;">
-                            <Image url="@../css/Screen%20Shot%202022-02-27%20at%203.14.02%20PM.png" />
+                        <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
+                            <Image url="@../button_imgs/archive-icon.png" />
                         </ImageView>
-                        <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="121.0" style="-fx-background-color: transparent; -fx-translate-x: -10;" text="Archives" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" text="Archives" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
                             <font>
                                 <Font size="22.0" />
-                            </font>
-                        </Button>
+                            </font></Button>
                     </children>
                 </HBox>
             </children>
@@ -74,74 +70,89 @@
                 <NumberAxis side="LEFT" />
             </yAxis>
         </BubbleChart>
-        <Label layoutX="22.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
+        <Label layoutX="14.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
             <font>
                 <Font size="26.0" />
             </font></Label>
-        <Label layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE">
+        <Label fx:id="titleLabel" layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE">
             <font>
-                <Font name="System Bold" size="24.0" />
+                <Font size="26.0" />
             </font>
         </Label>
         <VBox layoutX="1453.0" layoutY="155.0" prefHeight="331.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
          <children>
             <Label text=" " textFill="WHITE">
                <font>
-                  <Font size="26.0" />
+                  <Font size="10.0" />
                </font>
             </Label>
-            <Label text="    Investment Cost:" textFill="WHITE">
+            <Label fx:id="investmentCostsLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Investment Cost" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             <Label text=" " textFill="WHITE">
                <font>
-                  <Font size="26.0" />
+                  <Font size="10.0" />
                </font>
             </Label>
-            <Label text="    ROI:" textFill="WHITE">
+             <Label fx:id="budgetLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Budget" textFill="WHITE">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+             </Label>
+             <Label text=" " textFill="WHITE">
+                 <font>
+                     <Font size="10.0" />
+                 </font>
+             </Label>
+            <Label fx:id="roiLabel" minHeight="-Infinity" minWidth="-Infinity" text="    ROI" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             <Label text=" " textFill="WHITE">
                <font>
-                  <Font size="26.0" />
+                  <Font size="10.0" />
                </font>
             </Label>
-            <Label text="    Start Date:" textFill="WHITE">
+            <Label fx:id="kickoffLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Start Date" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             <Label text=" " textFill="WHITE">
                <font>
-                  <Font size="26.0" />
+                  <Font size="10.0" />
                </font>
             </Label>
-            <Label text="    End Date:" textFill="WHITE">
+            <Label fx:id="deadlineLabel" minHeight="-Infinity" minWidth="-Infinity" text="    End Date" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             <Label text=" " textFill="WHITE">
                <font>
-                  <Font size="26.0" />
+                  <Font size="10.0" />
                </font>
             </Label>
-            <Label text="    Tags:" textFill="WHITE">
+            <Label fx:id="tagsLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Tags" textFill="WHITE" wrapText="true">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
+             <Label opacity="0" text=" " textFill="WHITE">
+                 <font>
+                     <Font size="10.0" />
+                 </font>
+             </Label>
          </children></VBox>
         <Label layoutX="219.0" layoutY="434.0" prefHeight="38.0" prefWidth="141.0" text="Files" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
         </Label>
-        <Button layoutX="307.0" layoutY="438.0" mnemonicParsing="false" onAction="#add_onClick" text="+" />
+        <Button layoutX="298.0" layoutY="447.0" mnemonicParsing="false" onAction="#addFile_onClick" text="+" />
         <VBox layoutX="233.0" layoutY="795.0" prefHeight="200.0" prefWidth="1180.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
             <children>
                 <HBox prefHeight="26.0" prefWidth="443.0" />
@@ -153,7 +164,7 @@
             </children>
         </VBox>
         <ButtonBar prefHeight="40.0" prefWidth="200.0" />
-        <ImageView fx:id="exitButton" layoutX="1814.0" layoutY="30.0" onMouseClicked="#mousePressed">
+        <ImageView fx:id="exitButton" layoutX="1814.0" layoutY="30.0" onMouseClicked="#exitButton_onClick">
             <Image url="@../button_imgs/close_button.png" />
         </ImageView>
         <Label layoutX="218.0" layoutY="723.0" prefHeight="53.0" prefWidth="244.0" text="Issues" textFill="WHITE">
@@ -171,7 +182,13 @@
                 <Font size="35.0" />
             </font>
         </Label>
-        <Button layoutX="1363.0" layoutY="115.0" mnemonicParsing="false" text="Edit" />
+        <Button layoutX="1286.0" layoutY="119.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" text="Edit" />
+        <Button layoutX="1337.0" layoutY="119.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" text="Remove" />
+      <Button layoutX="1453.0" layoutY="515.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" prefHeight="40.0" prefWidth="172.0" text="Add Component">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
         <VBox layoutX="237.0" layoutY="497.0" prefHeight="200.0" prefWidth="1174.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
             <children>
                 <HBox prefHeight="26.0" prefWidth="443.0" />

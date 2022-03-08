@@ -25,7 +25,7 @@ public class Database {
         PreparedStatement preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where pid = ?");
         preparedStmt.setInt(1, pid);
         ResultSet rs = preparedStmt.executeQuery();
-        System.out.println("Success on create project");
+        System.out.println("Success on get project");
         return rs;
     }
 
@@ -55,12 +55,17 @@ public class Database {
         preparedStmt.setBoolean(14, Boolean.parseBoolean(info.get("complete")));
         preparedStmt.execute();
 
-        // Add related tables TODO: Add other tables to add
-        String createTable = "create table " + databaseName + "." + info.get("pid") + "Component("
-                + " cid int not null, template varchar(128) not null, primary key (cid));";
-        Statement stmt = conn.createStatement();
+        String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
+        String createTable;
+        Statement stmt = conn.createStatement();;
+        // Add related tables TODO: Add other tables to add (Issues, benchmark)
+        createTable = "create table " + databaseName + "." + charPid + "_Component("
+                + " cid int not null, template varchar(128) not null, constraint " + charPid + "_Component_pk primary key (cid));";
         stmt.execute(createTable);
-        /// constraint " + info.get("pid") + "Component_pk
+
+        createTable = "create table " + databaseName + "." + charPid + "_Team("
+                + " cid int, constraint " + charPid + "_Team_pk primary key (cid));";
+        stmt.execute(createTable);
 
         // Get tuple
         preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where pid = ?");
@@ -108,10 +113,15 @@ public class Database {
         preparedStmt.setInt(1, pid);
         preparedStmt.execute();
 
-        // Delete related tables TODO: Add other removes
-        String createTable = "drop table " + databaseName + "." + String.valueOf(pid) + "-Component;";
+        String charPid = Project.IDtoChars(pid);
+        String dropTable;
         Statement stmt = conn.createStatement();
-        stmt.execute(createTable);
+        // Delete related tables TODO: Add other removes (Issues, benchmark)
+        dropTable = "drop table " + databaseName + "." + charPid + "_Component;";
+        stmt.execute(dropTable);
+
+        dropTable = "drop table " + databaseName + "." + charPid + "_Team;";
+        stmt.execute(dropTable);
 
         // Remove all component tables
             // TODO: implement this
@@ -128,16 +138,81 @@ public class Database {
         return rs;
     }
 
+    public ResultSet getComponents() throws SQLException {
+        String query = "select * from " + databaseName + ".Component";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying component table");
+        return rs;
+    }
+
     public void closeDB() throws SQLException {
         conn.close();
     }
 
-    public ResultSet getComponentData(int pid, int cid) {
-        return null;
+    public ResultSet getComponentData(int pid, int cid) throws SQLException { // TODO: Confirm this works
+        String charPid = Project.IDtoChars(pid);
+        String charCid = Project.IDtoChars(cid);
+        String query = "select * from " + databaseName + "." + charPid + "_" + charCid + "_Data";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying component data table");
+        return rs;
     }
 
-    public ResultSet getComponentTablePart(int pid, int cid, int partid) {
-        return null;
+    public ResultSet getComponentTablePart(int pid, int cid, int partid) throws SQLException { // TODO: Confirm this works
+        String charPid = Project.IDtoChars(pid);
+        String charCid = Project.IDtoChars(cid);
+        String charPartid = Project.IDtoChars(partid);
+        String query = "select * from " + databaseName + "." + charPid + "_" + charCid + "_" + charPartid + "_Value";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying component data table");
+        return rs;
+    }
+
+    public ResultSet getProjectMembers(int pid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "select * from " + databaseName + ".ProjectMembers INNER JOIN " + databaseName + "." + charPid + "_Team USING(memid)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying project team table");
+        return rs;
+    }
+
+    public ResultSet getTimelines() throws SQLException {
+        String query = "select title, kickoff, deadline from " + databaseName + ".Project";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying project timelines");
+        return rs;
+    }
+
+    public ResultSet matchUsername(String username) throws SQLException { // TODO: Confirm this works
+        String query = "select * from " + databaseName + ".Account where username=?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setString(1, username.toString());
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying users with matching usernames");
+        return rs;
+    }
+
+    public ResultSet getMemberAccount(int id) throws SQLException { // TODO: Confirm this works
+        String query = "select * from " + databaseName + ".ProjectMember where id=?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, id);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying project members table");
+        return rs;
+    }
+
+    public ResultSet getManagerAccount(int id) throws SQLException { // TODO: Confirm this works
+        String query = "select * from " + databaseName + ".ProjectManager where id=?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, id);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying project managers table");
+        return rs;
     }
 }
 // End of Database Class

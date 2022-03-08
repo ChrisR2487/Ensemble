@@ -14,12 +14,20 @@
         <junit.version>5.8.1</junit.version>
     </properties>
 
+
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>17.0.1</version>
         </dependency>
+        <!--
+        <dependency>
+            <groupId>com.license4j</groupId>
+            <artifactId>license4j-runtime-library</artifactId>
+            <version>4.7.3</version>
+        </dependency>
+        -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
