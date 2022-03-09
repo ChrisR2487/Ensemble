@@ -21,8 +21,8 @@ import java.security.MessageDigest;
 public class LoginController implements Initializable {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    private final Border INVALID_BORDER = new Border(new BorderStroke(Color.DARKRED,
-                                      BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
+    private final Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
+                                      BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1.5)));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,6 +47,14 @@ public class LoginController implements Initializable {
             passwordField.setText("");
             usernameField.setBorder(INVALID_BORDER);
             passwordField.setBorder(INVALID_BORDER);
+
+            // Account found TODO: Remove after testing is done
+            Main.disableScreen(); // Disable screen
+            Main.setCredentials(1); // Set account info
+            Main.show("Dashboard"); // Swap scenes to dashboard
+            Main.enableScreen(); // Enable screen
+            db.closeDB(); // Close db
+
             return; // End method execution
         }
         while(userMatches.next()) {

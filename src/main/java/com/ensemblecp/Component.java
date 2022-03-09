@@ -1,6 +1,5 @@
 package com.ensemblecp;
 
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,8 +37,8 @@ public class Component {
             // Parse template
             char type = template.charAt(0);
             Part part;
-            if (type == 'T') {
-                part = new Part(cData.getInt("partid"), type, cData.getString("value"), db, pid, cid);
+            if (type == PartType.TABLE) {
+                part = new Part(cData.getInt("partid"), type, cData.getString("value"), db, pid);
                 template = template.substring(template.indexOf(']')+1);
 
             }
@@ -58,9 +57,12 @@ public class Component {
      *
      * @param compInfo
      */
-    public void update(ResultSet compInfo) {
-        // TODO: Given the new <pid>-<pid>-Data table, update component data
-
+    public void update(ResultSet compInfo, Database db) throws SQLException {
+        for (Part part: parts) {
+            compInfo.next(); // Position cursor
+            if (part.type == PartType.TABLE) part.update(compInfo, db); // Update table part
+            else part.update(compInfo); // Update part
+        }
     }
 
     /* Getters and Setters */
@@ -87,6 +89,7 @@ public class Component {
     private void setParts(ArrayList<Part> parts) {
         this.parts = parts;
     }
+
     // Part Class
     /**
      * The Part class ???
@@ -96,7 +99,8 @@ public class Component {
         private int partid;
         private char type;
         private String data;
-        private String[][] table;
+        private ArrayList<ArrayList<String>> table;
+        private int tableWidth;
 
         /* Constructors */
             // TODO: Finish documentation comments
@@ -121,16 +125,16 @@ public class Component {
          * @param data
          * @param db
          * @param pid
-         * @param cid
          */
-        public Part(int partid, char type, String data, Database db, int pid, int cid) throws SQLException {
+        public Part(int partid, char type, String data, Database db, int pid) throws SQLException {
             this(partid, type, data);
 
             // Table type, need data
-            ResultSet pData = db.getComponentTablePart(pid,cid,partid);
-            while(pData.next()) {
-                // TODO: Convert resultset of table part data to stored data
-            }
+            ResultSet pData = db.getComponentTablePart(pid,cid,partid); // Get table data
+            updateTable(pData); // Updates table variable with data
+
+            // Parse template for row size
+            this.tableWidth = (int) (data.chars().filter(ch -> ch == ',').count() + 1); // Count number of commas, add 1
         }
 
         /* Class Methods */
@@ -139,9 +143,27 @@ public class Component {
          *
          * @param tData
          */
-        public void updateTable(ResultSet tData) {
+        private void updateTable(ResultSet tData) throws SQLException { // TODO: Confirm this works
             // Update table
-                // TODO: Complete this method, using tData tuples of <pid>-<cid>-<partid>-Value
+            ArrayList<ArrayList<String>> newTable = new ArrayList<>();
+            while(tData.next()) {
+                ArrayList<String> newRow = new ArrayList<>();
+                for (int i = 1; i <= tableWidth; i++) {
+                    newRow.add(tData.getString(i));
+                }
+                newTable.add(newRow);
+            }
+            setTable(newTable);
+        }
+
+        public void update(ResultSet partInfo) throws SQLException {
+            // Update primitive data
+            this.data = partInfo.getString("value");
+        }
+
+        public void update(ResultSet partInfo, Database db) throws SQLException {
+            // Update table data
+            updateTable(db.getComponentTablePart(Main.curProject.getPid(),cid,partid)); // Updates table variable with data
         }
 
         /* Getters and Setters */
@@ -169,14 +191,24 @@ public class Component {
             this.data = data;
         }
 
-        public String[][] getTable() {
+        public ArrayList<ArrayList<String>> getTable() {
             return table;
         }
 
-        private void setTable(String[][] table) {
+        private void setTable(ArrayList<ArrayList<String>> table) {
             this.table = table;
         }
     }
     // End of Part Class
+
+    class PartType {
+        public final static char TABLE = 'T';
+        public final static char LIST = 'L';
+        public final static char INTEGER = 'I';
+        public final static char STRING = 'S';
+        public final static char FILE = 'F';
+        public final static char TIMELINE = 'B';
+        public final static char FLOAT = 'R';
+    }
 }
 // End of Component Class

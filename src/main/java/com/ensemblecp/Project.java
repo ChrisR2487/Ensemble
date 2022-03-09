@@ -60,10 +60,10 @@ public class Project {
         this.tag3 = projectInfo.getString("tag3");
         this.tag4 = projectInfo.getString("tag4");
         this.complete = projectInfo.getBoolean("complete");
-        this.manid = Main.account.getId();
+        this.manid = projectInfo.getInt("manid");
 
         // Check for overbudget
-            // TODO: add this functionality
+            // TODO: Add this functionality to check for overbudget
     }
 
     /**

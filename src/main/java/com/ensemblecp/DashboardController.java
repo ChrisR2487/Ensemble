@@ -145,7 +145,7 @@ public class DashboardController implements Initializable {
         if (projInCache == null) {
             // Not in cache, get project data and save to cache
             Database db = new Database();
-            projInCache = new Project(db.getProject(pid), null, db); // TODO: Get component RS format
+            projInCache = new Project(db.getProject(pid), db.getProjectComponents(pid), db);
             db.closeDB();
             Main.projects.add(0, projInCache);
             Main.trimCache();

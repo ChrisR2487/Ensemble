@@ -45,7 +45,7 @@ public class ProjListController implements Initializable {
                 pr.setDeadline(rs.getDate("deadline").toString());
                 pr.setPid(String.valueOf(rs.getInt("pid")));
                 pr.setIssueScore(String.valueOf(rs.getFloat("issueScore")));
-                pr.setManid("N/A"); // TODO: String.valueOf(rs.getInt("manid"))
+                pr.setManid(String.valueOf(rs.getInt("manid")));
 
                 String tags = rs.getString("tag1");
                 for (int i = 2; i < 5; i++) {
