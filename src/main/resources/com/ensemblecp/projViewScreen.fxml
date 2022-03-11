@@ -21,24 +21,24 @@
             <Image url="@../button_imgs/RefreshROI.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="1389.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="1390.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../button_imgs/Remove.png" />
          </image>
       </ImageView>
-        <Button layoutX="1387.0" layoutY="102.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="43.0" prefWidth="41.0" text="R" />
-      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="1342.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+        <Button layoutX="1397.0" layoutY="116.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="R" />
+      <ImageView fitHeight="29.0" fitWidth="31.0" layoutX="1346.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../button_imgs/Edit.png" />
          </image>
       </ImageView>
-        <Button layoutX="1340.0" layoutY="107.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="35.0" prefWidth="35.0" text="E" />
-      <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="1284.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E" />
+      <ImageView fitHeight="36.0" fitWidth="31.0" layoutX="1291.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../button_imgs/AddCom.png" />
          </image>
       </ImageView>
-      <Button layoutX="1282.0" layoutY="100.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="47.0" prefWidth="41.0" text="A" />
+      <Button layoutX="1292.0" layoutY="111.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="A" />
       <ScrollPane layoutX="206.0" layoutY="157.0" opacity="0.15" prefHeight="877.0" prefWidth="1223.0" />
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="177.0" AnchorPane.leftAnchor="27.0">
             <children>
@@ -192,7 +192,7 @@
             </Label>
             </children>
         </VBox>
-        <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+        <ButtonBar layoutX="26.0" layoutY="23.0" prefHeight="40.0" prefWidth="200.0" />
         <ImageView fx:id="exitButton" fitHeight="32.0" fitWidth="30.0" layoutX="1869.0" layoutY="22.0" onMouseClicked="#exitButton_onClick">
             <Image url="@../button_imgs/close_button.png" />
         </ImageView>
