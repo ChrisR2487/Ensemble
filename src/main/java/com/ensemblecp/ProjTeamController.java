@@ -106,4 +106,16 @@ public class ProjTeamController implements Initializable {
     public void removeProjectButton_onClick(ActionEvent actionEvent) throws IOException {
         Main.show("projDelete");
     }
+
+    public void viewTeam_onClick(ActionEvent event) throws IOException {
+        Main.show("projTeam");
+    }
+
+    public void viewOverview_onClick(ActionEvent actionEvent) throws IOException {
+        Main.show("projViewScreen");
+    }
+
+    public void viewBenchmark_onClick(ActionEvent actionEvent) {
+        // TODO: Implement this view change to benchmark
+    }
 }

@@ -177,13 +177,13 @@
                 <Font size="14.0" />
             </font>
         </Button>
-        <Label layoutX="1453.0" layoutY="94.0" style="-fx-background-color: transparent;" text="Issues" textFill="#a1a1a1">
+        <Label layoutX="1453.0" layoutY="94.0" text="Insights" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
         </Label>
-        <Button layoutX="1309.0" layoutY="119.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" text="Edit" />
-        <Button layoutX="1354.0" layoutY="119.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" text="Remove" />
+        <Button layoutX="1286.0" layoutY="119.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" text="Edit" />
+        <Button layoutX="1337.0" layoutY="119.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" text="Remove" />
       <Button layoutX="1453.0" layoutY="515.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" prefHeight="40.0" prefWidth="172.0" text="Add Component">
          <font>
             <Font size="16.0" />
@@ -199,7 +199,7 @@
             </Label>
             </children>
         </VBox>
-      <Button layoutX="176.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="WHITE">
+      <Button layoutX="176.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="WHITE" onAction="#viewOverview_onClick">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -207,7 +207,7 @@
             <Font size="35.0" />
          </font>
       </Button>
-      <Button layoutX="433.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" text="Benchmark Timeline" textFill="#a1a1a1">
+      <Button layoutX="527.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" text="Benchmark Timeline" textFill="#a1a1a1"  onAction="#viewBenchmark_onClick">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -215,7 +215,7 @@
             <Font size="35.0" />
          </font>
       </Button>
-      <Button layoutX="1057.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Members" textFill="#a1a1a1">
+      <Button layoutX="1057.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Members" textFill="#a1a1a1"  onAction="#viewTeam_onClick">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -223,9 +223,5 @@
             <Font size="35.0" />
          </font>
       </Button>
-      <Button layoutX="877.0" layoutY="97.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Issues" textFill="#a1a1a1">
-         <font>
-            <Font size="32.0" />
-         </font></Button>
     </children>
 </AnchorPane>

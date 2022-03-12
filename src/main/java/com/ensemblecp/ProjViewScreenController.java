@@ -68,5 +68,17 @@ public class ProjViewScreenController implements Initializable {
     public void addComponentButton_onClick(ActionEvent event) throws IOException {
         Main.show("compCreator");
     }
+
+    public void viewTeam_onClick(ActionEvent event) throws IOException {
+        Main.show("projTeam");
+    }
+
+    public void viewOverview_onClick(ActionEvent actionEvent) throws IOException {
+        Main.show("projViewScreen");
+    }
+
+    public void viewBenchmark_onClick(ActionEvent actionEvent) {
+        // TODO: Implement this view change
+    }
 }
 

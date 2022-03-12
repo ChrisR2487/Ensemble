@@ -153,7 +153,7 @@
             </font>
         </Label> <!-- Insights label -->
         <!-- Project team table -->
-        <TableView fx:id="memberTable" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="120.0">
+        <TableView fx:id="memberTable" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="170.0">
             <columns> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
                 <TableColumn fx:id="photoColumn" text="Photo" /> <!-- TODO: Check if we want to use photos -->
                 <TableColumn fx:id="nameColumn" text="Name" />
@@ -165,29 +165,29 @@
         <Button layoutX="1286.0" layoutY="119.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" text="Edit" />
         <Button layoutX="1337.0" layoutY="119.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" text="Remove" />
         <!-- Project View Tabs -->
-        <Button layoutX="176.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="#a1a1a1">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
-        <Button layoutX="527.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" text="Benchmark Timeline" textFill="#a1a1a1">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
-        <Button layoutX="1057.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Members" textFill="WHITE">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
+        <Button layoutX="176.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="#a1a1a1" onAction="#viewOverview_onClick">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Button>
+        <Button layoutX="527.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" text="Benchmark Timeline" textFill="#a1a1a1"  onAction="#viewBenchmark_onClick">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Button>
+        <Button layoutX="1057.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Members" textFill="WHITE"  onAction="#viewTeam_onClick">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>

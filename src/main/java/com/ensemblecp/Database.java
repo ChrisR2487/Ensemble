@@ -37,7 +37,7 @@ public class Database {
     public ResultSet createProject(HashMap<String, String> info) throws SQLException {
         // Insert record
         String query = " insert into "+ databaseName + ".Project"
-                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Integer.parseInt(info.get("pid")));
         preparedStmt.setString (2, info.get("title"));
@@ -53,18 +53,35 @@ public class Database {
         preparedStmt.setString(12, info.get("tag3"));
         preparedStmt.setString(13, info.get("tag4"));
         preparedStmt.setBoolean(14, Boolean.parseBoolean(info.get("complete")));
+        preparedStmt.setInt(15, 1); // TODO: Change to Main.account.getId() after testing
         preparedStmt.execute();
 
         String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
         String createTable;
         Statement stmt = conn.createStatement();;
-        // Add related tables TODO: Add other tables to add (Issues, benchmark)
-        createTable = "create table " + databaseName + "." + charPid + "_Component("
+        // Add related tables
+        createTable = "create table " + databaseName + "." + charPid + "_Components("
                 + " cid int not null, template varchar(128) not null, constraint " + charPid + "_Component_pk primary key (cid));";
         stmt.execute(createTable);
 
         createTable = "create table " + databaseName + "." + charPid + "_Team("
                 + " cid int, constraint " + charPid + "_Team_pk primary key (cid));";
+        stmt.execute(createTable);
+
+        createTable = "create table " + databaseName + "." + charPid + "_Tasks("
+                + "tid int primary key,"
+                + "memid int not null,"
+                + "description varchar(128) not null,"
+                + "kickoff date not null,"
+                + "deadline date not null,"
+                + "complete boolean not null)";
+        stmt.execute(createTable);
+
+        createTable = "create table " + databaseName + "." + charPid + "_Issues("
+                + "isid int primary key,"
+                + "memid int not null,"
+                + "message varchar(128) not null,"
+                + "state int not null)";
         stmt.execute(createTable);
 
         // Get tuple
@@ -116,11 +133,17 @@ public class Database {
         String charPid = Project.IDtoChars(pid);
         String dropTable;
         Statement stmt = conn.createStatement();
-        // Delete related tables TODO: Add other removes (Issues, benchmark)
-        dropTable = "drop table " + databaseName + "." + charPid + "_Component;";
+        // Delete related tables
+        dropTable = "drop table " + databaseName + "." + charPid + "_Components;";
         stmt.execute(dropTable);
 
         dropTable = "drop table " + databaseName + "." + charPid + "_Team;";
+        stmt.execute(dropTable);
+
+        dropTable = "drop table " + databaseName + "." + charPid + "_Tasks;";
+        stmt.execute(dropTable);
+
+        dropTable = "drop table " + databaseName + "." + charPid + "_Issues;";
         stmt.execute(dropTable);
 
         // Remove all component tables
@@ -171,9 +194,9 @@ public class Database {
         return rs;
     }
 
-    public ResultSet getProjectMembers(int pid) throws SQLException {
+    public ResultSet getProjectMembers(int pid) throws SQLException { // TODO: Confirm this works
         String charPid = Project.IDtoChars(pid);
-        String query = "select * from " + databaseName + ".ProjectMembers INNER JOIN " + databaseName + "." + charPid + "_Team USING(memid)";
+        String query = "select * from " + databaseName + ".ProjectMember INNER JOIN " + databaseName + "." + charPid + "_Team USING(memid)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on querying project team table");
@@ -198,7 +221,7 @@ public class Database {
     }
 
     public ResultSet getMemberAccount(int id) throws SQLException { // TODO: Confirm this works
-        String query = "select * from " + databaseName + ".ProjectMember where id=?";
+        String query = "select * from " + databaseName + ".ProjectMember where memid=?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, id);
         ResultSet rs = preparedStmt.executeQuery();
@@ -207,11 +230,20 @@ public class Database {
     }
 
     public ResultSet getManagerAccount(int id) throws SQLException { // TODO: Confirm this works
-        String query = "select * from " + databaseName + ".ProjectManager where id=?";
+        String query = "select * from " + databaseName + ".ProjectManager where manid=?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, id);
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on querying project managers table");
+        return rs;
+    }
+
+    public ResultSet getProjectComponents(int pid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "select * from " + databaseName + "." + charPid + "_Components";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying project components");
         return rs;
     }
 }

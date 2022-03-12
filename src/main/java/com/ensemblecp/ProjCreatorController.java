@@ -45,7 +45,7 @@ public class ProjCreatorController {
         info.put("issueScore", "0"); // TODO: Fix this later for real issue score, set as value of hashmap
 
         // Get manager ID
-            // TODO: Get manid of current user, set as value of hashmap
+        info.put("manid", "1"); // TODO: Change to String.valueOf(Main.account.getId()) after testing
 
         // Add data record
         Database db = new Database();

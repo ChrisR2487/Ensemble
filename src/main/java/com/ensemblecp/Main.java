@@ -1,6 +1,7 @@
 package com.ensemblecp;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -11,9 +12,8 @@ import java.util.ArrayList;
 import java.sql.*;
 
 public class Main extends Application {
-    private final static boolean isFullscreen = true;
+    private final static boolean IS_FULLSCREEN = true;
     public static Project curProject;
-    private Scene mainScene;
     private static Stage mainStage;
     public static ArrayList<Project> projects;
     public final static int cacheLimit = 5;
@@ -23,9 +23,8 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         // Initialize stage
         mainStage = stage;
-        ///mainStage.setFullScreen(isFullscreen);
         mainStage.setTitle("Ensemble");
-        stage.initStyle(StageStyle.UNDECORATED); // TODO: Make sure to undo after login
+        stage.initStyle(StageStyle.UNDECORATED);
         projects = new ArrayList<Project>(cacheLimit+1);
 
         // Show startup screen
@@ -66,8 +65,8 @@ public class Main extends Application {
             try {
                 account = new Account(rs, AccountType.MEMBER);
             } catch (SQLException e) {
-                // TODO: No matches found despite login successful, throw error
-                throw new IllegalStateException("Error while processing login.");
+                // No matches found despite login successful, throw error
+                    //throw new IllegalStateException("Error while processing login."); TODO: Uncomment this after testing
             }
         }
         else {
@@ -76,10 +75,6 @@ public class Main extends Application {
         }
         db.closeDB(); // Close db connection
 
-    }
-
-    public static void update() throws IOException {
-        // TODO: Implement update stuff on view
     }
 
     public static void trimCache() {
