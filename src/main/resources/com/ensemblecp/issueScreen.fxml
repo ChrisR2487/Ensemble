@@ -71,21 +71,65 @@
             <font>
                 <Font size="26.0" />
             </font></Label>
-        <Label layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Issues" textFill="WHITE">
+        <Label layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Issues " textFill="WHITE">
             <font>
                 <Font size="26.0" />
             </font>
         </Label>
-        <TableView fx:id="projectTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1488.0" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="187.0" AnchorPane.topAnchor="120.0">
+        <TableView fx:id="projectTable" layoutX="216.0" layoutY="124.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1195.0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="509.0" AnchorPane.topAnchor="124.0">
             <columns> <!-- Width = 1525 for rightAnchor=150.0, leftAnchor=245.0 -->
                 <TableColumn fx:id="statusColumn" prefWidth="136.97584533691406" text="Date" />
                 <TableColumn fx:id="issueScoreColumn" prefWidth="162.62063598632812" text="Name" />
                 <TableColumn fx:id="kickoffColumn" prefWidth="168.7078857421875" text="Project Name" />
-                <TableColumn fx:id="deadlineColumn" prefWidth="1014.554443359375" text="Issue" />
+                <TableColumn fx:id="deadlineColumn" prefWidth="722.6571044921875" text="Issue" />
             </columns>
         </TableView>
         <ImageView fx:id="exitButton" fitHeight="32.0" fitWidth="29.0" layoutX="1880.0" layoutY="14.0" onMouseClicked="#exitButton_onClick">
             <Image url="@../button_imgs/close_button.png" />
         </ImageView>
+      <VBox layoutX="1464.0" layoutY="122.0" prefHeight="215.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+         <children>
+            <Label text=" " textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label text=" " textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label fx:id="investmentCostsLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Issue Score:" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label text=" " textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label text=" " textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label text=" " textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label text=" " textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label opacity="0" text=" " textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>
