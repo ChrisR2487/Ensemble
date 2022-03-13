@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="G6 Database" uuid="b3b9be82-0eae-48b3-aebd-3628436511ba">
+    <data-source source="LOCAL" name="G6 Database" uuid="bd1b0e4d-02e2-4ebd-938c-e81702df2613">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
