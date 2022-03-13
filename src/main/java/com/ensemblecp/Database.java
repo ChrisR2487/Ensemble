@@ -1,5 +1,11 @@
 package com.ensemblecp;// Imports
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+
 import java.sql.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 // Project Class
@@ -53,7 +59,7 @@ public class Database {
         preparedStmt.setString(12, info.get("tag3"));
         preparedStmt.setString(13, info.get("tag4"));
         preparedStmt.setBoolean(14, Boolean.parseBoolean(info.get("complete")));
-        preparedStmt.setInt(15, 1); // TODO: Change to Main.account.getId() after testing
+        preparedStmt.setInt(15, Integer.parseInt(info.get("manid")));
         preparedStmt.execute();
 
         String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
@@ -246,6 +252,29 @@ public class Database {
         System.out.println("Success on querying project components");
         return rs;
     }
+
+    public void createLog(HashMap<String, String> info) throws SQLException, InterruptedException {
+        String query = "insert into " + databaseName + ".Log values(?, ?, ?, ?);";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1, Integer.parseInt(info.get("manid")));
+        preparedStatement.setInt(2, Integer.parseInt(info.get("pid")));
+        preparedStatement.setString(4, info.get("message"));
+
+        // Get time and try to insert
+        while(true) {
+            try {
+                preparedStatement.setTimestamp(3, Timestamp.from(Instant.now()));
+                preparedStatement.execute();
+                break;
+            } catch (SQLIntegrityConstraintViolationException e) {
+                // Error on insertion, try again
+                wait(100);
+            }
+        }
+    }
+
+    public ResultSet createIssue(HashMap<String, String> info) throws SQLException {
+        return null;
+    }
 }
 // End of Database Class
-

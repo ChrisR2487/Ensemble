@@ -23,6 +23,7 @@ public class ProjViewScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Set insight data
         tagsLabel.setText(tagsLabel.getText() + "\n\t" +
                 Main.curProject.getTag1() + "\n\t" +
                 Main.curProject.getTag2() + "\n\t" +
@@ -34,6 +35,9 @@ public class ProjViewScreenController implements Initializable {
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
         titleLabel.setText(Main.curProject.getTitle());
+
+        // Set component data
+            // TODO: Add components to view
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {

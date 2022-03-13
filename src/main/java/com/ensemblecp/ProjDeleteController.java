@@ -8,6 +8,7 @@ import javafx.scene.control.CheckBox;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ProjDeleteController implements Initializable {

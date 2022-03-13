@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 // JavaFX libraries
+import com.flexganttfx.view.graphics.GraphicsBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,6 +26,8 @@ import javafx.scene.layout.AnchorPane;
 // Flexgantt libraries
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
+import com.flexganttfx.model.Activity;
+import javafx.util.Callback;
 
 public class DashboardController implements Initializable {
     @FXML private AnchorPane root;
@@ -120,8 +122,8 @@ public class DashboardController implements Initializable {
         gantt.setDisplayMode(GanttChart.DisplayMode.STANDARD); // Standard view, names and times
         gantt.setTableMenuButtonVisible(false); // Disable add button
 
-        // TODO: Disable table editing.
-            /// gantt.getGraphics().setRowEditingMode(GraphicsBase.RowEditingMode.NONE);
+        // Stop editing of table
+        gantt.getGraphics().setActivityEditingCallback(Timeline.class, editingCallbackParameter -> false);
 
         // Set layout attributes & add chart to view
         gantt.setLayoutX(212.0);
