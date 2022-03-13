@@ -51,9 +51,10 @@ public class ProjEditorController implements Initializable {
         // Get data
         HashMap<String, String> info = new HashMap<String, String>();
         info.put("pid", String.valueOf(Main.curProject.getPid()));
-        info.put("title", titleField.getText());
-        info.put("description", descriptionField.getText());
-        info.put("investmentCosts", investmentCostsField.getText());
+        info.put("title", titleField.getText());                            //TODO - ensure not a duplicate project name
+        info.put("description", descriptionField.getText());                //TODO - ensure proper data type
+        info.put("investmentCosts", investmentCostsField.getText());        //TODO - ^
+
         info.put("budget", budgetField.getText());
         info.put("kickoff", kickoffField.getValue().toString());
         info.put("deadline", deadlineField.getValue().toString());

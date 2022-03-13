@@ -49,7 +49,7 @@ public class Database {
     public ResultSet createProject(HashMap<String, String> info) throws SQLException {
         // Insert record
         String query = " insert into "+ databaseName + ".Project"
-                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Integer.parseInt(info.get("pid")));
         preparedStmt.setString (2, info.get("title"));
@@ -67,6 +67,7 @@ public class Database {
         preparedStmt.setString(12, info.get("tag3"));
         preparedStmt.setString(13, info.get("tag4"));
         preparedStmt.setBoolean(14, Boolean.parseBoolean(info.get("complete")));
+        preparedStmt.setInt(15, Integer.parseInt(info.get("manId")));
         preparedStmt.execute();
 
         // Add related tables TODO: Add other tables to add

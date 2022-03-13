@@ -14,6 +14,9 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +44,12 @@ public class ProjCreatorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //default date values
+        LocalDate ld = LocalDate.now();
+        kickoffField.setValue(LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
+        ld = ld.plusMonths(1);
+        deadlineField.setValue(LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
+
         // Create memberRow list
         ArrayList<MemberRow> rowArrayList = new ArrayList<MemberRow>();
         try {
@@ -75,20 +84,23 @@ public class ProjCreatorController implements Initializable {
         memberTable.setItems(projectRows);
     }
 
+    public static LocalDate LOCAL_DATE (String dateString){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(dateString, formatter);
+    }
+
 
     @FXML
     public void createProject_onClick(Event e) throws SQLException, IOException {
         // Get data
         HashMap<String, String> info = new HashMap<String, String>();
         info.put("pid", String.valueOf(Math.abs(titleField.getText().hashCode()))); // Use Math.abs() for no negative PIDs
-        info.put("title", titleField.getText());
+        info.put("title", titleField.getText());                                        // TODO - error handle duplicate values
         info.put("description", descriptionField.getText());
-        info.put("investmentCosts", investmentCostsField.getText());
+
+        info.put("investmentCosts", investmentCostsField.getText());                    // TODO - error handle proper data type
         info.put("budget", budgetField.getText());
 
-        System.out.println(Date.valueOf(kickoffField.getValue().toString()));
-        System.out.println(Date.valueOf(deadlineField.getValue().toString()));
-        
         info.put("kickoff", kickoffField.getValue().toString());
         info.put("deadline", deadlineField.getValue().toString());
 
@@ -105,6 +117,7 @@ public class ProjCreatorController implements Initializable {
         info.put("issueScore", "0"); // TODO: Fix this later for real issue score, set as value of hashmap
 
         // Get manager ID
+        info.put("manId", "1");
             // TODO: Get manid of current user, set as value of hashmap
 
         // Add data record

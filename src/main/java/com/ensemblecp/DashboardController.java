@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -125,6 +126,10 @@ public class DashboardController implements Initializable {
     }
 
     public void archiveButton_onClick(Event actionEvent) {
+    }
+
+    public void button_onHover(Event actionEvent){
+        ((Node) (actionEvent.getSource())).setStyle("-fx-text-fill: red");
     }
 
 }
