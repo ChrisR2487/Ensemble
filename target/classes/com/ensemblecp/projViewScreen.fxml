@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjViewScreenController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjViewScreenController">
     <children>
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
             <children>
@@ -189,7 +189,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-        <VBox layoutX="237.0" layoutY="497.0" prefHeight="200.0" prefWidth="1174.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+        <VBox layoutX="236.0" layoutY="486.0" prefHeight="200.0" prefWidth="1174.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
             <children>
                 <HBox prefHeight="26.0" prefWidth="443.0" />
             <Label text="    Recently Uploaded" textFill="WHITE">

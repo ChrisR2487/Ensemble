@@ -37,6 +37,7 @@ public class Project {
 
         // Save components
         if (componentInfo != null) this.components = parseComponents(componentInfo, db);
+        else this.components = new ArrayList<>(0); // Save empty list if none available
     }
 
     /* Class Methods */
@@ -73,10 +74,10 @@ public class Project {
      */
     private ArrayList<Component> parseComponents(ResultSet compInfo, Database db) throws SQLException {
         // Initial setup
-        if (!compInfo.next()) return new ArrayList<Component>(); // Check for no components
+        if (!compInfo.next()) return new ArrayList<>(); // Check for no components
 
         // Parse each component and its data
-        ArrayList<Component> componentsAL = new ArrayList<Component>();
+        ArrayList<Component> componentsAL = new ArrayList<>();
         do {
             // Create component object
             Component comp = new Component(this.pid, compInfo.getInt("cid"), compInfo.getString("template"), db); // Pass parameters to constructor

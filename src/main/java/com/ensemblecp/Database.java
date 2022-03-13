@@ -65,7 +65,7 @@ public class Database {
         stmt.execute(createTable);
 
         createTable = "create table " + databaseName + "." + charPid + "_Team("
-                + " cid int, constraint " + charPid + "_Team_pk primary key (cid));";
+                + " memid int, constraint " + charPid + "_Team_pk primary key (memid));";
         stmt.execute(createTable);
 
         createTable = "create table " + databaseName + "." + charPid + "_Tasks("
@@ -240,7 +240,7 @@ public class Database {
 
     public ResultSet getProjectComponents(int pid) throws SQLException {
         String charPid = Project.IDtoChars(pid);
-        String query = "select * from " + databaseName + "." + charPid + "_Components";
+        String query = "select * from " + databaseName + "." + charPid + "_Components NATURAL JOIN " + databaseName + ".Component";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on querying project components");

@@ -19,7 +19,7 @@
                         <Insets />
                      </HBox.margin>
                   </ImageView>
-                  <Button mnemonicParsing="false" onAction="#dashButton_onClick" prefHeight="43.0" prefWidth="143.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
+                  <Button onAction="#dashButton_onClick" prefHeight="43.0" prefWidth="143.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -109,6 +109,7 @@
          </children>
       </VBox>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+      <!-- Close button -->
       <ImageView fx:id="exitButton" layoutX="1814.0" layoutY="30.0" onMouseClicked="#exitButton_onClick">
          <Image url="@../button_imgs/close_button.png" />
       </ImageView>

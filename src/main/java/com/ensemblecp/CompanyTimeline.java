@@ -15,13 +15,12 @@ import java.time.ZoneOffset;
 class ModelObject<
         P extends Row<?,?,?>, // Type of parent row
         C extends Row<?,?,?>, // Type of child rows
-        A extends Activity> extends Row<P, C, A> {
-}
+        A extends Activity> extends Row<P, C, A> { }
 
 // CompanyTimeline: Child of root, Parent of ProjectTimeline, Uses ActivityBase Activity
 public class CompanyTimeline extends ModelObject<Row<?,?,?>, ProjectTimeline, Activity> { }
 
-// ProjectTimeline: Child of CompanyTimeline, Parent of ????, Uses ActivityBase Timeline
+// ProjectTimeline: Child of CompanyTimeline, Parent of TaskTimeline, Uses ActivityBase Timeline
 class ProjectTimeline extends ModelObject<CompanyTimeline, TaskTimeline, Timeline> {
     public ProjectTimeline(String name) {
         this.setName(name);
