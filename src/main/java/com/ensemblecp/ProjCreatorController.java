@@ -1,25 +1,80 @@
 package com.ensemblecp;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class ProjCreatorController {
+public class ProjCreatorController implements Initializable {
     @FXML TextField investmentCostsField;
     @FXML TextField descriptionField;
     @FXML TextField budgetField;
     @FXML TextField titleField;
-    @FXML TextField kickoffField;
-    @FXML TextField deadlineField;
+    @FXML DatePicker kickoffField;
+    @FXML DatePicker deadlineField;
     @FXML TextField tag1Field;
     @FXML TextField tag2Field;
     @FXML TextField tag3Field;
     @FXML TextField tag4Field;
+
+    @FXML private TableView<MemberRow> memberTable;
+    //@FXML private TableColumn<ProjectRow, String> nameColumn;         //todo - create column of check boxes
+    @FXML private TableColumn<MemberRow, String> nameColumn;
+    @FXML private TableColumn<MemberRow, String> positionColumn;
+    @FXML private TableColumn<MemberRow, Integer> memIDColumn;
+    @FXML private TableColumn<MemberRow, String> statusColumn;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Create memberRow list
+        ArrayList<MemberRow> rowArrayList = new ArrayList<MemberRow>();
+        try {
+            Database db = new Database();
+            ResultSet rs = db.getMembers();                    //todo - create members table
+            while (rs.next()) {
+                MemberRow mr = new MemberRow();
+                mr.setName(rs.getString("name"));
+                mr.setPosition(rs.getString("position"));
+                mr.setMemid(String.valueOf(rs.getInt("memid")));
+                rowArrayList.add(mr);
+            }
+            db.closeDB();
+        }
+        catch (SQLException e) {
+            e.printStackTrace(); // TODO: Add better handling for loop
+        }
+
+        // Convert to array
+        MemberRow[] rowList = rowArrayList.toArray(new MemberRow[rowArrayList.size()]);
+
+        // Cast to ObservableList
+        List<MemberRow> rows = List.of(rowList);
+        ObservableList<MemberRow> projectRows = FXCollections.observableList(rows);
+
+        // Set row data
+        //todo - generate check boxes programmatically
+        nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
+        positionColumn.setCellValueFactory(new PropertyValueFactory("position"));
+        //statusColumn.setCellValueFactory(new PropertyValueFactory("status"));
+        memIDColumn.setCellValueFactory(new PropertyValueFactory("memid"));
+        memberTable.setItems(projectRows);
+    }
+
 
     @FXML
     public void createProject_onClick(Event e) throws SQLException, IOException {
@@ -30,8 +85,13 @@ public class ProjCreatorController {
         info.put("description", descriptionField.getText());
         info.put("investmentCosts", investmentCostsField.getText());
         info.put("budget", budgetField.getText());
-        info.put("kickoff", kickoffField.getText());
-        info.put("deadline", deadlineField.getText());
+
+        System.out.println(Date.valueOf(kickoffField.getValue().toString()));
+        System.out.println(Date.valueOf(deadlineField.getValue().toString()));
+        
+        info.put("kickoff", kickoffField.getValue().toString());
+        info.put("deadline", deadlineField.getValue().toString());
+
         info.put("tag1", tag1Field.getText());
         info.put("tag2", tag2Field.getText());
         info.put("tag3", tag3Field.getText());

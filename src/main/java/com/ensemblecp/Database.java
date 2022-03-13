@@ -30,6 +30,18 @@ public class Database {
     }
 
 
+
+    //todo - create member table to query
+    public ResultSet getMembers() throws SQLException {
+        String query = "select * from " + databaseName + ".Member";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying member table");
+        return rs;
+    }
+
+
+
     /* Class Methods */
     /**
      *  Create project record
@@ -45,8 +57,10 @@ public class Database {
         preparedStmt.setFloat(4, Float.parseFloat(info.get("investmentCosts")));
         preparedStmt.setFloat(5, Float.parseFloat(info.get("budget")));
         preparedStmt.setFloat(6, Float.parseFloat(info.get("roi")));
+
         preparedStmt.setDate(7, Date.valueOf(info.get("kickoff")));
         preparedStmt.setDate(8, Date.valueOf(info.get("deadline")));
+
         preparedStmt.setFloat(9, Float.parseFloat(info.get("issueScore")));
         preparedStmt.setString(10, info.get("tag1"));
         preparedStmt.setString(11, info.get("tag2"));
