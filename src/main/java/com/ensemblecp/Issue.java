@@ -49,3 +49,9 @@ public class Issue {
         this.state = state;
     }
 }
+
+class IssueType {
+    public final static int NEW = 0;
+    public final static int SEEN = 1;
+    public final static int DONE = 2;
+}

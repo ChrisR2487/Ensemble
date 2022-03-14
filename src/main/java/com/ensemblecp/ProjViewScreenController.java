@@ -82,5 +82,9 @@ public class ProjViewScreenController implements Initializable {
     public void viewBenchmark_onClick(ActionEvent actionEvent) {
         // TODO: Implement this view change
     }
+
+    public void viewIssue_onClick(ActionEvent event) throws IOException {
+        Main.show("issueList");
+    }
 }
 

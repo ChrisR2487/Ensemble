@@ -118,4 +118,12 @@ public class ProjTeamController implements Initializable {
     public void viewBenchmark_onClick(ActionEvent actionEvent) {
         // TODO: Implement this view change to benchmark
     }
+
+    public void viewIssue_onClick(ActionEvent event) throws IOException {
+        Main.show("issueList");
+    }
+
+    public void addComponentButton_onClick(ActionEvent event) throws IOException {
+        Main.show("compCreator");
+    }
 }

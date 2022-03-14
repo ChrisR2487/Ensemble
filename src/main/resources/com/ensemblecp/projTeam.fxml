@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -9,6 +8,7 @@
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjTeamController">
     <children>
+        <!-- Side nav bar -->
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
             <children>
                 <HBox onMouseClicked="#dashButton_onClick" prefHeight="25.0" prefWidth="160.0">
@@ -62,6 +62,8 @@
                 </HBox>
             </children>
         </VBox>
+
+        <!-- Software and project name -->
         <Label layoutX="14.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
             <font>
                 <Font size="26.0" />
@@ -71,6 +73,8 @@
                 <Font size="26.0" />
             </font>
         </Label> <!-- Project title -->
+
+        <!-- Insights content -->
         <VBox layoutX="1453.0" layoutY="155.0" prefHeight="331.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
          <children>
             <Label text=" " textFill="WHITE">
@@ -139,19 +143,17 @@
                  </font>
              </Label>
          </children></VBox> <!-- Insights -->
-        <ImageView fx:id="exitButton" layoutX="1814.0" layoutY="30.0" onMouseClicked="#exitButton_onClick">
-            <Image url="@../button_imgs/close_button.png" />
-        </ImageView>
-        <Button layoutX="1761.0" layoutY="116.0" mnemonicParsing="false" text="Refresh ROI">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </Button> <!-- Refresh ROI button -->
         <Label layoutX="1453.0" layoutY="94.0" text="Insights" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
         </Label> <!-- Insights label -->
+
+        <!--Close button -->
+        <ImageView fx:id="exitButton" layoutX="1814.0" layoutY="30.0" onMouseClicked="#exitButton_onClick">
+            <Image url="@../button_imgs/close_button.png" />
+        </ImageView>
+
         <!-- Project team table -->
         <TableView fx:id="memberTable" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="170.0">
             <columns> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
@@ -161,11 +163,44 @@
                 <TableColumn fx:id="positionColumn" text="Position" />
             </columns>
         </TableView>
-        <!-- Project action buttons -->
-        <Button layoutX="1286.0" layoutY="119.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" text="Edit" />
-        <Button layoutX="1337.0" layoutY="119.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" text="Remove" />
-        <!-- Project View Tabs -->
-        <Button layoutX="176.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="#a1a1a1" onAction="#viewOverview_onClick">
+
+            <!-- Project actions -->
+        <!-- Refresh ROI -->
+        <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="1819.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../button_imgs/RefreshROI.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="1818.0" layoutY="105.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="RR">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        <!-- Remove project -->
+        <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="1390.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../button_imgs/Remove.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="1397.0" layoutY="116.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R" />
+        <!-- Edit project -->
+        <ImageView fitHeight="29.0" fitWidth="31.0" layoutX="1346.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../button_imgs/Edit.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E" />
+        <!-- Add component -->
+        <ImageView fitHeight="36.0" fitWidth="31.0" layoutX="1291.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../button_imgs/AddCom.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C" />
+
+
+        <!-- Project nav bar -->
+        <Button onAction="#viewOverview_onClick" layoutX="174.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="#a1a1a1">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
@@ -173,7 +208,7 @@
                 <Font size="35.0" />
             </font>
         </Button>
-        <Button layoutX="527.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" text="Benchmark Timeline" textFill="#a1a1a1"  onAction="#viewBenchmark_onClick">
+        <Button onAction="#viewBenchmark_onClick" layoutX="420.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" text="Benchmark Timeline" textFill="#a1a1a1">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
@@ -181,7 +216,15 @@
                 <Font size="35.0" />
             </font>
         </Button>
-        <Button layoutX="1057.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Members" textFill="WHITE"  onAction="#viewTeam_onClick">
+        <Button onAction="#viewTeam_onClick" layoutX="844.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Members" textFill="WHITE">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Button>
+        <Button onAction="#viewIssue_onClick" layoutX="1066.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Issues" textFill="#a1a1a1">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>

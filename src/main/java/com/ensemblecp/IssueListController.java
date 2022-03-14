@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class issueListController implements Initializable {
+public class IssueListController implements Initializable {
     @FXML Label tagsLabel;
     @FXML Label roiLabel;
     @FXML Label budgetLabel;
@@ -56,5 +56,29 @@ public class issueListController implements Initializable {
 
     public void removeProjectButton_onClick(ActionEvent actionEvent) throws IOException {
         Main.show("projDelete");
+    }
+
+    public void addComponentButton_onClick(ActionEvent event) throws IOException {
+        Main.show("compCreator");
+    }
+
+    public void createIssue_onClick(ActionEvent actionEvent) throws IOException {
+        Main.show("createIssue");
+    }
+
+    public void viewTeam_onClick(ActionEvent event) throws IOException {
+        Main.show("projTeam");
+    }
+
+    public void viewOverview_onClick(ActionEvent actionEvent) throws IOException {
+        Main.show("projViewScreen");
+    }
+
+    public void viewBenchmark_onClick(ActionEvent actionEvent) {
+        // TODO: Implement this view change
+    }
+
+    public void viewIssue_onClick(ActionEvent event) throws IOException {
+        Main.show("issueList");
     }
 }

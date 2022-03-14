@@ -84,10 +84,11 @@ public class Database {
         stmt.execute(createTable);
 
         createTable = "create table " + databaseName + "." + charPid + "_Issues("
-                + "isid int primary key,"
                 + "memid int not null,"
                 + "message varchar(128) not null,"
-                + "state int not null)";
+                + "type int not null,"
+                + "state int not null,"
+                + "constraint " + charPid + "_Issues_pk primary key (memid, message))";
         stmt.execute(createTable);
 
         // Get tuple
@@ -271,10 +272,26 @@ public class Database {
                 wait(100);
             }
         }
+
     }
 
-    public ResultSet createIssue(HashMap<String, String> info) throws SQLException {
-        return null;
+    public ResultSet createIssue(HashMap<String, String> info) throws SQLException { // TODO: Confirm this works
+        String charPid = Project.IDtoChars(Main.curProject.getPid());
+        String query = "insert into " + databaseName + "." + charPid + "_Issues values (?, ?, ?, ?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, Main.account.getId());
+        preparedStmt.setString(2, info.get("message"));
+        preparedStmt.setInt(3, Integer.parseInt(info.get("type")));
+        preparedStmt.setInt(4, IssueType.NEW); // Set issue as new (not seen or done)
+        preparedStmt.execute();
+
+        query = "select * from " + databaseName + "." + charPid + "_Issues where memid=? and message=?";
+        preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, Main.account.getId());
+        preparedStmt.setString(2, info.get("message"));
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on creating issue record");
+        return rs;
     }
 }
 // End of Database Class
