@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.BubbleChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjViewScreenController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.issueListController">
     <children>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="1819.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -39,7 +31,6 @@
          </image>
       </ImageView>
       <Button layoutX="1292.0" layoutY="111.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="A" />
-      <ScrollPane layoutX="206.0" layoutY="157.0" opacity="0.15" prefHeight="877.0" prefWidth="1223.0" />
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="177.0" AnchorPane.leftAnchor="27.0">
             <children>
                 <HBox onMouseClicked="#dashButton_onClick" prefHeight="25.0" prefWidth="160.0">
@@ -91,14 +82,6 @@
                 </HBox>
             </children>
         </VBox>
-        <BubbleChart layoutX="197.0" layoutY="164.0" prefHeight="268.0" prefWidth="1223.0">
-            <xAxis>
-                <NumberAxis side="BOTTOM" />
-            </xAxis>
-            <yAxis>
-                <NumberAxis side="LEFT" />
-            </yAxis>
-        </BubbleChart>
         <Label layoutX="22.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
             <font>
                 <Font size="26.0" />
@@ -176,31 +159,10 @@
                  </font>
              </Label>
          </children></VBox>
-        <Label layoutX="226.0" layoutY="434.0" prefHeight="38.0" prefWidth="141.0" text="Issues" textFill="WHITE">
-            <font>
-                <Font size="35.0" />
-            </font>
-        </Label>
-        <Button layoutX="320.0" layoutY="738.0" mnemonicParsing="false" onAction="#addFile_onClick" text="+" />
-        <VBox layoutX="233.0" layoutY="795.0" prefHeight="200.0" prefWidth="1180.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
-            <children>
-                <HBox prefHeight="26.0" prefWidth="443.0" />
-            <Label text="    Recently Uploaded Files" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            </children>
-        </VBox>
         <ButtonBar layoutX="26.0" layoutY="23.0" prefHeight="40.0" prefWidth="200.0" />
         <ImageView fx:id="exitButton" fitHeight="32.0" fitWidth="30.0" layoutX="1869.0" layoutY="22.0" onMouseClicked="#exitButton_onClick">
             <Image url="@../button_imgs/close_button.png" />
         </ImageView>
-        <Label layoutX="225.0" layoutY="723.0" prefHeight="53.0" prefWidth="79.0" text="Files" textFill="WHITE">
-            <font>
-                <Font size="35.0" />
-            </font>
-        </Label>
         <Label layoutX="1455.0" layoutY="100.0" text="Insights" textFill="WHITE">
             <font>
                 <Font size="35.0" />
@@ -211,17 +173,7 @@
                 <Font size="14.0" />
             </font>
         </Button>
-        <VBox layoutX="237.0" layoutY="497.0" prefHeight="200.0" prefWidth="1174.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
-            <children>
-                <HBox prefHeight="26.0" prefWidth="443.0" />
-            <Label text="    Recent Issues" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            </children>
-        </VBox>
-      <Button layoutX="174.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="WHITE">
+      <Button layoutX="174.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="#a1a1a1">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -245,12 +197,24 @@
             <Font size="35.0" />
          </font>
       </Button>
-      <Button layoutX="1066.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Issues" textFill="#a1a1a1">
+      <Button layoutX="1066.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Issues" textFill="WHITE">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <font>
             <Font size="35.0" />
+         </font>
+      </Button>
+      <TableView fx:id="projectTable" layoutX="215.0" layoutY="165.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1215.0">
+         <columns>
+            <TableColumn fx:id="statusColumn" prefWidth="190.0" text="Date" />
+            <TableColumn fx:id="issueScoreColumn" prefWidth="205.0" text="Name" />
+            <TableColumn fx:id="deadlineColumn" prefWidth="628.0" text="Issue" />
+         </columns>
+      </TableView>
+      <Button alignment="CENTER" contentDisplay="TOP" layoutX="1145.0" layoutY="946.0" mnemonicParsing="false" onAction="#createProject_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" text="Create Issue" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
     </children>
