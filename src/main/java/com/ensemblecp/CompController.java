@@ -112,6 +112,7 @@ public class CompController {
         existingTable.setVisible(false);
 
         // Setup custom component creator
+        Main.show("customComp");
             // TODO: Setup component creator system
 
         // Display custom component creator
