@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProjTeamController implements Initializable {
+    @FXML private ImageView exitButton;
     @FXML private Label tagsLabel;
     @FXML private Label roiLabel;
     @FXML private Label budgetLabel;

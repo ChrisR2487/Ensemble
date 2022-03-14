@@ -12,6 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -121,5 +122,7 @@ public class fileCompController implements Initializable {
         //makeTextAreaDragTarget(textArea);
     }
 
-
+    public void exitButton_onClick(MouseEvent mouseEvent) {
+        System.exit(-1);
+    }
 }

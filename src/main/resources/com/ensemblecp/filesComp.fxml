@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -16,7 +18,7 @@
          </HBox>
          <HBox alignment="CENTER" prefHeight="62.0" prefWidth="686.0">
             <children>
-               <Button fx:id="pickFile" onAction="#handleButton" mnemonicParsing="false" text="Pick a File" />
+               <Button fx:id="pickFile" mnemonicParsing="false" onAction="#handleButton" text="Pick a File" />
             </children>
          </HBox>
       </VBox>
@@ -29,6 +31,12 @@
                   <Font size="26.0" />
                </font>
             </Label>
+            <ImageView layoutX="1814.0" layoutY="30.0" onMouseClicked="#exitButton_onClick">
+               <Image url="@../button_imgs/close_button.png" />
+               <HBox.margin>
+                  <Insets left="450.0" />
+               </HBox.margin>
+            </ImageView>
          </children>
       </HBox>
    </top>

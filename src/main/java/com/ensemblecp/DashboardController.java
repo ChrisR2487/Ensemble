@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -27,6 +28,7 @@ import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
 
 public class DashboardController implements Initializable {
+    @FXML private ImageView exitButton;
     @FXML private AnchorPane root;
     @FXML private TableView<ProjectRow> projectTable;
     @FXML private TableColumn<ProjectRow, String> statusColumn;
