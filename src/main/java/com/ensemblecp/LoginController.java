@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,11 +49,13 @@ public class LoginController implements Initializable {
 
             return; // End method execution
         }
-        while(userMatches.next()) {
+        do {
             // Compute hash
             String inputHash = hashInput(userMatches.getString("salt") + pass);
 
             // Check for password equality
+            System.out.println(userMatches.getString("password"));
+            System.out.println(inputHash);
             if (inputHash.equals(userMatches.getString("password"))) {
                 // Account found
                 Main.disableScreen(); // Disable screen
@@ -64,7 +65,7 @@ public class LoginController implements Initializable {
                 db.closeDB(); // Close db
                 return; // End method execution
             }
-        }
+        } while(userMatches.next());
 
         // Login unsuccessful via password, show error
         db.closeDB(); // Close db, no password matches
@@ -75,7 +76,7 @@ public class LoginController implements Initializable {
 
     private String hashInput(String input) throws NoSuchAlgorithmException { // TODO: Confirm this works
         MessageDigest hash = MessageDigest.getInstance("SHA-256");
-        byte[] inputByteHash = hash.digest(input.getBytes(StandardCharsets.UTF_8));
+        byte[] inputByteHash = hash.digest(input.getBytes());
         return new String(inputByteHash);
     }
 }

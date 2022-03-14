@@ -82,7 +82,7 @@ public class ProjEditorController implements Initializable {
     @FXML
     public void cancelModify_onClick(Event e) throws IOException {
         // Cancel project modification
-        Main.show("Dashboard");
+        Main.show("ProjViewScreen");
     }
 
 }

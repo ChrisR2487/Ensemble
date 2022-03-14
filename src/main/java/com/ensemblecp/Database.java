@@ -229,7 +229,7 @@ public class Database {
     public ResultSet matchUsername(String username) throws SQLException { // TODO: Confirm this works
         String query = "select * from " + databaseName + ".Account where username=?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setString(1, username.toString());
+        preparedStmt.setString(1, username);
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on querying users with matching usernames");
         return rs;
