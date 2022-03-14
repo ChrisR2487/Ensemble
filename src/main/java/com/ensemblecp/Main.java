@@ -66,7 +66,7 @@ public class Main extends Application {
                 account = new Account(rs, AccountType.MEMBER);
             } catch (SQLException e) {
                 // No matches found despite login successful, throw error
-                    //throw new IllegalStateException("Error while processing login."); TODO: Uncomment this after testing
+                throw new IllegalStateException("Error while processing login.");
             }
         }
         else {

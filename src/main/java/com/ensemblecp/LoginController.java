@@ -48,13 +48,6 @@ public class LoginController implements Initializable {
             usernameField.setBorder(INVALID_BORDER);
             passwordField.setBorder(INVALID_BORDER);
 
-            // Account found TODO: Remove after testing is done
-            Main.disableScreen(); // Disable screen
-            Main.setCredentials(1); // Set account info
-            Main.show("Dashboard"); // Swap scenes to dashboard
-            Main.enableScreen(); // Enable screen
-            db.closeDB(); // Close db
-
             return; // End method execution
         }
         while(userMatches.next()) {

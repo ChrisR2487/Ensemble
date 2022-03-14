@@ -168,6 +168,14 @@ public class Database {
         return rs;
     }
 
+    public ResultSet getMembers() throws SQLException {
+        String query = "select * from " + databaseName + ".ProjectMember";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying members table");
+        return rs;
+    }
+
     public ResultSet getComponents() throws SQLException {
         String query = "select * from " + databaseName + ".Component";
         PreparedStatement preparedStmt = conn.prepareStatement(query);

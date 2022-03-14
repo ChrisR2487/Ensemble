@@ -24,7 +24,7 @@ public class ProjDeleteController implements Initializable {
         remCheckBox.setText(remCheckBox.getText() + curProject.getTitle() + "?");
     }
 
-    public void onSubmit_onClick(Event e) throws IOException, SQLException {
+    public void onSubmit_onClick(Event e) throws IOException, SQLException, InterruptedException {
         // Check for confirmed
         if (!remCheckBox.isSelected()) return;
 
@@ -32,9 +32,9 @@ public class ProjDeleteController implements Initializable {
         Database db = new Database();
         HashMap<String, String> log = new HashMap<>();
         log.put("pid", String.valueOf(Main.curProject.getPid()));
-        //log.put("manid", String.valueOf(Main.account.getId()));                     //TODO - hook up to account class and uncomment these lines
+        log.put("manid", String.valueOf(Main.account.getId()));
         log.put("message", "Delete Project, reason: " + logBox.getText());
-        //db.createLog();                                                             //TODO - uncomment with completed method
+        db.createLog(log);
 
 
         // Delete project

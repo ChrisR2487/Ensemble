@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.createIssueController">
+    <children>
+        <!-- Create issue label -->
+        <Label layoutX="226.0" layoutY="171.0" prefHeight="43.0" prefWidth="214.0" text="Create Issue" textFill="WHITE">
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Label>
+
+        <!-- Form buttons -->
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1068.0" layoutY="883.0" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #fb5656;" text="Cancel">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+        </Button>
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1258.0" layoutY="883.0" mnemonicParsing="false" onAction="#submitIssue_onClick" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #7ed957;" text="Submit">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+        </Button>
+
+        <!-- Issue fields -->
+        <TitledPane animated="false" collapsible="false" layoutX="226.0" layoutY="222.0" prefHeight="608.0" prefWidth="1198.0" text="Description">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="1193.0">
+               <children>
+                  <ScrollPane layoutX="1.0" layoutY="-5.0" prefHeight="569.0" prefWidth="1200.0" vbarPolicy="ALWAYS">
+                     <content>
+                        <TextField fx:id="descriptionField" alignment="TOP_LEFT" prefHeight="543.0" prefWidth="1176.0" promptText="Enter Description Here">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+         </content>
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </TitledPane>
+            <!-- TODO: Add radio buttons for issue type -->
+    </children>
+</AnchorPane>

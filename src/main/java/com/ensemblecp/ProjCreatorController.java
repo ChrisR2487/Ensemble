@@ -54,7 +54,7 @@ public class ProjCreatorController implements Initializable {
         ArrayList<MemberRow> rowArrayList = new ArrayList<MemberRow>();
         try {
             Database db = new Database();
-            ResultSet rs = db.getMembers();                    //todo - create members table
+            ResultSet rs = db.getMembers();
             while (rs.next()) {
                 MemberRow mr = new MemberRow();
                 mr.setName(rs.getString("name"));
