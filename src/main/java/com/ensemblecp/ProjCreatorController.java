@@ -117,7 +117,7 @@ public class ProjCreatorController implements Initializable {
         info.put("issueScore", "0"); // TODO: Fix this later for real issue score, set as value of hashmap
 
         // Get manager ID
-        info.put("manId", "1");
+        info.put("manid", String.valueOf(Main.account.getId()));
             // TODO: Get manid of current user, set as value of hashmap
 
         // Add data record
