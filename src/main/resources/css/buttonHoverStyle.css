@@ -1,0 +1,7 @@
+.my-btn-class {
+    -fx-text-fill: white;
+}
+
+.my-btn-class:hover {
+    -fx-text-fill: gray;
+}

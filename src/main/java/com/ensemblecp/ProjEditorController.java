@@ -3,12 +3,15 @@ package com.ensemblecp;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -16,8 +19,8 @@ public class ProjEditorController implements Initializable {
     @FXML TextField investmentCostsField;
     @FXML TextField descriptionField;
     @FXML TextField titleField;
-    @FXML TextField kickoffField;
-    @FXML TextField deadlineField;
+    @FXML DatePicker kickoffField;
+    @FXML DatePicker deadlineField;
     @FXML TextField tag1Field;
     @FXML TextField tag2Field;
     @FXML TextField tag3Field;
@@ -29,8 +32,8 @@ public class ProjEditorController implements Initializable {
         investmentCostsField.setText(String.valueOf(Main.curProject.getInvestmentCosts()));
         descriptionField.setText(Main.curProject.getDescription());
         titleField.setText(Main.curProject.getTitle());
-        kickoffField.setText(Main.curProject.getKickoff().toString());
-        deadlineField.setText(Main.curProject.getDeadline().toString());
+        kickoffField.setValue(LOCAL_DATE(Main.curProject.getKickoff().toString()));
+        deadlineField.setValue(LOCAL_DATE(Main.curProject.getDeadline().toString()));
         tag1Field.setText(Main.curProject.getTag1());
         tag2Field.setText(Main.curProject.getTag2());
         tag3Field.setText(Main.curProject.getTag3());
@@ -38,17 +41,24 @@ public class ProjEditorController implements Initializable {
         budgetField.setText(String.valueOf(Main.curProject.getBudget()));
     }
 
+    public static LocalDate LOCAL_DATE (String dateString){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(dateString, formatter);
+    }
+
     @FXML
     public void modifyProject_onClick(Event e) throws SQLException, IOException {
         // Get data
         HashMap<String, String> info = new HashMap<String, String>();
         info.put("pid", String.valueOf(Main.curProject.getPid()));
-        info.put("title", titleField.getText());
+        info.put("title", titleField.getText());                            //TODO - ensure not a duplicate project name
+
         info.put("description", descriptionField.getText());
-        info.put("investmentCosts", investmentCostsField.getText());
-        info.put("budget", budgetField.getText());
-        info.put("kickoff", kickoffField.getText());
-        info.put("deadline", deadlineField.getText());
+
+        info.put("investmentCosts", investmentCostsField.getText());        //TODO - ensure proper data type
+        info.put("budget", budgetField.getText());                          //TODO - ensure proper data type
+        info.put("kickoff", kickoffField.getValue().toString());
+        info.put("deadline", deadlineField.getValue().toString());
         info.put("tag1", tag1Field.getText());
         info.put("tag2", tag2Field.getText());
         info.put("tag3", tag3Field.getText());
