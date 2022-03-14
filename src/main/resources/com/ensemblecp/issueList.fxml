@@ -30,7 +30,6 @@
             <Image url="@../button_imgs/AddCom.png" />
          </image>
       </ImageView>
-      <Button layoutX="1292.0" layoutY="111.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="A" />
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="177.0" AnchorPane.leftAnchor="27.0">
             <children>
                 <HBox onMouseClicked="#dashButton_onClick" prefHeight="25.0" prefWidth="160.0">
