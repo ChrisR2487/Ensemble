@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.security.auth.login.FailedLoginException;
 import java.awt.*;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -67,7 +68,8 @@ public class Main extends Application {
                 account = new Account(rs, AccountType.MEMBER);
             } catch (SQLException e) {
                 // No matches found despite login successful, throw error
-                throw new IllegalStateException("Error while processing login.");
+                System.out.println("Error while processing login, stopping software.");
+                System.exit(ExitStatusType.FAILED_LOGIN);
             }
         }
         else {
@@ -99,4 +101,11 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws SQLException { launch();}
+}
+
+class ExitStatusType {
+    public final static int EXIT_BUTTON = 0;
+    public final static int FAILED_LOAD = -1;
+    public final static int FAILED_QUERY = -2;
+    public final static int FAILED_LOGIN = -3;
 }

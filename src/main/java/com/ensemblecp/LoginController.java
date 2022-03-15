@@ -29,7 +29,7 @@ public class LoginController implements Initializable {
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
-        System.exit(-1);
+        System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
     public void verifyLogin(ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException { // TODO: Confirm this works

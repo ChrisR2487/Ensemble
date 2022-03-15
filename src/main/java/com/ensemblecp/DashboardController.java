@@ -37,23 +37,31 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Create projectRow list
         ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
-        try {
-            Database db = new Database();
-            ResultSet rs = db.getProjects();
-            while (rs.next()) {
-                ProjectRow pr = new ProjectRow();
-                pr.setTitle(rs.getString("title"));
-                pr.setComplete(String.valueOf(rs.getBoolean("complete")));
-                pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
-                pr.setKickoff(rs.getDate("kickoff").toString());
-                pr.setDeadline(rs.getDate("deadline").toString());
-                pr.setPid(String.valueOf(rs.getInt("pid")));
-                rowArrayList.add(pr);
+        int tryCount = 0;
+        while (tryCount < 10) {
+            try {
+                Database db = new Database();
+                ResultSet rs = db.getProjects();
+                while (rs.next()) {
+                    ProjectRow pr = new ProjectRow();
+                    pr.setTitle(rs.getString("title"));
+                    pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+                    pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
+                    pr.setKickoff(rs.getDate("kickoff").toString());
+                    pr.setDeadline(rs.getDate("deadline").toString());
+                    pr.setPid(String.valueOf(rs.getInt("pid")));
+                    rowArrayList.add(pr);
+                }
+                db.closeDB();
+            } catch (SQLException e) {
+                System.out.println("Failed to start dashboard, trying again...");
+                tryCount++;
             }
-            db.closeDB();
         }
-        catch (SQLException e) {
-            e.printStackTrace(); // TODO: Add better handling for loop
+        if (tryCount == 10) {
+            // Failed to load dashboard
+            System.out.println("Unable to initialize dashboard with database info, stopping program.");
+            System.exit(ExitStatusType.FAILED_LOAD);
         }
 
         // Convert to array
@@ -159,7 +167,7 @@ public class DashboardController implements Initializable {
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
-        System.exit(-1);
+        System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
     public void dashButton_onClick(Event actionEvent) throws IOException {

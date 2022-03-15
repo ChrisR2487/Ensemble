@@ -41,7 +41,7 @@ public class ProjViewScreenController implements Initializable {
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
-        System.exit(-1);
+        System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
     public void dashButton_onClick(Event mouseEvent) throws IOException {

@@ -85,7 +85,7 @@ public class ProjTeamController implements Initializable {
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
-        System.exit(-1);
+        System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
     public void dashButton_onClick(Event actionEvent) throws IOException {
