@@ -76,7 +76,7 @@ public class ProjOverviewController implements Initializable {
     }
 
     public void viewOverview_onClick(ActionEvent actionEvent) throws IOException {
-        Main.show("projViewScreen");
+        Main.show("projOverview");
     }
 
     public void viewBenchmark_onClick(ActionEvent actionEvent) {

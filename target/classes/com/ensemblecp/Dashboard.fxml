@@ -7,6 +7,7 @@
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="root" prefHeight="1080" prefWidth="1920" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.DashboardController">
    <children>
+      <!-- Side nav bar -->
       <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
          <children>
             <HBox onMouseClicked="#dashButton_onClick" prefHeight="25.0" prefWidth="160.0">
@@ -60,6 +61,7 @@
             </HBox>
          </children>
       </VBox>
+      <!-- Software and screen names -->
       <Label layoutX="14.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
          <font>
             <Font size="26.0" />
@@ -69,22 +71,22 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <VBox layoutX="1439.0" layoutY="119.0" prefHeight="607.0" prefWidth="427.0">
-         <children>
-            <Label text="Notifications" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
+
+      <!-- Notifications stuff -->
+      <Label layoutX="1439.0" layoutY="119.0" text="Notifications" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+
+      <!-- Project stuff -->
       <TableView fx:id="projectTable" layoutX="212.0" layoutY="798.0" prefHeight="200.0" prefWidth="1181.0">
         <columns>
-          <TableColumn fx:id="statusColumn" prefWidth="99.0" text="Status" />
-          <TableColumn fx:id="titleColumn" prefWidth="86.0" text="Title" />
-            <TableColumn fx:id="remainColumn" prefWidth="138.0" text="Remaining Budget" />
-            <TableColumn fx:id="kickoffColumn" prefWidth="103.0" text="Start Date" />
-            <TableColumn fx:id="deadlineColumn" prefWidth="94.0" text="End Date" />
+           <TableColumn fx:id="statusColumn" prefWidth="99.0" text="Status" />
+           <TableColumn fx:id="titleColumn" prefWidth="86.0" text="Title" />
+           <TableColumn fx:id="remainColumn" prefWidth="138.0" text="Remaining Budget" />
+           <TableColumn fx:id="kickoffColumn" prefWidth="103.0" text="Start Date" />
+           <TableColumn fx:id="deadlineColumn" prefWidth="94.0" text="End Date" />
         </columns>
       </TableView>
       <Label layoutX="212.0" layoutY="752.0" prefHeight="38.0" prefWidth="141.0" text="Projects" textFill="WHITE">
@@ -92,21 +94,23 @@
             <Font size="26.0" />
          </font>
       </Label>
+
+      <!-- Add project button TODO: Set as image -->
       <Button layoutX="310.0" layoutY="760.0" mnemonicParsing="false" onAction="#add_onClick" text="+" />
-      <VBox layoutX="1439.0" layoutY="798.0" prefHeight="200.0" prefWidth="443.0">
-         <children>
-            <HBox prefHeight="26.0" prefWidth="443.0">
-               <children>
-                  <Label text="All Members" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+
+      <!-- Member list -->
+      <Label prefHeight="26.0" layoutX="1439.0" layoutY="752.0" prefWidth="443.0" text="All Members" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <TableView fx:id="membersTable" layoutX="1439.0" layoutY="798.0" prefHeight="200.0" prefWidth="443.0">
+         <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="99.0" text="Name" />
+            <TableColumn fx:id="memberStatusColumn" prefWidth="86.0" text="Status" />
+         </columns>
+      </TableView>
+
       <!-- Close button -->
       <Button fx:id="exitButton" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" text="X" textFill="WHITE">
          <font>

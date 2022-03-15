@@ -64,9 +64,6 @@ public class Project {
         this.tag4 = projectInfo.getString("tag4");
         this.complete = projectInfo.getBoolean("complete");
         this.manid = projectInfo.getInt("manid");
-
-        // Check for overbudget
-            // TODO: Add this functionality to check for overbudget
     }
 
     /**

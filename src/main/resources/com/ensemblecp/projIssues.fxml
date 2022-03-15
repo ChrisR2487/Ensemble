@@ -10,36 +10,51 @@
             <!-- Project actions -->
         <!-- Refresh ROI -->
         <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="1819.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../button_imgs/RefreshROI.png" />
-         </image>
-      </ImageView>
+            <image>
+                <Image url="@../button_imgs/RefreshROI.png" />
+            </image>
+        </ImageView>
         <Button layoutX="1818.0" layoutY="105.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="RR">
             <font>
                 <Font size="14.0" />
             </font>
+            <tooltip>
+                <Tooltip text="Refresh ROI" />
+            </tooltip>
         </Button>
         <!-- Remove project -->
         <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="1390.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../button_imgs/Remove.png" />
-         </image>
+            <image>
+                <Image url="@../button_imgs/Remove.png" />
+            </image>
         </ImageView>
-        <Button layoutX="1397.0" layoutY="116.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R" />
+        <Button layoutX="1397.0" layoutY="116.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R">
+            <tooltip>
+                <Tooltip text="Remove Project" />
+            </tooltip>
+        </Button>
         <!-- Edit project -->
         <ImageView fitHeight="29.0" fitWidth="31.0" layoutX="1346.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../button_imgs/Edit.png" />
-         </image>
-      </ImageView>
-        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E" />
+            <image>
+                <Image url="@../button_imgs/Edit.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E">
+            <tooltip>
+                <Tooltip text="Edit Project" />
+            </tooltip>
+        </Button>
         <!-- Add component -->
         <ImageView fitHeight="36.0" fitWidth="31.0" layoutX="1291.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../button_imgs/AddCom.png" />
-         </image>
-      </ImageView>
-        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C" />
+            <image>
+                <Image url="@../button_imgs/AddCom.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C">
+            <tooltip>
+                <Tooltip text="Add Component" />
+            </tooltip>
+        </Button>
 
         <!-- Side nav bar -->
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -97,13 +112,13 @@
         </VBox>
 
         <!-- Software and Project name -->
-        <Label layoutX="22.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
+        <Label layoutX="14.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
             <font>
                 <Font size="26.0" />
             </font></Label>
-        <Label fx:id="titleLabel" layoutX="212.0" layoutY="67.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE">
+        <Label fx:id="titleLabel" layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE">
             <font>
-                <Font name="System Bold" size="24.0" />
+                <Font size="26.0" />
             </font>
         </Label>
 
@@ -176,7 +191,7 @@
                  </font>
              </Label>
          </children></VBox>
-        <Label layoutX="1455.0" layoutY="100.0" text="Insights" textFill="WHITE">
+        <Label layoutX="1453.0" layoutY="94.0" text="Insights" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>

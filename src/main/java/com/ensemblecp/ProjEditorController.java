@@ -76,13 +76,13 @@ public class ProjEditorController implements Initializable {
         ResultSet rs = db.updateProject(info);
         Main.curProject.update(rs);
         db.closeDB();
-        Main.show("projViewScreen");
+        Main.show("projOverview");
     }
 
     @FXML
     public void cancelModify_onClick(Event e) throws IOException {
         // Cancel project modification
-        Main.show("ProjViewScreen");
+        Main.show("projOverview");
     }
 
 }

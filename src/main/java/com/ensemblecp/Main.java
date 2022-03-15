@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import javax.security.auth.login.FailedLoginException;
 import java.awt.*;
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -18,8 +17,9 @@ public class Main extends Application {
     public static Project curProject;
     private static Stage mainStage;
     public static ArrayList<Project> projects;
-    public final static int cacheLimit = 5;
+    public final static int CACHE_LIMIT = 5;
     public static Account account;
+    public final static int ATTEMPT_LIMIT = 10;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -27,7 +27,7 @@ public class Main extends Application {
         mainStage = stage;
         mainStage.setTitle("Ensemble");
         stage.initStyle(StageStyle.UNDECORATED);
-        projects = new ArrayList<Project>(cacheLimit+1);
+        projects = new ArrayList<Project>(CACHE_LIMIT +1);
 
         // Show startup screen
         show("login");
@@ -69,6 +69,7 @@ public class Main extends Application {
             } catch (SQLException e) {
                 // No matches found despite login successful, throw error
                 System.out.println("Error while processing login, stopping software.");
+                db.closeDB();
                 System.exit(ExitStatusType.FAILED_LOGIN);
             }
         }
@@ -82,8 +83,8 @@ public class Main extends Application {
 
     public static void trimCache() {
         // Trims the Main.projects cache if necessary
-        if (Main.projects.size() > cacheLimit) {
-            Main.projects.remove(cacheLimit);
+        if (Main.projects.size() > CACHE_LIMIT) {
+            Main.projects.remove(CACHE_LIMIT);
         }
     }
 

@@ -51,21 +51,31 @@ public class ProjCreatorController implements Initializable {
         deadlineField.setValue(LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
 
         // Create memberRow list
-        ArrayList<MemberRow> rowArrayList = new ArrayList<MemberRow>();
-        try {
-            Database db = new Database();
-            ResultSet rs = db.getMembers();
-            while (rs.next()) {
-                MemberRow mr = new MemberRow();
-                mr.setName(rs.getString("name"));
-                mr.setPosition(rs.getString("position"));
-                mr.setMemid(String.valueOf(rs.getInt("memid")));
-                rowArrayList.add(mr);
+        ArrayList<MemberRow> rowArrayList = new ArrayList<>();
+        int tryCount = 0;
+        while (tryCount < Main.ATTEMPT_LIMIT) {
+            try {
+                rowArrayList = new ArrayList<>();
+                Database db = new Database();
+                ResultSet rs = db.getMembers();
+                while (rs.next()) {
+                    MemberRow mr = new MemberRow();
+                    mr.setName(rs.getString("name"));
+                    mr.setPosition(rs.getString("position"));
+                    mr.setMemid(String.valueOf(rs.getInt("memid")));
+                    rowArrayList.add(mr);
+                }
+                db.closeDB();
+                break;
+            } catch (SQLException e) {
+                System.out.println("Failed to load member table, trying again...");
+                tryCount++;
             }
-            db.closeDB();
         }
-        catch (SQLException e) {
-            e.printStackTrace(); // TODO: Add better handling for loop
+        if (tryCount == Main.ATTEMPT_LIMIT) {
+            // Failed to load dashboard
+            System.out.println("Unable to load members table, ending load execution.");
+            return;
         }
 
         // Convert to array
@@ -114,18 +124,20 @@ public class ProjCreatorController implements Initializable {
         info.put("roi", "0"); // TODO: Fix this to get predicated ROI, set as value of hashmap
 
         // Get issue score
-        info.put("issueScore", "0"); // TODO: Fix this later for real issue score, set as value of hashmap
+        float score = 0.0f; // Base score
+        score += IssueScore.checkOverdue(info.get("kickoff"), info.get("deadline"));
+        score += IssueScore.checkOverbudget(Float.parseFloat(info.get("investmentCosts")), Float.parseFloat(info.get("budget")));
+        info.put("issueScore", String.valueOf(score));
 
         // Get manager ID
         info.put("manid", String.valueOf(Main.account.getId()));
-            // TODO: Get manid of current user, set as value of hashmap
 
         // Add data record
         Database db = new Database();
         ResultSet rs = db.createProject(info);
 
         // Add team members
-            // TODO: Create Team Project table and add members selected
+            // TODO: add members selected to team
 
         // Add project to Main cache
         Main.curProject = new Project(rs, null, db);
@@ -136,7 +148,7 @@ public class ProjCreatorController implements Initializable {
         db.closeDB();
 
         // Display proper view
-        Main.show("projViewScreen");
+        Main.show("projOverview");
     }
 
     @FXML

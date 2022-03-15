@@ -63,4 +63,14 @@ class IssueScore {
     public final static float ISSUE_BUDGET = 10.0f; // Fix
     public final static float ISSUE_TIMELINE = 10.0f; // Fix
     public final static float ISSUE_MESSAGE = 0.0f; // TODO: Make sure this name is good
+
+    public static float checkOverdue(String kickoff, String deadline) {
+            // TODO: Check for overdue
+        return 0.0f;
+    }
+
+    public static float checkOverbudget(float investmentCosts, float budget) {
+        // Check for overbudget
+        return (budget-investmentCosts) < 0.0f ? IssueScore.PROJECT_OVERBUDGET: 0.0f;
+    }
 }

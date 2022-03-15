@@ -47,7 +47,7 @@ public class ProjDeleteController implements Initializable {
     }
 
     public void onCancel_onClick(Event e) throws IOException {
-        Main.show("projViewScreen");
+        Main.show("projOverview");
     }
 
 }

@@ -52,7 +52,6 @@ public class LoginController implements Initializable {
         do {
             // Compute hash
             String inputHash = hashInput(userMatches.getString("salt") + pass);
-
             // Check for password equality
             if (inputHash.equals(userMatches.getString("password"))) {
                 // Account found

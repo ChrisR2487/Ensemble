@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DashboardController implements Initializable {
     @FXML private AnchorPane root;
@@ -33,36 +34,61 @@ public class DashboardController implements Initializable {
     @FXML private TableColumn<ProjectRow, String> kickoffColumn;
     @FXML private TableColumn<ProjectRow, String> deadlineColumn;
 
+    @FXML private TableView membersTable;
+    @FXML private TableColumn<MemberRow, String> nameColumn;
+    @FXML private TableColumn<MemberRow, String> memberStatusColumn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Create projectRow list
-        ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
+        // Setup project list
         int tryCount = 0;
-        while (tryCount < 10) {
+        while (tryCount < Main.ATTEMPT_LIMIT) {
             try {
-                Database db = new Database();
-                ResultSet rs = db.getProjects();
-                while (rs.next()) {
-                    ProjectRow pr = new ProjectRow();
-                    pr.setTitle(rs.getString("title"));
-                    pr.setComplete(String.valueOf(rs.getBoolean("complete")));
-                    pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
-                    pr.setKickoff(rs.getDate("kickoff").toString());
-                    pr.setDeadline(rs.getDate("deadline").toString());
-                    pr.setPid(String.valueOf(rs.getInt("pid")));
-                    rowArrayList.add(pr);
-                }
-                db.closeDB();
-            } catch (SQLException e) {
+                setupProjectList();
+                break;
+            } catch (SQLException | IOException e) {
                 System.out.println("Failed to start dashboard, trying again...");
                 tryCount++;
             }
         }
-        if (tryCount == 10) {
+        if (tryCount == Main.ATTEMPT_LIMIT) {
             // Failed to load dashboard
             System.out.println("Unable to initialize dashboard with database info, stopping program.");
             System.exit(ExitStatusType.FAILED_LOAD);
         }
+
+        // Setup company timeline
+        int tryCount2 = 0;
+        while (tryCount2 < Main.ATTEMPT_LIMIT) {
+            try {
+                setupCompanyTimeline();
+                break;
+            } catch (SQLException e) {
+                System.out.println("Failed to load company timeline, trying again...");
+                tryCount2++;
+            }
+        }
+        if (tryCount2 == Main.ATTEMPT_LIMIT) {
+            // Failed to load dashboard
+            System.out.println("Unable to load company timeline, end execution.");
+        }
+    }
+
+    private void setupProjectList() throws SQLException, IOException {
+        ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
+        Database db = new Database();
+        ResultSet rs = db.getProjects();
+        while (rs.next()) {
+            ProjectRow pr = new ProjectRow();
+            pr.setTitle(rs.getString("title"));
+            pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+            pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
+            pr.setKickoff(rs.getDate("kickoff").toString());
+            pr.setDeadline(rs.getDate("deadline").toString());
+            pr.setPid(String.valueOf(rs.getInt("pid")));
+            rowArrayList.add(pr);
+        }
+        db.closeDB();
 
         // Convert to array
         ProjectRow[] rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
@@ -81,19 +107,22 @@ public class DashboardController implements Initializable {
         TableView.TableViewSelectionModel<ProjectRow> mod = projectTable.getSelectionModel();
         ObservableList<ProjectRow> sel = mod.getSelectedItems();
         sel.addListener((ListChangeListener<ProjectRow>) change -> {
-            try {
-                onChange(change);
-            } catch (IOException | SQLException e) {
-                e.printStackTrace(); // TODO: Handle error better
+            int tryCount = 0;
+            while (tryCount < Main.ATTEMPT_LIMIT) {
+                try {
+                    onChange(change);
+                    break;
+                } catch (IOException | SQLException e) {
+                    System.out.println("Failed to start project view, trying again...");
+                    System.out.println(e);
+                    tryCount++;
+                }
+            }
+            if (tryCount == Main.ATTEMPT_LIMIT) {
+                // Failed to load dashboard
+                System.out.println("Unable to load project view, end listener execution.");
             }
         });
-
-        // Setup company timeline
-        try {
-            setupCompanyTimeline();
-        } catch (SQLException e) {
-            e.printStackTrace(); // TODO: Handle error better
-        }
     }
 
     private void setupCompanyTimeline() throws SQLException {
@@ -163,7 +192,7 @@ public class DashboardController implements Initializable {
         Main.curProject = projInCache;
 
         // Display screen
-        Main.show("projViewScreen");
+        Main.show("projOverview");
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
