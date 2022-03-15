@@ -14,9 +14,11 @@
          </font>
       </Label>
       <!-- Close button -->
-      <ImageView fx:id="exitButton" onMouseClicked="#exitButton_onClick" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-         <Image url="@../button_imgs/close_button.png" />
-      </ImageView>
+      <Button fx:id="exitButton" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css"  AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" text="X" textFill="WHITE">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
       <!-- Login fields -->
       <TextField id="usernameField" fx:id="usernameField" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="150.0" />
       <PasswordField fx:id="passwordField" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="250.0" />

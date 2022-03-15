@@ -184,12 +184,14 @@
         </Label>
 
         <!-- Exit button -->
-        <ImageView fx:id="exitButton" fitHeight="32.0" fitWidth="30.0" layoutX="1869.0" layoutY="22.0" onMouseClicked="#exitButton_onClick">
-            <Image url="@../button_imgs/close_button.png" />
-        </ImageView>
+        <Button fx:id="exitButton" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" text="X" textFill="WHITE">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Button>
 
         <!-- Project nav bar -->
-        <Button onAction="#viewOverview_onClick" layoutX="174.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="#a1a1a1">
+        <Button onAction="#viewOverview_onClick" layoutX="174.0" layoutY="93.0" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="#a1a1a1">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -197,7 +199,7 @@
             <Font size="35.0" />
          </font>
       </Button>
-        <Button onAction="#viewBenchmark_onClick" layoutX="420.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" text="Benchmark Timeline" textFill="#a1a1a1">
+        <Button onAction="#viewBenchmark_onClick" layoutX="420.0" layoutY="93.0" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" mnemonicParsing="false" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" text="Benchmark Timeline" textFill="#a1a1a1">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -205,7 +207,7 @@
             <Font size="35.0" />
          </font>
       </Button>
-        <Button onAction="#viewTeam_onClick" layoutX="844.0" layoutY="93.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Members" textFill="#a1a1a1">
+        <Button onAction="#viewTeam_onClick" layoutX="844.0" layoutY="93.0" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Members" textFill="#a1a1a1">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -213,7 +215,7 @@
             <Font size="35.0" />
          </font>
       </Button>
-        <Button onAction="#viewIssue_onClick" layoutX="1066.0" layoutY="94.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Issues" textFill="WHITE">
+        <Button onAction="#viewIssue_onClick" layoutX="1066.0" layoutY="94.0" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Issues" textFill="WHITE">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -231,7 +233,7 @@
          </columns>
       </TableView>
         <!-- Create issue -->
-        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1145.0" layoutY="946.0" mnemonicParsing="false" onAction="#createIssue_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" text="Create Issue" textFill="WHITE">
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1145.0" layoutY="946.0" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" mnemonicParsing="false" onAction="#createIssue_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" text="Create Issue" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
