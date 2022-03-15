@@ -11,7 +11,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class IssueListController implements Initializable {
+// ProjViewScreen Class
+public class ProjOverviewController implements Initializable {
     @FXML Label tagsLabel;
     @FXML Label roiLabel;
     @FXML Label budgetLabel;
@@ -22,6 +23,7 @@ public class IssueListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Set insight data
         tagsLabel.setText(tagsLabel.getText() + "\n\t" +
                 Main.curProject.getTag1() + "\n\t" +
                 Main.curProject.getTag2() + "\n\t" +
@@ -33,6 +35,9 @@ public class IssueListController implements Initializable {
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
         titleLabel.setText(Main.curProject.getTitle());
+
+        // Set component data
+            // TODO: Add components to view
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
@@ -50,6 +55,10 @@ public class IssueListController implements Initializable {
     public void archiveButton_onClick(Event mouseEvent) {
     }
 
+    public void addFile_onClick(ActionEvent actionEvent) {
+        // TODO: Implement adding files
+    }
+
     public void editProjectButton_onClick(ActionEvent actionEvent) throws IOException {
         Main.show("projEditor");
     }
@@ -60,10 +69,6 @@ public class IssueListController implements Initializable {
 
     public void addComponentButton_onClick(ActionEvent event) throws IOException {
         Main.show("compCreator");
-    }
-
-    public void createIssue_onClick(ActionEvent actionEvent) throws IOException {
-        Main.show("createIssue");
     }
 
     public void viewTeam_onClick(ActionEvent event) throws IOException {
@@ -79,6 +84,7 @@ public class IssueListController implements Initializable {
     }
 
     public void viewIssue_onClick(ActionEvent event) throws IOException {
-        Main.show("issueList");
+        Main.show("projIssues");
     }
 }
+

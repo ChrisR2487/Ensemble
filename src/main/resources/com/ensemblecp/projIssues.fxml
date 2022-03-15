@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.IssueListController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjIssuesController">
     <children>
             <!-- Project actions -->
         <!-- Refresh ROI -->

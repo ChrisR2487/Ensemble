@@ -120,7 +120,7 @@ public class ProjTeamController implements Initializable {
     }
 
     public void viewIssue_onClick(ActionEvent event) throws IOException {
-        Main.show("issueList");
+        Main.show("projIssues");
     }
 
     public void addComponentButton_onClick(ActionEvent event) throws IOException {
