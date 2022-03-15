@@ -3,8 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
+<?import javafx.scene.text.Font?>
 <BorderPane prefHeight="546.0" prefWidth="806.0" stylesheets="@../../css/compCreatorStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CompController">
    <center>
       <VBox prefHeight="200.0" prefWidth="614.0" BorderPane.alignment="CENTER">

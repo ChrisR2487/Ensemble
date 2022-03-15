@@ -55,3 +55,12 @@ class IssueType {
     public final static int SEEN = 1;
     public final static int DONE = 2;
 }
+
+class IssueScore {
+    public final static float PROJECT_OVERBUDGET = 10.0f; // TODO: Fix to proper values
+    public final static float PROJECT_OVERDUE = 10.0f; // Fix
+    public final static float TASK_OVERDUE = 10.0f; // Fix
+    public final static float ISSUE_BUDGET = 10.0f; // Fix
+    public final static float ISSUE_TIMELINE = 10.0f; // Fix
+    public final static float ISSUE_MESSAGE = 0.0f; // TODO: Make sure this name is good
+}

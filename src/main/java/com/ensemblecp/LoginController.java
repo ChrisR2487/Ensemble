@@ -11,11 +11,11 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.security.MessageDigest;
 
 public class LoginController implements Initializable {
     @FXML private TextField usernameField;
@@ -54,8 +54,6 @@ public class LoginController implements Initializable {
             String inputHash = hashInput(userMatches.getString("salt") + pass);
 
             // Check for password equality
-            System.out.println(userMatches.getString("password"));
-            System.out.println(inputHash);
             if (inputHash.equals(userMatches.getString("password"))) {
                 // Account found
                 Main.disableScreen(); // Disable screen

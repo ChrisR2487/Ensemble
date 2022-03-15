@@ -1,16 +1,9 @@
 package com.ensemblecp;
 
 // Java libraries
-import java.io.IOException;
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
-// JavaFX libraries
-import com.flexganttfx.view.graphics.GraphicsBase;
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.view.GanttChart;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -23,11 +16,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-// Flexgantt libraries
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.view.GanttChart;
-import com.flexganttfx.model.Activity;
-import javafx.util.Callback;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
     @FXML private AnchorPane root;

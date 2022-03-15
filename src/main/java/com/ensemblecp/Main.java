@@ -8,8 +8,9 @@ import javafx.stage.StageStyle;
 
 import java.awt.*;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.*;
 
 public class Main extends Application {
     private final static boolean IS_FULLSCREEN = true;

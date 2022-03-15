@@ -1,11 +1,11 @@
 package com.ensemblecp;
 
 // Flexgantt libraries
+
 import com.flexganttfx.model.Activity;
 import com.flexganttfx.model.Row;
 import com.flexganttfx.model.activity.MutableActivityBase;
 
-// Java libraries
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
