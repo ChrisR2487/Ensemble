@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.issueListController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/issueListStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.issueListController">
     <children>
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
             <children>
@@ -153,12 +153,11 @@
         </Label> <!-- Insights label -->
         <!-- Project team table -->
         <TableView fx:id="issueTable" layoutX="218.0" layoutY="169.0" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="527.0" AnchorPane.topAnchor="169.0">
-            <columns> <!-- TODO: Check if we want to use photos -->
-                <TableColumn fx:id="nameColumn" text="Name" />
-                <TableColumn fx:id="memidColumn" prefWidth="89.0" text="Member ID" /> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
-                <TableColumn fx:id="DescriptionColumn" prefWidth="85.0" text="Description" />
-                <TableColumn fx:id="positionColumn" prefWidth="105.0" text="Position" />
-            <TableColumn fx:id="scoreColumn" prefWidth="75.0" text="Score" />
+            <columns>
+                <TableColumn fx:id="isidColumn" prefWidth="89.0" text="Issue ID" /> <!-- TODO: Check if we want to use photos -->
+                <TableColumn fx:id="nameColumn" text="Name" /> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
+                <TableColumn fx:id="messageColumn" prefWidth="85.0" text="Message" />
+                <TableColumn fx:id="scoreColumn" prefWidth="75.0" text="Score" />
             </columns>
         </TableView>
         <!-- Project action buttons -->

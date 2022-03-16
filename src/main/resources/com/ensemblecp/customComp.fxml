@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/compCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.customCompController">
+<BorderPane prefHeight="634.0" prefWidth="919.0" stylesheets="@../../css/compCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.customCompController">
    <top>
       <HBox prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -17,33 +17,40 @@
              <ImageView fx:id="exitButton" fitHeight="50.0" fitWidth="40.0" onMouseClicked="#exitButton_onClick" pickOnBounds="true" preserveRatio="true">
                  <Image url="@../button_imgs/close_button.png" />
                <HBox.margin>
-                  <Insets left="380.0" />
+                  <Insets left="690.0" />
                </HBox.margin>
              </ImageView>
          </children>
       </HBox>
    </top>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+   <left>
+      <VBox prefHeight="443.0" prefWidth="730.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="47.0" prefWidth="600.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="Create New Component" textFill="WHITE">
+                  <Label text="Create your Template" textFill="WHITE">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="20.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="70.0" top="10.0" />
-                     </HBox.margin></RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Delete Component" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="120.0" top="10.0" />
-                     </HBox.margin></RadioButton>
+                        <Insets left="30.0" top="30.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
             </HBox>
+            <HBox prefHeight="31.0" prefWidth="919.0">
+               <children>
+                  <Label text="Select input type:" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" top="30.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox prefHeight="205.0" prefWidth="919.0" />
          </children></VBox>
-   </center>
+   </left>
 </BorderPane>
