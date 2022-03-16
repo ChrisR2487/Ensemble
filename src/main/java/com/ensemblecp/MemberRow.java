@@ -38,16 +38,19 @@ public class MemberRow {
         return photo;
     }
 
-    private CheckBoxTableCell select = new CheckBoxTableCell();
-    public void setSelect(CheckBoxTableCell value) { this.select = value; }
-    public CheckBoxTableCell getSelect() { return this.select; }
-
-
-    private boolean isXyz = false;
-    public Boolean getIsXyz() {
-        return this.isXyz;
+    private boolean select = false;
+    public Boolean getSelect() {
+        return this.select;
     }
-    public void setIsXyz(Boolean isXyz) {
-        this.isXyz = isXyz;
+    public void setSelect(Boolean value) {
+        this.select = value;
+    }
+
+    private StringProperty status;
+    public void setStatus(String value) { statusProperty().set(value); }
+    public String getStatus() { return statusProperty().get(); }
+    public StringProperty statusProperty() {
+        if (status == null) status = new SimpleStringProperty(this, "status");
+        return status;
     }
 }

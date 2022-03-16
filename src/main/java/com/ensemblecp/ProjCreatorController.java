@@ -63,7 +63,9 @@ public class ProjCreatorController implements Initializable {
                 mr.setName(rs.getString("name"));
                 mr.setPosition(rs.getString("position"));
                 mr.setMemid(String.valueOf(rs.getInt("memid")));
-                mr.setSelect(new CheckBoxTableCell());
+                mr.setStatus(String.valueOf(rs.getInt("status")));
+                mr.setSelect(false);
+
                 rowArrayList.add(mr);
             }
             db.closeDB();
@@ -81,13 +83,13 @@ public class ProjCreatorController implements Initializable {
 
         // Set row data
         memberTable.setEditable(true);
-        selectColumn.setCellValueFactory( cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().getIsXyz()));
+        selectColumn.setCellValueFactory( cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().getSelect()));
         selectColumn.setCellFactory(CheckBoxTableCell.<MemberRow>forTableColumn(selectColumn));
         selectColumn.setEditable(true);
         nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
         positionColumn.setCellValueFactory(new PropertyValueFactory("position"));
         memIDColumn.setCellValueFactory(new PropertyValueFactory("memid"));
-        //statusColumn.setCellValueFactory(new PropertyValueFactory("status"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory("status"));
         memberTable.setItems(memberRows);
     }
 
