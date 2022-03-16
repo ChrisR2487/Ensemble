@@ -1218,7 +1218,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </column>
     <column id="316" parent="296" name="salt">
       <Position>3</Position>
-      <DataType>varchar(10)|0s</DataType>
+      <DataType>varchar(60)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="317" parent="296" name="password">
