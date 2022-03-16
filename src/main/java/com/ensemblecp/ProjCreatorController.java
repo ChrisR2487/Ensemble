@@ -1,5 +1,6 @@
 package com.ensemblecp;
 
+import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -7,6 +8,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProjCreatorController implements Initializable {
+
     @FXML TextField investmentCostsField;
     @FXML TextField descriptionField;
     @FXML TextField budgetField;
@@ -35,10 +38,10 @@ public class ProjCreatorController implements Initializable {
     @FXML TextField tag4Field;
 
     @FXML private TableView<MemberRow> memberTable;
-    //@FXML private TableColumn<ProjectRow, String> nameColumn;         //todo - create column of check boxes
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> positionColumn;
     @FXML private TableColumn<MemberRow, Integer> memIDColumn;
+    @FXML private TableColumn<MemberRow, Boolean> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
 
 
@@ -60,6 +63,7 @@ public class ProjCreatorController implements Initializable {
                 mr.setName(rs.getString("name"));
                 mr.setPosition(rs.getString("position"));
                 mr.setMemid(String.valueOf(rs.getInt("memid")));
+                mr.setSelect(new CheckBoxTableCell());
                 rowArrayList.add(mr);
             }
             db.closeDB();
@@ -73,15 +77,18 @@ public class ProjCreatorController implements Initializable {
 
         // Cast to ObservableList
         List<MemberRow> rows = List.of(rowList);
-        ObservableList<MemberRow> projectRows = FXCollections.observableList(rows);
+        ObservableList<MemberRow> memberRows = FXCollections.observableList(rows);
 
         // Set row data
-        //todo - generate check boxes programmatically
+        memberTable.setEditable(true);
+        selectColumn.setCellValueFactory( cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().getIsXyz()));
+        selectColumn.setCellFactory(CheckBoxTableCell.<MemberRow>forTableColumn(selectColumn));
+        selectColumn.setEditable(true);
         nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
         positionColumn.setCellValueFactory(new PropertyValueFactory("position"));
-        //statusColumn.setCellValueFactory(new PropertyValueFactory("status"));
         memIDColumn.setCellValueFactory(new PropertyValueFactory("memid"));
-        memberTable.setItems(projectRows);
+        //statusColumn.setCellValueFactory(new PropertyValueFactory("status"));
+        memberTable.setItems(memberRows);
     }
 
     public static LocalDate LOCAL_DATE (String dateString){
@@ -101,7 +108,7 @@ public class ProjCreatorController implements Initializable {
         info.put("investmentCosts", investmentCostsField.getText());                    // TODO - error handle proper data type
         info.put("budget", budgetField.getText());
 
-        info.put("kickoff", kickoffField.getValue().toString());
+        info.put("kickoff", kickoffField.getValue().toString());                        // TODO - error handle if date range is reverse
         info.put("deadline", deadlineField.getValue().toString());
 
         info.put("tag1", tag1Field.getText());

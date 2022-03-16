@@ -1,0 +1,9 @@
+.my-img-class {
+    -fx-opacity: "100";
+}
+
+.my-img-class:hover {
+    -fx-opacity: "50";
+}
+
+--currently not working, imageviews cannot accept the stylesheet element
