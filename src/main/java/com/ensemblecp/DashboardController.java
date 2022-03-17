@@ -114,7 +114,6 @@ public class DashboardController implements Initializable {
                     break;
                 } catch (IOException | SQLException e) {
                     System.out.println("Failed to start project view, trying again...");
-                    System.out.println(e);
                     tryCount++;
                 }
             }
@@ -165,12 +164,7 @@ public class DashboardController implements Initializable {
         root.getChildren().add(gantt);
     }
 
-    @FXML
-    public void add_onClick() throws IOException {
-        Main.show("projCreator");
-    }
-
-    @FXML void onChange(ListChangeListener.Change change) throws IOException, SQLException {
+    void onChange(ListChangeListener.Change change) throws IOException, SQLException {
         // Get data
         ObservableList<ProjectRow> selectedList = change.getList();
         int pid = Integer.parseInt(selectedList.get(0).getPid());

@@ -125,7 +125,7 @@ public class ProjCreatorController implements Initializable {
 
         // Get issue score
         float score = 0.0f; // Base score
-        score += IssueScore.checkOverdue(info.get("kickoff"), info.get("deadline"));
+        score += IssueScore.checkOverdue(info.get("deadline"));
         score += IssueScore.checkOverbudget(Float.parseFloat(info.get("investmentCosts")), Float.parseFloat(info.get("budget")));
         info.put("issueScore", String.valueOf(score));
 
@@ -154,6 +154,6 @@ public class ProjCreatorController implements Initializable {
     @FXML
     public void cancelCreate_onClick(Event e) throws IOException {
         // Cancel project creation
-        Main.show("Dashboard");
+        Main.show("projList");
     }
 }

@@ -2,6 +2,7 @@ package com.ensemblecp;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class Issue {
     private int isid; // Issue id
@@ -62,15 +63,17 @@ class IssueScore {
     public final static float TASK_OVERDUE = 10.0f; // Fix
     public final static float ISSUE_BUDGET = 10.0f; // Fix
     public final static float ISSUE_TIMELINE = 10.0f; // Fix
-    public final static float ISSUE_MESSAGE = 0.0f; // TODO: Make sure this name is good
+    public final static float NO_SCORE = 0.0f; // TODO: Make sure this name is good
 
-    public static float checkOverdue(String kickoff, String deadline) {
-            // TODO: Check for overdue
-        return 0.0f;
+    public static float checkOverdue(String deadline) {
+        // Check for overdue
+        LocalDate nDate = LocalDate.now();
+        LocalDate dDate = LocalDate.parse(deadline);
+        return nDate.compareTo(dDate) > 0.0f ? IssueScore.PROJECT_OVERDUE: IssueScore.NO_SCORE;
     }
 
     public static float checkOverbudget(float investmentCosts, float budget) {
         // Check for overbudget
-        return (budget-investmentCosts) < 0.0f ? IssueScore.PROJECT_OVERBUDGET: 0.0f;
+        return (budget-investmentCosts) < 0.0f ? IssueScore.PROJECT_OVERBUDGET: IssueScore.NO_SCORE;
     }
 }

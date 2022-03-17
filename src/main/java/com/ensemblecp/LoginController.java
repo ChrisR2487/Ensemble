@@ -32,7 +32,7 @@ public class LoginController implements Initializable {
         System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
-    public void verifyLogin(ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException { // TODO: Confirm this works
+    public void verifyLogin(ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException {
         // Get user input
         String pass = passwordField.getText();
         String user = usernameField.getText();
@@ -71,7 +71,7 @@ public class LoginController implements Initializable {
         passwordField.setBorder(INVALID_BORDER);
     }
 
-    private String hashInput(String input) throws NoSuchAlgorithmException { // TODO: Confirm this works
+    private String hashInput(String input) throws NoSuchAlgorithmException {
         MessageDigest hash = MessageDigest.getInstance("SHA-256");
         byte[] inputByteHash = hash.digest(input.getBytes());
         return new String(inputByteHash);

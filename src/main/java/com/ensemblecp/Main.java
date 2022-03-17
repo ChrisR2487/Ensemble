@@ -57,7 +57,7 @@ public class Main extends Application {
         mainStage.show();
     }
 
-    public static void setCredentials(int id) throws SQLException { // TODO: Confirm this works
+    public static void setCredentials(int id) throws SQLException {
         Database db = new Database();
         ResultSet rs = db.getManagerAccount(id); // Get tuple with info
         if (!rs.next()) {

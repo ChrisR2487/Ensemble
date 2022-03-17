@@ -279,5 +279,12 @@ public class Database {
         ResultSet rs = preparedStmt.executeQuery();
         return rs;
     }
+
+    public ResultSet getProjectsWithManagerName() throws SQLException {
+        String query = "select * from " + databaseName + ".Project inner join " + databaseName + ".ProjectManager USING(manid)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
+    }
 }
 // End of Database Class
