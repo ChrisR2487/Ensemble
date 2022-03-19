@@ -1,9 +1,7 @@
 .my-img-class {
-    -fx-opacity: "100";
+    -fx-graphic: url('../../resources/com/button_imgs/Remove.png');
 }
 
 .my-img-class:hover {
-    -fx-opacity: "50";
+    -fx-graphic: url('../../resources/com/button_imgs/Edit.png');
 }
-
---currently not working, imageviews cannot accept the stylesheet element

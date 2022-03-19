@@ -5,6 +5,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -20,6 +22,11 @@ public class IssueListController implements Initializable {
     @FXML Label investmentCostsLabel;
     @FXML Label titleLabel;
 
+    @FXML ImageView removeButton;
+    @FXML ImageView editButton;
+    @FXML ImageView addComponent;
+    @FXML ImageView refreshROI;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tagsLabel.setText(tagsLabel.getText() + "\n\t" +
@@ -33,6 +40,8 @@ public class IssueListController implements Initializable {
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
         titleLabel.setText(Main.curProject.getTitle());
+
+
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
@@ -81,4 +90,5 @@ public class IssueListController implements Initializable {
     public void viewIssue_onClick(ActionEvent event) throws IOException {
         Main.show("issueList");
     }
+
 }
