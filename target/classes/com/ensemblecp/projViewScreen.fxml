@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjViewScreenController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjViewScreenController">
     <children>
         <!-- Side nav bar -->
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -20,7 +20,7 @@
                                 <Insets />
                             </HBox.margin>
                         </ImageView>
-                        <Button mnemonicParsing="false" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" onAction="#dashButton_onClick" prefHeight="43.0" prefWidth="143.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#dashButton_onClick" prefHeight="43.0" prefWidth="143.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Dashboard" textFill="WHITE">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
@@ -38,7 +38,7 @@
                         <ImageView fitHeight="27.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
                             <Image url="@../button_imgs/projlist-icon.png" />
                         </ImageView>
-                        <Button mnemonicParsing="false" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" onAction="#projListButton_onClick" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: transparent;" text="Projects" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#projListButton_onClick" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Projects" textFill="WHITE">
                             <HBox.margin>
                                 <Insets bottom="10.0" left="10.0" />
                             </HBox.margin>
@@ -52,7 +52,7 @@
                         <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
                             <Image url="@../button_imgs/archive-icon.png" />
                         </ImageView>
-                        <Button mnemonicParsing="false" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" text="Archives" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Archives" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
@@ -196,7 +196,7 @@
         </Label>
 
         <!-- Exit button -->
-        <Button fx:id="exitButton" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" text="X" textFill="WHITE">
+        <Button fx:id="exitButton" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
             <font>
                 <Font size="36.0" />
             </font>
@@ -204,40 +204,43 @@
 
             <!-- Project actions -->
         <!-- Refresh ROI -->
-        <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="1819.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="refreshROI" fitHeight="41.0" fitWidth="41.0" layoutX="1819.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../button_imgs/RefreshROI.png" />
             </image>
         </ImageView>
-        <Button layoutX="1818.0" layoutY="105.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="RR">
+        <Button layoutX="1818.0" layoutY="105.0" mnemonicParsing="false" onMouseEntered="#refreshROI_Hover" onMouseExited="#refreshROI_HoverOff" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="RR">
             <font>
                 <Font size="14.0" />
             </font>
         </Button>
+
         <!-- Remove project -->
-        <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="1390.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="removeButton" fitHeight="36.0" fitWidth="38.0" layoutX="1390.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../button_imgs/Remove.png"/>
+                <Image url="@../button_imgs/Remove.png" />
             </image>
         </ImageView>
-        <Button layoutX="1397.0" layoutY="116.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R" />
+        <Button layoutX="1388.0" layoutY="108.0" mnemonicParsing="false" onMouseEntered="#removeButton_Hover" onMouseExited="#removeButton_HoverOff" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R" />
+
         <!-- Edit project -->
-        <ImageView fitHeight="29.0" fitWidth="31.0" layoutX="1346.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="editButton" fitHeight="29.0" fitWidth="31.0" layoutX="1346.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../button_imgs/Edit.png" />
             </image>
         </ImageView>
-        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E" />
+        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onMouseEntered="#editButton_Hover" onMouseExited="#editButton_HoverOff" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E" />
+
         <!-- Add component -->
-        <ImageView fitHeight="36.0" fitWidth="31.0" layoutX="1291.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="addComponent" fitHeight="36.0" fitWidth="31.0" layoutX="1291.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../button_imgs/AddCom.png" />
             </image>
         </ImageView>
-        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C" />
+        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onMouseEntered="#addComponent_Hover" onMouseExited="#addComponent_HoverOff" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C" />
 
         <!-- Project nav bar -->
-        <Button onAction="#viewOverview_onClick" layoutX="174.0" layoutY="93.0" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Overview" textFill="WHITE">
+        <Button layoutX="174.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewOverview_onClick" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Overview" textFill="WHITE">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
@@ -245,7 +248,7 @@
                 <Font size="35.0" />
             </font>
         </Button>
-        <Button onAction="#viewBenchmark_onClick" layoutX="420.0" layoutY="93.0" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" mnemonicParsing="false" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" text="Benchmark Timeline" textFill="#a1a1a1">
+        <Button layoutX="420.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewBenchmark_onClick" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Benchmark Timeline" textFill="#a1a1a1">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
@@ -253,7 +256,7 @@
                 <Font size="35.0" />
             </font>
         </Button>
-        <Button onAction="#viewTeam_onClick" layoutX="844.0" layoutY="93.0" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Members" textFill="#a1a1a1">
+        <Button layoutX="844.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewTeam_onClick" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Members" textFill="#a1a1a1">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
@@ -261,7 +264,7 @@
                 <Font size="35.0" />
             </font>
         </Button>
-        <Button onAction="#viewIssue_onClick" layoutX="1066.0" layoutY="94.0" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" mnemonicParsing="false" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" text="Issues" textFill="#a1a1a1">
+        <Button layoutX="1066.0" layoutY="94.0" mnemonicParsing="false" onAction="#viewIssue_onClick" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Issues" textFill="#a1a1a1">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
