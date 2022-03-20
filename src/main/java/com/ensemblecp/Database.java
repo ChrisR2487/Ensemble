@@ -2,6 +2,7 @@ package com.ensemblecp;// Imports
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -243,6 +244,17 @@ public class Database {
         System.out.println("Success on querying project team table");
         return rs;
     }
+
+
+    public ResultSet getProjectByName(String title) throws SQLException{
+        String query = "select * from " + databaseName + ".Project where pid=?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, Math.abs(title.hashCode()));
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying projects with matching titles");
+        return rs;
+    }
+
 
     public ResultSet getTimelines() throws SQLException {
         String query = "select title, kickoff, deadline from " + databaseName + ".Project";

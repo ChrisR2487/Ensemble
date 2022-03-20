@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,6 +46,9 @@ public class ProjCreatorController implements Initializable {
     @FXML private TableColumn<MemberRow, Integer> memIDColumn;
     @FXML private TableColumn<MemberRow, CheckBox> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
+
+    private final Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
+            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1.5)));
 
     ArrayList<MemberRow> rowArrayList = new ArrayList<MemberRow>();
 
@@ -103,17 +108,70 @@ public class ProjCreatorController implements Initializable {
 
     @FXML
     public void createProject_onClick(Event e) throws SQLException, IOException {
+        //reset error borders
+        kickoffField.setBorder(null);
+        deadlineField.setBorder(null);
+        investmentCostsField.setBorder(null);
+        budgetField.setBorder(null);
+        titleField.setBorder(null);
+
         // Get data
+        Database db = new Database();
         HashMap<String, String> info = new HashMap<String, String>();
         info.put("pid", String.valueOf(Math.abs(titleField.getText().hashCode()))); // Use Math.abs() for no negative PIDs
-        info.put("title", titleField.getText());                                        // TODO - error handle duplicate values
+
+
+        String title = titleField.getText();
+        if(title.equals("")){
+            //empty input
+            titleField.setBorder(INVALID_BORDER);
+            return;
+        }
+        else if(db.getProjectByName(title).isBeforeFirst()){
+            //duplicate found
+            System.out.println("duplicate title found");
+            titleField.setBorder(INVALID_BORDER);
+            return;
+        }
+        info.put("title", title);
         info.put("description", descriptionField.getText());
 
-        info.put("investmentCosts", investmentCostsField.getText());                    // TODO - error handle proper data type
-        info.put("budget", budgetField.getText());
+        //validate input for investment
+        String investment = investmentCostsField.getText();
+        try{
+            Float cast = Float.parseFloat(investment);
+        }
+        catch(Exception investError){
+            investmentCostsField.setBorder(INVALID_BORDER);
+            System.out.println("INVALID INVESTMENT FIELD");
+            return;
+        }
+        info.put("investmentCosts", investment);
 
-        info.put("kickoff", kickoffField.getValue().toString());                        // TODO - error handle if date range is reverse
-        info.put("deadline", deadlineField.getValue().toString());
+        //validate input for budget
+        String budget = budgetField.getText();
+        try{
+            Float cast = Float.parseFloat(budget);
+        }
+        catch(Exception budgetError){
+            budgetField.setBorder(INVALID_BORDER);
+            System.out.println("INVALID BUDGET FIELD");
+            return;
+        }
+        info.put("budget", budget);
+
+        //error checking for date range
+        LocalDate kickOff = kickoffField.getValue();
+        LocalDate deadline = deadlineField.getValue();
+        if(kickOff.compareTo(deadline) >= 0){
+            kickoffField.setBorder(INVALID_BORDER);
+            deadlineField.setBorder(INVALID_BORDER);
+            //cancel project creation
+            return;
+        }
+        info.put("kickoff", kickOff.toString());
+        info.put("deadline", deadline.toString());
+
 
         info.put("tag1", tag1Field.getText());
         info.put("tag2", tag2Field.getText());
@@ -132,7 +190,6 @@ public class ProjCreatorController implements Initializable {
             // TODO: Get manid of current user, set as value of hashmap
 
         // Add data record
-        Database db = new Database();
         ResultSet rs = db.createProject(info);
 
         // Add team members
@@ -153,6 +210,8 @@ public class ProjCreatorController implements Initializable {
         // Display proper view
         Main.show("projViewScreen");
     }
+
+
 
 
     @FXML
