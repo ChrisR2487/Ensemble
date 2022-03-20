@@ -16,23 +16,8 @@
       </schema-mapping>
     </data-source>
     <data-source name="EnsembleDS" uuid="007a2a95-1955-4418-82a7-c472393b8d06">
-      <database-info product="Google BigQuery" version="2.0" jdbc-version="4.2" driver-name="SimbaJDBCDriverforGoogleBigQuery" driver-version="01.02.22.1026" dbms="BIGQUERY" exact-version="1.2.22.1026" exact-driver-version="1.2">
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <secret-storage>master_key</secret-storage>
-      <auth-provider>BigQuery.GoogleUserAccount</auth-provider>
-      <schema-mapping>
-        <introspection-scope>
-          <node negative="1">
-            <node kind="database" qname="@">
-              <node kind="schema" qname="@" />
-            </node>
-            <node kind="database" qname="ensemble-340721">
-              <node kind="schema" qname="EnsembleDS" />
-            </node>
-          </node>
-        </introspection-scope>
-      </schema-mapping>
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="BIGQUERY" exact-version="0" />
+      <schema-mapping />
     </data-source>
   </component>
 </project>
