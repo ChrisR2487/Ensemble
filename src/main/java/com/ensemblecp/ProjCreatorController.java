@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Array;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,9 +42,10 @@ public class ProjCreatorController implements Initializable {
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> positionColumn;
     @FXML private TableColumn<MemberRow, Integer> memIDColumn;
-    @FXML private TableColumn<MemberRow, Boolean> selectColumn;
+    @FXML private TableColumn<MemberRow, CheckBox> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
 
+    ArrayList<MemberRow> rowArrayList = new ArrayList<MemberRow>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -53,8 +55,7 @@ public class ProjCreatorController implements Initializable {
         ld = ld.plusMonths(1);
         deadlineField.setValue(LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
 
-        // Create memberRow list
-        ArrayList<MemberRow> rowArrayList = new ArrayList<MemberRow>();
+        // fill memberRow list
         try {
             Database db = new Database();
             ResultSet rs = db.getMembers();
@@ -64,7 +65,7 @@ public class ProjCreatorController implements Initializable {
                 mr.setPosition(rs.getString("position"));
                 mr.setMemid(String.valueOf(rs.getInt("memid")));
                 mr.setStatus(String.valueOf(rs.getInt("status")));
-                mr.setSelect(false);
+                mr.setSelect(new CheckBox());
 
                 rowArrayList.add(mr);
             }
@@ -83,8 +84,9 @@ public class ProjCreatorController implements Initializable {
 
         // Set row data
         memberTable.setEditable(true);
-        selectColumn.setCellValueFactory( cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().getSelect()));
-        selectColumn.setCellFactory(CheckBoxTableCell.<MemberRow>forTableColumn(selectColumn));
+        //selectColumn.setCellValueFactory( cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().getSelect()));
+        //selectColumn.setCellFactory(CheckBoxTableCell.<MemberRow>forTableColumn(selectColumn));
+        selectColumn.setCellValueFactory(new PropertyValueFactory("select"));
         selectColumn.setEditable(true);
         nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
         positionColumn.setCellValueFactory(new PropertyValueFactory("position"));
@@ -135,6 +137,10 @@ public class ProjCreatorController implements Initializable {
 
         // Add team members
             // TODO: Create Team Project table and add members selected
+        String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
+        db.addMembers(getSelectedMembers(), charPid);
+
+        //db.addMembers(teamInfo);
 
         // Add project to Main cache
         Main.curProject = new Project(rs, null, db);
@@ -148,9 +154,43 @@ public class ProjCreatorController implements Initializable {
         Main.show("projViewScreen");
     }
 
+
     @FXML
     public void cancelCreate_onClick(Event e) throws IOException {
         // Cancel project creation
         Main.show("Dashboard");
     }
+
+    //method to return arraylist of selected members
+    public HashMap<String, HashMap<String, String>> getSelectedMembers(){
+        HashMap<String, HashMap<String, String>> retVal = new HashMap<>();
+        int memberNum = 1;
+        for(MemberRow r: rowArrayList){
+            if(r.getSelect().isSelected()){
+                HashMap<String, String> cell = new HashMap<>();
+                //member ID
+                cell.put("memid", String.valueOf(r.getMemid()));
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member name
+                cell.put("name", r.getName());
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member position
+                cell.put("position", r.getPosition());
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member status
+                cell.put("status", String.valueOf(r.getStatus()));
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member active
+                cell.put("active", "true");
+                retVal.put(String.valueOf(memberNum), cell);
+                memberNum++;
+            }
+        }
+        return retVal;
+    }
+
 }

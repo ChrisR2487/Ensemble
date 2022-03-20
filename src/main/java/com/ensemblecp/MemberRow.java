@@ -38,11 +38,21 @@ public class MemberRow {
         return photo;
     }
 
+    /*
     private boolean select = false;
     public Boolean getSelect() {
         return this.select;
     }
     public void setSelect(Boolean value) {
+        this.select = value;
+    }
+     */
+
+    private CheckBox select = new CheckBox();
+    public CheckBox getSelect() {
+        return this.select;
+    }
+    public void setSelect(CheckBox value) {
         this.select = value;
     }
 

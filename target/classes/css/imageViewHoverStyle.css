@@ -1,7 +1,0 @@
-.my-img-class {
-    -fx-graphic: url('../../resources/com/button_imgs/Remove.png');
-}
-
-.my-img-class:hover {
-    -fx-graphic: url('../../resources/com/button_imgs/Edit.png');
-}
