@@ -1,5 +1,6 @@
 package com.ensemblecp;// Imports
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.time.Instant;
 import java.util.HashMap;
@@ -79,8 +80,13 @@ public class Database {
                 + " cid int not null, template varchar(128) not null, constraint " + charPid + "_Component_pk primary key (cid));";
         stmt.execute(createTable);
 
+        //create project team table
         createTable = "create table " + databaseName + "." + charPid + "_Team("
-                + " memid int, constraint " + charPid + "_Team_pk primary key (memid));";
+                + "memid int primary key,"
+                + "name varchar(20) not null,"
+                + "position varchar(20) not null,"
+                + "status int not null,"
+                + "active boolean not null)";
         stmt.execute(createTable);
 
         createTable = "create table " + databaseName + "." + charPid + "_Tasks("
@@ -105,6 +111,27 @@ public class Database {
         preparedStmt.setInt(1, Integer.parseInt(info.get("pid")));
         ResultSet rs = preparedStmt.executeQuery();
         return rs;
+    }
+
+    public void addMembers(HashMap<String, HashMap<String, String>> info, String charPid) throws SQLException {
+        //save project team
+        String teamQuery = " insert into " + databaseName + "." + charPid + "_Team"
+                + " values (?, ?, ?, ?, ?)";
+        PreparedStatement preparedTeamStmt = conn.prepareStatement(teamQuery);
+
+        //add each row to the database
+        for(int i = 1; i <= info.size(); i++) {
+            HashMap<String,String> row = info.get(String.valueOf(i));
+
+            //populate data and save row
+            preparedTeamStmt.setInt(1, Integer.parseInt(row.get("memid")));
+            preparedTeamStmt.setString(2, row.get("name"));
+            preparedTeamStmt.setString(3, row.get("position"));
+            preparedTeamStmt.setInt(4, Integer.parseInt(row.get("status")));
+            preparedTeamStmt.setBoolean(5, Boolean.parseBoolean(row.get("active")));
+            preparedTeamStmt.execute();
+        }
+
     }
 
     public ResultSet updateProject(HashMap<String, String> info) throws SQLException {
@@ -215,6 +242,17 @@ public class Database {
         ResultSet rs = preparedStmt.executeQuery();
         return rs;
     }
+
+
+    public ResultSet getProjectByName(String title) throws SQLException{
+        String query = "select * from " + databaseName + ".Project where pid=?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, Math.abs(title.hashCode()));
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on querying projects with matching titles");
+        return rs;
+    }
+
 
     public ResultSet getTimelines() throws SQLException {
         String query = "select title, kickoff, deadline from " + databaseName + ".Project";

@@ -4,7 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjCreatorController">
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjCreatorController">
    <children>
       <Label layoutX="14.0" prefHeight="74.0" prefWidth="1920.0" text="   E N S E M B L E" textFill="WHITE">
          <font>
@@ -142,7 +143,7 @@
                <children>
                   <TableView fx:id="memberTable" prefHeight="345.0" prefWidth="785.0">
                     <columns>
-                      <TableColumn prefWidth="67.0" text="Include" />
+                      <TableColumn fx:id="selectColumn" prefWidth="67.0" sortable="false" text="Include" />
                       <TableColumn fx:id="nameColumn" prefWidth="349.0" text="Name" />
                         <TableColumn fx:id="positionColumn" prefWidth="149.0" text="Position" />
                         <TableColumn fx:id="memIDColumn" prefWidth="109.0" text="Member ID" />
