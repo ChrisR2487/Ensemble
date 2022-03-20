@@ -8,5 +8,15 @@
       <jdbc-url>jdbc:mysql://34.150.158.26:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="EnsembleDS" uuid="007a2a95-1955-4418-82a7-c472393b8d06">
+      <driver-ref>bigquery</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.simba.googlebigquery.jdbc42.Driver</jdbc-driver>
+      <jdbc-url>jdbc:bigquery://https://www.googleapis.com/bigquery/v2:</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="ProjectId" value="ensemble-340721" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

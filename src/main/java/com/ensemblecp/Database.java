@@ -3,6 +3,7 @@ package com.ensemblecp;// Imports
 import java.sql.*;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.Properties;
 
 // Project Class
 /**
@@ -20,6 +21,19 @@ public class Database {
      */
     public Database() throws SQLException {
         this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
+    }
+
+    public Database(boolean isBigQuery) throws SQLException {
+        if (isBigQuery) {
+            Properties p = new Properties();
+            p.setProperty("ProjectId", "ensemble-340721");
+            p.setProperty("OAuthServiceAcctEmail", "intelijconnect@ensemble-340721.iam.gserviceaccount.com");
+            p.setProperty("OAuthPvtKeyPath", "C:/Users/hello/IdeaProjects/ensemble-creds.json");
+            this.conn = DriverManager.getConnection("jdbc:bigquery://https://www.googleapis.com/bigquery/v2:", p);
+        }
+        else {
+            this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
+        }
     }
 
     public ResultSet getProject(int pid) throws SQLException {
