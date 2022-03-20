@@ -207,7 +207,7 @@ public class ProjCreatorController implements Initializable {
         db.closeDB();
 
         // Display proper view
-        Main.show("projViewScreen");
+        Main.show("projOverview");
     }
 
 
@@ -216,7 +216,7 @@ public class ProjCreatorController implements Initializable {
     @FXML
     public void cancelCreate_onClick(Event e) throws IOException {
         // Cancel project creation
-        Main.show("Dashboard");
+        Main.show("projList");
     }
 
     //method to return arraylist of selected members
