@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-213.6777.52">
-    <data-source name="G6Database" uuid="04516311-1cb7-4c8a-b134-ec4826f528a6">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <schema-mapping />
+    <data-source name="G6 Database" uuid="bd1b0e4d-02e2-4ebd-938c-e81702df2613">
+      <database-info product="MySQL" version="8.0.18-google" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.28 (Revision: 7ff2161da3899f379fb3171b6538b191b1c5c7e2)" dbms="MYSQL" exact-version="8.0.18" exact-driver-version="8.0">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="Ensemble" />
+        </introspection-scope>
+      </schema-mapping>
     </data-source>
     <data-source name="EnsembleDS" uuid="007a2a95-1955-4418-82a7-c472393b8d06">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="BIGQUERY" exact-version="0" />

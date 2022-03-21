@@ -340,15 +340,17 @@ public class Database {
     }
 
     public ResultSet createComponent(HashMap<String, String> info) throws SQLException {
-        //Insert Record
+        // Add component template to system
         String query = " insert into "+ databaseName + ".Component" + " values (?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
         preparedStmt.setString (2, info.get("title"));
         preparedStmt.setString (3, info.get("template"));
+        preparedStmt = conn.prepareStatement("insert into " + databaseName + ".Component values (?, ?, ?)");
+        preparedStmt.execute();
+
         preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Component where cid = ?");
-        preparedStmt.setInt(1, 1);
-        //preparedStmt.execute();
+        preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on create Component");
         return rs;

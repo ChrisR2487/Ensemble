@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="borderPane" prefHeight="1920" prefWidth="1080.0" stylesheets="@../../css/compCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.customCompController">
+   <top>
+      <HBox prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="39.0" prefWidth="1931.0">
+               <children>
+                  <Label text="E N S E M B L E" textFill="WHITE">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                   <ImageView fx:id="exitButton" fitHeight="50.0" fitWidth="40.0" layoutX="1866.0" layoutY="-1.0" onMouseClicked="#exitButton_onClick" pickOnBounds="true" preserveRatio="true">
+                       <Image url="@../button_imgs/close_button.png" />
+                   </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox fx:id="mainVBox" prefHeight="443.0" prefWidth="730.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="47.0" prefWidth="600.0">
+               <children>
+                  <Label text="Create your Template:" textFill="WHITE">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" top="30.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <VBox prefHeight="108.0" prefWidth="1911.0">
+               <children>
+                  <Label text="Enter a Title:" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="30.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <AnchorPane prefHeight="78.0" prefWidth="1919.0">
+                     <children>
+                        <TextField fx:id="compTitle" layoutX="28.0" layoutY="14.0" prefHeight="30.0" prefWidth="438.0" promptText="Enter Title">
+                           <font>
+                              <Font size="14.0" />
+                           </font></TextField>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+            <HBox prefHeight="31.0" prefWidth="919.0">
+               <children>
+                  <Button fx:id="addItem" mnemonicParsing="false" onAction="#addField_onClick" prefHeight="37.0" prefWidth="155.0" text="Add Item">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="30.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <ScrollPane prefHeight="594.0" prefWidth="1906.0">
+               <content>
+                  <VBox fx:id="fieldVBox" maxHeight="900.0" prefHeight="407.0" prefWidth="1897.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="1901.0">
+                           <children>
+                              <MenuButton fx:id="menuButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="23.0" prefWidth="173.0" text="Entry Type">
+                                 <items>
+                                    <MenuItem fx:id="stringItem" mnemonicParsing="false" text="String" /> <!--onAction="#setMenuButton" -->
+                                    <MenuItem fx:id="intItem" mnemonicParsing="false" text="Int" />
+                                    <MenuItem fx:id="tableItem" mnemonicParsing="false" text="Table" />
+                                       <MenuItem fx:id="fileItem" mnemonicParsing="false" text="File" />
+                                 </items>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </MenuButton>
+                              <TextField fx:id="inputField" prefHeight="37.0" prefWidth="594.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </ScrollPane>
+         </children></VBox>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="submit_Button" layoutX="1474.0" layoutY="88.0" mnemonicParsing="false" onAction="#submit_Button_onClick" prefHeight="45.0" prefWidth="300.0" text="Submit">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="cancelButton" layoutX="1159.0" layoutY="88.0" mnemonicParsing="false" onAction="#cancelButton_onClick" prefHeight="45.0" prefWidth="300.0" text="Cancel">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>
