@@ -48,6 +48,7 @@ public class customCompController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        /*
         ListView<CellData> listView = new ListView();
         listView.setCellFactory((ListView<CellData> param) -> {
             ListCell<CellData> cell = new ListCell<CellData>() {
@@ -71,6 +72,7 @@ public class customCompController implements Initializable {
             return cell;
         });
 
+         */
 
         stringItem.setOnAction(e -> {
             menuButton.setText(stringItem.getText());
@@ -84,12 +86,6 @@ public class customCompController implements Initializable {
         fileItem.setOnAction(e -> {
             menuButton.setText(fileItem.getText());
         });
-        /*
-        addItem.setOnAction((event) -> {
-            listView.getItems().add(new CellData());
-            System.out.println("Hi ;)");
-        });
-         */
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
