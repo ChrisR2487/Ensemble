@@ -35,10 +35,7 @@ public class customCompController implements Initializable {
     @FXML public VBox fieldVBox;
     @FXML public TextField compTitle;
     @FXML public Button cancelButton;
-    MenuItem item1 = new MenuItem("Integer");
-    MenuItem item2 = new MenuItem("String");
-    MenuItem item3 = new MenuItem("Table");
-    MenuItem item4 = new MenuItem("File");
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,7 +84,12 @@ public class customCompController implements Initializable {
     }
 
     public void addField_onClick(Event actionEvent) {
+        MenuItem item1 = new MenuItem("Integer");
+        MenuItem item2 = new MenuItem("String");
+        MenuItem item3 = new MenuItem("Table");
+        MenuItem item4 = new MenuItem("File");
         MenuButton m = new MenuButton("Select Type",null, item1,item2,item3,item4);
+
         item1.setOnAction(e -> {
             m.setText(item1.getText());
         });
@@ -100,12 +102,14 @@ public class customCompController implements Initializable {
         item4.setOnAction(e -> {
             m.setText(item4.getText());
         });
+
         TextField t = new TextField();
         m.setPrefWidth(160);
         m.setPrefHeight(40);
         t.setPrefWidth(600);
         t.setPrefHeight(40);
         HBox newBox = new HBox(m,t);
+
         fieldVBox.setSpacing(20);
         fieldVBox.getChildren().add(newBox);
     }
