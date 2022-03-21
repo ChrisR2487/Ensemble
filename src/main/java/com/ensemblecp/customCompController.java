@@ -121,8 +121,8 @@ public class customCompController implements Initializable {
         //add new record to Component table when creating a template
 
         HashMap<String, String> info = new HashMap<String, String>();
-        info.put("cid", "2");
-        info.put("title", "Test");
+        info.put("cid", "1");
+        info.put("title", compTitle.getText());
         info.put("template", "Test Template");
 
         //add data record
