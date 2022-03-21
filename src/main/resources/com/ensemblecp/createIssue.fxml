@@ -14,12 +14,12 @@
         </Label>
 
         <!-- Form buttons -->
-        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1367.0" layoutY="920.0" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #fb5656;" text="Cancel">
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1367.0" layoutY="920.0" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="170.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
         </Button>
-        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1569.0" layoutY="920.0" mnemonicParsing="false" onAction="#submitIssue_onClick" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #7ed957;" text="Submit">
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1569.0" layoutY="920.0" mnemonicParsing="false" onAction="#submitIssue_onClick" prefHeight="50.0" prefWidth="170.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Submit">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
