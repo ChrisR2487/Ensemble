@@ -5,6 +5,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -20,6 +21,11 @@ public class ProjOverviewController implements Initializable {
     @FXML Label deadlineLabel;
     @FXML Label investmentCostsLabel;
     @FXML Label titleLabel;
+
+    @FXML ImageView removeButton;
+    @FXML ImageView editButton;
+    @FXML ImageView addComponent;
+    @FXML ImageView refreshROI;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,5 +92,37 @@ public class ProjOverviewController implements Initializable {
     public void viewIssue_onClick(ActionEvent event) throws IOException {
         Main.show("projIssues");
     }
+
+
+    public void addComponent_Hover(){
+        addComponent.setOpacity(0.5);
+    }
+
+    public void addComponent_HoverOff(){
+        addComponent.setOpacity(1.0);
+    }
+
+    public void editButton_Hover(){
+        editButton.setOpacity(0.5);
+    }
+
+    public void editButton_HoverOff(){
+        editButton.setOpacity(1.0);
+    }
+    public void removeButton_Hover(){
+        removeButton.setOpacity(0.5);
+    }
+
+    public void removeButton_HoverOff(){
+        removeButton.setOpacity(1.0);
+    }
+    public void refreshROI_Hover(){
+        refreshROI.setOpacity(0.5);
+    }
+
+    public void refreshROI_HoverOff(){
+        refreshROI.setOpacity(1.0);
+    }
+
 }
 

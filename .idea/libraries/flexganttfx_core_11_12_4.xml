@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="flexganttfx-core-11.12.4">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Downloads/lib/flexganttfx-core-11.12.4.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/lib/flexganttfx-extras-11.12.4.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/lib/flexganttfx-model-11.12.4.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/lib/flexganttfx-view-11.12.4.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/ext/controlsfx-11.0.3.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/ext/license4j-1.4.0.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Ensemble Dependencies/controlsfx-11.0.3.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Ensemble Dependencies/license4j-1.4.0.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Ensemble Dependencies/flexganttfx-core-11.12.4.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Ensemble Dependencies/flexganttfx-extras-11.12.4.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Ensemble Dependencies/flexganttfx-model-11.12.4.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/Ensemble Dependencies/flexganttfx-view-11.12.4.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,20 +1,25 @@
 package com.ensemblecp;
 
+import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Array;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,6 +28,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProjCreatorController implements Initializable {
+
     @FXML TextField investmentCostsField;
     @FXML TextField descriptionField;
     @FXML TextField budgetField;
@@ -35,12 +41,16 @@ public class ProjCreatorController implements Initializable {
     @FXML TextField tag4Field;
 
     @FXML private TableView<MemberRow> memberTable;
-    //@FXML private TableColumn<ProjectRow, String> nameColumn;         //todo - create column of check boxes
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> positionColumn;
     @FXML private TableColumn<MemberRow, Integer> memIDColumn;
+    @FXML private TableColumn<MemberRow, CheckBox> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
 
+    private final Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
+            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1.5)));
+
+    ArrayList<MemberRow> rowArrayList = new ArrayList<MemberRow>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,32 +60,24 @@ public class ProjCreatorController implements Initializable {
         ld = ld.plusMonths(1);
         deadlineField.setValue(LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
 
-        // Create memberRow list
-        ArrayList<MemberRow> rowArrayList = new ArrayList<>();
-        int tryCount = 0;
-        while (tryCount < Main.ATTEMPT_LIMIT) {
-            try {
-                rowArrayList = new ArrayList<>();
-                Database db = new Database();
-                ResultSet rs = db.getMembers();
-                while (rs.next()) {
-                    MemberRow mr = new MemberRow();
-                    mr.setName(rs.getString("name"));
-                    mr.setPosition(rs.getString("position"));
-                    mr.setMemid(String.valueOf(rs.getInt("memid")));
-                    rowArrayList.add(mr);
-                }
-                db.closeDB();
-                break;
-            } catch (SQLException e) {
-                System.out.println("Failed to load member table, trying again...");
-                tryCount++;
+        // fill memberRow list
+        try {
+            Database db = new Database();
+            ResultSet rs = db.getMembers();
+            while (rs.next()) {
+                MemberRow mr = new MemberRow();
+                mr.setName(rs.getString("name"));
+                mr.setPosition(rs.getString("position"));
+                mr.setMemid(String.valueOf(rs.getInt("memid")));
+                mr.setStatus(String.valueOf(rs.getInt("status")));
+                mr.setSelect(new CheckBox());
+
+                rowArrayList.add(mr);
             }
+            db.closeDB();
         }
-        if (tryCount == Main.ATTEMPT_LIMIT) {
-            // Failed to load dashboard
-            System.out.println("Unable to load members table, ending load execution.");
-            return;
+        catch (SQLException e) {
+            e.printStackTrace(); // TODO: Add better handling for loop
         }
 
         // Convert to array
@@ -83,15 +85,19 @@ public class ProjCreatorController implements Initializable {
 
         // Cast to ObservableList
         List<MemberRow> rows = List.of(rowList);
-        ObservableList<MemberRow> projectRows = FXCollections.observableList(rows);
+        ObservableList<MemberRow> memberRows = FXCollections.observableList(rows);
 
         // Set row data
-        //todo - generate check boxes programmatically
+        memberTable.setEditable(true);
+        //selectColumn.setCellValueFactory( cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().getSelect()));
+        //selectColumn.setCellFactory(CheckBoxTableCell.<MemberRow>forTableColumn(selectColumn));
+        selectColumn.setCellValueFactory(new PropertyValueFactory("select"));
+        selectColumn.setEditable(true);
         nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
         positionColumn.setCellValueFactory(new PropertyValueFactory("position"));
-        //statusColumn.setCellValueFactory(new PropertyValueFactory("status"));
         memIDColumn.setCellValueFactory(new PropertyValueFactory("memid"));
-        memberTable.setItems(projectRows);
+        statusColumn.setCellValueFactory(new PropertyValueFactory("status"));
+        memberTable.setItems(memberRows);
     }
 
     public static LocalDate LOCAL_DATE (String dateString){
@@ -102,17 +108,70 @@ public class ProjCreatorController implements Initializable {
 
     @FXML
     public void createProject_onClick(Event e) throws SQLException, IOException {
+        //reset error borders
+        kickoffField.setBorder(null);
+        deadlineField.setBorder(null);
+        investmentCostsField.setBorder(null);
+        budgetField.setBorder(null);
+        titleField.setBorder(null);
+
         // Get data
+        Database db = new Database();
         HashMap<String, String> info = new HashMap<String, String>();
         info.put("pid", String.valueOf(Math.abs(titleField.getText().hashCode()))); // Use Math.abs() for no negative PIDs
-        info.put("title", titleField.getText());                                        // TODO - error handle duplicate values
+
+
+        String title = titleField.getText();
+        if(title.equals("")){
+            //empty input
+            titleField.setBorder(INVALID_BORDER);
+            return;
+        }
+        else if(db.getProjectByName(title).isBeforeFirst()){
+            //duplicate found
+            System.out.println("duplicate title found");
+            titleField.setBorder(INVALID_BORDER);
+            return;
+        }
+        info.put("title", title);
         info.put("description", descriptionField.getText());
 
-        info.put("investmentCosts", investmentCostsField.getText());                    // TODO - error handle proper data type
-        info.put("budget", budgetField.getText());
+        //validate input for investment
+        String investment = investmentCostsField.getText();
+        try{
+            Float cast = Float.parseFloat(investment);
+        }
+        catch(Exception investError){
+            investmentCostsField.setBorder(INVALID_BORDER);
+            System.out.println("INVALID INVESTMENT FIELD");
+            return;
+        }
+        info.put("investmentCosts", investment);
 
-        info.put("kickoff", kickoffField.getValue().toString());
-        info.put("deadline", deadlineField.getValue().toString());
+        //validate input for budget
+        String budget = budgetField.getText();
+        try{
+            Float cast = Float.parseFloat(budget);
+        }
+        catch(Exception budgetError){
+            budgetField.setBorder(INVALID_BORDER);
+            System.out.println("INVALID BUDGET FIELD");
+            return;
+        }
+        info.put("budget", budget);
+
+        //error checking for date range
+        LocalDate kickOff = kickoffField.getValue();
+        LocalDate deadline = deadlineField.getValue();
+        if(kickOff.compareTo(deadline) >= 0){
+            kickoffField.setBorder(INVALID_BORDER);
+            deadlineField.setBorder(INVALID_BORDER);
+            //cancel project creation
+            return;
+        }
+        info.put("kickoff", kickOff.toString());
+        info.put("deadline", deadline.toString());
+
 
         info.put("tag1", tag1Field.getText());
         info.put("tag2", tag2Field.getText());
@@ -124,20 +183,21 @@ public class ProjCreatorController implements Initializable {
         info.put("roi", "0"); // TODO: Fix this to get predicated ROI, set as value of hashmap
 
         // Get issue score
-        float score = 0.0f; // Base score
-        score += IssueScore.checkOverdue(info.get("kickoff"), info.get("deadline"));
-        score += IssueScore.checkOverbudget(Float.parseFloat(info.get("investmentCosts")), Float.parseFloat(info.get("budget")));
-        info.put("issueScore", String.valueOf(score));
+        info.put("issueScore", "0"); // TODO: Fix this later for real issue score, set as value of hashmap
 
         // Get manager ID
         info.put("manid", String.valueOf(Main.account.getId()));
+            // TODO: Get manid of current user, set as value of hashmap
 
         // Add data record
-        Database db = new Database();
         ResultSet rs = db.createProject(info);
 
         // Add team members
-            // TODO: add members selected to team
+            // TODO: Create Team Project table and add members selected
+        String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
+        db.addMembers(getSelectedMembers(), charPid);
+
+        //db.addMembers(teamInfo);
 
         // Add project to Main cache
         Main.curProject = new Project(rs, null, db);
@@ -148,12 +208,48 @@ public class ProjCreatorController implements Initializable {
         db.closeDB();
 
         // Display proper view
-        Main.show("projOverview");
+        Main.show("projViewScreen");
     }
+
+
+
 
     @FXML
     public void cancelCreate_onClick(Event e) throws IOException {
         // Cancel project creation
         Main.show("Dashboard");
     }
+
+    //method to return arraylist of selected members
+    public HashMap<String, HashMap<String, String>> getSelectedMembers(){
+        HashMap<String, HashMap<String, String>> retVal = new HashMap<>();
+        int memberNum = 1;
+        for(MemberRow r: rowArrayList){
+            if(r.getSelect().isSelected()){
+                HashMap<String, String> cell = new HashMap<>();
+                //member ID
+                cell.put("memid", String.valueOf(r.getMemid()));
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member name
+                cell.put("name", r.getName());
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member position
+                cell.put("position", r.getPosition());
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member status
+                cell.put("status", String.valueOf(r.getStatus()));
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member active
+                cell.put("active", "true");
+                retVal.put(String.valueOf(memberNum), cell);
+                memberNum++;
+            }
+        }
+        return retVal;
+    }
+
 }
