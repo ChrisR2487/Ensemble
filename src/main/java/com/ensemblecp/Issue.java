@@ -52,6 +52,14 @@ public class Issue {
 }
 
 class IssueType {
+    public final static int TEAM = 0;
+    public final static int TIMELINE = 1;
+    public final static int BUDGET = 2;
+    public final static int TASK = 3;
+    public final static int NO_SCORE = 4;
+}
+
+class IssueState {
     public final static int NEW = 0;
     public final static int SEEN = 1;
     public final static int DONE = 2;
@@ -63,6 +71,8 @@ class IssueScore {
     public final static float TASK_OVERDUE = 10.0f; // Fix
     public final static float ISSUE_BUDGET = 10.0f; // Fix
     public final static float ISSUE_TIMELINE = 10.0f; // Fix
+    public final static float ISSUE_TEAM = 10.0f; // Fix
+    public final static float ISSUE_TASK = 10.0f; // Fix
     public final static float NO_SCORE = 0.0f; // TODO: Make sure this name is good
 
     public static float checkOverdue(String deadline) {

@@ -321,7 +321,7 @@ public class Database {
         preparedStmt.setInt(1, Main.account.getId());
         preparedStmt.setString(2, info.get("message"));
         preparedStmt.setInt(3, Integer.parseInt(info.get("type")));
-        preparedStmt.setInt(4, IssueType.NEW); // Set issue as new (not seen or done)
+        preparedStmt.setInt(4, IssueState.NEW); // Set issue as new (not seen or done)
         preparedStmt.execute();
 
         query = "select * from " + databaseName + "." + charPid + "_Issues where memid=? and message=?";
@@ -337,6 +337,14 @@ public class Database {
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         ResultSet rs = preparedStmt.executeQuery();
         return rs;
+    }
+
+    public void updateIssueScore(int pid, float score) throws SQLException {
+        String query = "select * from " + databaseName + ".Project issueScore = issueScore + ? WHERE pid = ?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setFloat(1, score);
+        preparedStmt.setInt(2, pid);
+        preparedStmt.execute();
     }
 }
 // End of Database Class

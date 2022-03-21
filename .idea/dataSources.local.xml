@@ -17,11 +17,7 @@
     </data-source>
     <data-source name="EnsembleDS" uuid="007a2a95-1955-4418-82a7-c472393b8d06">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="BIGQUERY" exact-version="0" />
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="database" qname="ensemble-340721" />
-        </introspection-scope>
-      </schema-mapping>
+      <schema-mapping />
     </data-source>
   </component>
 </project>

@@ -9,6 +9,5 @@
       <Current>1</Current>
     </database>
     <database id="4" parent="1" name="moonlit-caster-344517"/>
-    <schema id="5" parent="3" name="EnsembleDS"/>
   </database-model>
 </dataSource>
