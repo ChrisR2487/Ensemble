@@ -339,6 +339,21 @@ public class Database {
         return rs;
     }
 
+    public ResultSet createComponent(HashMap<String, String> info) throws SQLException {
+        //Insert Record
+        String query = " insert into "+ databaseName + ".Component" + " values (?, ?, ?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
+        preparedStmt.setString (2, info.get("title"));
+        preparedStmt.setString (3, info.get("template"));
+        preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Component where cid = ?");
+        preparedStmt.setInt(1, 1);
+        //preparedStmt.execute();
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on create Component");
+        return rs;
+    }
+
     public void updateIssueScore(int pid, float score) throws SQLException {
         String query = "select * from " + databaseName + ".Project issueScore = issueScore + ? WHERE pid = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
