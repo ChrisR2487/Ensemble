@@ -17,6 +17,7 @@ public class CompCreatorTest extends Application{
     public void start(Stage stage) throws Exception {
         stage.setTitle("Custom Component Creator");
         ListView<CellData> listView = new ListView();
+
         listView.setCellFactory((ListView<CellData> param) -> {
             ListCell<CellData> cell = new ListCell<CellData>() {
                 MenuItem item1 = new MenuItem("Integer");
@@ -57,7 +58,6 @@ public class CompCreatorTest extends Application{
             return cell;
         });
 
-        AtomicInteger i = new AtomicInteger(1);
         Button addButton = new Button("Add Item");
         Button submitButton = new Button("Submit");
         addButton.setOnAction((event) -> {

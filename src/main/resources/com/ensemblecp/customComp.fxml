@@ -26,7 +26,7 @@
       </HBox>
    </top>
    <center>
-      <VBox prefHeight="443.0" prefWidth="730.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="mainVBox" prefHeight="443.0" prefWidth="730.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="47.0" prefWidth="600.0">
                <children>
@@ -42,7 +42,7 @@
             </HBox>
             <HBox prefHeight="31.0" prefWidth="919.0">
                <children>
-                  <Button fx:id="addItem" mnemonicParsing="false"  prefHeight="37.0" prefWidth="155.0" text="Add Item">
+                  <Button fx:id="addItem" mnemonicParsing="false" onAction="#addField_onClick" prefHeight="37.0" prefWidth="155.0" text="Add Item">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -54,27 +54,27 @@
             </HBox>
             <StackPane fx:id="stackPane" prefHeight="196.0" prefWidth="919.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="fieldVBox" prefHeight="559.0" prefWidth="1926.0">
                      <children>
-                        <HBox prefHeight="108.0" prefWidth="919.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="108.0" prefWidth="919.0">
                            <children>
-                              <MenuButton fx:id="menuButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="119.0" text="Entry Type">
+                              <MenuButton fx:id="menuButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="40.0" prefWidth="160.0" text="Entry Type">
                                  <items>
-                                    <MenuItem fx:id="stringItem" mnemonicParsing="false" text="String"   /> <!--onAction="#setMenuButton" -->
-                                    <MenuItem fx:id="intItem" mnemonicParsing="false" text="Int"  />
-                                    <MenuItem fx:id="tableItem" mnemonicParsing="false" text="Table"  />
-                                    <MenuItem fx:id="fileItem" mnemonicParsing="false" text="File"/>
+                                    <MenuItem fx:id="stringItem" mnemonicParsing="false" text="String" /> <!--onAction="#setMenuButton" -->
+                                    <MenuItem fx:id="intItem" mnemonicParsing="false" text="Int" />
+                                    <MenuItem fx:id="tableItem" mnemonicParsing="false" text="Table" />
+                                    <MenuItem fx:id="fileItem" mnemonicParsing="false" text="File" />
                                  </items>
                                  <HBox.margin>
-                                    <Insets left="30.0" top="20.0" />
+                                    <Insets />
                                  </HBox.margin>
                                  <font>
                                     <Font size="16.0" />
                                  </font>
                               </MenuButton>
-                              <TextField fx:id="inputField" prefHeight="35.0" prefWidth="502.0">
+                              <TextField fx:id="inputField" prefHeight="40.0" prefWidth="600.0">
                                  <HBox.margin>
-                                    <Insets top="20.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </TextField>
                            </children>
