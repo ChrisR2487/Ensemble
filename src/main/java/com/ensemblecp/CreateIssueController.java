@@ -15,10 +15,10 @@ public class CreateIssueController {
         // Get issue info
         Database db = new Database();
         HashMap<String, String> info = new HashMap<>();
-        info.put("message", messageField.getText()); // TODO: Change to correct name of message field
+        info.put("message", ""); // TODO: Change to correct name of message field <messageField.getText()>
 
         // Determine type
-        String getSelectedField = null; // TODO: Determine what radio button is selected, store text of button here
+        String getSelectedField = "No Score"; // TODO: Determine what radio button is selected, store text of button here
 
         int type = -1;
         switch (getSelectedField) {
