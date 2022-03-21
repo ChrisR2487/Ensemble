@@ -52,7 +52,10 @@
                   </Label>
                   <AnchorPane prefHeight="78.0" prefWidth="1919.0">
                      <children>
-                        <TextField fx:id="compTitle" layoutX="28.0" layoutY="14.0" prefHeight="25.0" prefWidth="391.0" promptText="Enter Title" />
+                        <TextField fx:id="compTitle" layoutX="28.0" layoutY="14.0" prefHeight="30.0" prefWidth="438.0" promptText="Enter Title">
+                           <font>
+                              <Font size="14.0" />
+                           </font></TextField>
                      </children>
                   </AnchorPane>
                </children>
@@ -69,7 +72,7 @@
                   </Button>
                </children>
             </HBox>
-            <ScrollPane prefHeight="558.0" prefWidth="1903.0">
+            <ScrollPane prefHeight="594.0" prefWidth="1906.0">
                <content>
                   <VBox fx:id="fieldVBox" maxHeight="900.0" prefHeight="407.0" prefWidth="1897.0">
                      <children>
