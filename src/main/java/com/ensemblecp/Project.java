@@ -1,6 +1,8 @@
 package com.ensemblecp;// Imports
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 // Project Class
@@ -37,6 +39,7 @@ public class Project {
 
         // Save components
         if (componentInfo != null) this.components = parseComponents(componentInfo, db);
+        else this.components = new ArrayList<>(0); // Save empty list if none available
     }
 
     /* Class Methods */
@@ -61,9 +64,6 @@ public class Project {
         this.tag4 = projectInfo.getString("tag4");
         this.complete = projectInfo.getBoolean("complete");
         this.manid = projectInfo.getInt("manid");
-
-        // Check for overbudget
-            // TODO: Add this functionality to check for overbudget
     }
 
     /**
@@ -73,10 +73,10 @@ public class Project {
      */
     private ArrayList<Component> parseComponents(ResultSet compInfo, Database db) throws SQLException {
         // Initial setup
-        if (!compInfo.next()) return new ArrayList<Component>(); // Check for no components
+        if (!compInfo.next()) return new ArrayList<>(); // Check for no components
 
         // Parse each component and its data
-        ArrayList<Component> componentsAL = new ArrayList<Component>();
+        ArrayList<Component> componentsAL = new ArrayList<>();
         do {
             // Create component object
             Component comp = new Component(this.pid, compInfo.getInt("cid"), compInfo.getString("template"), db); // Pass parameters to constructor

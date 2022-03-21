@@ -3,8 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjDeleteController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjDeleteController">
    <children>
       <Label layoutX="14.0" prefHeight="74.0" prefWidth="1920.0" text="   E N S E M B L E" textFill="WHITE">
          <font>
@@ -23,7 +22,7 @@
                               <Font name="System Bold" size="36.0" />
                            </font>
                         </Label>
-                        <CheckBox alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="53.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="304.0" text="Delete " textAlignment="CENTER" textFill="WHITE" fx:id="remCheckBox">
+                        <CheckBox fx:id="remCheckBox" alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="53.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="304.0" text="Delete " textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -37,12 +36,12 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="406.0" layoutY="48.0" prefHeight="22.0" prefWidth="280.0" promptText="USERNAME">
+                        <TextField fx:id="usernameField" layoutX="406.0" layoutY="48.0" prefHeight="22.0" prefWidth="280.0" promptText="USERNAME">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <PasswordField layoutX="406.0" layoutY="97.0" prefHeight="30.0" prefWidth="280.0" promptText="PASSWORD">
+                        <PasswordField fx:id="passwordField" layoutX="406.0" layoutY="97.0" prefHeight="30.0" prefWidth="280.0" promptText="PASSWORD">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -72,7 +71,7 @@
                                     </Label>
                                     <ScrollPane layoutY="28.0" prefHeight="288.0" prefWidth="595.0" vbarPolicy="ALWAYS">
                                        <content>
-                                          <TextField prefHeight="286.0" prefWidth="573.0" />
+                                          <TextField fx:id="logBox" prefHeight="286.0" prefWidth="573.0" />
                                        </content></ScrollPane>
                                  </children></AnchorPane>
                           </content>
@@ -86,14 +85,14 @@
                      <children>
                         <Pane prefHeight="183.0" prefWidth="1016.0">
                            <children>
-                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="325.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCancel_onClick" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #fb5656;" text="Cancel">
+                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="189.0" layoutY="14.0" mnemonicParsing="false" onAction="#onCancel_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                               </Button>
-                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="535.0" layoutY="14.0" mnemonicParsing="false" onAction="#onSubmit_onClick" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #7ed957;" text="Delete Project">
+                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="527.0" layoutY="14.0" mnemonicParsing="false" onAction="#onSubmit_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Delete Project">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                               </Button>
                            </children>

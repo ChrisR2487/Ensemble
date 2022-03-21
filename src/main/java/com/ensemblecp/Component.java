@@ -40,7 +40,6 @@ public class Component {
             if (type == PartType.TABLE) {
                 part = new Part(cData.getInt("partid"), type, cData.getString("value"), db, pid);
                 template = template.substring(template.indexOf(']')+1);
-
             }
             else {
                 part = new Part(cData.getInt("partid"), type, cData.getString("value"));
@@ -92,7 +91,7 @@ public class Component {
 
     // Part Class
     /**
-     * The Part class ???
+     * The Part class, used to store values of parts in Components.
      */
     public class Part {
         /* Class Variables */

@@ -4,52 +4,44 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class IssueRow {
-    private StringProperty memid;
-    public void setMemid(String value) { memidProperty().set(value); }
-    public String getMemid() { return memidProperty().get(); }
-    public StringProperty memidProperty() {
-        if (memid == null) memid = new SimpleStringProperty(this, "memid");
-        return memid;
+    private StringProperty date;
+    public void setDate(String value) { dateProperty().set(value); }
+    public String getDate() { return dateProperty().get(); }
+    public StringProperty dateProperty() {
+        if (date == null) date = new SimpleStringProperty(this, "date");
+        return date;
     }
 
-    private StringProperty isid;
-    public void setIsid(String value) { isidProperty().set(value); }
-    public String getIsid() { return isidProperty().get(); }
-    public StringProperty isidProperty() {
-        if (memid == null) memid = new SimpleStringProperty(this, "isid");
-        return memid;
+    private StringProperty origin;
+    public void setOrigin(String value) { originProperty().set(value); }
+    public String getOrigin() { return originProperty().get(); }
+    public StringProperty originProperty() {
+        if (origin == null) origin = new SimpleStringProperty(this, "origin");
+        return origin;
     }
 
-    private StringProperty name;
-    public void setName(String value) { nameProperty().set(value); }
-    public String getName() { return nameProperty().get(); }
-    public StringProperty nameProperty() {
-        if (name == null) name = new SimpleStringProperty(this, "name");
-        return name;
+    private StringProperty description;
+    public void setDescription(String value) { descriptionProperty().set(value); }
+    public String getDescription() { return descriptionProperty().get(); }
+    public StringProperty descriptionProperty() {
+        if (description == null) description = new SimpleStringProperty(this, "description");
+        return description;
     }
 
-    private StringProperty position;
-    public void setPosition(String value) { positionProperty().set(value); }
-    public String getPosition() { return positionProperty().get(); }
-    public StringProperty positionProperty() {
-        if (position == null) position = new SimpleStringProperty(this, "position");
-        return position;
+    private StringProperty type;
+    public void setType(String value) { typeProperty().set(value); }
+    public String getType() { return typeProperty().get(); }
+    public StringProperty typeProperty() {
+        if (type == null) type = new SimpleStringProperty(this, "type");
+        return type;
     }
 
-    private StringProperty message;
-    public void setMessage(String value) { messageProperty().set(value); }
-    public String getMessage() { return messageProperty().get(); }
-    public StringProperty messageProperty() {
-        if (message == null) message = new SimpleStringProperty(this, "message");
-        return message;
-    }
-
-    private StringProperty score;
-    public void setScore(String value) { memidProperty().set(value); }
-    public String getScore() { return memidProperty().get(); }
-    public StringProperty scoreProperty() {
-        if (score == null) score = new SimpleStringProperty(this, "score");
-        return score;
+    private StringProperty state;
+    public void setState(String value) { stateProperty().set(value); }
+    public String getState() { return stateProperty().get(); }
+    public StringProperty stateProperty() {
+        if (state == null) state = new SimpleStringProperty(this, "state");
+        return state;
     }
 }
 

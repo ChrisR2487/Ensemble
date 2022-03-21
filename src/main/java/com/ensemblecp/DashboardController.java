@@ -1,6 +1,22 @@
 package com.ensemblecp;
 
 // Java libraries
+
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.view.GanttChart;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -9,26 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-// JavaFX libraries
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-
-// Flexgantt libraries
-import com.flexganttfx.model.Layer;
-import com.flexganttfx.view.GanttChart;
-
 public class DashboardController implements Initializable {
-    @FXML private ImageView exitButton;
+    @FXML private Button exitButton;
     @FXML private AnchorPane root;
     @FXML private TableView<ProjectRow> projectTable;
     @FXML private TableColumn<ProjectRow, String> statusColumn;
@@ -37,28 +35,61 @@ public class DashboardController implements Initializable {
     @FXML private TableColumn<ProjectRow, String> kickoffColumn;
     @FXML private TableColumn<ProjectRow, String> deadlineColumn;
 
+    @FXML private TableView membersTable;
+    @FXML private TableColumn<MemberRow, String> nameColumn;
+    @FXML private TableColumn<MemberRow, String> memberStatusColumn;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Create projectRow list
-        ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
-        try {
-            Database db = new Database();
-            ResultSet rs = db.getProjects();
-            while (rs.next()) {
-                ProjectRow pr = new ProjectRow();
-                pr.setTitle(rs.getString("title"));
-                pr.setComplete(String.valueOf(rs.getBoolean("complete")));
-                pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
-                pr.setKickoff(rs.getDate("kickoff").toString());
-                pr.setDeadline(rs.getDate("deadline").toString());
-                pr.setPid(String.valueOf(rs.getInt("pid")));
-                rowArrayList.add(pr);
+        // Setup project list
+        int tryCount = 0;
+        while (tryCount < Main.ATTEMPT_LIMIT) {
+            try {
+                setupProjectList();
+                break;
+            } catch (SQLException | IOException e) {
+                System.out.println("Failed to start dashboard, trying again...");
+                tryCount++;
             }
-            db.closeDB();
         }
-        catch (SQLException e) {
-            e.printStackTrace(); // TODO: Add better handling for loop
+        if (tryCount == Main.ATTEMPT_LIMIT) {
+            // Failed to load dashboard
+            System.out.println("Unable to initialize dashboard with database info, stopping program.");
+            System.exit(ExitStatusType.FAILED_LOAD);
         }
+
+        // Setup company timeline
+        int tryCount2 = 0;
+        while (tryCount2 < Main.ATTEMPT_LIMIT) {
+            try {
+                setupCompanyTimeline();
+                break;
+            } catch (SQLException e) {
+                System.out.println("Failed to load company timeline, trying again...");
+                tryCount2++;
+            }
+        }
+        if (tryCount2 == Main.ATTEMPT_LIMIT) {
+            // Failed to load dashboard
+            System.out.println("Unable to load company timeline, end execution.");
+        }
+    }
+
+    private void setupProjectList() throws SQLException, IOException {
+        ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
+        Database db = new Database();
+        ResultSet rs = db.getProjects();
+        while (rs.next()) {
+            ProjectRow pr = new ProjectRow();
+            pr.setTitle(rs.getString("title"));
+            pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+            pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
+            pr.setKickoff(rs.getDate("kickoff").toString());
+            pr.setDeadline(rs.getDate("deadline").toString());
+            pr.setPid(String.valueOf(rs.getInt("pid")));
+            rowArrayList.add(pr);
+        }
+        db.closeDB();
 
         // Convert to array
         ProjectRow[] rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
@@ -77,19 +108,21 @@ public class DashboardController implements Initializable {
         TableView.TableViewSelectionModel<ProjectRow> mod = projectTable.getSelectionModel();
         ObservableList<ProjectRow> sel = mod.getSelectedItems();
         sel.addListener((ListChangeListener<ProjectRow>) change -> {
-            try {
-                onChange(change);
-            } catch (IOException | SQLException e) {
-                e.printStackTrace(); // TODO: Handle error better
+            int tryCount = 0;
+            while (tryCount < Main.ATTEMPT_LIMIT) {
+                try {
+                    onChange(change);
+                    break;
+                } catch (IOException | SQLException e) {
+                    System.out.println("Failed to start project view, trying again...");
+                    tryCount++;
+                }
+            }
+            if (tryCount == Main.ATTEMPT_LIMIT) {
+                // Failed to load dashboard
+                System.out.println("Unable to load project view, end listener execution.");
             }
         });
-
-        // Setup company timeline
-        try {
-            setupCompanyTimeline();
-        } catch (SQLException e) {
-            e.printStackTrace(); // TODO: Handle error better
-        }
     }
 
     private void setupCompanyTimeline() throws SQLException {
@@ -121,8 +154,8 @@ public class DashboardController implements Initializable {
         gantt.setDisplayMode(GanttChart.DisplayMode.STANDARD); // Standard view, names and times
         gantt.setTableMenuButtonVisible(false); // Disable add button
 
-        // TODO: Disable table editing.
-            /// gantt.getGraphics().setRowEditingMode(GraphicsBase.RowEditingMode.NONE);
+        // Stop editing of table
+        gantt.getGraphics().setActivityEditingCallback(Timeline.class, editingCallbackParameter -> false);
 
         // Set layout attributes & add chart to view
         gantt.setLayoutX(212.0);
@@ -132,12 +165,7 @@ public class DashboardController implements Initializable {
         root.getChildren().add(gantt);
     }
 
-    @FXML
-    public void add_onClick() throws IOException {
-        Main.show("projCreator");
-    }
-
-    @FXML void onChange(ListChangeListener.Change change) throws IOException, SQLException {
+    void onChange(ListChangeListener.Change change) throws IOException, SQLException {
         // Get data
         ObservableList<ProjectRow> selectedList = change.getList();
         int pid = Integer.parseInt(selectedList.get(0).getPid());
@@ -159,11 +187,11 @@ public class DashboardController implements Initializable {
         Main.curProject = projInCache;
 
         // Display screen
-        Main.show("projViewScreen");
+        Main.show("projOverview");
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
-        System.exit(-1);
+        System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
     public void dashButton_onClick(Event actionEvent) throws IOException {

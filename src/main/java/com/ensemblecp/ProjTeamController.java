@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProjTeamController implements Initializable {
-    @FXML private ImageView exitButton;
+    @FXML private Button exitButton;
     @FXML private Label tagsLabel;
     @FXML private Label roiLabel;
     @FXML private Label budgetLabel;
@@ -36,6 +37,11 @@ public class ProjTeamController implements Initializable {
     @FXML private TableColumn<MemberRow, String> memidColumn;
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> photoColumn;
+
+    @FXML ImageView removeButton;
+    @FXML ImageView editButton;
+    @FXML ImageView addComponent;
+    @FXML ImageView refreshROI;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -52,24 +58,38 @@ public class ProjTeamController implements Initializable {
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
         titleLabel.setText(Main.curProject.getTitle());
 
+        // Create projectRow list
+        int tryCount = 0;
+        while (tryCount < Main.ATTEMPT_LIMIT) {
+            try {
+                setupTeamList();
+                break;
+            } catch (SQLException e) {
+                System.out.println("Failed to load project team, trying again...");
+                tryCount++;
+            }
+        }
+        if (tryCount == Main.ATTEMPT_LIMIT) {
+            // Failed to load dashboard
+            System.out.println("Unable to initialize project team, ending execution.");
+        }
+    }
+
+    public void setupTeamList() throws SQLException {
         // Setup members table
         ArrayList<MemberRow> rowArrayList = new ArrayList<>();
-        try {
-            Database db = new Database();
-            ResultSet rs = db.getProjectMembers(Main.curProject.getPid());
-            while (rs.next()) {
-                MemberRow mr = new MemberRow();
-                mr.setName(rs.getString("name"));
-                mr.setMemid(String.valueOf(rs.getInt("memid")));
-                mr.setPosition(rs.getString("position"));
-                mr.setPhoto("N/A"); // TODO: Get correct file for member photo
+        Database db = new Database();
+        ResultSet rs = db.getProjectMembers(Main.curProject.getPid());
+        while (rs.next()) {
+            MemberRow mr = new MemberRow();
+            mr.setName(rs.getString("name"));
+            mr.setMemid(String.valueOf(rs.getInt("memid")));
+            mr.setPosition(rs.getString("position"));
+            mr.setPhoto("N/A"); // TODO: Get correct file for member photo
 
-                rowArrayList.add(mr);
-            }
-            db.closeDB();
-        } catch (SQLException e) {
-            e.printStackTrace(); // TODO: Add better handling for loop
+            rowArrayList.add(mr);
         }
+        db.closeDB();
 
         // Convert to array
         MemberRow[] rowList = rowArrayList.toArray(new MemberRow[rowArrayList.size()]);
@@ -87,7 +107,7 @@ public class ProjTeamController implements Initializable {
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
-        System.exit(-1);
+        System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
     public void dashButton_onClick(Event actionEvent) throws IOException {
@@ -114,10 +134,49 @@ public class ProjTeamController implements Initializable {
     }
 
     public void viewOverview_onClick(ActionEvent actionEvent) throws IOException {
-        Main.show("projViewScreen");
+        Main.show("projOverview");
     }
 
     public void viewBenchmark_onClick(ActionEvent actionEvent) {
-        // TODO: Implement this view change to benchmark
+        // TODO: Implement this view change
     }
+
+    public void viewIssue_onClick(ActionEvent event) throws IOException {
+        Main.show("projIssues");
+    }
+
+    public void addComponentButton_onClick(ActionEvent event) throws IOException {
+        Main.show("compCreator");
+    }
+
+    public void addComponent_Hover(){
+        addComponent.setOpacity(0.5);
+    }
+
+    public void addComponent_HoverOff(){
+        addComponent.setOpacity(1.0);
+    }
+
+    public void editButton_Hover(){
+        editButton.setOpacity(0.5);
+    }
+
+    public void editButton_HoverOff(){
+        editButton.setOpacity(1.0);
+    }
+    public void removeButton_Hover(){
+        removeButton.setOpacity(0.5);
+    }
+
+    public void removeButton_HoverOff(){
+        removeButton.setOpacity(1.0);
+    }
+    public void refreshROI_Hover(){
+        refreshROI.setOpacity(0.5);
+    }
+
+    public void refreshROI_HoverOff(){
+        refreshROI.setOpacity(1.0);
+    }
+
 }

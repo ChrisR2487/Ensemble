@@ -11,12 +11,11 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.security.MessageDigest;
 
 public class LoginController implements Initializable {
     @FXML private TextField usernameField;
@@ -30,10 +29,10 @@ public class LoginController implements Initializable {
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
-        System.exit(-1);
+        System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
-    public void verifyLogin(ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException { // TODO: Confirm this works
+    public void verifyLogin(ActionEvent actionEvent) throws IOException, SQLException, NoSuchAlgorithmException {
         // Get user input
         String pass = passwordField.getText();
         String user = usernameField.getText();
@@ -48,19 +47,11 @@ public class LoginController implements Initializable {
             usernameField.setBorder(INVALID_BORDER);
             passwordField.setBorder(INVALID_BORDER);
 
-            // Account found TODO: Remove after testing is done
-            Main.disableScreen(); // Disable screen
-            Main.setCredentials(1); // Set account info
-            Main.show("Dashboard"); // Swap scenes to dashboard
-            Main.enableScreen(); // Enable screen
-            db.closeDB(); // Close db
-
             return; // End method execution
         }
-        while(userMatches.next()) {
+        do {
             // Compute hash
             String inputHash = hashInput(userMatches.getString("salt") + pass);
-
             // Check for password equality
             if (inputHash.equals(userMatches.getString("password"))) {
                 // Account found
@@ -71,7 +62,7 @@ public class LoginController implements Initializable {
                 db.closeDB(); // Close db
                 return; // End method execution
             }
-        }
+        } while(userMatches.next());
 
         // Login unsuccessful via password, show error
         db.closeDB(); // Close db, no password matches
@@ -80,9 +71,9 @@ public class LoginController implements Initializable {
         passwordField.setBorder(INVALID_BORDER);
     }
 
-    private String hashInput(String input) throws NoSuchAlgorithmException { // TODO: Confirm this works
+    private String hashInput(String input) throws NoSuchAlgorithmException {
         MessageDigest hash = MessageDigest.getInstance("SHA-256");
-        byte[] inputByteHash = hash.digest(input.getBytes(StandardCharsets.UTF_8));
+        byte[] inputByteHash = hash.digest(input.getBytes());
         return new String(inputByteHash);
     }
 }

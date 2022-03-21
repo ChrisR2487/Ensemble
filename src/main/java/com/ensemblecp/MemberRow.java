@@ -2,6 +2,7 @@ package com.ensemblecp;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.CheckBox;
 
 public class MemberRow {
     private StringProperty memid;
@@ -34,5 +35,31 @@ public class MemberRow {
     public StringProperty photoProperty() {
         if (photo == null) photo = new SimpleStringProperty(this, "photo");
         return photo;
+    }
+
+    /*
+    private boolean select = false;
+    public Boolean getSelect() {
+        return this.select;
+    }
+    public void setSelect(Boolean value) {
+        this.select = value;
+    }
+     */
+
+    private CheckBox select = new CheckBox();
+    public CheckBox getSelect() {
+        return this.select;
+    }
+    public void setSelect(CheckBox value) {
+        this.select = value;
+    }
+
+    private StringProperty status;
+    public void setStatus(String value) { statusProperty().set(value); }
+    public String getStatus() { return statusProperty().get(); }
+    public StringProperty statusProperty() {
+        if (status == null) status = new SimpleStringProperty(this, "status");
+        return status;
     }
 }

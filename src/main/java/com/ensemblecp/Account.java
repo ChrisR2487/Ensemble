@@ -70,7 +70,7 @@ class StatusType {
     public final static int BUSY = 1;
     public final static int AWAY = 2;
 
-    public String mapStatus(int status) {
+    public static String mapStatus(int status) {
         switch(status) {
             case AVAILABLE -> {
                 return "Available";

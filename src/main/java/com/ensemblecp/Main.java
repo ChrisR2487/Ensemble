@@ -1,23 +1,25 @@
 package com.ensemblecp;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.*;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.*;
 
 public class Main extends Application {
     private final static boolean IS_FULLSCREEN = true;
     public static Project curProject;
     private static Stage mainStage;
     public static ArrayList<Project> projects;
-    public final static int cacheLimit = 5;
+    public final static int CACHE_LIMIT = 5;
     public static Account account;
+    public final static int ATTEMPT_LIMIT = 10;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -25,10 +27,10 @@ public class Main extends Application {
         mainStage = stage;
         mainStage.setTitle("Ensemble");
         stage.initStyle(StageStyle.UNDECORATED);
-        projects = new ArrayList<Project>(cacheLimit+1);
+        projects = new ArrayList<Project>(CACHE_LIMIT +1);
 
         // Show startup screen
-        show("customComp");
+        show("login");
         mainStage.show();
     }
 
@@ -55,7 +57,7 @@ public class Main extends Application {
         mainStage.show();
     }
 
-    public static void setCredentials(int id) throws SQLException { // TODO: Confirm this works
+    public static void setCredentials(int id) throws SQLException {
         Database db = new Database();
         ResultSet rs = db.getManagerAccount(id); // Get tuple with info
         if (!rs.next()) {
@@ -66,7 +68,9 @@ public class Main extends Application {
                 account = new Account(rs, AccountType.MEMBER);
             } catch (SQLException e) {
                 // No matches found despite login successful, throw error
-                    //throw new IllegalStateException("Error while processing login."); TODO: Uncomment this after testing
+                System.out.println("Error while processing login, stopping software.");
+                db.closeDB();
+                System.exit(ExitStatusType.FAILED_LOGIN);
             }
         }
         else {
@@ -79,8 +83,8 @@ public class Main extends Application {
 
     public static void trimCache() {
         // Trims the Main.projects cache if necessary
-        if (Main.projects.size() > cacheLimit) {
-            Main.projects.remove(cacheLimit);
+        if (Main.projects.size() > CACHE_LIMIT) {
+            Main.projects.remove(CACHE_LIMIT);
         }
     }
 
@@ -98,4 +102,11 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws SQLException { launch();}
+}
+
+class ExitStatusType {
+    public final static int EXIT_BUTTON = 0;
+    public final static int FAILED_LOAD = -1;
+    public final static int FAILED_QUERY = -2;
+    public final static int FAILED_LOGIN = -3;
 }

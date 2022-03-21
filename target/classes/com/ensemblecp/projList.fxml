@@ -5,7 +5,6 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
 <AnchorPane prefHeight="1080" prefWidth="1920" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjListController">
    <children>
       <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -18,7 +17,7 @@
                         <Insets />
                      </HBox.margin>
                   </ImageView>
-                  <Button mnemonicParsing="false" onAction="#dashButton_onClick" prefHeight="43.0" prefWidth="143.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
+                  <Button mnemonicParsing="false" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" onAction="#dashButton_onClick" prefHeight="43.0" prefWidth="143.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -36,7 +35,7 @@
                   <ImageView fitHeight="27.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
                      <Image url="@../button_imgs/projlist-icon.png" />
                   </ImageView>
-                  <Button mnemonicParsing="false" onAction="#projListButton_onClick" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: transparent;" text="Projects" textFill="WHITE">
+                  <Button mnemonicParsing="false" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" onAction="#projListButton_onClick" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: transparent;" text="Projects" textFill="WHITE">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" />
                      </HBox.margin>
@@ -50,7 +49,7 @@
                   <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
                      <Image url="@../button_imgs/archive-icon.png" />
                   </ImageView>
-                  <Button mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" text="Archives" textFill="WHITE">
+                  <Button mnemonicParsing="false" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" text="Archives" textFill="WHITE">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -78,12 +77,21 @@
            <TableColumn fx:id="pidColumn" prefWidth="75.0" text="Project ID" />
            <TableColumn fx:id="kickoffColumn" prefWidth="125.0" text="Start Date" />
            <TableColumn fx:id="deadlineColumn" prefWidth="125.0" text="End Date" />
-           <TableColumn fx:id="manidNameColumn" prefWidth="200.0" text="Project Manager" /> <!-- TODO: Change to manager name -->
+           <TableColumn fx:id="managerNameColumn" prefWidth="200.0" text="Project Manager" />
            <TableColumn fx:id="tagsColumn" prefWidth="368.0" text="Tags" />
         </columns>
       </TableView>
-      <ImageView fx:id="exitButton" layoutX="1814.0" layoutY="30.0" onMouseClicked="#exitButton_onClick">
-         <Image url="@../button_imgs/close_button.png" />
-      </ImageView>
+      <Button fx:id="exitButton" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" text="X" textFill="WHITE">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+
+      <!-- Add project button TODO: Change to image and button later -->
+      <Button layoutX="290.0" layoutY="35.5" mnemonicParsing="false" onAction="#add_onClick" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="+" textFill="WHITE">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
