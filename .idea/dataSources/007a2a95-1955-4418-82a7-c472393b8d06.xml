@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="EnsembleDS">
   <database-model serializer="dbm" dbms="BIGQUERY" family-id="BIGQUERY" format-version="4.32">
-    <root id="1">
-      <ServerVersion>1.2.22.1026</ServerVersion>
-    </root>
+    <root id="1"/>
     <database id="2" parent="1" name="dotted-stage-274800"/>
     <database id="3" parent="1" name="ensemble-340721">
       <Current>1</Current>
