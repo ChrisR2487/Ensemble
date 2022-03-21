@@ -246,6 +246,15 @@ public class Database {
         System.out.println("Success on querying project components");
         return rs;
     }
+
+    public ResultSet createComponent(HashMap<String, String> cid) throws SQLException {
+        String query = " insert into "+ databaseName + ".Component" + " values (?, ?, ?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where pid = ?");
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on create project");
+        return rs;
+    }
 }
 // End of Database Class
 
