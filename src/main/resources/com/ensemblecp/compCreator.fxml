@@ -29,9 +29,9 @@
    <ImageView fx:id="exitButton" fitHeight="50.0" fitWidth="40.0" layoutX="1852.0" layoutY="5.0" onMouseClicked="#exitButton_onClick" pickOnBounds="true" preserveRatio="true">
       <Image url="@../button_imgs/close_button.png" />
    </ImageView>
-   <VBox layoutX="55.0" layoutY="322.0" prefHeight="399.0" prefWidth="1329.0">
+   <VBox layoutX="55.0" layoutY="322.0" prefHeight="399.0" prefWidth="1864.0">
       <children>
-         <TableView fx:id="existingTable" prefHeight="370.0" prefWidth="527.0" visible="false"> <!-- Width=606 -->
+         <TableView fx:id="existingTable" prefHeight="370.0" prefWidth="1361.0" visible="false"> <!-- Width=606 -->
             <columns>
                <TableColumn fx:id="titleColumn" prefWidth="175.0" text="Title" />
                <TableColumn fx:id="templateColumn" prefWidth="431.0" text="Template" />
