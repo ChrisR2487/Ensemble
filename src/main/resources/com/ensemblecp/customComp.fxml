@@ -17,9 +17,14 @@
                         <Font size="26.0" />
                      </font>
                   </Label>
-                   <ImageView fx:id="exitButton" fitHeight="50.0" fitWidth="40.0" layoutX="1866.0" layoutY="-1.0" onMouseClicked="#exitButton_onClick" pickOnBounds="true" preserveRatio="true">
-                       <Image url="@../button_imgs/close_button.png" />
-                   </ImageView>
+
+                  <!-- Exit button -->
+                  <Button fx:id="exitButton" layoutX="1866.0" layoutY="-1.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Button>
+
                </children>
             </AnchorPane>
          </children>

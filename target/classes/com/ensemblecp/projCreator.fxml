@@ -188,18 +188,18 @@
                      <children>
                         <HBox prefHeight="183.0" prefWidth="725.0">
                            <children>
-                              <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #fb5656;" text="Cancel">
+                              <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="25.0" top="60.0" />
                                  </HBox.margin>
                               </Button>
                               <Pane prefHeight="183.0" prefWidth="135.0" />
-                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#createProject_onClick" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #7ed957;" text="Create Project">
+                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#createProject_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Create Project">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets top="60.0" />

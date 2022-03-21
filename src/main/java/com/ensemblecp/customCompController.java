@@ -33,7 +33,7 @@ public class customCompController implements Initializable {
     @FXML public MenuItem fileItem;
     @FXML public Button submit_Button;
     @FXML public Button addItem;
-    @FXML public ImageView exitButton;
+    @FXML public Button exitButton;
     @FXML public StackPane stackPane;
     @FXML public TextField inputField;
     @FXML public MenuButton menuButton;
@@ -130,7 +130,7 @@ public class customCompController implements Initializable {
         ResultSet rs = db.createComponent(info);
 
         db.closeDB();
-        Main.show("compCreator");
+        Main.show("projOverview");
     }
 
     public void cancelButton_onClick(Event actionEvent) throws IOException {
