@@ -17,7 +17,11 @@ import javafx.scene.layout.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -35,6 +39,8 @@ public class customCompController implements Initializable {
     @FXML public MenuButton menuButton;
     @FXML public VBox mainVBox;
     @FXML public VBox fieldVBox;
+    @FXML public TextField compTitle;
+    @FXML public Button cancelButton;
     MenuItem item1 = new MenuItem("Integer");
     MenuItem item2 = new MenuItem("String");
     MenuItem item3 = new MenuItem("Table");
@@ -103,14 +109,28 @@ public class customCompController implements Initializable {
         HBox newBox = new HBox(m,t);
         fieldVBox.setSpacing(20);
         fieldVBox.getChildren().add(newBox);
-
     }
 
+    public void submit_Button_onClick(Event actionEvent) throws SQLException {
+        //partId shows the order, use layout of components
+        //add new record to Component table when creating a template
 
-    public void submit_Button_onClick(Event actionEvent) {
+        HashMap<String, String> info = new HashMap<String, String>();
+        info.put("cid", Project.IDtoChars(10));
+        info.put("title", compTitle.getText());
+        //info.put("template", );
 
 
+        Database db = new Database();
+        ResultSet rs = db.createComponent(info);
+
+        db.closeDB();
     }
+
+    public void cancelButton_onClick(Event actionEvent) throws IOException {
+        Main.show("compCreator");
+    }
+
 
 
 }

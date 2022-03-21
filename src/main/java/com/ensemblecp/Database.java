@@ -247,18 +247,12 @@ public class Database {
         return rs;
     }
 
-    public ResultSet createComponent(HashMap<String, String> info) throws SQLException {
-        //Insert Record
+    public ResultSet createComponent(HashMap<String, String> cid) throws SQLException {
         String query = " insert into "+ databaseName + ".Component" + " values (?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
-        preparedStmt.setString (2, info.get("title"));
-        preparedStmt.setString (3, info.get("template"));
-        preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Component where cid = ?");
-        preparedStmt.setInt(1, 1);
-        //preparedStmt.execute();
+        preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Project where pid = ?");
         ResultSet rs = preparedStmt.executeQuery();
-        System.out.println("Success on create Component");
+        System.out.println("Success on create project");
         return rs;
     }
 }

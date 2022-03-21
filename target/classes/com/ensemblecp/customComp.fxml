@@ -40,6 +40,7 @@
                   </Label>
                </children>
             </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
             <HBox prefHeight="31.0" prefWidth="919.0">
                <children>
                   <Button fx:id="addItem" mnemonicParsing="false" onAction="#addField_onClick" prefHeight="37.0" prefWidth="155.0" text="Add Item">
@@ -47,14 +48,14 @@
                         <Font size="18.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="30.0" top="30.0" />
+                        <Insets left="30.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
             <StackPane fx:id="stackPane" prefHeight="196.0" prefWidth="919.0">
                <children>
-                  <VBox fx:id="fieldVBox" prefHeight="200.0" prefWidth="100.0">
+                  <VBox fx:id="fieldVBox" maxHeight="900.0" prefHeight="559.0" prefWidth="1926.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="108.0" prefWidth="919.0">
                            <children>
@@ -88,7 +89,12 @@
    <bottom>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="submit_Button" layoutX="1474.0" layoutY="88.0" mnemonicParsing="false" onAction="#submit_Button_onClick" prefHeight="45.0" prefWidth="372.0" text="Submit">
+            <Button fx:id="submit_Button" layoutX="1474.0" layoutY="88.0" mnemonicParsing="false" onAction="#submit_Button_onClick" prefHeight="45.0" prefWidth="300.0" text="Submit">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="cancelButton" layoutX="1159.0" layoutY="88.0" mnemonicParsing="false" onAction="#cancelButton_onClick" prefHeight="45.0" prefWidth="300.0" text="Cancel">
                <font>
                   <Font size="16.0" />
                </font>
