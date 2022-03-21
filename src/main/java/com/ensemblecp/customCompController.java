@@ -46,10 +46,8 @@ public class customCompController implements Initializable {
     MenuItem item3 = new MenuItem("Table");
     MenuItem item4 = new MenuItem("File");
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*
         ListView<CellData> listView = new ListView();
         listView.setCellFactory((ListView<CellData> param) -> {
             ListCell<CellData> cell = new ListCell<CellData>() {
@@ -73,7 +71,7 @@ public class customCompController implements Initializable {
             return cell;
         });
 
-         */
+
         stringItem.setOnAction(e -> {
             menuButton.setText(stringItem.getText());
         });
@@ -100,12 +98,24 @@ public class customCompController implements Initializable {
 
     public void addField_onClick(Event actionEvent) {
         MenuButton m = new MenuButton("Select Type",null, item1,item2,item3,item4);
+        item1.setOnAction(e -> {
+            m.setText(item1.getText());
+        });
+        item2.setOnAction(e -> {
+            m.setText(item2.getText());
+        });
+        item3.setOnAction(e -> {
+            m.setText(item3.getText());
+        });
+        item4.setOnAction(e -> {
+            m.setText(item4.getText());
+        });
         //MenuButton m = new MenuButton();
         TextField t = new TextField();
         m.setPrefWidth(160);
         m.setPrefHeight(40);
         t.setPrefWidth(600);
-        m.setPrefHeight(40);
+        t.setPrefHeight(40);
         HBox newBox = new HBox(m,t);
         fieldVBox.setSpacing(20);
         fieldVBox.getChildren().add(newBox);
