@@ -251,9 +251,9 @@ public class Database {
         //Insert Record
         String query = " insert into "+ databaseName + ".Component" + " values (?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setInt(1, 1);
-        preparedStmt.setString (2, "a");
-        preparedStmt.setString (3, "b");
+        preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
+        preparedStmt.setString (2, info.get("title"));
+        preparedStmt.setString (3, info.get("template"));
         preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Component where cid = ?");
         preparedStmt.setInt(1, 1);
         //preparedStmt.execute();
