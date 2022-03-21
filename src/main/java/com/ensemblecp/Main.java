@@ -28,7 +28,7 @@ public class Main extends Application {
         projects = new ArrayList<Project>(cacheLimit+1);
 
         // Show startup screen
-        show("login");
+        show("customComp");
         mainStage.show();
     }
 
