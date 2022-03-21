@@ -356,11 +356,19 @@ public class Database {
     }
 
     public void updateIssueScore(int pid, float score) throws SQLException {
-        String query = "select * from " + databaseName + ".Project issueScore = issueScore + ? WHERE pid = ?";
+        String query = "update " + databaseName + ".Project set issueScore = (issueScore + ?) WHERE pid = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setFloat(1, score);
         preparedStmt.setInt(2, pid);
         preparedStmt.execute();
+    }
+
+    public ResultSet getProjectIssues(int pid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "select * from " + databaseName + "." + charPid + "_Issues";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
     }
 }
 // End of Database Class

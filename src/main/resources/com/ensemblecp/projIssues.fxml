@@ -99,7 +99,7 @@
                         <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
                             <Image url="@../button_imgs/archive-icon.png" />
                         </ImageView>
-                        <Button mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="47.0" prefWidth="115.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Archives" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Archives" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
@@ -241,9 +241,11 @@
         <!-- Issue table -->
         <TableView fx:id="issueTable" layoutX="215.0" layoutY="165.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1215.0">
          <columns>
-            <TableColumn fx:id="statusColumn" prefWidth="190.0" text="Date" />
-            <TableColumn fx:id="issueScoreColumn" prefWidth="205.0" text="Name" />
-            <TableColumn fx:id="deadlineColumn" prefWidth="628.0" text="Issue" />
+            <!-- <TableColumn fx:id="dateColumn" prefWidth="190.0" text="Time Posted" /> -->
+             <TableColumn fx:id="stateColumn" prefWidth="100.0" text="State" />
+             <TableColumn fx:id="originColumn" prefWidth="150.0" text="Origin Member" />
+             <TableColumn fx:id="typeColumn" prefWidth="100.0" text="Focus" />
+             <TableColumn fx:id="descriptionColumn" prefWidth="864.0" text="Description" />
          </columns>
       </TableView>
         <!-- Create issue -->

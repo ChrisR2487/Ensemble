@@ -1,12 +1,24 @@
 package com.ensemblecp;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 
 public class CreateIssueController {
+    @FXML private TextField messageField;
+    @FXML private ToggleButton tb1;
+    @FXML private ToggleButton tb2;
+    @FXML private ToggleButton tb3;
+    @FXML private ToggleButton tb4;
+    @FXML private ToggleButton tb5;
+    @FXML private ToggleGroup Type;
+
     public void cancelCreate_onClick(ActionEvent actionEvent) throws IOException {
         Main.show("projIssues");
     }
@@ -15,10 +27,26 @@ public class CreateIssueController {
         // Get issue info
         Database db = new Database();
         HashMap<String, String> info = new HashMap<>();
-        info.put("message", ""); // TODO: Change to correct name of message field <messageField.getText()>
+        info.put("message", messageField.getText());
 
         // Determine type
-        String getSelectedField = "No Score"; // TODO: Determine what radio button is selected, store text of button here
+        String getSelectedField = null;
+
+        if(tb1.isSelected()){
+            getSelectedField = "No Score";
+        }
+        if(tb2.isSelected()){
+            getSelectedField = "Timeline";
+        }
+        if(tb3.isSelected()){
+            getSelectedField = "Budget";
+        }
+        if(tb4.isSelected()){
+            getSelectedField = "Task";
+        }
+        if(tb5.isSelected()){
+            getSelectedField = "Team";
+        }
 
         int type = -1;
         switch (getSelectedField) {
