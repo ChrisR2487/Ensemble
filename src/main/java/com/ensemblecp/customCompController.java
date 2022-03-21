@@ -110,7 +110,6 @@ public class customCompController implements Initializable {
         item4.setOnAction(e -> {
             m.setText(item4.getText());
         });
-        //MenuButton m = new MenuButton();
         TextField t = new TextField();
         m.setPrefWidth(160);
         m.setPrefHeight(40);
@@ -121,20 +120,21 @@ public class customCompController implements Initializable {
         fieldVBox.getChildren().add(newBox);
     }
 
-    public void submit_Button_onClick(Event actionEvent) throws SQLException {
+    public void submit_Button_onClick(Event actionEvent) throws SQLException, IOException {
         //partId shows the order, use layout of components
         //add new record to Component table when creating a template
 
         HashMap<String, String> info = new HashMap<String, String>();
-        info.put("cid", Project.IDtoChars(10));
-        info.put("title", compTitle.getText());
-        //info.put("template", );
+        info.put("cid", "2");
+        info.put("title", "Test");
+        info.put("template", "Test Template");
 
-
+        //add data record
         Database db = new Database();
         ResultSet rs = db.createComponent(info);
 
         db.closeDB();
+        Main.show("compCreator");
     }
 
     public void cancelButton_onClick(Event actionEvent) throws IOException {
