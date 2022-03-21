@@ -17,11 +17,7 @@ import javafx.scene.layout.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -39,12 +35,11 @@ public class customCompController implements Initializable {
     @FXML public MenuButton menuButton;
     @FXML public VBox mainVBox;
     @FXML public VBox fieldVBox;
-    @FXML public TextField compTitle;
-    @FXML public Button cancelButton;
     MenuItem item1 = new MenuItem("Integer");
     MenuItem item2 = new MenuItem("String");
     MenuItem item3 = new MenuItem("Table");
     MenuItem item4 = new MenuItem("File");
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,7 +68,6 @@ public class customCompController implements Initializable {
         });
 
          */
-
         stringItem.setOnAction(e -> {
             menuButton.setText(stringItem.getText());
         });
@@ -86,6 +80,12 @@ public class customCompController implements Initializable {
         fileItem.setOnAction(e -> {
             menuButton.setText(fileItem.getText());
         });
+        /*
+        addItem.setOnAction((event) -> {
+            listView.getItems().add(new CellData());
+            System.out.println("Hi ;)");
+        });
+         */
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
@@ -94,49 +94,23 @@ public class customCompController implements Initializable {
 
     public void addField_onClick(Event actionEvent) {
         MenuButton m = new MenuButton("Select Type",null, item1,item2,item3,item4);
-        item1.setOnAction(e -> {
-            m.setText(item1.getText());
-        });
-        item2.setOnAction(e -> {
-            m.setText(item2.getText());
-        });
-        item3.setOnAction(e -> {
-            m.setText(item3.getText());
-        });
-        item4.setOnAction(e -> {
-            m.setText(item4.getText());
-        });
+        //MenuButton m = new MenuButton();
         TextField t = new TextField();
         m.setPrefWidth(160);
         m.setPrefHeight(40);
         t.setPrefWidth(600);
-        t.setPrefHeight(40);
+        m.setPrefHeight(40);
         HBox newBox = new HBox(m,t);
         fieldVBox.setSpacing(20);
         fieldVBox.getChildren().add(newBox);
+
     }
 
-    public void submit_Button_onClick(Event actionEvent) throws SQLException, IOException {
-        //partId shows the order, use layout of components
-        //add new record to Component table when creating a template
 
-        HashMap<String, String> info = new HashMap<String, String>();
-        info.put("cid", "2");
-        info.put("title", "Test");
-        info.put("template", "Test Template");
+    public void submit_Button_onClick(Event actionEvent) {
 
-        //add data record
-        Database db = new Database();
-        ResultSet rs = db.createComponent(info);
 
-        db.closeDB();
-        Main.show("compCreator");
     }
-
-    public void cancelButton_onClick(Event actionEvent) throws IOException {
-        Main.show("compCreator");
-    }
-
 
 
 }
