@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="borderPane" prefHeight="500.0" prefWidth="1000.0" stylesheets="@../../css/compCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.customCompController">
+<BorderPane fx:id="borderPane" prefHeight="1920" prefWidth="1080.0" stylesheets="@../../css/compCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.customCompController">
    <top>
       <HBox prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -69,42 +69,41 @@
                   </Button>
                </children>
             </HBox>
-            <ScrollPane prefHeight="622.0" prefWidth="1915.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+            <ScrollPane prefHeight="558.0" prefWidth="1903.0">
+               <content>
+                  <VBox fx:id="fieldVBox" maxHeight="900.0" prefHeight="407.0" prefWidth="1897.0">
                      <children>
-                        <VBox fx:id="fieldVBox" maxHeight="900.0" prefHeight="173.0" prefWidth="1919.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="1901.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="108.0" prefWidth="919.0">
-                                 <children>
-                                    <MenuButton fx:id="menuButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="23.0" prefWidth="173.0" text="Entry Type">
-                                       <items>
-                                          <MenuItem fx:id="stringItem" mnemonicParsing="false" text="String" /> <!--onAction="#setMenuButton" -->
-                                          <MenuItem fx:id="intItem" mnemonicParsing="false" text="Int" />
-                                          <MenuItem fx:id="tableItem" mnemonicParsing="false" text="Table" />
-                                             <MenuItem fx:id="fileItem" mnemonicParsing="false" text="File" />
-                                       </items>
-                                       <HBox.margin>
-                                          <Insets left="20.0" />
-                                       </HBox.margin>
-                                       <font>
-                                          <Font size="16.0" />
-                                       </font>
-                                    </MenuButton>
-                                    <TextField fx:id="inputField" prefHeight="37.0" prefWidth="594.0">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
+                              <MenuButton fx:id="menuButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="23.0" prefWidth="173.0" text="Entry Type">
+                                 <items>
+                                    <MenuItem fx:id="stringItem" mnemonicParsing="false" text="String" /> <!--onAction="#setMenuButton" -->
+                                    <MenuItem fx:id="intItem" mnemonicParsing="false" text="Int" />
+                                    <MenuItem fx:id="tableItem" mnemonicParsing="false" text="Table" />
+                                       <MenuItem fx:id="fileItem" mnemonicParsing="false" text="File" />
+                                 </items>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </MenuButton>
+                              <TextField fx:id="inputField" prefHeight="37.0" prefWidth="594.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
                            </children>
-                        </VBox>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
                      </children>
-                  </AnchorPane>
-              </content>
+                  </VBox>
+               </content>
                <VBox.margin>
-                  <Insets top="30.0" />
+                  <Insets top="20.0" />
                </VBox.margin>
             </ScrollPane>
          </children></VBox>
