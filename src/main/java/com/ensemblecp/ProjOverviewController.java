@@ -43,7 +43,14 @@ public class ProjOverviewController implements Initializable {
         titleLabel.setText(Main.curProject.getTitle());
 
         // Set component data
-            // TODO: Add components to view
+        Main.curProject.getComponents();
+        tagsLabel.setOnAction(e -> { tagsLabel.setText(stringItem.getText()); });
+        budgetLabel.setOnAction(e -> { budgetLabel.setText(stringItem.getText()); });
+        kickoffLabel.setOnAction(e -> { kickoffLabel.setText(stringItem.getText()); });
+        deadlineLabel.setOnAction(e -> { deadlineLabel.setText(stringItem.getText()); });
+        investmentCostsLabel.setOnAction(e -> { investmentCostsLabel.setText(stringItem.getText()); });
+        titleLabel.setOnAction(e -> { titleLabel.setText(stringItem.getText()); });
+
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
