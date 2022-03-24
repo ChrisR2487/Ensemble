@@ -31,6 +31,7 @@ public class ProjTeamController implements Initializable {
     @FXML private Label deadlineLabel;
     @FXML private Label investmentCostsLabel;
     @FXML private Label titleLabel;
+    @FXML private Label issueScoreLabel;
 
     @FXML private TableView<MemberRow> memberTable;
     @FXML private TableColumn<MemberRow, String> positionColumn;
@@ -56,9 +57,10 @@ public class ProjTeamController implements Initializable {
         kickoffLabel.setText(kickoffLabel.getText() + "\n\t" + Main.curProject.getKickoff().toString());
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
+        issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
         titleLabel.setText(Main.curProject.getTitle());
 
-        // Create projectRow list
+        // Create memberRow list
         int tryCount = 0;
         while (tryCount < Main.ATTEMPT_LIMIT) {
             try {
@@ -137,8 +139,8 @@ public class ProjTeamController implements Initializable {
         Main.show("projOverview");
     }
 
-    public void viewBenchmark_onClick(ActionEvent actionEvent) {
-        // TODO: Implement this view change
+    public void viewBenchmark_onClick(ActionEvent actionEvent) throws IOException {
+        Main.show("projBenchmark");
     }
 
     public void viewIssue_onClick(ActionEvent event) throws IOException {

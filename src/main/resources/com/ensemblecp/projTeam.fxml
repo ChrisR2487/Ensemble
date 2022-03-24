@@ -67,7 +67,7 @@
             <font>
                 <Font size="26.0" />
             </font></Label>
-        <Label fx:id="titleLabel" layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE">
+        <Label fx:id="titleLabel" layoutX="212.0" layoutY="61.0" prefHeight="38.0" text="Project Name" textFill="WHITE">
             <font>
                 <Font size="26.0" />
             </font>
@@ -92,6 +92,16 @@
                </font>
             </Label>
              <Label fx:id="budgetLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Budget" textFill="WHITE">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+             </Label>
+             <Label text=" " textFill="WHITE">
+                 <font>
+                     <Font size="10.0" />
+                 </font>
+             </Label>
+             <Label fx:id="issueScoreLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Issue Score" textFill="WHITE">
                  <font>
                      <Font size="20.0" />
                  </font>

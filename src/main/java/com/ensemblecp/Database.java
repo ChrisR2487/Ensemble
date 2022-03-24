@@ -90,11 +90,13 @@ public class Database {
 
         createTable = "create table " + databaseName + "." + charPid + "_Tasks("
                 + "tid int primary key,"
+                + "title varchar(64) not null,"
                 + "memid int not null,"
                 + "description varchar(128) not null,"
                 + "kickoff date not null,"
                 + "deadline date not null,"
-                + "complete boolean not null)";
+                + "complete boolean not null"
+                + "CONSTRAINT " + charPid + "_Tasks_uq unique(title))";
         stmt.execute(createTable);
 
         createTable = "create table " + databaseName + "." + charPid + "_Issues("
@@ -365,6 +367,14 @@ public class Database {
     public ResultSet getProjectIssues(int pid) throws SQLException {
         String charPid = Project.IDtoChars(pid);
         String query = "select * from " + databaseName + "." + charPid + "_Issues";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
+    }
+
+    public ResultSet getProjectTasks(int pid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "select * from " + databaseName + "." + charPid + "_Tasks";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         ResultSet rs = preparedStmt.executeQuery();
         return rs;

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Task {
+    private String title; // Title of task
     private int tid; // Id of task
     private int memid; // Assigned member to task
     private String description; // Description of task
@@ -14,6 +15,7 @@ public class Task {
 
     public Task(ResultSet rs) throws SQLException {
         this.tid = rs.getInt("tid");
+        this.title = rs.getString("title");
         this.memid = rs.getInt("memid");
         this.description = rs.getString("description");
         this.kickoff = rs.getDate("kickoff");
@@ -37,6 +39,14 @@ public class Task {
 
     private void setTid(int tid) {
         this.tid = tid;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    private void setTitle(String title) {
+        this.title = title;
     }
 
     public int getMemid() {
@@ -78,4 +88,11 @@ public class Task {
     private void setComplete(boolean complete) {
         this.complete = complete;
     }
+}
+
+class TaskAction {
+    public final static int MODIFY_TASK = 0;
+    public final static int DELETE_TASK = 1;
+    public final static int MARK_TASK = 2;
+    public final static int UNMARK_TASK = 3;
 }

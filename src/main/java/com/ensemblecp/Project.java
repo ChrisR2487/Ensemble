@@ -26,8 +26,13 @@ public class Project {
     private String tag3; // Tag 3 of the project
     private String tag4; // Tag 4 of the project
     private boolean complete; // Is the project marked as complete?
-    private ArrayList<Component> components; // List of project components
     private int manid = 0; // manid of project manager
+
+    // Data of project, loaded and stored only when needed
+    private ArrayList<Component> components; // List of project components (Loads upon starting project)
+    private ArrayList<Task> tasks; // List of project tasks (Loads upon viewing benchmark timeline)
+    private ArrayList<Issue> issues; // List of project issues (Loads upon viewing issue list)
+    private ArrayList<MemberRow> members; // List of project members (Loads upon viewing member list)
 
     /* Class Constructors */
     /**
@@ -85,6 +90,16 @@ public class Project {
 
         // Return components
         return componentsAL;
+    }
+
+    public void parseAndSaveTasks(ResultSet taskInfo) throws SQLException {
+        // Parse each task and its data
+        this.tasks = new ArrayList<>(); // Initialize task list
+        while(taskInfo.next()) { // Get task rows
+            // Create task object
+            Task task = new Task(taskInfo); // Pass parameters to constructor
+            this.tasks.add(task);
+        }
     }
 
     public static String IDtoChars(int pid) {
@@ -256,6 +271,30 @@ public class Project {
 
     private void setManid(int manid) {
         this.manid = manid;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public ArrayList<Issue> getIssues() {
+        return issues;
+    }
+
+    public void setIssues(ArrayList<Issue> issues) {
+        this.issues = issues;
+    }
+
+    public ArrayList<MemberRow> getMembers() {
+        return members;
+    }
+
+    public void setMembers(ArrayList<MemberRow> members) {
+        this.members = members;
     }
 }
 // End of Project Class
