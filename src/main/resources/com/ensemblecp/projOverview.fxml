@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjOverviewController">
+<AnchorPane prefHeight="1270.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjOverviewController">
     <children>
       <ScrollPane layoutX="207.0" layoutY="153.0" opacity="0.09" prefHeight="1433.0" prefWidth="1238.0">
         <content>
@@ -173,12 +173,12 @@
         </Label>
 
         <!-- Files stuff -->
-        <Label layoutX="219.0" layoutY="434.0" prefHeight="38.0" prefWidth="141.0" text="Files" textFill="WHITE">
+        <Label layoutX="221.0" layoutY="434.0" prefHeight="38.0" prefWidth="141.0" text="Files" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
         </Label>
-        <Button layoutX="301.0" layoutY="444.0" mnemonicParsing="false" onAction="#addFile_onClick" text="+" />
+        <Button layoutX="303.0" layoutY="444.0" mnemonicParsing="false" onAction="#addFile_onClick" text="+" />
         <VBox layoutX="236.0" layoutY="486.0" prefHeight="200.0" prefWidth="1190.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
             <children>
                 <HBox prefHeight="26.0" prefWidth="443.0" />
@@ -191,7 +191,7 @@
         </VBox>
 
         <!-- Issues stuff -->
-        <VBox layoutX="233.0" layoutY="783.0" prefHeight="200.0" prefWidth="1198.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+        <VBox layoutX="233.0" layoutY="764.0" prefHeight="200.0" prefWidth="1198.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
             <children>
                 <HBox prefHeight="26.0" prefWidth="443.0" />
             <Label text="    Recent Issues" textFill="WHITE">
@@ -201,7 +201,7 @@
             </Label>
             </children>
         </VBox>
-        <Label layoutX="223.0" layoutY="723.0" prefHeight="53.0" prefWidth="244.0" text="Issues" textFill="WHITE">
+        <Label layoutX="225.0" layoutY="710.0" prefHeight="53.0" prefWidth="244.0" text="Issues" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
@@ -296,7 +296,7 @@
                 <Font size="35.0" />
             </font>
         </Button>
-      <VBox layoutX="232.0" layoutY="1061.0" prefHeight="200.0" prefWidth="1198.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+      <VBox layoutX="232.0" layoutY="1045.0" prefHeight="200.0" prefWidth="1198.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
          <children>
             <HBox prefHeight="26.0" prefWidth="1198.0" />
             <Label text="     Comp1" textFill="WHITE">
@@ -306,7 +306,7 @@
             </Label>
          </children>
       </VBox>
-      <Label layoutX="226.0" layoutY="1003.0" prefHeight="53.0" prefWidth="244.0" text="Comp1" textFill="WHITE">
+      <Label layoutX="226.0" layoutY="989.0" prefHeight="53.0" prefWidth="244.0" text="Comp1" textFill="WHITE">
          <font>
             <Font size="35.0" />
          </font>
