@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <BorderPane fx:id="borderPane" prefHeight="1920" prefWidth="1080.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.customCompController">
    <top>
       <HBox prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
@@ -65,13 +66,21 @@
             </VBox>
             <HBox prefHeight="31.0" prefWidth="919.0">
                <children>
-                  <Button fx:id="addItem" mnemonicParsing="false" onAction="#addField_onClick" prefHeight="37.0" prefWidth="155.0" text="Add Item">
+                  <Button fx:id="addItem" mnemonicParsing="false" onAction="#addField_onClick" prefHeight="30.0" prefWidth="160.0" text="Add Item">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <HBox.margin>
+                        <Insets left="28.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="removeItem" mnemonicParsing="false" onAction="#removeField_onClick" prefHeight="30.0" prefWidth="160.0" text="Remove Item">
+                     <HBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                   </Button>
                </children>
             </HBox>
@@ -84,9 +93,7 @@
                               <MenuButton fx:id="menuButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="23.0" prefWidth="173.0" text="Entry Type">
                                  <items>
                                     <MenuItem fx:id="stringItem" mnemonicParsing="false" text="String" /> <!--onAction="#setMenuButton" -->
-                                    <MenuItem fx:id="intItem" mnemonicParsing="false" text="Int" />
-                                    <MenuItem fx:id="tableItem" mnemonicParsing="false" text="Table" />
-                                       <MenuItem fx:id="fileItem" mnemonicParsing="false" text="File" />
+                                    <MenuItem fx:id="intItem" mnemonicParsing="false" text="Integer" />
                                  </items>
                                  <HBox.margin>
                                     <Insets />
