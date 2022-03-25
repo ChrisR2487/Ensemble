@@ -21,11 +21,17 @@ public class ProjOverviewController implements Initializable {
     @FXML Label deadlineLabel;
     @FXML Label investmentCostsLabel;
     @FXML Label titleLabel;
+    @FXML Label c1;
+    @FXML Label c2;
+
 
     @FXML ImageView removeButton;
     @FXML ImageView editButton;
     @FXML ImageView addComponent;
     @FXML ImageView refreshROI;
+
+    @FXML VBox Comp1;
+    @FXML VBox Comp2;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -43,13 +49,8 @@ public class ProjOverviewController implements Initializable {
         titleLabel.setText(Main.curProject.getTitle());
 
         // Set component data
-        Main.curProject.getComponents();
-        tagsLabel.setOnAction(e -> { tagsLabel.setText(stringItem.getText()); });
-        budgetLabel.setOnAction(e -> { budgetLabel.setText(stringItem.getText()); });
-        kickoffLabel.setOnAction(e -> { kickoffLabel.setText(stringItem.getText()); });
-        deadlineLabel.setOnAction(e -> { deadlineLabel.setText(stringItem.getText()); });
-        investmentCostsLabel.setOnAction(e -> { investmentCostsLabel.setText(stringItem.getText()); });
-        titleLabel.setOnAction(e -> { titleLabel.setText(stringItem.getText()); });
+        Comp1.setVisibility(true);
+        c1.setText(c1.getText() + "\n\t" + String.valueOf(Main.curProject.getComponents()));
 
     }
 
