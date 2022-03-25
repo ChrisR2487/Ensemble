@@ -379,5 +379,21 @@ public class Database {
         ResultSet rs = preparedStmt.executeQuery();
         return rs;
     }
+
+    public void markTask(int pid, int tid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "update " + databaseName + "." + charPid + "_Tasks set complete = true where tid = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1, tid);
+        preparedStatement.execute();
+    }
+
+    public void unmarkTask(int pid, int tid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "update " + databaseName + "." + charPid + "_Tasks set complete = false where tid = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1, tid);
+        preparedStatement.execute();
+    }
 }
 // End of Database Class

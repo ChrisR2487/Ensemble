@@ -2,6 +2,7 @@ package com.ensemblecp;
 
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -9,9 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -51,7 +50,9 @@ public class ProjBenchmarkController implements Initializable {
     @FXML Label deadlineDetail;
     @FXML Label descriptionDetail;
     @FXML Label memberDetail;
-    @FXML Button actionButton;
+    @FXML MenuButton actionMenu;
+
+    private ArrayList<Pane> taskPanes;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -86,7 +87,7 @@ public class ProjBenchmarkController implements Initializable {
         }
 
         // List project tasks (Create list and add onClick listeners)
-        ArrayList<Pane> taskPanes = new ArrayList<>();
+        taskPanes = new ArrayList<>();
         int indx = 1;
         for(Task task: Main.curProject.getTasks()) {
             // Setup each pane
@@ -102,13 +103,20 @@ public class ProjBenchmarkController implements Initializable {
             paneDeadline.setLayoutY(34.0);
             paneDeadline.setTextFill(Paint.valueOf("white"));
 
+            Label paneComplete = new Label("✓");
+            paneComplete.setFont(new Font(30.0));
+            paneComplete.setLayoutY(8.0);
+            paneComplete.setLayoutX(200.0);
+            paneComplete.setTextFill(Paint.valueOf("white"));
+            if (!task.isComplete()) paneComplete.setVisible(false);
+
             Pane taskPane = new Pane();
             taskPane.setPrefWidth(260.0);
             taskPane.setPrefHeight(60.0); // 20.0 (title) + 14.0 (due) + ???
             taskPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#2A2A2A"), new CornerRadii(0), new Insets(0))));
             if (indx == Main.curProject.getTasks().size()) VBox.setMargin(taskPane, new Insets(10.0, 10.0, 10.0, 10.0));
             else VBox.setMargin(taskPane, new Insets(10.0, 10.0, 0.0, 10.0));
-            taskPane.getChildren().addAll(paneTitle, paneDeadline);
+            taskPane.getChildren().addAll(paneTitle, paneDeadline, paneComplete);
 
             // Add onClick listener
             taskPane.setOnMouseClicked(mouseEvent -> {
@@ -120,6 +128,11 @@ public class ProjBenchmarkController implements Initializable {
             indx++;
         }
         taskListVBox.getChildren().addAll(taskPanes); // Add panes to vbox
+
+        // Add options to taskAction combo box
+        actionMenu.getItems().add(new MenuItem("Modify"));
+        actionMenu.getItems().add(new MenuItem("Remove"));
+        actionMenu.getItems().add(new MenuItem("<Complete option>"));
 
         // Setup scroll pane
         ScrollPane sp = new ScrollPane();
@@ -135,10 +148,6 @@ public class ProjBenchmarkController implements Initializable {
     }
 
     private void onShowTaskDetails(Task task) {
-        // Check if visible
-        if (!detailLabel.isVisible()) detailLabel.setVisible(true);
-        if (!taskDetailPane.isVisible()) taskDetailPane.setVisible(true);
-
         // Set data
         titleDetail.setText(task.getTitle());
         descriptionDetail.setText(task.getDescription());
@@ -147,11 +156,104 @@ public class ProjBenchmarkController implements Initializable {
         memberDetail.setText("Assigned to MEMID: " + String.valueOf(task.getMemid()));
 
         // Setup action button listener
-            // TODO: Complete listener on click
+        actionMenu.getItems().get(0).setOnAction(event -> {
+            try {
+                onTaskAction(task, TaskAction.MODIFY_TASK);
+            } catch (SQLException | IOException e) {
+                System.out.println("Failed to load modify task form.");
+            }
+        });
+        actionMenu.getItems().get(1).setOnAction(event -> {
+            try {
+                onTaskAction(task, TaskAction.DELETE_TASK);
+            } catch (SQLException | IOException e) {
+                System.out.println("Failed to load delete task form.");
+            }
+        });
+        if (task.isComplete()) { // Unmark task
+            actionMenu.getItems().set(2, new MenuItem("Mark Incomplete"));
+            actionMenu.getItems().get(2).setOnAction(event -> {
+                try {
+                    onTaskAction(task, TaskAction.UNMARK_TASK);
+                } catch (SQLException | IOException e) {
+                    System.out.println("Failed to mark task as incomplete.");
+                }
+            });
+        }
+        else { // Mark task
+            actionMenu.getItems().set(2, new MenuItem("Mark Complete"));
+            actionMenu.getItems().get(2).setOnAction(event -> {
+                try {
+                    onTaskAction(task, TaskAction.MARK_TASK);
+                } catch (SQLException | IOException e) {
+                    System.out.println("Failed to mark task as complete.");
+                }
+            });
+        }
+
+        // Check if visible
+        if (!detailLabel.isVisible()) detailLabel.setVisible(true);
+        if (!taskDetailPane.isVisible()) {
+            taskDetailPane.setDisable(false);
+            taskDetailPane.setVisible(true);
+        }
     }
 
-    public void onTaskAction(Task task, int action) {
-        // TODO: Complete listener on click
+    public void onTaskAction(Task task, int action) throws SQLException, IOException {
+        switch(action) {
+            case TaskAction.MODIFY_TASK -> {
+                // TODO: Save task object to ModifyTaskController
+                Main.show("taskEditor");
+            }
+            case TaskAction.DELETE_TASK -> {
+                // TODO: Save task object to ModifyTaskController
+                Main.show("taskDelete");
+            }
+            case TaskAction.MARK_TASK -> {
+                // Update record
+                Database db = new Database();
+                db.markTask(Main.curProject.getPid(), task.getTid());
+                db.closeDB();
+
+                // Update object & view
+                task.setComplete(true);
+                int index = Main.curProject.getTasks().indexOf(task);
+                taskPanes.get(index).getChildren().get(2).setVisible(true);
+
+                // Update task mark action to unmark
+                actionMenu.getItems().set(2, new MenuItem("Mark Incomplete"));
+                actionMenu.getItems().get(2).setOnAction(event -> {
+                    try {
+                        onTaskAction(task, TaskAction.UNMARK_TASK);
+                    } catch (SQLException | IOException e) {
+                        System.out.println("Failed to mark task as incomplete.");
+                    }
+                });
+
+            }
+            case TaskAction.UNMARK_TASK -> {
+                // Update record
+                Database db = new Database();
+                db.unmarkTask(Main.curProject.getPid(), task.getTid());
+                db.closeDB();
+
+                // Update object & view
+                task.setComplete(false);
+                int index = Main.curProject.getTasks().indexOf(task);
+                taskPanes.get(index).getChildren().get(2).setVisible(false);
+
+                // Update task mark action to mark
+                actionMenu.getItems().set(2, new MenuItem("Mark Complete"));
+                actionMenu.getItems().get(2).setOnAction(event -> {
+                    try {
+                        onTaskAction(task, TaskAction.MARK_TASK);
+                    } catch (SQLException | IOException e) {
+                        System.out.println("Failed to mark task as complete.");
+                    }
+                });
+            }
+            default -> throw new IllegalStateException("Given task action not valid, exiting program");
+        }
     }
 
     private void setupBenchmarkTimeline() throws SQLException {

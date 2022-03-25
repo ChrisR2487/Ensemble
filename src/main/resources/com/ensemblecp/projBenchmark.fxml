@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import com.sun.javafx.scene.control.ContextMenuContent.ArrowMenuItem?>
 <AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjBenchmarkController">
     <children>
         <!-- Side nav bar -->
@@ -251,8 +252,7 @@
         </Button>
 
         <!-- Task List Row = 203.0 -->
-        <VBox fx:id="taskListVBox" prefWidth="263.0"
-              style="-fx-background-color: #1D1D1E#1D1D1E;" /> <!-- Add children in code -->
+        <VBox fx:id="taskListVBox" prefWidth="263.0" style="-fx-background-color: #1D1D1E;" /> <!-- Add children in code -->
         <Label layoutX="1140.0" layoutY="164.0" text="Tasks" textFill="WHITE">
             <font>
                 <Font size="26.0" />
@@ -260,12 +260,12 @@
         </Label>
 
         <!-- Task details -->
-        <Label fx:id="detailLabel" layoutX="217.0" layoutY="720.0" visible="false" text="Details" textFill="WHITE">
+        <Label fx:id="detailLabel" layoutX="217.0" layoutY="720.0" text="Details" textFill="WHITE" visible="false">
             <font>
                 <Font size="26.0" />
             </font>
         </Label>
-        <Pane fx:id="taskDetailPane" visible="false" layoutX="217.0" layoutY="760.0" prefHeight="254.0" prefWidth="900.0" style="-fx-background-color: #1D1D1E;">
+        <Pane fx:id="taskDetailPane" disable="true" layoutX="217.0" layoutY="760.0" prefHeight="254.0" prefWidth="900.0" style="-fx-background-color: #1D1D1E;" visible="false">
             <children>
                 <Label fx:id="titleDetail" layoutX="14.0" layoutY="14.0" textFill="WHITE">
                     <font>
@@ -287,12 +287,12 @@
                         <Font size="16.0" />
                     </font>
                 </Label>
-                <Button fx:id="actionButton" layoutX="841.0" layoutY="-11.0" lineSpacing="1.0" prefHeight="25.0" prefWidth="41.0" style="-fx-text-fill: lightgray; -fx-font-size: 34px; -fx-background-color: transparent; -fx-padding: 0;" text=". . ." />
                 <Label fx:id="descriptionDetail" layoutX="14.0" layoutY="62.0" prefWidth="872.0" textFill="WHITE">
                     <font>
                         <Font size="16.0" />
                     </font>
                 </Label>
+                <MenuButton fx:id="actionMenu" layoutX="841.0" layoutY="10.0" prefHeight="25.0" prefWidth="41.0" style="-fx-font-size: 16px; -fx-background-color: transparent;" />
             </children>
         </Pane>
 

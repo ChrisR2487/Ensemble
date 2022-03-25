@@ -85,7 +85,7 @@ public class Task {
         return complete;
     }
 
-    private void setComplete(boolean complete) {
+    public void setComplete(boolean complete) {
         this.complete = complete;
     }
 }
