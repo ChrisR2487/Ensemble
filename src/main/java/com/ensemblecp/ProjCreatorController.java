@@ -114,7 +114,6 @@ public class ProjCreatorController implements Initializable {
         HashMap<String, String> info = new HashMap<String, String>();
         info.put("pid", String.valueOf(Math.abs(titleField.getText().hashCode()))); // Use Math.abs() for no negative PIDs
 
-
         String title = titleField.getText();
         if(title.equals("")){
             //empty input
@@ -166,7 +165,6 @@ public class ProjCreatorController implements Initializable {
         info.put("kickoff", kickOff.toString());
         info.put("deadline", deadline.toString());
 
-
         info.put("tag1", tag1Field.getText());
         info.put("tag2", tag2Field.getText());
         info.put("tag3", tag3Field.getText());
@@ -203,9 +201,6 @@ public class ProjCreatorController implements Initializable {
         // Display proper view
         Main.show("projOverview");
     }
-
-
-
 
     @FXML
     public void cancelCreate_onClick(Event e) throws IOException {
@@ -244,5 +239,4 @@ public class ProjCreatorController implements Initializable {
         }
         return retVal;
     }
-
 }

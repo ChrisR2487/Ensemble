@@ -132,7 +132,12 @@ public class Database {
             preparedTeamStmt.setBoolean(5, Boolean.parseBoolean(row.get("active")));
             preparedTeamStmt.execute();
         }
+    }
 
+    public void dropMembers(String charPid) throws SQLException {
+        String dropQuery = " delete from " + databaseName + "." + charPid + "_Team where true";
+        PreparedStatement preparedStatement = conn.prepareStatement(dropQuery);
+        preparedStatement.execute();
     }
 
     public ResultSet updateProject(HashMap<String, String> info) throws SQLException {

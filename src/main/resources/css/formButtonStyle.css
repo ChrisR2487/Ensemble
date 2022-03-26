@@ -1,11 +1,11 @@
 .form-btn-class {
     -fx-font-size: 24px;
-    -fx-background-color: #060608;
+    -fx-background-color: #1D1D1E;
     -fx-text-fill: white;
 }
 
 .form-btn-class:hover {
     -fx-font-size: 24px;
-    -fx-background-color: #060608;
+    -fx-background-color: #1D1D1E;
     -fx-text-fill: gray;
 }
