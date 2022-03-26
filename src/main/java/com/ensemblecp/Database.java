@@ -95,8 +95,8 @@ public class Database {
                 + "description varchar(128) not null,"
                 + "kickoff date not null,"
                 + "deadline date not null,"
-                + "complete boolean not null"
-                + "CONSTRAINT " + charPid + "_Tasks_uq unique(title))";
+                + "complete boolean not null,"
+                + "constraint " + charPid + "_Tasks_uq unique(title))";
         stmt.execute(createTable);
 
         createTable = "create table " + databaseName + "." + charPid + "_Issues("
