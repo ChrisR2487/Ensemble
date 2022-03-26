@@ -36,7 +36,6 @@ public class customCompController implements Initializable {
     String template = "";
     ArrayList<compRow> groupList = new ArrayList<>();
     compRow gr = new compRow();
-    int partID = 0;
 
 
     @Override
@@ -131,6 +130,9 @@ public class customCompController implements Initializable {
         //add new record to Component table when creating a template
         String temp = "";
         String template = "";
+        int partID = 0;
+        boolean isString = false;
+        boolean isInteger = false;
         //Get Template
 
         ArrayList<Node> VBox = getAllNodes(fieldVBox);
@@ -141,12 +143,14 @@ public class customCompController implements Initializable {
                     if(children instanceof MenuButton){
                         if(Objects.equals(((MenuButton) children).getText(), "String")){
                             template += "S";
+                            isString = true;
                             children.setId(temp + partID++);
                             System.out.println("String button found");
                             System.out.println(children.getId());
                         }
                         if(Objects.equals(((MenuButton) children).getText(), "Integer")){
                             template += "I";
+                            isInteger = true;
                             children.setId(temp + partID++);
                             System.out.println("Integer button found");
                             System.out.println(children.getId());
@@ -154,7 +158,20 @@ public class customCompController implements Initializable {
                     }
                     if(children instanceof TextField){
                         //gr.setTextField(((TextField) children).getText());
-
+                        if (isString){
+                            if (isNumeric(((TextField) children).getText())) {
+                                System.out.println("Please Input an String");
+                            }
+                            isString = false;
+                        }
+                        if (isInteger){
+                            try{
+                                Integer.parseInt(((TextField) children).getText());
+                            } catch (NumberFormatException e){
+                                System.out.println("Please Input an Integer");
+                            }
+                            isInteger = false;
+                        }
                         System.out.println(((TextField) children).getText());
                     }
                 }
@@ -162,13 +179,12 @@ public class customCompController implements Initializable {
         }
         groupList.add(gr);
         System.out.println(template);
-        //System.out.println(groupList);
          /*
-        //Store Input in Hashmap
+        //Add record to <pid>_<cid> table
         HashMap<String, String> info = new HashMap<String, String>();
         info.put("cid", "1");
         info.put("title", compTitle.getText());
-        info.put("template", "Test Template");
+        info.put("template", template);
 
         //add data record
         Database db = new Database();
@@ -178,6 +194,9 @@ public class customCompController implements Initializable {
 
          */
         //Main.show("projOverview");
+    }
+    public static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
 
     public static ArrayList<Node> getAllNodes(Parent root) {
@@ -201,7 +220,5 @@ public class customCompController implements Initializable {
     public void exitButton_onClick(MouseEvent mouseEvent) {
         System.exit(-1);
     }
-
-
 
 }
