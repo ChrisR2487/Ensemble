@@ -1,25 +1,19 @@
 package com.ensemblecp;
 
-import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Array;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -183,21 +177,20 @@ public class ProjCreatorController implements Initializable {
         info.put("roi", "0"); // TODO: Fix this to get predicated ROI, set as value of hashmap
 
         // Get issue score
-        info.put("issueScore", "0"); // TODO: Fix this later for real issue score, set as value of hashmap
+        float score = 0.0f; // Base score
+        score += IssueScore.checkOverdue(info.get("deadline"));
+        score += IssueScore.checkOverbudget(Float.parseFloat(info.get("investmentCosts")), Float.parseFloat(info.get("budget")));
+        info.put("issueScore", String.valueOf(score));
 
         // Get manager ID
         info.put("manid", String.valueOf(Main.account.getId()));
-            // TODO: Get manid of current user, set as value of hashmap
 
         // Add data record
         ResultSet rs = db.createProject(info);
 
         // Add team members
-            // TODO: Create Team Project table and add members selected
         String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
         db.addMembers(getSelectedMembers(), charPid);
-
-        //db.addMembers(teamInfo);
 
         // Add project to Main cache
         Main.curProject = new Project(rs, null, db);
@@ -208,7 +201,7 @@ public class ProjCreatorController implements Initializable {
         db.closeDB();
 
         // Display proper view
-        Main.show("projViewScreen");
+        Main.show("projOverview");
     }
 
 
@@ -217,7 +210,7 @@ public class ProjCreatorController implements Initializable {
     @FXML
     public void cancelCreate_onClick(Event e) throws IOException {
         // Cancel project creation
-        Main.show("Dashboard");
+        Main.show("projList");
     }
 
     //method to return arraylist of selected members

@@ -23,7 +23,7 @@ public class ProjListController implements Initializable {
     @FXML private TableView<ProjectRow> projectTable;
     @FXML private TableColumn<ProjectRow, String> issueScoreColumn;
     @FXML private TableColumn<ProjectRow, String> pidColumn;
-    @FXML private TableColumn<ProjectRow, String> manidNameColumn;
+    @FXML private TableColumn<ProjectRow, String> managerNameColumn;
     @FXML private TableColumn<ProjectRow, String> tagsColumn;
     @FXML private TableColumn<ProjectRow, String> statusColumn;
     @FXML private TableColumn<ProjectRow, String> titleColumn;
@@ -33,34 +33,48 @@ public class ProjListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Create projectRow list
-        ArrayList<ProjectRow> rowArrayList = new ArrayList<ProjectRow>();
-        try {
-            Database db = new Database();
-            ResultSet rs = db.getProjects();
-            while (rs.next()) {
-                ProjectRow pr = new ProjectRow();
-                pr.setTitle(rs.getString("title"));
-                pr.setComplete(String.valueOf(rs.getBoolean("complete")));
-                pr.setKickoff(rs.getDate("kickoff").toString());
-                pr.setDeadline(rs.getDate("deadline").toString());
-                pr.setPid(String.valueOf(rs.getInt("pid")));
-                pr.setIssueScore(String.valueOf(rs.getFloat("issueScore")));
-                pr.setManid(String.valueOf(rs.getInt("manid")));
-
-                String tags = rs.getString("tag1");
-                for (int i = 2; i < 5; i++) {
-                    String nextTag = rs.getString("tag"+String.valueOf(i));
-                    if (nextTag == null) break;
-                    tags += ", " + nextTag;
-                }
-                pr.setTags(tags);
-
-                rowArrayList.add(pr);
+        int tryCount = 0;
+        while (tryCount < Main.ATTEMPT_LIMIT) {
+            try {
+                setupProjectList();
+                break;
+            } catch (SQLException | IOException e) {
+                System.out.println("Failed to start project list, trying again...");
+                tryCount++;
             }
-            db.closeDB();
-        } catch (SQLException e) {
-            e.printStackTrace(); // TODO: Add better handling for loop
         }
+        if (tryCount == Main.ATTEMPT_LIMIT) {
+            // Failed to load dashboard
+            System.out.println("Unable to initialize project list, stopping program.");
+            System.exit(ExitStatusType.FAILED_LOAD);
+        }
+    }
+
+    private void setupProjectList() throws SQLException, IOException {
+        ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
+        Database db = new Database();
+        ResultSet rs = db.getProjectsWithManagerName();
+        while (rs.next()) {
+            ProjectRow pr = new ProjectRow();
+            pr.setTitle(rs.getString("title"));
+            pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+            pr.setKickoff(rs.getDate("kickoff").toString());
+            pr.setDeadline(rs.getDate("deadline").toString());
+            pr.setPid(String.valueOf(rs.getInt("pid")));
+            pr.setIssueScore(String.valueOf(rs.getFloat("issueScore")));
+            pr.setManagerName(rs.getString("name"));
+
+            String tags = rs.getString("tag1");
+            for (int i = 2; i < 5; i++) {
+                String nextTag = rs.getString("tag"+String.valueOf(i));
+                if (nextTag == null) break;
+                tags += ", " + nextTag;
+            }
+            pr.setTags(tags);
+
+            rowArrayList.add(pr);
+        }
+        db.closeDB();
 
         // Convert to array
         ProjectRow[] rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
@@ -74,18 +88,28 @@ public class ProjListController implements Initializable {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("complete"));
         kickoffColumn.setCellValueFactory(new PropertyValueFactory<>("kickoff"));
         deadlineColumn.setCellValueFactory(new PropertyValueFactory<>("deadline"));
-        manidNameColumn.setCellValueFactory(new PropertyValueFactory<>("manid")); // TODO: Change to manager name
+        managerNameColumn.setCellValueFactory(new PropertyValueFactory<>("managerName"));
         issueScoreColumn.setCellValueFactory(new PropertyValueFactory<>("issueScore"));
         tagsColumn.setCellValueFactory(new PropertyValueFactory<>("tags"));
         pidColumn.setCellValueFactory(new PropertyValueFactory<>("pid"));
         projectTable.setItems(projectRows);
+
         TableView.TableViewSelectionModel<ProjectRow> mod = projectTable.getSelectionModel();
         ObservableList<ProjectRow> sel = mod.getSelectedItems();
         sel.addListener((ListChangeListener<ProjectRow>) change -> {
-            try {
-                new DashboardController().onChange(change);
-            } catch (IOException | SQLException e) {
-                e.printStackTrace(); // TODO: Handle error better
+            int tryCount = 0;
+            while (tryCount < Main.ATTEMPT_LIMIT) {
+                try {
+                    new DashboardController().onChange(change);
+                    break;
+                } catch (IOException | SQLException e) {
+                    System.out.println("Failed to start project view, trying again...");
+                    tryCount++;
+                }
+            }
+            if (tryCount == Main.ATTEMPT_LIMIT) {
+                // Failed to load dashboard
+                System.out.println("Unable to load project view, end listener execution.");
             }
         });
     }
@@ -103,5 +127,9 @@ public class ProjListController implements Initializable {
     }
 
     public void archiveButton_onClick(Event actionEvent) {
+    }
+
+    public void add_onClick() throws IOException {
+        Main.show("projCreator");
     }
 }

@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,9 +24,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class DashboardController implements Initializable {
+    @FXML private Button exitButton;
     @FXML private AnchorPane root;
     @FXML private TableView<ProjectRow> projectTable;
     @FXML private TableColumn<ProjectRow, String> statusColumn;
@@ -114,7 +115,6 @@ public class DashboardController implements Initializable {
                     break;
                 } catch (IOException | SQLException e) {
                     System.out.println("Failed to start project view, trying again...");
-                    System.out.println(e);
                     tryCount++;
                 }
             }
@@ -165,12 +165,7 @@ public class DashboardController implements Initializable {
         root.getChildren().add(gantt);
     }
 
-    @FXML
-    public void add_onClick() throws IOException {
-        Main.show("projCreator");
-    }
-
-    @FXML void onChange(ListChangeListener.Change change) throws IOException, SQLException {
+    void onChange(ListChangeListener.Change change) throws IOException, SQLException {
         // Get data
         ObservableList<ProjectRow> selectedList = change.getList();
         int pid = Integer.parseInt(selectedList.get(0).getPid());

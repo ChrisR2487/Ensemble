@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CreateIssueController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CreateIssueController">
     <children>
         <!-- Create issue label -->
-        <Label layoutX="226.0" layoutY="171.0" prefHeight="43.0" prefWidth="214.0" text="Create Issue" textFill="WHITE">
+        <Label layoutX="225.0" layoutY="138.0" prefHeight="43.0" prefWidth="214.0" text="Create Issue" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
         </Label>
 
         <!-- Form buttons -->
-        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1068.0" layoutY="883.0" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #fb5656;" text="Cancel">
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1367.0" layoutY="923.0" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="170.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
         </Button>
-        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1258.0" layoutY="883.0" mnemonicParsing="false" onAction="#submitIssue_onClick" prefHeight="50.0" prefWidth="170.0" style="-fx-background-color: #7ed957;" text="Submit">
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1569.0" layoutY="923.0" mnemonicParsing="false" onAction="#submitIssue_onClick" prefHeight="50.0" prefWidth="170.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Submit">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
         </Button>
 
         <!-- Issue fields -->
-        <TitledPane animated="false" collapsible="false" layoutX="229.0" layoutY="415.0" prefHeight="415.0" prefWidth="1195.0" text="Description">
+        <TitledPane animated="false" collapsible="false" layoutX="229.0" layoutY="414.0" prefHeight="487.0" prefWidth="1509.0" text="Description">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="1193.0">
                <children>
-                  <ScrollPane layoutX="1.0" layoutY="-5.0" prefHeight="569.0" prefWidth="1200.0" vbarPolicy="ALWAYS">
+                  <ScrollPane layoutX="1.0" layoutY="-5.0" prefHeight="449.0" prefWidth="1506.0" vbarPolicy="ALWAYS">
                      <content>
-                        <TextField fx:id="descriptionField" alignment="TOP_LEFT" prefHeight="543.0" prefWidth="1176.0" promptText="Enter Description Here">
+                        <TextField fx:id="messageField" alignment="TOP_LEFT" prefHeight="424.0" prefWidth="1481.0" promptText="Enter Message Here">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -46,17 +53,59 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </TitledPane>
-      <HBox layoutX="231.0" layoutY="235.0" prefHeight="169.0" prefWidth="161.0" />
-      <RadioButton layoutX="235.0" layoutY="245.0" mnemonicParsing="false" text="Budget" textFill="#a1a1a1" />
-      <Label layoutX="227.0" layoutY="215.0" prefHeight="18.0" prefWidth="202.0" text="Issue Type" textFill="WHITE">
+      <Label layoutX="228.0" layoutY="186.0" prefHeight="18.0" prefWidth="202.0" text="Issue Type" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <RadioButton layoutX="235.0" layoutY="275.0" mnemonicParsing="false" text="Timeline" textFill="#a1a1a1" />
-      <RadioButton layoutX="236.0" layoutY="306.0" mnemonicParsing="false" text="Team" textFill="#a1a1a1" />
-      <RadioButton layoutX="236.0" layoutY="338.0" mnemonicParsing="false" text="Task" textFill="#a1a1a1" />
-      <RadioButton layoutX="236.0" layoutY="370.0" mnemonicParsing="false" text="No score" textFill="#a1a1a1" />
-            <!-- TODO: Add radio buttons for issue type -->
+        <!-- Issue type selection-->
+      <VBox layoutX="235.0" layoutY="225.0" prefHeight="145.0" prefWidth="175.0">
+         <children>
+            <RadioButton fx:id="tb1" mnemonicParsing="false" text="No score" textFill="#a1a1a1">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="Type" />
+               </toggleGroup></RadioButton>
+            <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="tb2" mnemonicParsing="false" text="Timeline" textFill="#a1a1a1" toggleGroup="$Type">
+               <font>
+                  <Font size="16.0" />
+               </font></RadioButton>
+            <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="tb5" mnemonicParsing="false" text="Team" textFill="#a1a1a1" toggleGroup="$Type">
+               <font>
+                  <Font size="16.0" />
+               </font></RadioButton>
+            <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="tb4" mnemonicParsing="false" text="Task" textFill="#a1a1a1" toggleGroup="$Type">
+               <font>
+                  <Font size="16.0" />
+               </font></RadioButton>
+            <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="tb3" mnemonicParsing="false" text="Budget" textFill="#a1a1a1" toggleGroup="$Type">
+               <font>
+                  <Font size="16.0" />
+               </font></RadioButton>
+         </children>
+      </VBox>
+
     </children>
 </AnchorPane>

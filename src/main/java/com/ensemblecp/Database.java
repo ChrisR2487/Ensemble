@@ -1,9 +1,9 @@
 package com.ensemblecp;// Imports
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.Properties;
 
 // Project Class
 /**
@@ -21,6 +21,19 @@ public class Database {
      */
     public Database() throws SQLException {
         this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
+    }
+
+    public Database(boolean isBigQuery) throws SQLException {
+        if (isBigQuery) {
+            Properties p = new Properties();
+            p.setProperty("ProjectId", "ensemble-340721");
+            p.setProperty("OAuthServiceAcctEmail", "intelijconnect@ensemble-340721.iam.gserviceaccount.com");
+            p.setProperty("OAuthPvtKeyPath", "C:/Users/hello/IdeaProjects/ensemble-creds.json");
+            this.conn = DriverManager.getConnection("jdbc:bigquery://https://www.googleapis.com/bigquery/v2:", p);
+        }
+        else {
+            this.conn = DriverManager.getConnection("jdbc:mysql://34.150.158.26:3306","root","G6DevsOP2487!");
+        }
     }
 
     public ResultSet getProject(int pid) throws SQLException {
@@ -307,13 +320,52 @@ public class Database {
         preparedStmt.setInt(1, Main.account.getId());
         preparedStmt.setString(2, info.get("message"));
         preparedStmt.setInt(3, Integer.parseInt(info.get("type")));
-        preparedStmt.setInt(4, IssueType.NEW); // Set issue as new (not seen or done)
+        preparedStmt.setInt(4, IssueState.NEW); // Set issue as new (not seen or done)
         preparedStmt.execute();
 
         query = "select * from " + databaseName + "." + charPid + "_Issues where memid=? and message=?";
         preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Main.account.getId());
         preparedStmt.setString(2, info.get("message"));
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
+    }
+
+    public ResultSet getProjectsWithManagerName() throws SQLException {
+        String query = "select * from " + databaseName + ".Project inner join " + databaseName + ".ProjectManager USING(manid)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
+    }
+
+    public ResultSet createComponent(HashMap<String, String> info) throws SQLException {
+        // Add component template to system
+        String query = " insert into "+ databaseName + ".Component" + " values (?, ?, ?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
+        preparedStmt.setString (2, info.get("title"));
+        preparedStmt.setString (3, info.get("template"));
+        preparedStmt.execute();
+
+        preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Component where cid = ?");
+        preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
+        ResultSet rs = preparedStmt.executeQuery();
+        System.out.println("Success on create Component");
+        return rs;
+    }
+
+    public void updateIssueScore(int pid, float score) throws SQLException {
+        String query = "update " + databaseName + ".Project set issueScore = (issueScore + ?) WHERE pid = ?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setFloat(1, score);
+        preparedStmt.setInt(2, pid);
+        preparedStmt.execute();
+    }
+
+    public ResultSet getProjectIssues(int pid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "select * from " + databaseName + "." + charPid + "_Issues";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
         ResultSet rs = preparedStmt.executeQuery();
         return rs;
     }

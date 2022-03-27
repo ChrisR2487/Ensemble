@@ -3,11 +3,14 @@ package com.ensemblecp;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -16,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompController {
+    @FXML private Button cancelButton;
+    @FXML private Button exitButton;
     @FXML TableView<ComponentRow> existingTable;
     @FXML TableColumn<ComponentRow, String> titleColumn;
     @FXML TableColumn<ComponentRow, String> templateColumn;
@@ -108,9 +113,18 @@ public class CompController {
         existingTable.setVisible(false);
 
         // Setup custom component creator
+        Main.show("customComp");
             // TODO: Setup component creator system
 
         // Display custom component creator
             // TODO: Show custom component creator
+    }
+
+    public void exitButton_onClick(MouseEvent mouseEvent) {
+        System.exit(-1);
+    }
+
+    public void cancelButton_onClick(ActionEvent mouseEvent) throws IOException {
+        Main.show("projOverview");
     }
 }

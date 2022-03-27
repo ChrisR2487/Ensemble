@@ -52,12 +52,12 @@ public class ProjectRow {
         return tags;
     }
 
-    private StringProperty manid; // TODO: Change to manager name
-    public void setManid(String value) { manidProperty().set(value); }
-    public String getManid() { return manidProperty().get(); }
-    public StringProperty manidProperty() {
-        if (manid == null) manid = new SimpleStringProperty(this, "manid");
-        return manid;
+    private StringProperty managerName;
+    public void setManagerName(String value) { managerNameProperty().set(value); }
+    public String getManagerName() { return managerNameProperty().get(); }
+    public StringProperty managerNameProperty() {
+        if (managerName == null) managerName = new SimpleStringProperty(this, "managerName");
+        return managerName;
     }
 
     private StringProperty issueScore;
