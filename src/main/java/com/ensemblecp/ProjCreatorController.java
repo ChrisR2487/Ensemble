@@ -99,7 +99,6 @@ public class ProjCreatorController implements Initializable {
         return LocalDate.parse(dateString, formatter);
     }
 
-
     @FXML
     public void createProject_onClick(Event e) throws SQLException, IOException {
         //reset error borders
@@ -203,8 +202,6 @@ public class ProjCreatorController implements Initializable {
         // Display proper view
         Main.show("projOverview");
     }
-
-
 
 
     @FXML

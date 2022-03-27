@@ -6,8 +6,10 @@ import javafx.scene.control.CheckBox;
 
 public class MemberRow {
     private StringProperty memid;
+
     public void setMemid(String value) { memidProperty().set(value); }
     public String getMemid() { return memidProperty().get(); }
+
     public StringProperty memidProperty() {
         if (memid == null) memid = new SimpleStringProperty(this, "memid");
         return memid;
