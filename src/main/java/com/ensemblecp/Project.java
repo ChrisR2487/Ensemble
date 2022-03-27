@@ -1,5 +1,7 @@
 package com.ensemblecp;// Imports
 
+import javafx.scene.control.Hyperlink;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +35,7 @@ public class Project {
     private ArrayList<Task> tasks; // List of project tasks (Loads upon viewing benchmark timeline)
     private ArrayList<Issue> issues; // List of project issues (Loads upon viewing issue list)
     private ArrayList<MemberRow> members; // List of project members (Loads upon viewing member list)
+    private ArrayList<Hyperlink> links; // List of project files (Loads upon starting project)
 
     /* Class Constructors */
     /**
@@ -295,6 +298,14 @@ public class Project {
 
     public void setMembers(ArrayList<MemberRow> members) {
         this.members = members;
+    }
+
+    public ArrayList<Hyperlink> getLinks() {
+        return links;
+    }
+
+    public void setLinks(ArrayList<Hyperlink> links) {
+        this.links = links;
     }
 }
 // End of Project Class

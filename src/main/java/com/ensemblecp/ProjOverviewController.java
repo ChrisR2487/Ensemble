@@ -1,19 +1,31 @@
 package com.ensemblecp;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 // ProjViewScreen Class
 public class ProjOverviewController implements Initializable {
+    @FXML ListView<Hyperlink> fileList;
     @FXML Label tagsLabel;
     @FXML Label roiLabel;
     @FXML Label budgetLabel;
@@ -44,8 +56,75 @@ public class ProjOverviewController implements Initializable {
         issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
         titleLabel.setText(Main.curProject.getTitle());
 
+        // Set file data
+        int tryCount = 0;
+        while (tryCount < Main.ATTEMPT_LIMIT) {
+            try {
+                setupFileList();
+                break;
+            } catch (SQLException e) {
+                System.out.println("Failed to load file list, trying again...");
+                e.printStackTrace();
+                tryCount++;
+            }
+        }
+        if (tryCount == Main.ATTEMPT_LIMIT) {
+            // Failed to load file list
+            System.out.println("Unable to load file list.");
+        }
+
+        // set issues data
+            // TODO: List recent issues not seen/done
+
         // Set component data
             // TODO: Add components to view
+    }
+
+    private void setupFileList() throws SQLException {
+        // Check if already saved
+        if (Main.curProject.getLinks() != null) {
+            Hyperlink[] arr = new Hyperlink[Main.curProject.getLinks().size()];
+            Main.curProject.getLinks().toArray(arr);
+            List<Hyperlink> list = List.of(arr);
+            fileList.setItems(FXCollections.observableList(list));
+            return;
+        }
+
+        // Get files
+        Database db = new Database();
+        ResultSet rs = db.getProjectFiles(Main.curProject.getPid());
+        ArrayList<Hyperlink> links = new ArrayList<>();
+        while(rs.next()) {
+            Hyperlink link = new Hyperlink(rs.getString("filename"));
+            HashMap<String, Object> map = new HashMap<>();
+            int filid = rs.getInt("filid");
+            link.setOnAction(actionEvent -> {
+                int tryCount = 0;
+                while (tryCount < Main.ATTEMPT_LIMIT) {
+                    try {
+                        Database db2 = new Database();
+                        db2.downloadFile(filid);
+                        db2.closeDB();
+                        break;
+                    } catch (SQLException | IOException e) {
+                        System.out.println("Failed to download file, trying again...");
+                        e.printStackTrace();
+                        tryCount++;
+                    }
+                }
+                if (tryCount == Main.ATTEMPT_LIMIT) {
+                    // Failed to download file
+                    System.out.println("Unable to download file.");
+                }
+            });
+            links.add(link);
+        }
+        db.closeDB();
+        Main.curProject.setLinks(links);
+        Hyperlink[] arr = new Hyperlink[links.size()];
+        links.toArray(arr);
+        List<Hyperlink> list = List.of(arr);
+        fileList.setItems(FXCollections.observableList(list));
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
@@ -63,8 +142,64 @@ public class ProjOverviewController implements Initializable {
     public void archiveButton_onClick(Event mouseEvent) {
     }
 
-    public void addFile_onClick(ActionEvent actionEvent) {
-        // TODO: Implement adding files
+    public void addFile_onClick(ActionEvent actionEvent) throws SQLException {
+        // Browse for file
+        File file = Main.browseForFile();
+        if (file == null) return;
+        if (file.length() > Main.FILE_SIZE_LIMIT) {
+            // File too large, display error
+                // TODO: Implement error check
+        }
+
+        // Get privacy level
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Public");
+        dialog.setTitle("Ensemble");
+        dialog.setHeaderText("File security");
+        dialog.setContentText("Would you like this file to be public or private? (Only project managers can view private files)");
+        dialog.getItems().add("Private");
+        dialog.getItems().add("Public");
+        boolean isPrivate = dialog.getSelectedItem().equals("Private");
+
+        // Upon receiving file, check extension and try to upload
+        String fullName = file.getName();
+        int period = fullName.lastIndexOf('.');
+        String extension = fullName.substring(period+1);
+        switch(extension) {
+            case "pdf", "txt", "png", "jpg", "doc", "docx" -> {
+                // Valid type, save file
+                Database db = new Database();
+                db.createFile(file);
+                // Add file to project
+                db.addFiles(Main.curProject.getPid(), new int[] {fullName.hashCode()}, new boolean[] {isPrivate});
+
+                // Setup hyperlink and add to project object
+                Hyperlink link = new Hyperlink(fullName);
+                link.setOnAction(event -> {
+                    int tryCount = 0;
+                    while (tryCount < Main.ATTEMPT_LIMIT) {
+                        try {
+                            Database db2 = new Database();
+                            db2.downloadFile(fullName.hashCode());
+                            db2.closeDB();
+                            break;
+                        } catch (SQLException | IOException e) {
+                            System.out.println("Failed to download file, trying again...");
+                            tryCount++;
+                        }
+                    }
+                    if (tryCount == Main.ATTEMPT_LIMIT) {
+                        // Failed to download file
+                        System.out.println("Unable to download file.");
+                    }
+                });
+                fileList.getItems().add(link); // Add to fileList to immediately display
+                Main.curProject.getLinks().add(link); // Add to local project to display in future
+            }
+            default -> {
+                // Invalid file type, display error
+                    // TODO: Implement error check
+            }
+        }
     }
 
     public void editProjectButton_onClick(ActionEvent actionEvent) throws IOException {
