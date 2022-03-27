@@ -2,6 +2,7 @@ package com.ensemblecp;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.CheckBox;
 
 public class IssueRow {
     private StringProperty date;
@@ -43,5 +44,14 @@ public class IssueRow {
         if (state == null) state = new SimpleStringProperty(this, "state");
         return state;
     }
+
+    private CheckBox select = new CheckBox();
+    public CheckBox getSelect() {
+        return this.select;
+    }
+    public void setSelect(CheckBox value) {
+        this.select = value;
+    }
+
 }
 

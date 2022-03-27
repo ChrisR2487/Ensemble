@@ -5,7 +5,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjIssuesController">
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjIssuesController">
     <children>
             <!-- Project actions -->
         <!-- Refresh ROI -->
@@ -28,7 +29,7 @@
             <Image url="@../button_imgs/Remove.png" />
          </image>
         </ImageView>
-        <Button layoutX="1397.0" layoutY="116.0" mnemonicParsing="false" onMouseEntered="#removeButton_Hover" onMouseExited="#removeButton_HoverOff" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R">
+        <Button layoutX="1397.0" layoutY="116.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" onMouseEntered="#removeButton_Hover" onMouseExited="#removeButton_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R">
             <tooltip>
                 <Tooltip text="Remove Project" />
             </tooltip>
@@ -39,7 +40,7 @@
                 <Image url="@../button_imgs/Edit.png" />
             </image>
         </ImageView>
-        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onMouseEntered="#editButton_Hover" onMouseExited="#editButton_HoverOff" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E">
+        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" onMouseEntered="#editButton_Hover" onMouseExited="#editButton_HoverOff" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E">
             <tooltip>
                 <Tooltip text="Edit Project" />
             </tooltip>
@@ -251,15 +252,31 @@
         <!-- Issue table -->
         <TableView fx:id="issueTable" layoutX="215.0" layoutY="165.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1215.0">
          <columns>
+            <TableColumn fx:id="markColumn" prefWidth="50.0" text="Mark" />
             <!-- <TableColumn fx:id="dateColumn" prefWidth="190.0" text="Time Posted" /> -->
-             <TableColumn fx:id="stateColumn" prefWidth="100.0" text="State" />
-             <TableColumn fx:id="originColumn" prefWidth="150.0" text="Origin Member" />
-             <TableColumn fx:id="typeColumn" prefWidth="100.0" text="Focus" />
-             <TableColumn fx:id="descriptionColumn" prefWidth="864.0" text="Description" />
+             <TableColumn fx:id="stateColumn" prefWidth="110.0" text="State" />
+             <TableColumn fx:id="originColumn" prefWidth="151.0" text="Origin Member" />
+             <TableColumn fx:id="typeColumn" prefWidth="139.0" text="Focus" />
+             <TableColumn fx:id="descriptionColumn" prefWidth="763.0" text="Description" />
          </columns>
       </TableView>
         <!-- Create issue -->
         <Button alignment="CENTER" contentDisplay="TOP" layoutX="1145.0" layoutY="946.0" mnemonicParsing="false" onAction="#createIssue_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Create Issue" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="TOP" layoutX="545.0" layoutY="946.0" mnemonicParsing="false" onAction="#markSeen_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Mark as Seen" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="TOP" layoutX="845.0" layoutY="946.0" mnemonicParsing="false" onAction="#markDone_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Mark as Resolved" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="TOP" layoutX="245.0" layoutY="946.0" mnemonicParsing="false" onAction="#markNew_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Mark as New" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

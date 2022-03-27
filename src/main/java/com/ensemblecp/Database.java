@@ -385,6 +385,54 @@ public class Database {
         return rs;
     }
 
+    public void markIssueSeen(HashMap<String, HashMap<String, String>> updates, String charPid) throws SQLException {
+        String query = "update " + databaseName + "." + charPid + "_Issues set state = ? where memid = ? AND message = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+
+        //add each row to the database
+        for(int i = 1; i <= updates.size(); i++) {
+            HashMap<String, String> row = updates.get(String.valueOf(i));
+
+            //populate data and save row
+            preparedStatement.setInt(1, IssueState.SEEN);
+            preparedStatement.setInt(2, Integer.parseInt(row.get("memid")));
+            preparedStatement.setString(3, row.get("message"));
+            preparedStatement.execute();
+        }
+    }
+
+    public void markIssueResolved(HashMap<String, HashMap<String, String>> updates, String charPid) throws SQLException {
+        String query = "update " + databaseName + "." + charPid + "_Issues set state = ? where memid = ? AND message = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+
+        //add each row to the database
+        for(int i = 1; i <= updates.size(); i++) {
+            HashMap<String,String> row = updates.get(String.valueOf(i));
+
+            //populate data and save row
+            preparedStatement.setInt(1, IssueState.DONE);
+            preparedStatement.setInt(2, Integer.parseInt(row.get("memid")));
+            preparedStatement.setString(3, row.get("message"));
+            preparedStatement.execute();
+        }
+    }
+
+    public void markIssueNew(HashMap<String, HashMap<String, String>> updates, String charPid) throws SQLException {
+        String query = "update " + databaseName + "." + charPid + "_Issues set state = ? where memid = ? AND message = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+
+        //add each row to the database
+        for(int i = 1; i <= updates.size(); i++) {
+            HashMap<String,String> row = updates.get(String.valueOf(i));
+
+            //populate data and save row
+            preparedStatement.setInt(1, IssueState.NEW);
+            preparedStatement.setInt(2, Integer.parseInt(row.get("memid")));
+            preparedStatement.setString(3, row.get("message"));
+            preparedStatement.execute();
+        }
+    }
+
     public void markTask(int pid, int tid) throws SQLException {
         String charPid = Project.IDtoChars(pid);
         String query = "update " + databaseName + "." + charPid + "_Tasks set complete = true where tid = ?";
