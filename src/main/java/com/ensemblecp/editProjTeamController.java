@@ -6,10 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -19,10 +16,11 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ProjTeamController implements Initializable {
+public class editProjTeamController implements Initializable {
     @FXML private Button exitButton;
     @FXML private Label tagsLabel;
     @FXML private Label roiLabel;
@@ -38,12 +36,15 @@ public class ProjTeamController implements Initializable {
     @FXML private TableColumn<MemberRow, String> memidColumn;
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> photoColumn;
+    @FXML private TableColumn<MemberRow, CheckBox> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
 
     @FXML ImageView removeButton;
     @FXML ImageView editButton;
     @FXML ImageView addComponent;
     @FXML ImageView refreshROI;
+
+    ArrayList<MemberRow> rowArrayList = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -80,18 +81,29 @@ public class ProjTeamController implements Initializable {
 
     public void setupTeamList() throws SQLException {
         // Setup members table
-        ArrayList<MemberRow> rowArrayList = new ArrayList<>();
         Database db = new Database();
-        ResultSet rs = db.getProjectMembers(Main.curProject.getPid());
+        ResultSet rs = db.getMembers();
         while (rs.next()) {
             MemberRow mr = new MemberRow();
+            mr.setSelect(new CheckBox());
             mr.setName(rs.getString("name"));
             mr.setMemid(String.valueOf(rs.getInt("memid")));
             mr.setPosition(rs.getString("position"));
-            mr.setPhoto("N/A"); // TODO: Get correct file for member photo
             mr.setStatus(rs.getString("status"));
+            mr.setPhoto("N/A"); // TODO: Get correct file for member photo
 
             rowArrayList.add(mr);
+        }
+
+        // Set active members of project to already selected
+        ResultSet currTeam = db.getProjectMembers(Main.curProject.getPid());
+        while(currTeam.next()){
+            int memId = currTeam.getInt("memid");
+            for (MemberRow mr: rowArrayList){
+                if(Integer.parseInt(mr.getMemid()) == memId){
+                    mr.getSelect().setSelected(true);
+                }
+            }
         }
         db.closeDB();
 
@@ -103,12 +115,60 @@ public class ProjTeamController implements Initializable {
         ObservableList<MemberRow> memberRows = FXCollections.observableList(rows);
 
         // Set row data
+        memberTable.setEditable(true);
+        selectColumn.setCellValueFactory(new PropertyValueFactory("select"));
+        selectColumn.setEditable(true);
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         memidColumn.setCellValueFactory(new PropertyValueFactory<>("memid"));
         photoColumn.setCellValueFactory(new PropertyValueFactory<>("photo"));
         positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
         memberTable.setItems(memberRows);
+    }
+
+    public void editTeamSubmit_onClick(ActionEvent actionEvent) throws SQLException, IOException {
+        //create database
+        Database db = new Database();
+        String charPid = Project.IDtoChars(Main.curProject.getPid());
+
+        //remove all rows from previous members table
+        db.dropMembers(charPid);
+        // Add team members
+        db.addMembers(getSelectedMembers(), charPid);
+
+        Main.show("projTeam");
+    }
+
+    //method to return arraylist of selected members
+    public HashMap<String, HashMap<String, String>> getSelectedMembers(){
+        HashMap<String, HashMap<String, String>> retVal = new HashMap<>();
+        int memberNum = 1;
+        for(MemberRow r: rowArrayList){
+            if(r.getSelect().isSelected()){
+                HashMap<String, String> cell = new HashMap<>();
+                //member ID
+                cell.put("memid", String.valueOf(r.getMemid()));
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member name
+                cell.put("name", r.getName());
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member position
+                cell.put("position", r.getPosition());
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member status
+                cell.put("status", String.valueOf(r.getStatus()));
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member active
+                cell.put("active", "true");
+                retVal.put(String.valueOf(memberNum), cell);
+                memberNum++;
+            }
+        }
+        return retVal;
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {

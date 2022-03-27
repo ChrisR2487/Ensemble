@@ -37,9 +37,13 @@ public class ProjDeleteController implements Initializable {
         //set login border to normal
         usernameField.setBorder(null);
         passwordField.setBorder(null);
+        remCheckBox.setBorder(null);
 
         // Check for confirmed
-        if (!remCheckBox.isSelected()) return;
+        if (!remCheckBox.isSelected()){
+            remCheckBox.setBorder(INVALID_BORDER);
+            return;
+        }
         //if login fails, return
         if(!verifyLogin()) return;
 
