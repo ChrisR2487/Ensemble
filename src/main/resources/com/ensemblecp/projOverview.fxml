@@ -168,8 +168,8 @@
         </Button>
 
         <!-- Project content -->
-        <ScrollPane fx:id="sp" layoutX="207.0" layoutY="155.0" prefHeight="900.0" prefWidth="1237.0">
-            <Pane fx:id="parentPane" prefWidth="1220.0" minHeight="898.0" style="-fx-background-color: #2A2A2A;">
+        <ScrollPane fx:id="sp" layoutX="207.0" layoutY="155.0" prefHeight="900.0" prefWidth="1237.0" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <Pane fx:id="parentPane" minHeight="898.0" prefWidth="1220.0" style="-fx-background-color: transparent">
                 <children>
                     <!-- Project timeline TODO: Fix this to gantt -->
                     <BubbleChart prefHeight="268.0" prefWidth="1200.0">

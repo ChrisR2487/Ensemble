@@ -1,7 +1,6 @@
 .root{
     -fx-background-color:
-            /*linear-gradient(#1d1d1e, #a1a1a1);*/
-            linear-gradient(to right, #060608, #989C9D);
+        linear-gradient(to right, #060608, #989C9D);
 }
 
 /* Scroll bar */

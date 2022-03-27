@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 
@@ -45,8 +46,6 @@ public class ProjOverviewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        sp.setBackground(new Background(new BackgroundFill(Paint.valueOf("transparent"), new CornerRadii(0), new Insets(0))));
-
         // Set insight data
         tagsLabel.setText(tagsLabel.getText() + "\n\t" +
                 Main.curProject.getTag1() + "\n\t" +
@@ -82,6 +81,8 @@ public class ProjOverviewController implements Initializable {
             // TODO: List recent issues not seen/done
 
         // Set component data
+        sp.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(0), new Insets(0))));
+
         parentPane.setPadding(new Insets(10, 10, 10, 10));
         double layY = 780.0;
         double layX = 10.0;

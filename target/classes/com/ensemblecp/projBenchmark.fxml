@@ -49,10 +49,10 @@
                 </HBox>
                 <HBox onMouseClicked="#archiveButton_onClick" prefHeight="35.0" prefWidth="160.0">
                     <children>
-                        <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
+                        <ImageView fitHeight="24.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
                             <Image url="@../button_imgs/archive-icon.png" />
                         </ImageView>
-                        <Button mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Archives" textFill="WHITE">
+                        <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Archives" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
