@@ -32,21 +32,11 @@ public class CreateIssueController {
         // Determine type
         String getSelectedField = null;
 
-        if(tb1.isSelected()){
-            getSelectedField = "No Score";
-        }
-        if(tb2.isSelected()){
-            getSelectedField = "Timeline";
-        }
-        if(tb3.isSelected()){
-            getSelectedField = "Budget";
-        }
-        if(tb4.isSelected()){
-            getSelectedField = "Task";
-        }
-        if(tb5.isSelected()){
-            getSelectedField = "Team";
-        }
+        if(tb1.isSelected()) { getSelectedField = "No Score"; }
+        if(tb2.isSelected()) { getSelectedField = "Timeline"; }
+        if(tb3.isSelected()) { getSelectedField = "Budget"; }
+        if(tb4.isSelected()) { getSelectedField = "Task"; }
+        if(tb5.isSelected()) { getSelectedField = "Team"; }
 
         int type = -1;
         switch (getSelectedField) {
