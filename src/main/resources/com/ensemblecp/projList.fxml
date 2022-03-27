@@ -77,13 +77,20 @@
            <TableColumn fx:id="pidColumn" prefWidth="75.0" text="Project ID" />
            <TableColumn fx:id="kickoffColumn" prefWidth="125.0" text="Start Date" />
            <TableColumn fx:id="deadlineColumn" prefWidth="125.0" text="End Date" />
-           <TableColumn fx:id="manidNameColumn" prefWidth="200.0" text="Project Manager" /> <!-- TODO: Change to manager name -->
+           <TableColumn fx:id="managerNameColumn" prefWidth="200.0" text="Project Manager" />
            <TableColumn fx:id="tagsColumn" prefWidth="368.0" text="Tags" />
         </columns>
       </TableView>
       <Button fx:id="exitButton" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" text="X" textFill="WHITE">
          <font>
             <Font size="36.0" />
+         </font>
+      </Button>
+
+      <!-- Add project button TODO: Change to image and button later -->
+      <Button layoutX="290.0" layoutY="35.5" mnemonicParsing="false" onAction="#add_onClick" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="+" textFill="WHITE">
+         <font>
+            <Font size="40.0" />
          </font>
       </Button>
    </children>

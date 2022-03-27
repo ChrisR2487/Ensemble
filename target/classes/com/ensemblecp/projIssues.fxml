@@ -5,17 +5,16 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjIssuesController">
     <children>
             <!-- Project actions -->
         <!-- Refresh ROI -->
-        <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="1819.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../button_imgs/RefreshROI.png" />
-            </image>
-        </ImageView>
-        <Button layoutX="1818.0" layoutY="105.0" mnemonicParsing="false" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="RR">
+        <ImageView fx:id="refreshROI" fitHeight="41.0" fitWidth="41.0" layoutX="1819.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../button_imgs/RefreshROI.png" />
+         </image>
+      </ImageView>
+        <Button layoutX="1818.0" layoutY="105.0" mnemonicParsing="false" onMouseEntered="#refreshROI_Hover" onMouseExited="#refreshROI_HoverOff" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="RR">
             <font>
                 <Font size="14.0" />
             </font>
@@ -24,34 +23,34 @@
             </tooltip>
         </Button>
         <!-- Remove project -->
-        <ImageView fitHeight="36.0" fitWidth="38.0" layoutX="1390.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../button_imgs/Remove.png" />
-            </image>
+        <ImageView id="removeButton" fx:id="removeButton" fitHeight="36.0" fitWidth="38.0" layoutX="1390.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../button_imgs/Remove.png" />
+         </image>
         </ImageView>
-        <Button layoutX="1397.0" layoutY="116.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R">
+        <Button layoutX="1397.0" layoutY="116.0" mnemonicParsing="false" onMouseEntered="#removeButton_Hover" onMouseExited="#removeButton_HoverOff" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R">
             <tooltip>
                 <Tooltip text="Remove Project" />
             </tooltip>
         </Button>
         <!-- Edit project -->
-        <ImageView fitHeight="29.0" fitWidth="31.0" layoutX="1346.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView id="editButton" fx:id="editButton" fitHeight="29.0" fitWidth="31.0" layoutX="1346.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../button_imgs/Edit.png" />
             </image>
         </ImageView>
-        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E">
+        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onMouseEntered="#editButton_Hover" onMouseExited="#editButton_HoverOff" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E">
             <tooltip>
                 <Tooltip text="Edit Project" />
             </tooltip>
         </Button>
         <!-- Add component -->
-        <ImageView fitHeight="36.0" fitWidth="31.0" layoutX="1291.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView id="addComponent" fx:id="addComponent" fitHeight="36.0" fitWidth="31.0" layoutX="1291.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../button_imgs/AddCom.png" />
             </image>
         </ImageView>
-        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C">
+        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" onMouseEntered="#addComponent_Hover" onMouseExited="#addComponent_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C">
             <tooltip>
                 <Tooltip text="Add Component" />
             </tooltip>
@@ -242,9 +241,11 @@
         <!-- Issue table -->
         <TableView fx:id="issueTable" layoutX="215.0" layoutY="165.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1215.0">
          <columns>
-            <TableColumn fx:id="statusColumn" prefWidth="190.0" text="Date" />
-            <TableColumn fx:id="issueScoreColumn" prefWidth="205.0" text="Name" />
-            <TableColumn fx:id="deadlineColumn" prefWidth="628.0" text="Issues" />
+            <!-- <TableColumn fx:id="dateColumn" prefWidth="190.0" text="Time Posted" /> -->
+             <TableColumn fx:id="stateColumn" prefWidth="100.0" text="State" />
+             <TableColumn fx:id="originColumn" prefWidth="150.0" text="Origin Member" />
+             <TableColumn fx:id="typeColumn" prefWidth="100.0" text="Focus" />
+             <TableColumn fx:id="descriptionColumn" prefWidth="864.0" text="Description" />
          </columns>
       </TableView>
         <!-- Create issue -->

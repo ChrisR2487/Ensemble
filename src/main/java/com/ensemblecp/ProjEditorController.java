@@ -49,7 +49,7 @@ public class ProjEditorController implements Initializable {
     @FXML
     public void modifyProject_onClick(Event e) throws SQLException, IOException {
         // Get data
-        HashMap<String, String> info = new HashMap<String, String>();
+        HashMap<String, String> info = new HashMap<>();
         info.put("pid", String.valueOf(Main.curProject.getPid()));
         info.put("title", titleField.getText());                            //TODO - ensure not a duplicate project name
 
@@ -64,12 +64,27 @@ public class ProjEditorController implements Initializable {
         info.put("tag3", tag3Field.getText());
         info.put("tag4", tag4Field.getText());
         info.put("complete", "false");
+        info.put("manid", String.valueOf(Main.curProject.getManid())); // Use existing manid value
 
         // Get roi
         info.put("roi", "0"); // TODO: Fix this to get predicated ROI, set as value of hashmap
 
         // Get issue score
-        info.put("issueScore", "0"); // TODO: Fix this later for real issue score, set as value of hashmap
+        float newIssueScore = Main.curProject.getIssueScore();
+        if (IssueScore.checkOverdue(Main.curProject.getDeadline().toString()) > 0.1f) { // Is old deadline already overdue?
+            newIssueScore += IssueScore.checkOverdue(deadlineField.getValue().toString()) - IssueScore.PROJECT_OVERDUE; // No change if overdue still, remove penalty otherwise
+        }
+        else { // Old deadline not overdue, check normally
+            newIssueScore += IssueScore.checkOverdue(deadlineField.getValue().toString());
+        }
+
+        if(IssueScore.checkOverbudget(Main.curProject.getInvestmentCosts(), Main.curProject.getBudget()) > 0.1f) { // Is old project overbudget?
+            newIssueScore += IssueScore.checkOverbudget(Float.parseFloat(investmentCostsField.getText()), Float.parseFloat(budgetField.getText())) - IssueScore.PROJECT_OVERBUDGET; // No change if overbudget still, remove penalty otherwise
+        }
+        else { // Old project not overbudget, check normally
+            newIssueScore += IssueScore.checkOverbudget(Float.parseFloat(investmentCostsField.getText()), Float.parseFloat(budgetField.getText()));
+        }
+        info.put("issueScore", String.valueOf(newIssueScore));
 
         // Update project row
         Database db = new Database();

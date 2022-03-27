@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/projCreatorStyle.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjEditorController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjEditorController">
    <children>
       <Label layoutX="14.0" prefHeight="74.0" prefWidth="1920.0" text="   E N S E M B L E" textFill="WHITE">
          <font>
@@ -175,18 +175,18 @@
                      <children>
                         <HBox prefHeight="183.0" prefWidth="725.0">
                            <children>
-                              <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#cancelModify_onClick" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #fb5656;" text="Cancel">
+                              <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#cancelModify_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="25.0" top="50.0" />
                                  </HBox.margin>
                               </Button>
                               <Pane prefHeight="183.0" prefWidth="135.0" />
-                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifyProject_onClick" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #7ed957;" text="Submit Changes">
+                              <Button alignment="CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifyProject_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Submit Changes">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets top="50.0" />

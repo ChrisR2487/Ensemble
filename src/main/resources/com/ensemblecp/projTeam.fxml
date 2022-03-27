@@ -5,8 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjTeamController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjTeamController">
     <children>
         <!-- Side nav bar -->
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -177,31 +176,43 @@
             <font>
                 <Font size="14.0" />
             </font>
+            <tooltip>
+                <Tooltip text="Refresh ROI" />
+            </tooltip>
         </Button>
-
         <!-- Remove project -->
         <ImageView fx:id="removeButton" fitHeight="36.0" fitWidth="38.0" layoutX="1390.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../button_imgs/Remove.png" />
             </image>
         </ImageView>
-        <Button layoutX="1388.0" layoutY="110.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" onMouseEntered="#removeButton_Hover" onMouseExited="#removeButton_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R" />
-
+        <Button layoutX="1388.0" layoutY="110.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" onMouseEntered="#removeButton_Hover" onMouseExited="#removeButton_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R">
+            <tooltip>
+                <Tooltip text="Remove Project" />
+            </tooltip>
+        </Button>
         <!-- Edit project -->
         <ImageView fx:id="editButton" fitHeight="29.0" fitWidth="31.0" layoutX="1346.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../button_imgs/Edit.png" />
             </image>
         </ImageView>
-        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" onMouseEntered="#editButton_Hover" onMouseExited="#editButton_HoverOff" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E" />
-
+        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" onMouseEntered="#editButton_Hover" onMouseExited="#editButton_HoverOff" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E">
+            <tooltip>
+                <Tooltip text="Edit Project" />
+            </tooltip>
+        </Button>
         <!-- Add component -->
         <ImageView fx:id="addComponent" fitHeight="36.0" fitWidth="31.0" layoutX="1291.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../button_imgs/AddCom.png" />
             </image>
         </ImageView>
-        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" onMouseEntered="#addComponent_Hover" onMouseExited="#addComponent_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C" />
+        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" onMouseEntered="#addComponent_Hover" onMouseExited="#addComponent_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C">
+            <tooltip>
+                <Tooltip text="Add Component" />
+            </tooltip>
+        </Button>
 
 
         <!-- Project nav bar -->
