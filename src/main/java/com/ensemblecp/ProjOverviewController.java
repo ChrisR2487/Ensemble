@@ -6,12 +6,15 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Paint;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +28,7 @@ import java.util.ResourceBundle;
 
 // ProjViewScreen Class
 public class ProjOverviewController implements Initializable {
+    @FXML AnchorPane root;
     @FXML ListView<Hyperlink> fileList;
     @FXML Label tagsLabel;
     @FXML Label roiLabel;
@@ -158,7 +162,7 @@ public class ProjOverviewController implements Initializable {
         dialog.setContentText("Would you like this file to be public or private? (Only project managers can view private files)");
         dialog.getItems().add("Private");
         dialog.getItems().add("Public");
-        boolean isPrivate = dialog.getSelectedItem().equals("Private");
+        boolean isPrivate = dialog.showAndWait().get().equals("Private");;
 
         // Upon receiving file, check extension and try to upload
         String fullName = file.getName();
@@ -192,8 +196,11 @@ public class ProjOverviewController implements Initializable {
                         System.out.println("Unable to download file.");
                     }
                 });
-                fileList.getItems().add(link); // Add to fileList to immediately display
                 Main.curProject.getLinks().add(link); // Add to local project to display in future
+                Hyperlink[] arr = new Hyperlink[Main.curProject.getLinks().size()]; // Add to fileList to immediately display
+                Main.curProject.getLinks().toArray(arr);
+                List<Hyperlink> list = List.of(arr);
+                fileList.setItems(FXCollections.observableList(list));
             }
             default -> {
                 // Invalid file type, display error

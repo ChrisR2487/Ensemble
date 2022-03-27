@@ -4,7 +4,7 @@
             linear-gradient(to right, #060608, #989C9D);
 }
 
-<!-- Scroll bar -->
+/* Scroll bar */
 .scroll-pane {
     -fx-background-color: #1D1D1E;
 }
@@ -35,7 +35,7 @@
     -fx-background-color: #1D1D1E;
 }
 
-<!-- Dialogs -->
+/* Dialogs */
 .dialog-pane{
     -fx-background-color: #7160DC;
 }
