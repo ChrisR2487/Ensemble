@@ -87,7 +87,7 @@ public class Project {
         ArrayList<Component> componentsAL = new ArrayList<>();
         do {
             // Create component object
-            Component comp = new Component(this.pid, compInfo.getInt("cid"), compInfo.getString("template"), db); // Pass parameters to constructor
+            Component comp = new Component(this.pid, compInfo.getInt("cid"), compInfo.getString("template"), compInfo.getString("title"), db); // Pass parameters to constructor
             componentsAL.add(comp);
         } while (compInfo.next());
 

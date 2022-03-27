@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CreateIssueController">
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CreateIssueController">
     <children>
         <!-- Create issue label -->
-        <Label layoutX="226.0" layoutY="138.0" prefHeight="43.0" prefWidth="214.0" text="Create Issue" textFill="WHITE">
+        <Label layoutX="225.0" layoutY="138.0" prefHeight="43.0" prefWidth="214.0" text="Create Issue" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
         </Label>
 
         <!-- Form buttons -->
-        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1367.0" layoutY="920.0" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="170.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1367.0" layoutY="923.0" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="170.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
         </Button>
-        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1569.0" layoutY="920.0" mnemonicParsing="false" onAction="#submitIssue_onClick" prefHeight="50.0" prefWidth="170.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Submit">
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1569.0" layoutY="923.0" mnemonicParsing="false" onAction="#submitIssue_onClick" prefHeight="50.0" prefWidth="170.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Submit">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
         </Button>
 
         <!-- Issue fields -->
-        <TitledPane animated="false" collapsible="false" layoutX="229.0" layoutY="410.0" prefHeight="487.0" prefWidth="1509.0" text="Description">
+        <TitledPane animated="false" collapsible="false" layoutX="229.0" layoutY="414.0" prefHeight="487.0" prefWidth="1509.0" text="Description">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="1193.0">
                <children>

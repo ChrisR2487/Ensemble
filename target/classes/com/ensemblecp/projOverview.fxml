@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjOverviewController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjOverviewController">
     <children>
         <!-- Side nav bar -->
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -49,10 +49,10 @@
                 </HBox>
                 <HBox onMouseClicked="#archiveButton_onClick" prefHeight="35.0" prefWidth="160.0">
                     <children>
-                        <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
+                        <ImageView fitHeight="24.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
                             <Image url="@../button_imgs/archive-icon.png" />
                         </ImageView>
-                        <Button mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Archives" textFill="WHITE">
+                        <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Archives" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
@@ -63,16 +63,6 @@
                 </HBox>
             </children>
         </VBox>
-
-        <!-- Project timeline TODO: Fix this to gantt -->
-        <BubbleChart layoutX="197.0" layoutY="164.0" prefHeight="268.0" prefWidth="1223.0">
-            <xAxis>
-                <NumberAxis side="BOTTOM" />
-            </xAxis>
-            <yAxis>
-                <NumberAxis side="LEFT" />
-            </yAxis>
-        </BubbleChart>
 
         <!-- Software and project name -->
         <Label layoutX="14.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
@@ -170,45 +160,62 @@
             </font>
         </Label>
 
-        <!-- Files stuff -->
-        <Label layoutX="219.0" layoutY="434.0" prefHeight="38.0" prefWidth="141.0" text="Files" textFill="WHITE">
-            <font>
-                <Font size="35.0" />
-            </font>
-        </Label>
-        <Button layoutX="297.0" layoutY="431.0" mnemonicParsing="false" onAction="#addFile_onClick" style="-fx-background-color: transparent; -fx-padding: 0 0 0 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="+" textFill="WHITE" wrapText="true">
-            <font>
-                <Font size="40.0" />
-            </font>
-        </Button>
-        <ListView fx:id="fileList" layoutX="236.0" layoutY="494.0" prefHeight="200.0" prefWidth="1174.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
-            <items>
-            </items>
-        </ListView>
-
-        <!-- Issues stuff -->
-        <VBox layoutX="233.0" layoutY="795.0" prefHeight="200.0" prefWidth="1180.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
-            <children>
-                <HBox prefHeight="26.0" prefWidth="443.0" />
-            <Label text="    Recent Issues" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            </children>
-        </VBox>
-        <Label layoutX="218.0" layoutY="723.0" prefHeight="53.0" prefWidth="244.0" text="Issues" textFill="WHITE">
-            <font>
-                <Font size="35.0" />
-            </font>
-        </Label>
-
         <!-- Exit button -->
         <Button fx:id="exitButton" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
             <font>
                 <Font size="36.0" />
             </font>
         </Button>
+
+        <!-- Project content -->
+        <ScrollPane fx:id="sp" layoutX="207.0" layoutY="155.0" prefHeight="900.0" prefWidth="1237.0">
+            <Pane fx:id="parentPane" prefWidth="1220.0" minHeight="898.0" style="-fx-background-color: #2A2A2A;">
+                <children>
+                    <!-- Project timeline TODO: Fix this to gantt -->
+                    <BubbleChart prefHeight="268.0" prefWidth="1200.0">
+                        <xAxis>
+                            <NumberAxis side="BOTTOM" />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis side="LEFT" />
+                        </yAxis>
+                    </BubbleChart>
+
+                    <!-- Files stuff -->
+                    <Label layoutX="10.0" layoutY="260.0" prefHeight="38.0" text="Files" textFill="WHITE">
+                        <font>
+                            <Font size="35.0" />
+                        </font>
+                    </Label>
+                    <Button layoutX="84.0" layoutY="254.0" mnemonicParsing="false" onAction="#addFile_onClick" style="-fx-background-color: transparent; -fx-padding: 0 0 0 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="+" textFill="WHITE" wrapText="true">
+                        <font>
+                            <Font size="40.0" />
+                        </font>
+                    </Button>
+                    <ListView fx:id="fileList" layoutX="10.0" layoutY="310.0" prefHeight="200.0" prefWidth="1200.0" style="-fx-background-color: #1D1D1E;">
+                        <items>
+                        </items>
+                    </ListView>
+
+                    <!-- Issues stuff -->
+                    <VBox layoutX="10.0" layoutY="570.0" prefHeight="200.0" prefWidth="1200.0" style="-fx-background-color: #1D1D1E;">
+                        <children>
+                            <HBox prefHeight="26.0" prefWidth="443.0" />
+                            <Label text="    Recent Issues" textFill="WHITE">
+                                <font>
+                                    <Font size="20.0" />
+                                </font>
+                            </Label>
+                        </children>
+                    </VBox>
+                    <Label layoutX="10.0" layoutY="520.0" prefHeight="53.0" text="Issues" textFill="WHITE">
+                        <font>
+                            <Font size="35.0" />
+                        </font>
+                    </Label>
+                </children>
+            </Pane>
+        </ScrollPane>
 
             <!-- Project actions -->
         <!-- Refresh ROI -->

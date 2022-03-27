@@ -10,11 +10,9 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +26,8 @@ import java.util.ResourceBundle;
 
 // ProjViewScreen Class
 public class ProjOverviewController implements Initializable {
-    @FXML AnchorPane root;
+    @FXML Pane parentPane;
+    @FXML ScrollPane sp;
     @FXML ListView<Hyperlink> fileList;
     @FXML Label tagsLabel;
     @FXML Label roiLabel;
@@ -38,20 +37,16 @@ public class ProjOverviewController implements Initializable {
     @FXML Label investmentCostsLabel;
     @FXML Label titleLabel;
     @FXML Label issueScoreLabel;
-    @FXML Label c1;
-    @FXML Label c2;
-
 
     @FXML ImageView removeButton;
     @FXML ImageView editButton;
     @FXML ImageView addComponent;
     @FXML ImageView refreshROI;
 
-    @FXML VBox Comp1;
-    @FXML VBox Comp2;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        sp.setBackground(new Background(new BackgroundFill(Paint.valueOf("transparent"), new CornerRadii(0), new Insets(0))));
+
         // Set insight data
         tagsLabel.setText(tagsLabel.getText() + "\n\t" +
                 Main.curProject.getTag1() + "\n\t" +
@@ -87,9 +82,40 @@ public class ProjOverviewController implements Initializable {
             // TODO: List recent issues not seen/done
 
         // Set component data
-        Comp1.setVisibility(true);
-        c1.setText(c1.getText() + "\n\t" + String.valueOf(Main.curProject.getComponents()));
+        parentPane.setPadding(new Insets(10, 10, 10, 10));
+        double layY = 780.0;
+        double layX = 10.0;
+        for (Component comp: Main.curProject.getComponents()) {
+            // Setup label
+            Label compLabel = new Label(comp.getTitle());
+            compLabel.setLayoutY(layY);
+            compLabel.setLayoutX(layX);
+            compLabel.setFont(new Font(35.0));
+            compLabel.setTextFill(Paint.valueOf("white"));
 
+            // Setup pane
+            Pane compPane = new Pane();
+            compPane.setLayoutX(layX);
+            compPane.setLayoutY(layY+50.0);
+            compPane.setPrefWidth(1200.0);
+            compPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#1D1D1E"), new CornerRadii(0), new Insets(0))));
+            double layPartY = 8.0;
+            compPane.setPadding(new Insets(0, 0, layPartY, 0));
+            for (Component.Part part: comp.getParts()) {
+                    // TODO: This is where the switch would be to specify how to display different part types
+                Label partLabel = new Label(part.getData());
+                partLabel.setFont(new Font(22.0));
+                partLabel.setTextFill(Paint.valueOf("white"));
+                partLabel.setLayoutY(layPartY);
+                partLabel.setLayoutX(10.0);
+                compPane.getChildren().add(partLabel);
+                layPartY += 40.0;
+            }
+
+            // Add to sp and increment layY
+            parentPane.getChildren().addAll(compLabel, compPane);
+            layY += 160;
+        }
     }
 
     private void setupFileList() throws SQLException {
