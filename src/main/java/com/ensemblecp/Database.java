@@ -1,5 +1,6 @@
 package com.ensemblecp;// Imports
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.time.Instant;
 import java.util.HashMap;
@@ -352,6 +353,39 @@ public class Database {
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on create Component");
         return rs;
+    }
+
+    public void addComponent(HashMap<String, HashMap<String, String>> info) throws SQLException {
+        //Insert record into <Project charPid>Components
+        String charPid = Project.IDtoChars(Integer.parseInt(String.valueOf(info.get("pid"))));
+        String query = "insert into " + databaseName + ".Component" + "values (?, ?, ?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        Statement stmt = conn.createStatement();
+        preparedStmt.setInt(1, Integer.parseInt(String.valueOf(info.get("cid"))));
+        preparedStmt.setString (2, String.valueOf(info.get("title")));
+        preparedStmt.setString (3, String.valueOf(info.get("template")));
+
+        //Create table <project charPid><component charCid>Data
+        String createTable;
+        createTable = "create table " + databaseName + "." + charPid + "_" + charPid +"_Data ("
+                + " partid int primary key,"
+                + " value varchar(128))";
+        stmt.execute(createTable);
+
+        //Insert data as records into <project charPid><component charCid>_Data
+        String query1 = "insert into " + databaseName + "."+ charPid + "-" + charPid + "values (?, ?)";
+
+        PreparedStatement preparedStmt1 = conn.prepareStatement(query1);
+        Statement stmt1 = conn.createStatement();
+        for(int i = 1; i <= info.size(); i++) {
+            HashMap<String,String> row = info.get(String.valueOf(i));
+
+            //populate data
+            preparedStmt1.setInt(1, Integer.parseInt(row.get("partid")));
+            preparedStmt1.setString(2, row.get("value"));
+            preparedStmt1.execute();
+        }
+
     }
 
     public void updateIssueScore(int pid, float score) throws SQLException {
