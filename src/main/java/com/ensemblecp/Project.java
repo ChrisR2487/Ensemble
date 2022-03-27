@@ -95,6 +95,10 @@ public class Project {
         return componentsAL;
     }
 
+    public void addComponent(Component comp) {
+        components.add(comp);
+    }
+
     public void parseAndSaveTasks(ResultSet taskInfo) throws SQLException {
         // Parse each task and its data
         this.tasks = new ArrayList<>(); // Initialize task list
