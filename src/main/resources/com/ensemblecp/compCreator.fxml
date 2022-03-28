@@ -15,7 +15,7 @@
          <Font size="24.0" />
       </font>
    </RadioButton>
-   <RadioButton layoutX="153.0" layoutY="152.0" mnemonicParsing="false" onAction="#showCustomComp" text="Edit Custom Templates" textFill="WHITE">
+   <RadioButton layoutX="153.0" layoutY="152.0" mnemonicParsing="false" onAction="#showCustomComp" text="Create Custom Template" textFill="WHITE">
       <font>
          <Font size="24.0" />
       </font>

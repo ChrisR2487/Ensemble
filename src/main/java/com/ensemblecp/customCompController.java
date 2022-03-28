@@ -38,7 +38,7 @@ public class customCompController implements Initializable {
     private ArrayList<Component> components; // List of project components
     String template = "";
     ArrayList<compRow> groupList = new ArrayList<>();
-    ArrayList<Component> rowArrayList = new ArrayList<Component>();
+    ArrayList<Node[]> partNodes = new ArrayList<>();
     compRow gr = new compRow();
     private final Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
             BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1.5)));
@@ -54,13 +54,12 @@ public class customCompController implements Initializable {
         intItem.setOnAction(e -> {
             menuButton.setText(intItem.getText());
         });
+        partNodes.add(new Node[] {menuButton, inputField});
     }
 
     public void addField_onClick(Event actionEvent) {
         MenuItem item1 = new MenuItem("Integer");
         MenuItem item2 = new MenuItem("String");
-        //MenuItem item3 = new MenuItem("Table");
-        //MenuItem item4 = new MenuItem("File");
         MenuButton m = new MenuButton("Entry Type",null, item1,item2);
         TextField t = new TextField();
 
@@ -74,17 +73,7 @@ public class customCompController implements Initializable {
             m.setText(item2.getText());
             gr.setType(m.getText());
         });
-        /*
-        item3.setOnAction(e -> {
-            m.setText(item3.getText());
 
-        });
-        item4.setOnAction(e -> {
-            m.setText(item4.getText());
-
-        });
-
-         */
         m.setAlignment(Pos.CENTER);
         m.setStyle("-fx-font: 18 System;");
         m.setPrefWidth(170);
@@ -97,15 +86,15 @@ public class customCompController implements Initializable {
         VBox.setMargin(newBox, new Insets(0, 0, 0, 30));
         fieldVBox.setSpacing(20);
         fieldVBox.getChildren().add(newBox);
-
+        partNodes.add(new Node[] {m, t});
 
     }
+
     public void removeField_onClick(Event actionEvent) {
         ArrayList<Node> VBox = getAllNodes(fieldVBox);
         if (fieldVBox.getChildren().size() != 1) {
             fieldVBox.getChildren().remove(1);
-        }
-        else System.out.println("Can't remove first element");
+        } else System.out.println("Can't remove first element");
     }
 
     public void submit_Button_onClick(Event actionEvent) throws SQLException, IOException {
@@ -114,14 +103,19 @@ public class customCompController implements Initializable {
         Database db = new Database();
         HashMap<String, String> info = new HashMap<String, String>();
 
-        int pid = Main.curProject.getPid();
+        Integer pid = Main.curProject.getPid();
         Integer cid = Math.abs(compTitle.getText().hashCode());
         boolean isString = false;
         boolean isInteger = false;
-        //Get Template
 
+        //Get Template
         ArrayList<Node> VBox = getAllNodes(fieldVBox);
 
+        compTitle.setBorder(NORMAL_BORDER);
+        if (Objects.equals(compTitle.getText(), "")){
+            compTitle.setBorder(INVALID_BORDER);
+            return;
+        }
         for (Node parent : VBox){
             if (parent instanceof HBox){
                 for (Node children : ((HBox) parent).getChildren()) {
@@ -130,17 +124,14 @@ public class customCompController implements Initializable {
                         if(Objects.equals(((MenuButton) children).getText(), "String")){
                             template += "S";
                             isString = true;
-                            //System.out.println("String button found");
-                            //System.out.println(children.getId());
                         }
                         if(Objects.equals(((MenuButton) children).getText(), "Integer")){
                             template += "I";
                             isInteger = true;
-                            //System.out.println("Integer button found");
-                            //System.out.println(children.getId());
                         }
                         else if (Objects.equals(((MenuButton) children).getText(), "Entry Type")){
                             ((MenuButton) children).setBorder(INVALID_BORDER);
+                            return;
                         }
                     }
                     if(children instanceof TextField){
@@ -149,38 +140,61 @@ public class customCompController implements Initializable {
                             if (isString){
                                 if (isNumeric(((TextField) children).getText())) {
                                     ((TextField) children).setBorder(INVALID_BORDER);
+                                    return;
                                 }
-                                Component newComp = new Component(pid, cid, template, db);
-                                addComponent(newComp);
-                                info.put("value", ((TextField) children).getText());
+                                //Component newComp = new Component(pid, cid, template, db);
+                                //addComponent(newComp);
                                 isString = false;
                             }
                             if (isInteger){
                                 if (isNumeric(((TextField) children).getText())){
-                                    Component newComp = new Component(pid, cid, template, db);
-                                    addComponent(newComp);
-                                    info.put("value", ((TextField) children).getText());
+                                    //Component newComp = new Component(pid, cid, template, db);
+                                    //addComponent(newComp);
                                     isInteger = false;
-                                }else ((TextField) children).setBorder(INVALID_BORDER);
-
+                                }else {
+                                    ((TextField) children).setBorder(INVALID_BORDER);
+                                    return;
+                                }
                             }
-                        } else ((TextField) children).setBorder(INVALID_BORDER);
+                        } else {
+                            ((TextField) children).setBorder(INVALID_BORDER);
+                            return;
+                        }
                     }
                 }
             }
         }
         groupList.add(gr);
+        String dataType = "";
+        String inputText = "";
+        String input = "";
+        for (int i=0; i < partNodes.size()-1; i++){
+            Node[] data = partNodes.get(i);
+            if (data[i] instanceof MenuButton){
+                dataType = ((MenuButton) data[i]).getText();
+            }
+            if (data[i] instanceof TextField){
+                inputText = ((TextField) data[i]).getText();
+            }
+            input = dataType +": " + inputText;
+            info.put("partid", String.valueOf(i));
+            info.put("value", input);
+        }
+
 
         //Add record to <pid>_<cid> table
+        info.put("pid", pid.toString());
         info.put("cid", cid.toString());
         info.put("title", compTitle.getText());
         info.put("template", template);
+        db.addComponent(info);
+        //Component newComp = new Component(pid, cid, template, db);
+        //addComponent(newComp);
 
-        //db.addComponent(info);
 
         db.closeDB();
 
-        //Main.show("projOverview");
+        Main.show("projOverview");
     }
 
     public static boolean isNumeric(String str) {

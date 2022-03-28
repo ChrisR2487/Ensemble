@@ -355,36 +355,34 @@ public class Database {
         return rs;
     }
 
-    public void addComponent(HashMap<String, HashMap<String, String>> info) throws SQLException {
+    public void addComponent(HashMap<String, String> info) throws SQLException {
         //Insert record into <Project charPid>Components
-        String charPid = Project.IDtoChars(Integer.parseInt(String.valueOf(info.get("pid"))));
-        String query = "insert into " + databaseName + ".Component" + "values (?, ?, ?)";
+        String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
+        String charCid = Project.IDtoChars(Integer.parseInt(info.get("cid")));
+        String query = " insert into " + databaseName + ".Component" + "values (?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         Statement stmt = conn.createStatement();
-        preparedStmt.setInt(1, Integer.parseInt(String.valueOf(info.get("cid"))));
-        preparedStmt.setString (2, String.valueOf(info.get("title")));
-        preparedStmt.setString (3, String.valueOf(info.get("template")));
+        preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
+        preparedStmt.setString (2, (info.get("title")));
+        preparedStmt.setString (3, (info.get("template")));
 
         //Create table <project charPid><component charCid>Data
         String createTable;
-        createTable = "create table " + databaseName + "." + charPid + "_" + charPid +"_Data ("
+        createTable = "create table " + databaseName + "." + charPid + "_" + charCid + "_Data ("
                 + " partid int primary key,"
-                + " value varchar(128))";
+                + " value varchar(256))";
         stmt.execute(createTable);
 
         //Insert data as records into <project charPid><component charCid>_Data
-        String query1 = "insert into " + databaseName + "."+ charPid + "-" + charPid + "values (?, ?)";
+        String query1 = " insert into " + databaseName + "." + charPid + "_" + charCid + "_Data" + " values (?, ?)";
 
         PreparedStatement preparedStmt1 = conn.prepareStatement(query1);
         Statement stmt1 = conn.createStatement();
-        for(int i = 1; i <= info.size(); i++) {
-            HashMap<String,String> row = info.get(String.valueOf(i));
 
-            //populate data
-            preparedStmt1.setInt(1, Integer.parseInt(row.get("partid")));
-            preparedStmt1.setString(2, row.get("value"));
-            preparedStmt1.execute();
-        }
+        //populate data
+        preparedStmt1.setInt(1, Integer.parseInt(info.get("partid")));
+        preparedStmt1.setString(2, info.get("value"));
+        preparedStmt1.execute();
 
     }
 

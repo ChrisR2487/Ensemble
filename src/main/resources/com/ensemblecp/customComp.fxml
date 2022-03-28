@@ -97,7 +97,7 @@
                            <children>
                               <MenuButton fx:id="menuButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" text="Entry Type">
                                  <items>
-                                    <MenuItem fx:id="stringItem" mnemonicParsing="false" text="String" /> <!--onAction="#setMenuButton" -->
+                                    <MenuItem fx:id="stringItem" mnemonicParsing="false" text="String" />
                                     <MenuItem fx:id="intItem" mnemonicParsing="false" text="Integer" />
                                  </items>
                                  <HBox.margin>
