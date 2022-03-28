@@ -39,6 +39,7 @@ public class customCompController implements Initializable {
     String template = "";
     ArrayList<compRow> groupList = new ArrayList<>();
     ArrayList<Node[]> partNodes = new ArrayList<>();
+    ArrayList<String> compData = new ArrayList<>();
     compRow gr = new compRow();
     private final Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
             BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1.5)));
@@ -47,7 +48,7 @@ public class customCompController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        /*
         stringItem.setOnAction(e -> {
             menuButton.setText(stringItem.getText());
         });
@@ -55,6 +56,8 @@ public class customCompController implements Initializable {
             menuButton.setText(intItem.getText());
         });
         partNodes.add(new Node[] {menuButton, inputField});
+
+         */
     }
 
     public void addField_onClick(Event actionEvent) {
@@ -67,7 +70,6 @@ public class customCompController implements Initializable {
         item1.setOnAction(e -> {
             m.setText(item1.getText());
             gr.setType(m.getText());
-            template = m.getText().substring(0,1).toUpperCase();
         });
         item2.setOnAction(e -> {
             m.setText(item2.getText());
@@ -117,6 +119,7 @@ public class customCompController implements Initializable {
             return;
         }
         for (Node parent : VBox){
+            int i = 0;
             if (parent instanceof HBox){
                 for (Node children : ((HBox) parent).getChildren()) {
                     if(children instanceof MenuButton){
@@ -142,14 +145,12 @@ public class customCompController implements Initializable {
                                     ((TextField) children).setBorder(INVALID_BORDER);
                                     return;
                                 }
-                                //Component newComp = new Component(pid, cid, template, db);
-                                //addComponent(newComp);
+
                                 isString = false;
                             }
                             if (isInteger){
                                 if (isNumeric(((TextField) children).getText())){
-                                    //Component newComp = new Component(pid, cid, template, db);
-                                    //addComponent(newComp);
+
                                     isInteger = false;
                                 }else {
                                     ((TextField) children).setBorder(INVALID_BORDER);
@@ -165,10 +166,11 @@ public class customCompController implements Initializable {
             }
         }
         groupList.add(gr);
+
         String dataType = "";
         String inputText = "";
         String input = "";
-        for (int i=0; i < partNodes.size()-1; i++){
+        for (int i=0; i < partNodes.size(); i++){
             Node[] data = partNodes.get(i);
             if (data[i] instanceof MenuButton){
                 dataType = ((MenuButton) data[i]).getText();
@@ -177,17 +179,15 @@ public class customCompController implements Initializable {
                 inputText = ((TextField) data[i]).getText();
             }
             input = dataType +": " + inputText;
-            info.put("partid", String.valueOf(i));
-            info.put("value", input);
+            compData.add(input);
         }
-
 
         //Add record to <pid>_<cid> table
         info.put("pid", pid.toString());
         info.put("cid", cid.toString());
         info.put("title", compTitle.getText());
         info.put("template", template);
-        db.addComponent(info);
+        db.addComponent(info, compData);
         //Component newComp = new Component(pid, cid, template, db);
         //addComponent(newComp);
 

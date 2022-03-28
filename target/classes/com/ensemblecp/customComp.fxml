@@ -92,35 +92,6 @@
             <ScrollPane prefHeight="1388.0" prefWidth="1936.0" style="-fx-background-color: transparent; -fx-background: transparent;">
                <content>
                   <VBox fx:id="fieldVBox" maxHeight="1053.0" prefHeight="1053.0" prefWidth="1897.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="1897.0">
-                           <children>
-                              <MenuButton fx:id="menuButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" text="Entry Type">
-                                 <items>
-                                    <MenuItem fx:id="stringItem" mnemonicParsing="false" text="String" /> <!--onAction="#setMenuButton" -->
-                                    <MenuItem fx:id="intItem" mnemonicParsing="false" text="Integer" />
-                                 </items>
-                                 <HBox.margin>
-                                    <Insets left="30.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </MenuButton>
-                              <TextField fx:id="inputField" prefHeight="40.0" prefWidth="900.0">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </TextField>
-                           </children>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                     </children>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

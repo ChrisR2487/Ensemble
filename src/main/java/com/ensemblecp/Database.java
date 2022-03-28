@@ -3,6 +3,7 @@ package com.ensemblecp;// Imports
 import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -355,7 +356,7 @@ public class Database {
         return rs;
     }
 
-    public void addComponent(HashMap<String, String> info) throws SQLException {
+    public void addComponent(HashMap<String, String> info, ArrayList<String> data) throws SQLException {
         //Insert record into <Project charPid>Components
         String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
         String charCid = Project.IDtoChars(Integer.parseInt(info.get("cid")));
@@ -380,9 +381,11 @@ public class Database {
         Statement stmt1 = conn.createStatement();
 
         //populate data
-        preparedStmt1.setInt(1, Integer.parseInt(info.get("partid")));
-        preparedStmt1.setString(2, info.get("value"));
-        preparedStmt1.execute();
+        for (int i = 0; i < data.size(); i++){
+            preparedStmt1.setInt(1, i+1);
+            preparedStmt1.setString(2, data.get(i));
+            preparedStmt1.execute();
+        }
 
     }
 
