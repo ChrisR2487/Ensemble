@@ -28,7 +28,7 @@ public class LoginController implements Initializable {
         // Do nothing
     }
 
-    public void exitButton_onClick(MouseEvent mouseEvent) {
+    public void exitButton_onClick(MouseEvent mouseEvent) throws SQLException, IOException {
         System.exit(ExitStatusType.EXIT_BUTTON);
     }
 

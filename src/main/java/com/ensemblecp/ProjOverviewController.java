@@ -1,20 +1,35 @@
 package com.ensemblecp;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 // ProjViewScreen Class
 public class ProjOverviewController implements Initializable {
+    @FXML Pane parentPane;
+    @FXML ScrollPane sp;
+    @FXML ListView<Hyperlink> fileList;
     @FXML Label tagsLabel;
     @FXML Label roiLabel;
     @FXML Label budgetLabel;
@@ -22,17 +37,12 @@ public class ProjOverviewController implements Initializable {
     @FXML Label deadlineLabel;
     @FXML Label investmentCostsLabel;
     @FXML Label titleLabel;
-    @FXML Label c1;
-    @FXML Label c2;
-
+    @FXML Label issueScoreLabel;
 
     @FXML ImageView removeButton;
     @FXML ImageView editButton;
     @FXML ImageView addComponent;
     @FXML ImageView refreshROI;
-
-    @FXML VBox Comp1;
-    @FXML VBox Comp2;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,12 +57,113 @@ public class ProjOverviewController implements Initializable {
         kickoffLabel.setText(kickoffLabel.getText() + "\n\t" + Main.curProject.getKickoff().toString());
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
+        issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
         titleLabel.setText(Main.curProject.getTitle());
 
-        // Set component data
-        //Comp1.setVisibility(true);
-        c1.setText(c1.getText() + "\n\t" + String.valueOf(Main.curProject.getComponents()));
+        // Set file data
+        int tryCount = 0;
+        while (tryCount < Main.ATTEMPT_LIMIT) {
+            try {
+                setupFileList();
+                break;
+            } catch (SQLException e) {
+                System.out.println("Failed to load file list, trying again...");
+                e.printStackTrace();
+                tryCount++;
+            }
+        }
+        if (tryCount == Main.ATTEMPT_LIMIT) {
+            // Failed to load file list
+            System.out.println("Unable to load file list.");
+        }
 
+        // set issues data
+            // TODO: List recent issues not seen/done
+
+        // Set component data
+        sp.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(0), new Insets(0))));
+
+        parentPane.setPadding(new Insets(10, 10, 10, 10));
+        double layY = 780.0;
+        double layX = 10.0;
+        for (Component comp: Main.curProject.getComponents()) {
+            // Setup label
+            Label compLabel = new Label(comp.getTitle());
+            compLabel.setLayoutY(layY);
+            compLabel.setLayoutX(layX);
+            compLabel.setFont(new Font(35.0));
+            compLabel.setTextFill(Paint.valueOf("white"));
+
+            // Setup pane
+            Pane compPane = new Pane();
+            compPane.setLayoutX(layX);
+            compPane.setLayoutY(layY+50.0);
+            compPane.setPrefWidth(1200.0);
+            compPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#1D1D1E"), new CornerRadii(0), new Insets(0))));
+            double layPartY = 8.0;
+            compPane.setPadding(new Insets(0, 0, layPartY, 0));
+            for (Component.Part part: comp.getParts()) {
+                    // TODO: This is where the switch would be to specify how to display different part types
+                Label partLabel = new Label(part.getData());
+                partLabel.setFont(new Font(22.0));
+                partLabel.setTextFill(Paint.valueOf("white"));
+                partLabel.setLayoutY(layPartY);
+                partLabel.setLayoutX(10.0);
+                compPane.getChildren().add(partLabel);
+                layPartY += 40.0;
+            }
+
+            // Add to sp and increment layY
+            parentPane.getChildren().addAll(compLabel, compPane);
+            layY += 160;
+        }
+    }
+
+    private void setupFileList() throws SQLException {
+        // Check if already saved
+        if (Main.curProject.getLinks() != null) {
+            Hyperlink[] arr = new Hyperlink[Main.curProject.getLinks().size()];
+            Main.curProject.getLinks().toArray(arr);
+            List<Hyperlink> list = List.of(arr);
+            fileList.setItems(FXCollections.observableList(list));
+            return;
+        }
+
+        // Get files
+        Database db = new Database();
+        ResultSet rs = db.getProjectFiles(Main.curProject.getPid());
+        ArrayList<Hyperlink> links = new ArrayList<>();
+        while(rs.next()) {
+            Hyperlink link = new Hyperlink(rs.getString("filename"));
+            HashMap<String, Object> map = new HashMap<>();
+            int filid = rs.getInt("filid");
+            link.setOnAction(actionEvent -> {
+                int tryCount = 0;
+                while (tryCount < Main.ATTEMPT_LIMIT) {
+                    try {
+                        Database db2 = new Database();
+                        db2.downloadFile(filid);
+                        db2.closeDB();
+                        break;
+                    } catch (SQLException | IOException e) {
+                        System.out.println("Failed to download file, trying again...");
+                        e.printStackTrace();
+                        tryCount++;
+                    }
+                }
+                if (tryCount == Main.ATTEMPT_LIMIT) {
+                    // Failed to download file
+                    System.out.println("Unable to download file.");
+                }
+            });
+            links.add(link);
+        }
+        db.closeDB();
+        Main.curProject.setLinks(links);
+        Hyperlink[] arr = new Hyperlink[links.size()];
+        links.toArray(arr);
+        List<Hyperlink> list = List.of(arr);
+        fileList.setItems(FXCollections.observableList(list));
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
@@ -70,8 +181,67 @@ public class ProjOverviewController implements Initializable {
     public void archiveButton_onClick(Event mouseEvent) {
     }
 
-    public void addFile_onClick(ActionEvent actionEvent) {
-        // TODO: Implement adding files
+    public void addFile_onClick(ActionEvent actionEvent) throws SQLException {
+        // Browse for file
+        File file = Main.browseForFile();
+        if (file == null) return;
+        if (file.length() > Main.FILE_SIZE_LIMIT) {
+            // File too large, display error
+                // TODO: Implement error check
+        }
+
+        // Get privacy level
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Public");
+        dialog.setTitle("Ensemble");
+        dialog.setHeaderText("File security");
+        dialog.setContentText("Would you like this file to be public or private? (Only project managers can view private files)");
+        dialog.getItems().add("Private");
+        dialog.getItems().add("Public");
+        boolean isPrivate = dialog.showAndWait().get().equals("Private");;
+
+        // Upon receiving file, check extension and try to upload
+        String fullName = file.getName();
+        int period = fullName.lastIndexOf('.');
+        String extension = fullName.substring(period+1);
+        switch(extension) {
+            case "pdf", "txt", "png", "jpg", "doc", "docx" -> {
+                // Valid type, save file
+                Database db = new Database();
+                db.createFile(file);
+                // Add file to project
+                db.addFiles(Main.curProject.getPid(), new int[] {fullName.hashCode()}, new boolean[] {isPrivate});
+
+                // Setup hyperlink and add to project object
+                Hyperlink link = new Hyperlink(fullName);
+                link.setOnAction(event -> {
+                    int tryCount = 0;
+                    while (tryCount < Main.ATTEMPT_LIMIT) {
+                        try {
+                            Database db2 = new Database();
+                            db2.downloadFile(fullName.hashCode());
+                            db2.closeDB();
+                            break;
+                        } catch (SQLException | IOException e) {
+                            System.out.println("Failed to download file, trying again...");
+                            tryCount++;
+                        }
+                    }
+                    if (tryCount == Main.ATTEMPT_LIMIT) {
+                        // Failed to download file
+                        System.out.println("Unable to download file.");
+                    }
+                });
+                Main.curProject.getLinks().add(link); // Add to local project to display in future
+                Hyperlink[] arr = new Hyperlink[Main.curProject.getLinks().size()]; // Add to fileList to immediately display
+                Main.curProject.getLinks().toArray(arr);
+                List<Hyperlink> list = List.of(arr);
+                fileList.setItems(FXCollections.observableList(list));
+            }
+            default -> {
+                // Invalid file type, display error
+                    // TODO: Implement error check
+            }
+        }
     }
 
     public void editProjectButton_onClick(ActionEvent actionEvent) throws IOException {
@@ -94,8 +264,8 @@ public class ProjOverviewController implements Initializable {
         Main.show("projOverview");
     }
 
-    public void viewBenchmark_onClick(ActionEvent actionEvent) {
-        // TODO: Implement this view change
+    public void viewBenchmark_onClick(ActionEvent actionEvent) throws IOException {
+        Main.show("projBenchmark");
     }
 
     public void viewIssue_onClick(ActionEvent event) throws IOException {

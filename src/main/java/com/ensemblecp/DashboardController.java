@@ -115,6 +115,7 @@ public class DashboardController implements Initializable {
                     break;
                 } catch (IOException | SQLException e) {
                     System.out.println("Failed to start project view, trying again...");
+                    e.printStackTrace();
                     tryCount++;
                 }
             }

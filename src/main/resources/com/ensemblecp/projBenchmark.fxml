@@ -6,57 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjIssuesController">
+<?import com.sun.javafx.scene.control.ContextMenuContent.ArrowMenuItem?>
+<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjBenchmarkController">
     <children>
-            <!-- Project actions -->
-        <!-- Refresh ROI -->
-        <ImageView fx:id="refreshROI" fitHeight="41.0" fitWidth="41.0" layoutX="1819.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../button_imgs/RefreshROI.png" />
-         </image>
-      </ImageView>
-        <Button layoutX="1818.0" layoutY="105.0" mnemonicParsing="false" onMouseEntered="#refreshROI_Hover" onMouseExited="#refreshROI_HoverOff" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="RR">
-            <font>
-                <Font size="14.0" />
-            </font>
-            <tooltip>
-                <Tooltip text="Refresh ROI" />
-            </tooltip>
-        </Button>
-        <!-- Remove project -->
-        <ImageView id="removeButton" fx:id="removeButton" fitHeight="36.0" fitWidth="38.0" layoutX="1390.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../button_imgs/Remove.png" />
-         </image>
-        </ImageView>
-        <Button layoutX="1397.0" layoutY="116.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" onMouseEntered="#removeButton_Hover" onMouseExited="#removeButton_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R">
-            <tooltip>
-                <Tooltip text="Remove Project" />
-            </tooltip>
-        </Button>
-        <!-- Edit project -->
-        <ImageView id="editButton" fx:id="editButton" fitHeight="29.0" fitWidth="31.0" layoutX="1346.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../button_imgs/Edit.png" />
-            </image>
-        </ImageView>
-        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" onMouseEntered="#editButton_Hover" onMouseExited="#editButton_HoverOff" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E">
-            <tooltip>
-                <Tooltip text="Edit Project" />
-            </tooltip>
-        </Button>
-        <!-- Add component -->
-        <ImageView id="addComponent" fx:id="addComponent" fitHeight="36.0" fitWidth="31.0" layoutX="1291.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../button_imgs/AddCom.png" />
-            </image>
-        </ImageView>
-        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" onMouseEntered="#addComponent_Hover" onMouseExited="#addComponent_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C">
-            <tooltip>
-                <Tooltip text="Add Component" />
-            </tooltip>
-        </Button>
-
         <!-- Side nav bar -->
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
             <children>
@@ -112,11 +64,12 @@
             </children>
         </VBox>
 
-        <!-- Software and Project name -->
+        <!-- Software and project name -->
         <Label layoutX="14.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
             <font>
                 <Font size="26.0" />
-            </font></Label>
+            </font>
+        </Label>
         <Label fx:id="titleLabel" layoutX="212.0" layoutY="61.0" prefHeight="38.0" text="Project Name" textFill="WHITE">
             <font>
                 <Font size="26.0" />
@@ -215,71 +168,133 @@
             </font>
         </Button>
 
-        <!-- Project nav bar -->
-        <Button layoutX="174.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewOverview_onClick" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Overview" textFill="#a1a1a1">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
-        <Button layoutX="420.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewBenchmark_onClick" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Benchmark Timeline" textFill="#a1a1a1">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
-        <Button layoutX="844.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewTeam_onClick" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Members" textFill="#a1a1a1">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
-        <Button layoutX="1066.0" layoutY="94.0" mnemonicParsing="false" onAction="#viewIssue_onClick" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Issues" textFill="WHITE">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Button>
+            <!-- Project actions -->
+        <!-- Refresh ROI -->
+        <ImageView fx:id="refreshROI" fitHeight="41.0" fitWidth="41.0" layoutX="1819.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../button_imgs/RefreshROI.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="1818.0" layoutY="105.0" mnemonicParsing="false" onMouseEntered="#refreshROI_Hover" onMouseExited="#refreshROI_HoverOff" opacity="0.0" prefHeight="33.0" prefWidth="40.0" text="RR">
+            <font>
+                <Font size="14.0" />
+            </font>
+            <tooltip>
+                <Tooltip text="Refresh ROI" />
+            </tooltip>
+        </Button>
+        <!-- Remove project -->
+        <ImageView fx:id="removeButton" fitHeight="36.0" fitWidth="38.0" layoutX="1390.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../button_imgs/Remove.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="1388.0" layoutY="108.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" onMouseEntered="#removeButton_Hover" onMouseExited="#removeButton_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R">
+            <tooltip>
+                <Tooltip text="Remove Project" />
+            </tooltip>
+        </Button>
+        <!-- Edit project -->
+        <ImageView fx:id="editButton" fitHeight="29.0" fitWidth="31.0" layoutX="1346.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../button_imgs/Edit.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" onMouseEntered="#editButton_Hover" onMouseExited="#editButton_HoverOff" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E">
+            <tooltip>
+                <Tooltip text="Edit Project" />
+            </tooltip>
+        </Button>
+        <!-- Add component -->
+        <ImageView fx:id="addComponent" fitHeight="36.0" fitWidth="31.0" layoutX="1291.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../button_imgs/AddCom.png" />
+            </image>
+        </ImageView>
+        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" onMouseEntered="#addComponent_Hover" onMouseExited="#addComponent_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C">
+            <tooltip>
+                <Tooltip text="Add Component" />
+            </tooltip>
+        </Button>
 
-        <!-- Issue table -->
-        <TableView fx:id="issueTable" layoutX="215.0" layoutY="165.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1215.0">
-         <columns>
-            <TableColumn fx:id="markColumn" prefWidth="50.0" text="Mark" />
-            <!-- <TableColumn fx:id="dateColumn" prefWidth="190.0" text="Time Posted" /> -->
-             <TableColumn fx:id="stateColumn" prefWidth="110.0" text="State" />
-             <TableColumn fx:id="originColumn" prefWidth="151.0" text="Origin Member" />
-             <TableColumn fx:id="typeColumn" prefWidth="139.0" text="Focus" />
-             <TableColumn fx:id="descriptionColumn" prefWidth="763.0" text="Description" />
-         </columns>
-      </TableView>
-        <!-- Create issue -->
-        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1145.0" layoutY="946.0" mnemonicParsing="false" onAction="#createIssue_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Create Issue" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button alignment="CENTER" contentDisplay="TOP" layoutX="545.0" layoutY="946.0" mnemonicParsing="false" onAction="#markSeen_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Mark as Seen" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button alignment="CENTER" contentDisplay="TOP" layoutX="845.0" layoutY="946.0" mnemonicParsing="false" onAction="#markDone_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Mark as Resolved" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button alignment="CENTER" contentDisplay="TOP" layoutX="245.0" layoutY="946.0" mnemonicParsing="false" onAction="#markNew_onClick" prefHeight="50.0" prefWidth="285.0" style="-fx-background-color: #000000#000000;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Mark as New" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
+        <!-- Project nav bar -->
+        <Button layoutX="174.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewOverview_onClick" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Overview" textFill="WHITE">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Button>
+        <Button layoutX="420.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewBenchmark_onClick" prefHeight="66.0" prefWidth="405.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Benchmark Timeline" textFill="#a1a1a1">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Button>
+        <Button layoutX="844.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewTeam_onClick" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Members" textFill="#a1a1a1">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Button>
+        <Button layoutX="1066.0" layoutY="94.0" mnemonicParsing="false" onAction="#viewIssue_onClick" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Issues" textFill="#a1a1a1">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <font>
+                <Font size="35.0" />
+            </font>
+        </Button>
+
+        <!-- Task List Row = 203.0 -->
+        <VBox fx:id="taskListVBox" prefWidth="263.0" style="-fx-background-color: #1D1D1E;" /> <!-- Add children in code -->
+        <Label layoutX="1140.0" layoutY="164.0" text="Tasks" textFill="WHITE">
+            <font>
+                <Font size="26.0" />
+            </font>
+        </Label>
+
+        <!-- Task details -->
+        <Label fx:id="detailLabel" layoutX="217.0" layoutY="720.0" text="Details" textFill="WHITE" visible="false">
+            <font>
+                <Font size="26.0" />
+            </font>
+        </Label>
+        <Pane fx:id="taskDetailPane" disable="true" layoutX="217.0" layoutY="760.0" prefHeight="254.0" prefWidth="900.0" style="-fx-background-color: #1D1D1E;" visible="false">
+            <children>
+                <Label fx:id="titleDetail" layoutX="14.0" layoutY="14.0" textFill="WHITE">
+                    <font>
+                        <Font size="26.0" />
+                    </font>
+                </Label>
+                <Label fx:id="kickoffDetail" layoutX="14.0" layoutY="219.0" textFill="WHITE">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+                <Label fx:id="deadlineDetail" layoutX="152.0" layoutY="219.0" textFill="WHITE">
+                    <font>
+                        <Font size="12.0" />
+                    </font>
+                </Label>
+                <Label fx:id="memberDetail" layoutX="14.0" layoutY="183.0" textFill="WHITE">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <Label fx:id="descriptionDetail" layoutX="14.0" layoutY="62.0" prefWidth="872.0" textFill="WHITE">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <MenuButton fx:id="actionMenu" layoutX="841.0" layoutY="10.0" prefHeight="25.0" prefWidth="41.0" style="-fx-font-size: 16px; -fx-background-color: transparent;" />
+            </children>
+        </Pane>
+
     </children>
 </AnchorPane>

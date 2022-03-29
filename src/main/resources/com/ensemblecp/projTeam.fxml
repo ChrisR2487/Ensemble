@@ -5,7 +5,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjTeamController">
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjTeamController">
     <children>
         <!-- Side nav bar -->
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -47,10 +48,10 @@
                 </HBox>
                 <HBox onMouseClicked="#archiveButton_onClick" prefHeight="35.0" prefWidth="160.0">
                     <children>
-                        <ImageView fitHeight="31.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
+                        <ImageView fitHeight="24.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
                             <Image url="@../button_imgs/archive-icon.png" />
                         </ImageView>
-                        <Button mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Archives" textFill="WHITE">
+                        <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#archiveButton_onClick" prefHeight="27.0" prefWidth="130.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Archives" textFill="WHITE">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
@@ -67,7 +68,7 @@
             <font>
                 <Font size="26.0" />
             </font></Label>
-        <Label fx:id="titleLabel" layoutX="212.0" layoutY="61.0" prefHeight="38.0" prefWidth="221.0" text="Project Name" textFill="WHITE">
+        <Label fx:id="titleLabel" layoutX="212.0" layoutY="61.0" prefHeight="38.0" text="Project Name" textFill="WHITE">
             <font>
                 <Font size="26.0" />
             </font>
@@ -92,6 +93,16 @@
                </font>
             </Label>
              <Label fx:id="budgetLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Budget" textFill="WHITE">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+             </Label>
+             <Label text=" " textFill="WHITE">
+                 <font>
+                     <Font size="10.0" />
+                 </font>
+             </Label>
+             <Label fx:id="issueScoreLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Issue Score" textFill="WHITE">
                  <font>
                      <Font size="20.0" />
                  </font>
@@ -158,10 +169,11 @@
         <!-- Project team table -->
         <TableView fx:id="memberTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1150.0" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="170.0">
             <columns> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
-                <TableColumn fx:id="photoColumn" text="Photo" /> <!-- TODO: Check if we want to use photos -->
-                <TableColumn fx:id="nameColumn" text="Name" />
-                <TableColumn fx:id="memidColumn" text="Member ID" />
-                <TableColumn fx:id="positionColumn" text="Position" />
+                <TableColumn fx:id="photoColumn" prefWidth="115.0" text="Photo" /> <!-- TODO: Check if we want to use photos -->
+                <TableColumn fx:id="nameColumn" prefWidth="334.0" text="Name" />
+                <TableColumn fx:id="memidColumn" prefWidth="136.0" text="Member ID" />
+                <TableColumn fx:id="positionColumn" prefWidth="280.0" text="Position" />
+            <TableColumn fx:id="statusColumn" prefWidth="280.0" text="Status" />
             </columns>
         </TableView>
 
@@ -247,6 +259,14 @@
             <font>
                 <Font size="35.0" />
             </font>
+        </Button>
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1095.0" layoutY="600.0" mnemonicParsing="false" onAction="#editTeam_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Modify Team">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+            <HBox.margin>
+                <Insets left="25.0" top="60.0" />
+            </HBox.margin>
         </Button>
     </children>
 </AnchorPane>

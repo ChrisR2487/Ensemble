@@ -1,5 +1,55 @@
 .root{
     -fx-background-color:
-            /*linear-gradient(#1d1d1e, #a1a1a1);*/
-            linear-gradient(to right, #060608, #989C9D);
+        linear-gradient(to right, #060608, #989C9D);
+}
+
+/* Scroll bar */
+.scroll-pane {
+    -fx-background-color: #1D1D1E;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #2A2A2A;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: #1D1D1E;
+}
+
+/* Dialogs */
+.dialog-pane{
+    -fx-background-color: #7160DC;
+}
+.dialog-pane > *.button-bar > *.container{
+    -fx-background-color: #7160DC;
+}
+.dialog-pane > .content .label{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: orange;
+}
+.dialog-pane .header-panel{
+    -fx-background-color: #9589DF;
+}
+.dialog-pane .header-panel .label{
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
 }

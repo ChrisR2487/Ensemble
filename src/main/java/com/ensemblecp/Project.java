@@ -1,5 +1,7 @@
 package com.ensemblecp;// Imports
 
+import javafx.scene.control.Hyperlink;
+
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +28,14 @@ public class Project {
     private String tag3; // Tag 3 of the project
     private String tag4; // Tag 4 of the project
     private boolean complete; // Is the project marked as complete?
-    private ArrayList<Component> components; // List of project components
     private int manid = 0; // manid of project manager
+
+    // Data of project, loaded and stored only when needed
+    private ArrayList<Component> components; // List of project components (Loads upon starting project)
+    private ArrayList<Task> tasks; // List of project tasks (Loads upon viewing benchmark timeline)
+    private ArrayList<Issue> issues; // List of project issues (Loads upon viewing issue list)
+    private ArrayList<MemberRow> members; // List of project members (Loads upon viewing member list)
+    private ArrayList<Hyperlink> links; // List of project files (Loads upon starting project)
 
     /* Class Constructors */
     /**
@@ -79,12 +87,26 @@ public class Project {
         ArrayList<Component> componentsAL = new ArrayList<>();
         do {
             // Create component object
-            Component comp = new Component(this.pid, compInfo.getInt("cid"), compInfo.getString("template"), db); // Pass parameters to constructor
+            Component comp = new Component(this.pid, compInfo.getInt("cid"), compInfo.getString("template"), compInfo.getString("title"), db); // Pass parameters to constructor
             componentsAL.add(comp);
         } while (compInfo.next());
 
         // Return components
         return componentsAL;
+    }
+
+    public void addComponent(Component comp) {
+        components.add(comp);
+    }
+
+    public void parseAndSaveTasks(ResultSet taskInfo) throws SQLException {
+        // Parse each task and its data
+        this.tasks = new ArrayList<>(); // Initialize task list
+        while(taskInfo.next()) { // Get task rows
+            // Create task object
+            Task task = new Task(taskInfo); // Pass parameters to constructor
+            this.tasks.add(task);
+        }
     }
 
     public static String IDtoChars(int pid) {
@@ -127,10 +149,6 @@ public class Project {
         setTag2(tag2);
         setTag3(tag3);
         setTag4(tag4);
-    }
-
-    public void addComponent(Component comp) {
-        components.add(comp);
     }
 
     /* Getters & Setters */
@@ -260,6 +278,38 @@ public class Project {
 
     private void setManid(int manid) {
         this.manid = manid;
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public ArrayList<Issue> getIssues() {
+        return issues;
+    }
+
+    public void setIssues(ArrayList<Issue> issues) {
+        this.issues = issues;
+    }
+
+    public ArrayList<MemberRow> getMembers() {
+        return members;
+    }
+
+    public void setMembers(ArrayList<MemberRow> members) {
+        this.members = members;
+    }
+
+    public ArrayList<Hyperlink> getLinks() {
+        return links;
+    }
+
+    public void setLinks(ArrayList<Hyperlink> links) {
+        this.links = links;
     }
 }
 // End of Project Class

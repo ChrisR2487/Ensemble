@@ -14,6 +14,7 @@ public class Component {
     private String template;
     private int cid;
     private ArrayList<Part> parts;
+    private String title;
 
     /* Constructors */
     /**
@@ -24,11 +25,12 @@ public class Component {
      * @param template Template of component
      * @param db Database connection
      */
-    public Component(int pid, int cid, String template, Database db) throws SQLException {
+    public Component(int pid, int cid, String template, String title, Database db) throws SQLException {
         // Initialization
         this.cid = cid;
         this.template = template;
         this.parts = new ArrayList<>();
+        this.title = title;
 
         // Get component data
         ResultSet cData = db.getComponentData(pid, cid);
@@ -89,6 +91,13 @@ public class Component {
         this.parts = parts;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
     // Part Class
     /**
      * The Part class, used to store values of parts in Components.

@@ -3,10 +3,12 @@ package com.ensemblecp;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,9 +22,11 @@ public class Main extends Application {
     public final static int CACHE_LIMIT = 5;
     public static Account account;
     public final static int ATTEMPT_LIMIT = 10;
+    public final static long MB = 1024*1024;
+    public final static long FILE_SIZE_LIMIT = 16*MB;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, SQLException {
         // Initialize stage
         mainStage = stage;
         mainStage.setTitle("Ensemble");
@@ -101,6 +105,10 @@ public class Main extends Application {
         Main.projects.add(0, proj);
     }
 
+    public static File browseForFile() {
+        return new FileChooser().showOpenDialog(mainStage);
+    }
+
     public static void main(String[] args) throws SQLException { launch();}
 }
 
@@ -109,4 +117,5 @@ class ExitStatusType {
     public final static int FAILED_LOAD = -1;
     public final static int FAILED_QUERY = -2;
     public final static int FAILED_LOGIN = -3;
+    public final static int FAILED_FILE_LOAD = -4;
 }

@@ -95,7 +95,6 @@
          </font>
       </Label>
 
-
       <!-- Member list -->
       <Label layoutX="1439.0" layoutY="752.0" prefHeight="26.0" prefWidth="443.0" text="All Members" textFill="WHITE">
          <font>

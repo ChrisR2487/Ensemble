@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -28,6 +30,8 @@ public class ProjIssuesController implements Initializable {
     @FXML TableColumn<IssueRow, String> descriptionColumn;
     @FXML TableColumn<IssueRow, String> typeColumn;
     @FXML TableColumn<IssueRow, String> stateColumn;
+    @FXML TableColumn<IssueRow, String> markColumn;
+
     @FXML Label tagsLabel;
     @FXML Label roiLabel;
     @FXML Label budgetLabel;
@@ -35,13 +39,14 @@ public class ProjIssuesController implements Initializable {
     @FXML Label deadlineLabel;
     @FXML Label investmentCostsLabel;
     @FXML Label titleLabel;
+    @FXML Label issueScoreLabel;
 
     @FXML ImageView removeButton;
     @FXML ImageView editButton;
     @FXML ImageView addComponent;
     @FXML ImageView refreshROI;
 
-
+    ArrayList<IssueRow> rowArrayList = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,6 +61,7 @@ public class ProjIssuesController implements Initializable {
         kickoffLabel.setText(kickoffLabel.getText() + "\n\t" + Main.curProject.getKickoff().toString());
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
+        issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
         titleLabel.setText(Main.curProject.getTitle());
 
         // Hookup issues table (temp) TODO: Change to better display format
@@ -76,13 +82,13 @@ public class ProjIssuesController implements Initializable {
     }
 
     private void setupIssuesList() throws SQLException {
-        ArrayList<IssueRow> rowArrayList = new ArrayList<>();
         Database db = new Database();
         ResultSet rs = db.getProjectIssues(Main.curProject.getPid());
         while (rs.next()) {
             IssueRow ir = new IssueRow();
             ir.setOrigin(String.valueOf(rs.getInt("memid")));
             ir.setDescription(rs.getString("message"));
+            ir.setSelect(new CheckBox());
 
             String state = "";
             switch(rs.getInt("state")) {
@@ -113,11 +119,60 @@ public class ProjIssuesController implements Initializable {
         ObservableList<IssueRow> issueRows = FXCollections.observableList(rows);
 
         // Set row data
+        issueTable.setEditable(true);
+        markColumn.setCellValueFactory(new PropertyValueFactory<>("select"));
+        markColumn.setEditable(true);
         originColumn.setCellValueFactory(new PropertyValueFactory("origin"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory("description"));
         typeColumn.setCellValueFactory(new PropertyValueFactory("type"));
         stateColumn.setCellValueFactory(new PropertyValueFactory("state"));
         issueTable.setItems(issueRows);
+    }
+
+    public void markDone_onClick(ActionEvent actionEvent) throws SQLException, IOException {
+        Database db = new Database();
+        String charPid = Project.IDtoChars(Main.curProject.getPid());
+        //get selected rows by memid and message
+        db.markIssueResolved(getSelectedRows(), charPid);
+        db.closeDB();
+        Main.show("projIssues");
+    }
+
+    public void markSeen_onClick(ActionEvent actionEvent) throws SQLException, IOException {
+        Database db = new Database();
+        String charPid = Project.IDtoChars(Main.curProject.getPid());
+        //get selected rows by memid and message
+        db.markIssueSeen(getSelectedRows(), charPid);
+        db.closeDB();
+        Main.show("projIssues");
+    }
+
+    public void markNew_onClick(ActionEvent actionEvent) throws SQLException, IOException {
+        Database db = new Database();
+        String charPid = Project.IDtoChars(Main.curProject.getPid());
+        //get selected rows by memid and message
+        db.markIssueNew(getSelectedRows(), charPid);
+        db.closeDB();
+        Main.show("projIssues");
+    }
+
+    public HashMap<String, HashMap<String, String>> getSelectedRows(){
+        HashMap<String, HashMap<String, String>> retVal = new HashMap<>();
+        int rowNum = 1;
+        for(IssueRow r: rowArrayList){
+            if(r.getSelect().isSelected()){
+                HashMap<String, String> cell = new HashMap<>();
+                //member ID
+                cell.put("memid", String.valueOf(r.getOrigin()));
+                retVal.put(String.valueOf(rowNum), cell);
+
+                //message of issue
+                cell.put("message", r.getDescription());
+                retVal.put(String.valueOf(rowNum), cell);
+                rowNum++;
+            }
+        }
+        return retVal;
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
@@ -159,8 +214,8 @@ public class ProjIssuesController implements Initializable {
         Main.show("projOverview");
     }
 
-    public void viewBenchmark_onClick(ActionEvent actionEvent) {
-        // TODO: Implement this view change
+    public void viewBenchmark_onClick(ActionEvent actionEvent) throws IOException {
+        Main.show("projBenchmark");
     }
 
     public void viewIssue_onClick(ActionEvent event) throws IOException {
@@ -170,31 +225,25 @@ public class ProjIssuesController implements Initializable {
     public void addComponent_Hover(){
         addComponent.setOpacity(0.5);
     }
-
     public void addComponent_HoverOff(){
         addComponent.setOpacity(1.0);
     }
-
     public void editButton_Hover(){
         editButton.setOpacity(0.5);
     }
-
     public void editButton_HoverOff(){
         editButton.setOpacity(1.0);
     }
     public void removeButton_Hover(){
         removeButton.setOpacity(0.5);
     }
-
     public void removeButton_HoverOff(){
         removeButton.setOpacity(1.0);
     }
     public void refreshROI_Hover(){
         refreshROI.setOpacity(0.5);
     }
-
     public void refreshROI_HoverOff(){
         refreshROI.setOpacity(1.0);
     }
-
 }

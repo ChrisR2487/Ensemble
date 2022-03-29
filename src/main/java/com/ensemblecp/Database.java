@@ -1,6 +1,7 @@
 package com.ensemblecp;// Imports
 
 import javax.swing.plaf.nimbus.State;
+import java.io.*;
 import java.sql.*;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -92,11 +93,13 @@ public class Database {
 
         createTable = "create table " + databaseName + "." + charPid + "_Tasks("
                 + "tid int primary key,"
+                + "title varchar(64) not null,"
                 + "memid int not null,"
                 + "description varchar(128) not null,"
                 + "kickoff date not null,"
                 + "deadline date not null,"
-                + "complete boolean not null)";
+                + "complete boolean not null,"
+                + "constraint " + charPid + "_Tasks_uq unique(title))";
         stmt.execute(createTable);
 
         createTable = "create table " + databaseName + "." + charPid + "_Issues("
@@ -105,6 +108,13 @@ public class Database {
                 + "type int not null,"
                 + "state int not null,"
                 + "constraint " + charPid + "_Issues_pk primary key (memid, message))";
+        stmt.execute(createTable);
+
+        createTable = "create table " + databaseName + "." + charPid + "_Files("
+                + "filid int not null,"
+                + "private boolean not null,"
+                + "constraint " + charPid + "_Files_pk primary key (filid),"
+                + "constraint " + charPid + "_Files_fk foreign key (filid) references " + databaseName + ".Files(filid) ON DELETE CASCADE)";
         stmt.execute(createTable);
 
         // Get tuple
@@ -132,7 +142,12 @@ public class Database {
             preparedTeamStmt.setBoolean(5, Boolean.parseBoolean(row.get("active")));
             preparedTeamStmt.execute();
         }
+    }
 
+    public void dropMembers(String charPid) throws SQLException {
+        String dropQuery = " delete from " + databaseName + "." + charPid + "_Team where true";
+        PreparedStatement preparedStatement = conn.prepareStatement(dropQuery);
+        preparedStatement.execute();
     }
 
     public ResultSet updateProject(HashMap<String, String> info) throws SQLException {
@@ -186,6 +201,9 @@ public class Database {
         stmt.execute(dropTable);
 
         dropTable = "drop table " + databaseName + "." + charPid + "_Issues;";
+        stmt.execute(dropTable);
+
+        dropTable = "drop table " + databaseName + "." + charPid + "_Files;";
         stmt.execute(dropTable);
 
         // Remove all component tables
@@ -403,6 +421,173 @@ public class Database {
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         ResultSet rs = preparedStmt.executeQuery();
         return rs;
+    }
+
+    public ResultSet getProjectTasks(int pid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "select * from " + databaseName + "." + charPid + "_Tasks";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
+    }
+
+    public void markIssueSeen(HashMap<String, HashMap<String, String>> updates, String charPid) throws SQLException {
+        String query = "update " + databaseName + "." + charPid + "_Issues set state = ? where memid = ? AND message = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+
+        //add each row to the database
+        for(int i = 1; i <= updates.size(); i++) {
+            HashMap<String, String> row = updates.get(String.valueOf(i));
+
+            //populate data and save row
+            preparedStatement.setInt(1, IssueState.SEEN);
+            preparedStatement.setInt(2, Integer.parseInt(row.get("memid")));
+            preparedStatement.setString(3, row.get("message"));
+            preparedStatement.execute();
+        }
+    }
+
+    public void markIssueResolved(HashMap<String, HashMap<String, String>> updates, String charPid) throws SQLException {
+        String query = "update " + databaseName + "." + charPid + "_Issues set state = ? where memid = ? AND message = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+
+        //add each row to the database
+        for(int i = 1; i <= updates.size(); i++) {
+            HashMap<String,String> row = updates.get(String.valueOf(i));
+
+            //populate data and save row
+            preparedStatement.setInt(1, IssueState.DONE);
+            preparedStatement.setInt(2, Integer.parseInt(row.get("memid")));
+            preparedStatement.setString(3, row.get("message"));
+            preparedStatement.execute();
+        }
+    }
+
+    public void markIssueNew(HashMap<String, HashMap<String, String>> updates, String charPid) throws SQLException {
+        String query = "update " + databaseName + "." + charPid + "_Issues set state = ? where memid = ? AND message = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+
+        //add each row to the database
+        for(int i = 1; i <= updates.size(); i++) {
+            HashMap<String,String> row = updates.get(String.valueOf(i));
+
+            //populate data and save row
+            preparedStatement.setInt(1, IssueState.NEW);
+            preparedStatement.setInt(2, Integer.parseInt(row.get("memid")));
+            preparedStatement.setString(3, row.get("message"));
+            preparedStatement.execute();
+        }
+    }
+
+    public void markTask(int pid, int tid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "update " + databaseName + "." + charPid + "_Tasks set complete = true where tid = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1, tid);
+        preparedStatement.execute();
+    }
+
+    public void unmarkTask(int pid, int tid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "update " + databaseName + "." + charPid + "_Tasks set complete = false where tid = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1, tid);
+        preparedStatement.execute();
+    }
+
+    public void createFile(File file) throws SQLException {
+        // Read file
+        Blob blob = null;
+        try {
+            FileInputStream stream = new FileInputStream(file);
+            byte[] arr = new byte[(int) file.length()];
+            blob = conn.createBlob();
+            arr = stream.readAllBytes();
+            blob.setBytes(1, arr);
+        } catch (IOException e) {
+            System.out.println("File does not exist, exiting program");
+            e.printStackTrace();
+            System.exit(ExitStatusType.FAILED_FILE_LOAD);
+        }
+
+        // Get file attribute
+        String fullName = file.getName();
+        int period = fullName.lastIndexOf('.');
+        String extension = fullName.substring(period+1);
+
+        // Execute query
+        String query = "insert into " + databaseName + ".Files values(?, ?, ?, ?)";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1, fullName.hashCode());
+        preparedStatement.setString(2, fullName);
+        preparedStatement.setString(3, extension);
+        preparedStatement.setBlob(4, blob);
+        preparedStatement.execute();
+
+        // Get recently added file
+        query = "select * from " + databaseName + ".Files where filid = ?";
+        preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1, fullName.hashCode());
+        preparedStatement.execute();
+    }
+
+    public void downloadFile(int filid) throws SQLException, IOException {
+        // Execute query
+        String query = "select * from " + databaseName + ".Files where filid=?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1, filid);
+        ResultSet rs = preparedStatement.executeQuery();
+        rs.next(); // Move cursor
+        Blob blob = rs.getBlob("file"); // Get blob of file
+
+        String home = System.getProperty("user.home"); // Get home location of user pc
+        File downloadedFile = new File(home + "/Downloads/" + rs.getString("filename"));
+        FileOutputStream stream = new FileOutputStream(downloadedFile); // Create file and setup write
+        stream.write(blob.getBinaryStream().readAllBytes()); // Write to file
+    }
+
+    public void addFiles(int pid, int[] filids, boolean[] isPrivates) throws SQLException {
+        // Execute query
+        String charPid = Project.IDtoChars(pid);
+        String query = "insert into " + databaseName + "." + charPid + "_Files values (?, ?)";
+        for (int j = 1; j < filids.length; j++) query += ", (?, ?)"; // Create query string
+        PreparedStatement preparedStatement = conn.prepareStatement(query); // Create statement
+        for (int i = 0; i < filids.length; i++) { // Set values
+            preparedStatement.setInt(i*2+1, filids[i]);
+            preparedStatement.setBoolean(i*2+2, isPrivates[i]);
+        }
+        preparedStatement.execute(); // Insert records
+    }
+
+    public void removeFiles(int pid, int[] filids) throws SQLException {
+        // Execute query
+        String charPid = Project.IDtoChars(pid);
+        String query = "delete from " + databaseName + "." + charPid + "_Files where filid=?";
+        for (int j = 0; j< filids.length; j++) query += " or filid=?"; // Create query string
+        PreparedStatement preparedStatement = conn.prepareStatement(query); // Create statement
+        for (int i = 0; i < filids.length; i++) { // Set values
+            preparedStatement.setInt(i+1, filids[i]);
+        }
+        preparedStatement.execute(); // Remove records
+    }
+
+    public void deleteFiles(int[] filids) throws SQLException {
+        // Execute query
+        String query = "delete from " + databaseName + ".Files where filid=?";
+        for (int j = 0; j< filids.length; j++) query += " or filid=?"; // Create query string
+        PreparedStatement preparedStatement = conn.prepareStatement(query); // Create statement
+        for (int i = 0; i < filids.length; i++) { // Set values
+            preparedStatement.setInt(i+1, filids[i]);
+        }
+        preparedStatement.execute(); // Delete records
+    }
+
+    public ResultSet getProjectFiles(int pid) throws SQLException {
+        // Execute query
+        String charPid = Project.IDtoChars(pid);
+        String query = "select * from " + databaseName + "." + charPid + "_Files NATURAL JOIN " + databaseName + ".Files";
+        PreparedStatement preparedStatement = conn.prepareStatement(query); // Create statement
+        return preparedStatement.executeQuery(); // Delete records
     }
 }
 // End of Database Class
