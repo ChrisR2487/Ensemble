@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -49,7 +50,7 @@ public class ProjOverviewController implements Initializable {
         titleLabel.setText(Main.curProject.getTitle());
 
         // Set component data
-        Comp1.setVisibility(true);
+        //Comp1.setVisibility(true);
         c1.setText(c1.getText() + "\n\t" + String.valueOf(Main.curProject.getComponents()));
 
     }
