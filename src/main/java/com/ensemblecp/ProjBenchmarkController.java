@@ -323,7 +323,7 @@ public class ProjBenchmarkController implements Initializable {
     }
 
     public void addComponentButton_onClick(ActionEvent event) throws IOException {
-        Main.show("compCreator");
+        Main.show("compSelector");
     }
 
     public void viewTeam_onClick(ActionEvent event) throws IOException {

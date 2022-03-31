@@ -20,8 +20,9 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    private final Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
+    public final static Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
                                       BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1.5)));
+    public final static Border NORMAL_BORDER = new TextField().getBorder();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

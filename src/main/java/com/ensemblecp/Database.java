@@ -375,36 +375,32 @@ public class Database {
     }
 
     public void addComponent(HashMap<String, String> info, ArrayList<String> data) throws SQLException {
-        //Insert record into <Project charPid>Components
+        // Insert record into <Project charPid>Components
         String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
-        String charCid = Project.IDtoChars(Integer.parseInt(info.get("cid")));
-        String query = " insert into " + databaseName + ".Component" + "values (?, ?, ?)";
+        String query = "INSERT INTO " + databaseName + "." + charPid + "_Components VALUES(?, ?);";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
-        Statement stmt = conn.createStatement();
         preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
-        preparedStmt.setString (2, (info.get("title")));
-        preparedStmt.setString (3, (info.get("template")));
+        preparedStmt.setString (2, (info.get("template")));
+        preparedStmt.execute();
 
-        //Create table <project charPid><component charCid>Data
-        String createTable;
-        createTable = "create table " + databaseName + "." + charPid + "_" + charCid + "_Data ("
+        // Create table <project charPid><component charCid>Data
+        String charCid = Project.IDtoChars(Integer.parseInt(info.get("cid")));
+        query = "create table " + databaseName + "." + charPid + "_" + charCid + "_Data ("
                 + " partid int primary key,"
                 + " value varchar(256))";
-        stmt.execute(createTable);
+        preparedStmt = conn.prepareStatement(query);
+        preparedStmt.execute();
 
-        //Insert data as records into <project charPid><component charCid>_Data
-        String query1 = " insert into " + databaseName + "." + charPid + "_" + charCid + "_Data" + " values (?, ?)";
-
-        PreparedStatement preparedStmt1 = conn.prepareStatement(query1);
-        Statement stmt1 = conn.createStatement();
-
-        //populate data
+        // Create query to insert data as records into <project charPid><component charCid>_Data
+        query = " insert into " + databaseName + "." + charPid + "_" + charCid + "_Data" + " values (?, ?)";
+        for (int j = 1; j < data.size(); j++) query += ", (?, ?)";
+        preparedStmt = conn.prepareStatement(query);
+        // Populate data and then execute
         for (int i = 0; i < data.size(); i++){
-            preparedStmt1.setInt(1, i+1);
-            preparedStmt1.setString(2, data.get(i));
-            preparedStmt1.execute();
+            preparedStmt.setInt(i*2+1, i+1);
+            preparedStmt.setString(i*2+2, data.get(i));
         }
-
+        preparedStmt.execute();
     }
 
     public void updateIssueScore(int pid, float score) throws SQLException {

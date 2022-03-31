@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CompSelectorController">
+   <!-- Selection stuff -->
+   <Label layoutX="760.0" layoutY="75.0" text="Select an Option:" textFill="WHITE">
+      <font>
+         <Font size="32.0" />
+      </font>
+   </Label>
+   <RadioButton layoutX="1002.0" layoutY="152.0" mnemonicParsing="false" onAction="#showExistingTemplates" text="Use Existing Template" textFill="WHITE" toggleGroup="$CreatorSelect">
+      <font>
+         <Font size="24.0" />
+      </font>
+      <toggleGroup>
+         <ToggleGroup fx:id="CreatorSelect" />
+      </toggleGroup>
+   </RadioButton>
+   <RadioButton layoutX="456.0" layoutY="152.0" mnemonicParsing="false" onAction="#showCustomCreator" text="Create Custom Template" textFill="WHITE" toggleGroup="$CreatorSelect">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </RadioButton>
+
+   <!-- Software title -->
+   <Label layoutX="14.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
+      <font>
+         <Font size="26.0" />
+      </font>
+   </Label>
+
+   <!-- Exit button -->
+   <Button fx:id="exitButton" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
+      <font>
+         <Font size="36.0" />
+      </font>
+   </Button>
+
+   <!-- Existing templates -->
+   <Pane fx:id="chooseExistingPane" layoutX="201.0" layoutY="232.0" prefWidth="1361.0" visible="false">
+      <children>
+         <TableView fx:id="existingTable" prefHeight="674.0" prefWidth="1361.0"> <!-- Width=606 -->
+            <columns>
+               <TableColumn fx:id="titleColumn" prefWidth="400.0" text="Title" />
+               <TableColumn fx:id="templateColumn" prefWidth="960.0" text="Template" />
+            </columns>
+         </TableView>
+      </children>
+   </Pane>
+
+   <!-- Custom template creator -->
+   <Pane fx:id="createCustomPane" layoutX="681.0" layoutY="180.0" prefHeight="768.0" prefWidth="400.0" visible="true">
+      <children>
+         <Label layoutX="101.0" layoutY="25.0" prefHeight="38.0" prefWidth="198.0" text="Create Template" textFill="WHITE">
+            <font>
+               <Font size="26.0" />
+            </font>
+         </Label>
+         <Label layoutX="65.0" layoutY="80.0" prefHeight="38.0" prefWidth="60.0" text="Title:" textFill="WHITE">
+            <font>
+               <Font size="26.0" />
+            </font>
+         </Label>
+         <TextField fx:id="templateTitle" layoutX="125.0" layoutY="79.0" prefHeight="39.0" prefWidth="210.0">
+            <font>
+               <Font size="18.0" />
+            </font></TextField>
+         <Button alignment="CENTER" contentDisplay="TOP" layoutX="14.0" layoutY="143.0" mnemonicParsing="false" onAction="#addField_onClick" prefHeight="50.0" prefWidth="175.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Add Item">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+         </Button>
+         <Button alignment="CENTER" contentDisplay="TOP" layoutX="212.0" layoutY="143.0" mnemonicParsing="false" onAction="#removeField_onClick" prefHeight="50.0" prefWidth="175.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Remove Item">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+         </Button>
+         <ScrollPane layoutX="10.0" layoutY="212.0" prefHeight="474.0" prefWidth="380.0" style="-fx-background-color: #2a2a2a; -fx-background: #2a2a2a;">
+            <VBox fx:id="partMenuList" prefWidth="378.0" style="-fx-background-color: #2a2a2a; -fx-padding: 9.0 9.0 9.0 9.0" />
+         </ScrollPane>
+         <Button fx:id="createTemplateButton" alignment="CENTER" contentDisplay="TOP" layoutX="50.0" layoutY="703.0" mnemonicParsing="false" onAction="#createTemplate_onClick" prefHeight="51.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Create Template">
+            <font>
+               <Font name="System Bold" size="24.0" />
+            </font>
+         </Button>
+      </children>
+   </Pane>
+
+   <!-- Cancel button -->
+   <Button fx:id="cancelButton" alignment="CENTER" contentDisplay="TOP" layoutX="1482.0" layoutY="977.0" mnemonicParsing="false" onAction="#cancelButton_onClick" prefHeight="51.0" prefWidth="390.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
+      <font>
+         <Font name="System Bold" size="24.0" />
+      </font>
+   </Button>
+</AnchorPane>

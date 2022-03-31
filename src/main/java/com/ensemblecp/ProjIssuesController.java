@@ -199,7 +199,7 @@ public class ProjIssuesController implements Initializable {
     }
 
     public void addComponentButton_onClick(ActionEvent event) throws IOException {
-        Main.show("compCreator");
+        Main.show("compSelector");
     }
 
     public void createIssue_onClick(ActionEvent actionEvent) throws IOException {
