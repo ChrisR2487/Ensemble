@@ -1,8 +1,10 @@
 package com.ensemblecp;// Imports
 
 import java.io.*;
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -370,6 +372,39 @@ public class Database {
         ResultSet rs = preparedStmt.executeQuery();
         System.out.println("Success on create Component");
         return rs;
+    }
+
+    public void addComponent(HashMap<String, String> info, ArrayList<String> data) throws SQLException {
+        //Insert record into <Project charPid>Components
+        String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
+        String charCid = Project.IDtoChars(Integer.parseInt(info.get("cid")));
+        String query = " insert into " + databaseName + ".Component" + "values (?, ?, ?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        Statement stmt = conn.createStatement();
+        preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
+        preparedStmt.setString (2, (info.get("title")));
+        preparedStmt.setString (3, (info.get("template")));
+
+        //Create table <project charPid><component charCid>Data
+        String createTable;
+        createTable = "create table " + databaseName + "." + charPid + "_" + charCid + "_Data ("
+                + " partid int primary key,"
+                + " value varchar(256))";
+        stmt.execute(createTable);
+
+        //Insert data as records into <project charPid><component charCid>_Data
+        String query1 = " insert into " + databaseName + "." + charPid + "_" + charCid + "_Data" + " values (?, ?)";
+
+        PreparedStatement preparedStmt1 = conn.prepareStatement(query1);
+        Statement stmt1 = conn.createStatement();
+
+        //populate data
+        for (int i = 0; i < data.size(); i++){
+            preparedStmt1.setInt(1, i+1);
+            preparedStmt1.setString(2, data.get(i));
+            preparedStmt1.execute();
+        }
+
     }
 
     public void updateIssueScore(int pid, float score) throws SQLException {

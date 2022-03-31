@@ -29,8 +29,10 @@
          </children>
       </HBox>
    </top>
+
+   <!-- Component Title -->
    <center>
-      <VBox fx:id="mainVBox" prefHeight="443.0" prefWidth="730.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="mainVBox" prefHeight="1648.0" prefWidth="1936.0" BorderPane.alignment="CENTER">
          <children>
             <HBox prefHeight="47.0" prefWidth="600.0">
                <children>
@@ -48,7 +50,7 @@
                <children>
                   <Label text="Enter a Title:" textFill="WHITE">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="32.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="30.0" top="20.0" />
@@ -56,22 +58,23 @@
                   </Label>
                   <AnchorPane prefHeight="78.0" prefWidth="1919.0">
                      <children>
-                        <TextField fx:id="compTitle" layoutX="28.0" layoutY="14.0" prefHeight="30.0" prefWidth="438.0" promptText="Enter Title">
+                        <TextField fx:id="compTitle" layoutX="30.0" layoutY="14.0" prefHeight="51.0" prefWidth="750.0" promptText="Enter Title">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="24.0" />
                            </font></TextField>
                      </children>
                   </AnchorPane>
                </children>
             </VBox>
-            <HBox prefHeight="31.0" prefWidth="919.0">
+            <!-- Add & Remove Component Buttons -->
+            <HBox prefHeight="55.0" prefWidth="1936.0">
                <children>
                   <Button fx:id="addItem" mnemonicParsing="false" onAction="#addField_onClick" prefHeight="30.0" prefWidth="160.0" text="Add Item">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="20.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="28.0" top="10.0" />
+                        <Insets left="30.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="removeItem" mnemonicParsing="false" onAction="#removeField_onClick" prefHeight="30.0" prefWidth="160.0" text="Remove Item">
@@ -79,40 +82,19 @@
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font size="18.0" />
+                        <Font size="20.0" />
                      </font>
                   </Button>
                </children>
             </HBox>
-            <ScrollPane prefHeight="594.0" prefWidth="1906.0">
+
+            <!-- Component Content -->
+            <ScrollPane prefHeight="1388.0" prefWidth="1936.0" style="-fx-background-color: transparent; -fx-background: transparent;">
                <content>
-                  <VBox fx:id="fieldVBox" maxHeight="900.0" prefHeight="407.0" prefWidth="1897.0">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="1901.0">
-                           <children>
-                              <MenuButton fx:id="menuButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="23.0" prefWidth="173.0" text="Entry Type">
-                                 <items>
-                                    <MenuItem fx:id="stringItem" mnemonicParsing="false" text="String" /> <!--onAction="#setMenuButton" -->
-                                    <MenuItem fx:id="intItem" mnemonicParsing="false" text="Integer" />
-                                 </items>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </MenuButton>
-                              <TextField fx:id="inputField" prefHeight="37.0" prefWidth="594.0">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </TextField>
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </HBox>
-                     </children>
+                  <VBox fx:id="fieldVBox" maxHeight="1053.0" prefHeight="1053.0" prefWidth="1897.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                   </VBox>
                </content>
                <VBox.margin>
@@ -122,6 +104,7 @@
          </children></VBox>
    </center>
    <bottom>
+      <!-- Submit & Cancel Buttons -->
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="submit_Button" layoutX="1474.0" layoutY="88.0" mnemonicParsing="false" onAction="#submit_Button_onClick" prefHeight="45.0" prefWidth="300.0" text="Submit">

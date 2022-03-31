@@ -66,9 +66,9 @@ public class CompController {
         existingTable.setItems(compRows);
 
         // On select, go to data screen
-        TableView.TableViewSelectionModel compSelectModel = existingTable.getSelectionModel();
-        ObservableList sel = compSelectModel.getSelectedItems();
-        sel.addListener(new ListChangeListener<ComponentRow>() {
+        TableView.TableViewSelectionModel<ComponentRow> compSelectModel = existingTable.getSelectionModel();
+        ObservableList<ComponentRow> sel = compSelectModel.getSelectedItems();
+        sel.addListener(new ListChangeListener<>() {
             @Override public void onChanged(Change<? extends ComponentRow> change) {
                 try {
                     onChangeTemplate(change);
@@ -85,6 +85,8 @@ public class CompController {
 
     private void onChangeTemplate(ListChangeListener.Change change) throws IOException {
             // TODO: Check if I need to see if table is visible to validate
+        TableView.TableViewSelectionModel<ComponentRow> mod = existingTable.getSelectionModel();
+        ObservableList<ComponentRow> sel = mod.getSelectedItems();
 
         // Setup transition
         ObservableList<ComponentRow> selectedList = change.getList();
@@ -92,20 +94,7 @@ public class CompController {
             // TODO: Set cid of template being used in data entry controller
 
         // Change scene
-        Main.show("Components"); // TODO: Fix this name, go to data entry screen
-    }
-
-    private void onSubmitCustom_onClick(Event event) throws IOException {
-            // TODO: Check if I need to see if creator is visible to validate
-
-        // Add custom component to database
-            // TODO: Add this feature to insert custom comp records
-
-        // Setup transition
-            // TODO: Use new cid of custom template and set in data entry controller
-
-        // Change scene
-        Main.show("Components"); // TODO: Fix this name, go to data entry screen
+        Main.show("customComp"); // TODO: Fix this name, go to data entry screen
     }
 
     public void showCustomComp() throws IOException {
@@ -114,10 +103,6 @@ public class CompController {
 
         // Setup custom component creator
         Main.show("customComp");
-            // TODO: Setup component creator system
-
-        // Display custom component creator
-            // TODO: Show custom component creator
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {

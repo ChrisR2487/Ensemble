@@ -151,6 +151,10 @@ public class Project {
         setTag4(tag4);
     }
 
+    public void addComponent(Component comp) {
+        components.add(comp);
+    }
+
     /* Getters & Setters */
     public int getPid() {
         return pid;
