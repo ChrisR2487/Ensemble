@@ -210,6 +210,20 @@ public class Database {
             // TODO: implement this
     }
 
+    public void removeComponent(int pid, int cid) throws SQLException {
+        // Delete record
+        String charPid = Project.IDtoChars(pid);
+        String charCid = Project.IDtoChars(cid);
+        String query = "delete from " + databaseName + "." + charPid + "_Components where cid = ?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, cid);
+        preparedStmt.execute();
+
+        query = "drop table " + databaseName + "." + charPid + "_" + charCid + "_Data";
+        preparedStmt = conn.prepareStatement(query);
+        preparedStmt.execute();
+    }
+
     public ResultSet getProjects() throws SQLException {
         String query = "select * from " + databaseName + ".Project";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -584,6 +598,31 @@ public class Database {
         String query = "select * from " + databaseName + "." + charPid + "_Files NATURAL JOIN " + databaseName + ".Files";
         PreparedStatement preparedStatement = conn.prepareStatement(query); // Create statement
         return preparedStatement.executeQuery(); // Delete records
+    }
+
+    public ResultSet updateProjectComponent(int pid, int cid, ArrayList<String> data) throws SQLException {
+        // Drop all previous part data records
+        String charPid = Project.IDtoChars(pid);
+        String charCid = Project.IDtoChars(cid);
+        String query = "DELETE FROM " + databaseName + "." + charPid + "_" + charCid + "_Data";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.execute();
+
+        // Create query to insert data as records into <project charPid><component charCid>_Data
+        query = "insert into " + databaseName + "." + charPid + "_" + charCid + "_Data" + " values (?, ?)";
+        for (int j = 1; j < data.size(); j++) query += ", (?, ?)";
+        preparedStmt = conn.prepareStatement(query);
+        // Populate data and then execute
+        for (int i = 0; i < data.size(); i++){
+            preparedStmt.setInt(i*2+1, i+1);
+            preparedStmt.setString(i*2+2, data.get(i));
+        }
+        preparedStmt.execute();
+
+        // Get new data
+        query = "SELECT * FROM " + databaseName + "." + charPid + "_" + charCid + "_Data";
+        preparedStmt = conn.prepareStatement(query);
+        return preparedStmt.executeQuery();
     }
 }
 // End of Database Class

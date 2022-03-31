@@ -171,34 +171,24 @@
         <ScrollPane fx:id="sp" layoutX="207.0" layoutY="155.0" prefHeight="900.0" prefWidth="1237.0" style="-fx-background: transparent; -fx-background-color: transparent;">
             <Pane fx:id="parentPane" minHeight="898.0" prefWidth="1220.0" style="-fx-background-color: transparent">
                 <children>
-                    <!-- Project timeline TODO: Fix this to gantt -->
-                    <BubbleChart prefHeight="268.0" prefWidth="1200.0">
-                        <xAxis>
-                            <NumberAxis side="BOTTOM" />
-                        </xAxis>
-                        <yAxis>
-                            <NumberAxis side="LEFT" />
-                        </yAxis>
-                    </BubbleChart>
-
                     <!-- Files stuff -->
-                    <Label layoutX="10.0" layoutY="260.0" prefHeight="38.0" text="Files" textFill="WHITE">
+                    <Label layoutX="10.0" layoutY="275.0" prefHeight="38.0" text="Files" textFill="WHITE">
                         <font>
                             <Font size="35.0" />
                         </font>
                     </Label>
-                    <Button layoutX="84.0" layoutY="254.0" mnemonicParsing="false" onAction="#addFile_onClick" style="-fx-background-color: transparent; -fx-padding: 0 0 0 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="+" textFill="WHITE" wrapText="true">
+                    <Button layoutX="84.0" layoutY="269.0" mnemonicParsing="false" onAction="#addFile_onClick" style="-fx-background-color: transparent; -fx-padding: 0 0 0 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="+" textFill="WHITE" wrapText="true">
                         <font>
                             <Font size="40.0" />
                         </font>
                     </Button>
-                    <ListView fx:id="fileList" layoutX="10.0" layoutY="310.0" prefHeight="200.0" prefWidth="1200.0" style="-fx-background-color: #1D1D1E;">
+                    <ListView fx:id="fileList" layoutX="10.0" layoutY="325.0" prefHeight="200.0" prefWidth="1200.0" style="-fx-background-color: #1D1D1E;">
                         <items>
                         </items>
                     </ListView>
 
                     <!-- Issues stuff -->
-                    <VBox layoutX="10.0" layoutY="570.0" prefHeight="200.0" prefWidth="1200.0" style="-fx-background-color: #1D1D1E;">
+                    <VBox layoutX="10.0" layoutY="585.0" prefHeight="200.0" prefWidth="1200.0" style="-fx-background-color: #1D1D1E;">
                         <children>
                             <HBox prefHeight="26.0" prefWidth="443.0" />
                             <Label text="    Recent Issues" textFill="WHITE">
@@ -208,7 +198,7 @@
                             </Label>
                         </children>
                     </VBox>
-                    <Label layoutX="10.0" layoutY="520.0" prefHeight="53.0" text="Issues" textFill="WHITE">
+                    <Label layoutX="10.0" layoutY="535.0" prefHeight="53.0" text="Issues" textFill="WHITE">
                         <font>
                             <Font size="35.0" />
                         </font>

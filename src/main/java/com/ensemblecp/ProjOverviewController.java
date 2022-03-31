@@ -1,5 +1,7 @@
 package com.ensemblecp;
 
+import com.flexganttfx.model.Layer;
+import com.flexganttfx.view.GanttChart;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,7 +71,6 @@ public class ProjOverviewController implements Initializable {
                 break;
             } catch (SQLException e) {
                 System.out.println("Failed to load file list, trying again...");
-                e.printStackTrace();
                 tryCount++;
             }
         }
@@ -81,42 +83,66 @@ public class ProjOverviewController implements Initializable {
             // TODO: List recent issues not seen/done
 
         // Set component data
-        sp.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(0), new Insets(0))));
+        setupComponents();
 
-        parentPane.setPadding(new Insets(10, 10, 10, 10));
-        double layY = 780.0;
-        double layX = 10.0;
-        for (Component comp: Main.curProject.getComponents()) {
-            // Setup label
-            Label compLabel = new Label(comp.getTitle());
-            compLabel.setLayoutY(layY);
-            compLabel.setLayoutX(layX);
-            compLabel.setFont(new Font(35.0));
-            compLabel.setTextFill(Paint.valueOf("white"));
-
-            // Setup pane
-            Pane compPane = new Pane();
-            compPane.setLayoutX(layX);
-            compPane.setLayoutY(layY+50.0);
-            compPane.setPrefWidth(1200.0);
-            compPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#1D1D1E"), new CornerRadii(0), new Insets(0))));
-            double layPartY = 8.0;
-            compPane.setPadding(new Insets(0, 0, layPartY, 0));
-            for (Component.Part part: comp.getParts()) {
-                    // TODO: This is where the switch would be to specify how to display different part types
-                Label partLabel = new Label(part.getData());
-                partLabel.setFont(new Font(22.0));
-                partLabel.setTextFill(Paint.valueOf("white"));
-                partLabel.setLayoutY(layPartY);
-                partLabel.setLayoutX(10.0);
-                compPane.getChildren().add(partLabel);
-                layPartY += 40.0;
+        // Set timeline data
+        int tryCount2 = 0;
+        while (tryCount2 < Main.ATTEMPT_LIMIT) {
+            try {
+                setupTimeline();
+                break;
+            } catch (SQLException e) {
+                System.out.println("Failed to load timeline, trying again...");
+                tryCount2++;
             }
-
-            // Add to sp and increment layY
-            parentPane.getChildren().addAll(compLabel, compPane);
-            layY += 160;
         }
+        if (tryCount2 == Main.ATTEMPT_LIMIT) {
+            // Failed to load file list
+            System.out.println("Unable to load timeline.");
+        }
+    }
+
+    private void setupTimeline() throws SQLException {
+        // Get ResultSet data
+        if (Main.curProject.getTasks() == null) {
+            Database db = new Database();
+            ResultSet rs = db.getProjectTasks(Main.curProject.getPid());
+            Main.curProject.parseAndSaveTasks(rs); // Store tasks locally
+            db.closeDB();
+        }
+
+        // Create root timeline
+        BenchmarkTimeline bt = new BenchmarkTimeline();
+        bt.setExpanded(true);
+        GanttChart<BenchmarkTimeline> gantt = new GanttChart<>(bt);
+
+        // Set timeline layers
+        Layer allLayer = new Layer("All");
+        gantt.getLayers().addAll(allLayer);
+
+        // Create TaskTimelines & Create Timelines with TimelineData (Loop here)
+        ArrayList<TaskTimeline> timelines = new ArrayList<>();
+        for(Task task: Main.curProject.getTasks()) {
+            TaskTimeline tt = new TaskTimeline(task.getTitle()); // Create TaskTimeline object
+            tt.addActivity(allLayer, new Timeline(new TimelineData(task))); // Set TaskTimeline data with Timeline
+            timelines.add(tt); // Add TaskTimeline to timelines collection
+        }
+
+        // Add ProjectTimeline collection to CompanyTimeline
+        bt.getChildren().addAll(timelines);
+        bt.setName(Main.curProject.getTitle() + " Timeline");
+        gantt.setDisplayMode(GanttChart.DisplayMode.GRAPHICS_ONLY); // Include only gantt
+        gantt.setTableMenuButtonVisible(false); // Disable add button
+
+        // Stop editing of table
+        gantt.getGraphics().setActivityEditingCallback(Timeline.class, editingCallbackParameter -> false);
+
+        // Set layout attributes & add chart to view
+        gantt.setPrefHeight(250.0);
+        gantt.setPrefWidth(1200.0);
+        gantt.setLayoutX(10.0);
+        gantt.setLayoutY(15.0);
+        parentPane.getChildren().add(gantt);
     }
 
     private void setupFileList() throws SQLException {
@@ -164,6 +190,121 @@ public class ProjOverviewController implements Initializable {
         links.toArray(arr);
         List<Hyperlink> list = List.of(arr);
         fileList.setItems(FXCollections.observableList(list));
+    }
+
+    private void setupComponents() {
+        // Set component data
+        sp.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(0), new Insets(0))));
+        parentPane.setPadding(new Insets(10, 10, 10, 10));
+        double layY = 795.0;
+        double layX = 10.0;
+        for (Component comp: Main.curProject.getComponents()) {
+            // Setup label
+            Label compLabel = new Label(comp.getTitle());
+            compLabel.setLayoutY(layY);
+            compLabel.setLayoutX(layX);
+            compLabel.setFont(new Font(35.0));
+            compLabel.setTextFill(Paint.valueOf("white"));
+
+            // Setup options button
+            MenuButton compActions = new MenuButton();
+            compActions.setFont(new Font(16.0));
+            compActions.setLayoutY(layY+58.0);
+            compActions.setLayoutX(layX + 1145.0);
+            compActions.setStyle("-fx-background-color: transparent;");
+            MenuItem modifyComp = new MenuItem("Edit");
+            modifyComp.setOnAction(event -> {
+                CompEditorController.component = comp;
+                int tryCount = 0;
+                while (tryCount < Main.ATTEMPT_LIMIT) {
+                    try {
+                        Main.show("compEditor");;
+                        break;
+                    } catch (IOException e) {
+                        System.out.println("Failed to load components, trying again...");
+                        tryCount++;
+                    }
+                }
+                if (tryCount == Main.ATTEMPT_LIMIT) {
+                    // Failed to load file list
+                    System.out.println("Unable to load components.");
+                }
+            });
+            MenuItem deleteComp = new MenuItem("Delete");
+            deleteComp.setOnAction(event -> {
+                CompDeleteController.component = comp;
+                int tryCount = 0;
+                while (tryCount < Main.ATTEMPT_LIMIT) {
+                    try {
+                        Main.show("compDelete");;
+                        break;
+                    } catch (IOException e) {
+                        System.out.println("Failed to load components, trying again...");
+                        tryCount++;
+                    }
+                }
+                if (tryCount == Main.ATTEMPT_LIMIT) {
+                    // Failed to load file list
+                    System.out.println("Unable to load components.");
+                }
+            });
+            compActions.getItems().addAll(modifyComp, deleteComp);
+
+            // Setup pane
+            Pane compPane = new Pane();
+            compPane.setLayoutX(layX);
+            compPane.setLayoutY(layY+50.0);
+            compPane.setPrefWidth(1200.0);
+            compPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#1D1D1E"), new CornerRadii(0), new Insets(0))));
+            compPane.setPadding(new Insets(0, 0, 8.0, 0));
+
+            double layPartY = 8.0;
+            for (Component.Part part: comp.getParts()) {
+                switch(part.getType()) {
+                    case 'L' -> {
+                        Label partList = new Label();
+                        partList.setStyle("-fx-font-size: 20.0; -fx-text-fill: white;");
+                        partList.setLayoutY(layPartY);
+                        partList.setLayoutX(10.0);
+                        int prevPos = 0;
+                        int commaPos = part.getData().indexOf(',', prevPos);
+                        if (commaPos == -1) {
+                            partList.setText("\u2022 " + part.getData());
+                            layPartY += 30.0;
+                        }
+                        else {
+                            String listStr = "\u2022 " + part.getData().substring(prevPos, commaPos);
+                            prevPos = commaPos+1;
+                            commaPos = part.getData().indexOf(',', prevPos);
+                            layPartY += 30.0;
+                            while (commaPos != -1){
+                                listStr += "\n\u2022 " + part.getData().substring(prevPos, commaPos);
+                                prevPos = commaPos+1;
+                                commaPos = part.getData().indexOf(',', prevPos);
+                                layPartY += 30.0;
+                            }
+                            listStr += "\n\u2022 " + part.getData().substring(prevPos);
+                            partList.setText(listStr);
+                            layPartY += 30.0;
+                        }
+                        compPane.getChildren().add(partList);
+                    }
+                    default -> {
+                        Label partLabel = new Label(part.getData());
+                        partLabel.setFont(new Font(20.0));
+                        partLabel.setTextFill(Paint.valueOf("white"));
+                        partLabel.setLayoutY(layPartY);
+                        partLabel.setLayoutX(10.0);
+                        compPane.getChildren().add(partLabel);
+                        layPartY += 30.0;
+                    }
+                }
+            }
+
+            // Add to sp and increment layY
+            parentPane.getChildren().addAll(compLabel, compPane, compActions);
+            layY += layPartY + 70.0;
+        }
     }
 
     public void exitButton_onClick(MouseEvent mouseEvent) {
