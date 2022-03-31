@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -13,12 +14,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class CompController {
+public class CompController implements Initializable {
     @FXML private Button cancelButton;
     @FXML private Button exitButton;
     @FXML TableView<ComponentRow> existingTable;
@@ -26,15 +29,13 @@ public class CompController {
     @FXML TableColumn<ComponentRow, String> templateColumn;
     private static boolean templatesLoaded = false;
 
-    public void showComps() throws IOException {
-        // Hide custom component creator
-            // TODO: Add this line when format is known
-        // Check if templates are already loaded
-        if (templatesLoaded) {
-            existingTable.setVisible(true);
-            return;
-        }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Create componentRow list
+        showComps();
+    }
 
+    public void showComps() throws IOException {
         // Create componentRow list
         ArrayList<ComponentRow> rowArrayList = new ArrayList<>();
         try {
@@ -77,24 +78,15 @@ public class CompController {
                 }
             }
         });
-
-        // Display table of existing components
-        this.templatesLoaded = true;
-        existingTable.setVisible(true);
     }
 
     private void onChangeTemplate(ListChangeListener.Change change) throws IOException {
-            // TODO: Check if I need to see if table is visible to validate
-        TableView.TableViewSelectionModel<ComponentRow> mod = existingTable.getSelectionModel();
-        ObservableList<ComponentRow> sel = mod.getSelectedItems();
-
         // Setup transition
         ObservableList<ComponentRow> selectedList = change.getList();
         int cid = Integer.parseInt(selectedList.get(0).getCid());
-            // TODO: Set cid of template being used in data entry controller
 
         // Change scene
-        Main.show("customComp"); // TODO: Fix this name, go to data entry screen
+        Main.show("customComp");
     }
 
     public void showCustomComp() throws IOException {
