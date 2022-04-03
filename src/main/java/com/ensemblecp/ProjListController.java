@@ -89,7 +89,16 @@ public class ProjListController implements Initializable {
         while (rs.next()) {
             ProjectRow pr = new ProjectRow();
             pr.setTitle(rs.getString("title"));
-            pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+
+            if(rs.getBoolean("complete")){
+                //if project complete = true, set display to "Complete"
+                pr.setComplete("Complete");
+            }
+            else{
+                pr.setComplete("Incomplete");
+            }
+            //pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+
             pr.setKickoff(rs.getDate("kickoff").toString());
             pr.setDeadline(rs.getDate("deadline").toString());
             pr.setPid(String.valueOf(rs.getInt("pid")));
@@ -229,8 +238,7 @@ public class ProjListController implements Initializable {
         ProjectRow[] rowList;
 
         for (Iterator<ProjectRow> it = rowArrayList.iterator(); it.hasNext(); )
-            //todo - change "false" to status stored in database whenever changed
-            if (!it.next().getComplete().equals("false")) {
+            if (it.next().getComplete().equals("Complete")) {
                 it.remove();
             }
         rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);

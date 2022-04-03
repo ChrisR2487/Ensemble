@@ -82,7 +82,16 @@ public class DashboardController implements Initializable {
         while (rs.next()) {
             ProjectRow pr = new ProjectRow();
             pr.setTitle(rs.getString("title"));
-            pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+
+            if(rs.getBoolean("complete")){
+                //if project complete = true, set display to "Complete"
+                pr.setComplete("Complete");
+            }
+            else{
+                pr.setComplete("Incomplete");
+            }
+            //pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+
             pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
             pr.setKickoff(rs.getDate("kickoff").toString());
             pr.setDeadline(rs.getDate("deadline").toString());
