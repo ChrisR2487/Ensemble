@@ -36,6 +36,7 @@ public class ProjBenchmarkController implements Initializable {
     @FXML Label investmentCostsLabel;
     @FXML Label titleLabel;
     @FXML Label issueScoreLabel;
+    @FXML Label descLabel;
 
     @FXML ImageView removeButton;
     @FXML ImageView editButton;
@@ -66,6 +67,7 @@ public class ProjBenchmarkController implements Initializable {
         budgetLabel.setText(budgetLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getBudget()));
         kickoffLabel.setText(kickoffLabel.getText() + "\n\t" + Main.curProject.getKickoff().toString());
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
+        descLabel.setText(Main.curProject.getDescription());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
         issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
         titleLabel.setText(Main.curProject.getTitle());

@@ -80,7 +80,7 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <TableView fx:id="projectTable" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="120.0">
+      <TableView fx:id="projectTable" editable="true" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="120.0">
         <columns> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
            <TableColumn fx:id="statusColumn" prefWidth="130.0" text="Status" />
            <TableColumn fx:id="issueScoreColumn" prefWidth="100.0" text="Issue Score" />
@@ -106,5 +106,82 @@
             <Font size="40.0" />
          </font>
       </Button>
+
+      <!-- Pane to hold radio buttons for sorting-->
+      <Pane fx:id="radioPane" layoutX="1590.0" layoutY="120.0" prefHeight="250.0" prefWidth="165.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+         <children>
+            <Label layoutX="40.0" prefHeight="27.0" prefWidth="143.0" text="Sort by:" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+
+            <RadioButton fx:id="statusRadio" layoutX="5.0" layoutY="40.0" mnemonicParsing="false" text="Status" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="issueRadio" layoutX="5.0" layoutY="65.0" mnemonicParsing="false" text="Issue Score" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="titleRadio" layoutX="5.0" layoutY="90.0" mnemonicParsing="false" text="Title" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="projRadio" layoutX="5.0" layoutY="115.0" mnemonicParsing="false" text="Project ID" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="sDateRadio" layoutX="5.0" layoutY="140.0" mnemonicParsing="false" text="Start Date" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="deadlineRadio" layoutX="5.0" layoutY="165.0" mnemonicParsing="false" text="End Date" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="pManagerRadio" layoutX="5.0" layoutY="190.0" mnemonicParsing="false" text="Project Manager" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="tagsRadio" layoutX="5.0" layoutY="215.0" mnemonicParsing="false" text="Tags" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></RadioButton>
+         </children>
+      </Pane>
+
+      <Button fx:id="sortButton" layoutX="1590.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#sortButton_onClick" prefHeight="30.0" prefWidth="165.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Sort" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+
+      <!-- pane for filter options -->
+      <Pane fx:id="filterPane" layoutX="1590.0" layoutY="475.0" prefHeight="120.0" prefWidth="165.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+         <children>
+            <Label layoutX="53.0" prefHeight="27.0" prefWidth="143.0" text="Filter:" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="incFilterButton" layoutX="5.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#incompleteButton_onClick" prefHeight="25.0" prefWidth="153.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Incomplete Projects" />
+            <Button fx:id="overdueFilterButton" layoutX="5.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#overdueButton_onClick" prefHeight="25.0" prefWidth="153.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Overdue Projects" />
+
+         </children>
+      </Pane>
+      <Button fx:id="resetTableButton" layoutX="1590.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#resetTableButton_onClick" prefHeight="25.0" prefWidth="165.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Reset Table">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+
+
+      <!-- pane for search bar -->
+      <Pane layoutX="820.0" layoutY="65.0" prefHeight="45.0" prefWidth="750.0">
+         <children>
+            <Button layoutX="500.0" mnemonicParsing="false" onMouseClicked="#searchButton_onClick" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Search" />
+            <TextField fx:id="searchField" layoutX="550.0" prefWidth="200.0" promptText="Search by Title" />
+         </children></Pane>
+
    </children>
 </AnchorPane>

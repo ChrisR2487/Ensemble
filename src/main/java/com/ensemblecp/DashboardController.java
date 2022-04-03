@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -38,6 +39,8 @@ public class DashboardController implements Initializable {
     @FXML private TableView membersTable;
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> memberStatusColumn;
+
+    @FXML ImageView settingsBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,7 +113,16 @@ public class DashboardController implements Initializable {
         while (rs.next()) {
             ProjectRow pr = new ProjectRow();
             pr.setTitle(rs.getString("title"));
-            pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+
+            if(rs.getBoolean("complete")){
+                //if project complete = true, set display to "Complete"
+                pr.setComplete("Complete");
+            }
+            else{
+                pr.setComplete("Incomplete");
+            }
+            //pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+
             pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
             pr.setKickoff(rs.getDate("kickoff").toString());
             pr.setDeadline(rs.getDate("deadline").toString());
@@ -229,6 +241,13 @@ public class DashboardController implements Initializable {
     }
 
     public void archiveButton_onClick(Event actionEvent) {
+    }
+
+    public void settings_Hover(){
+        settingsBtn.setOpacity(0.5);
+    }
+    public void settings_HoverOff(){
+        settingsBtn.setOpacity(1.0);
     }
 
 }

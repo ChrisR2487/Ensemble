@@ -82,7 +82,7 @@
         </Label> <!-- Project title -->
 
         <!-- Insights content -->
-        <VBox layoutX="1453.0" layoutY="155.0" prefHeight="331.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+        <VBox layoutX="1453.0" layoutY="155.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
          <children>
             <Label text=" " textFill="WHITE">
                <font>
@@ -159,19 +159,30 @@
                      <Font size="10.0" />
                  </font>
              </Label>
+             <Label layoutX="10.0" layoutY="295.0" text="    Description" textFill="WHITE">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+             </Label>
+             <Label fx:id="descLabel" text=" " textFill="WHITE" wrapText="true">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+                 <VBox.margin>
+                     <Insets left="40.0" right="20.0" />
+                 </VBox.margin>
+             </Label>
+             <Label layoutX="10.0" layoutY="325.0" opacity="0" text=" " textFill="WHITE">
+                 <font>
+                     <Font size="10.0" />
+                 </font>
+             </Label>
          </children></VBox> <!-- Insights -->
         <Label layoutX="1453.0" layoutY="94.0" text="Insights" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
-        </Label> <!-- Insights label -->
-
-        <!--Close button -->
-        <Button fx:id="exitButton" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
-            <font>
-                <Font size="36.0" />
-            </font>
-        </Button>
+        </Label>
 
         <!-- Project team table -->
         <TableView fx:id="memberTable" layoutX="217.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1178.0" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="170.0">

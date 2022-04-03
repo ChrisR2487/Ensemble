@@ -55,3 +55,8 @@ public class MemberRow {
         return status;
     }
 }
+
+class MemberState {
+    public final static int AVAILABLE = 0;
+    //todo - add more statuses
+}
