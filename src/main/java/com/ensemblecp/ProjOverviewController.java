@@ -102,29 +102,24 @@ public class ProjOverviewController implements Initializable {
     public void addComponent_Hover(){
         addComponent.setOpacity(0.5);
     }
-
     public void addComponent_HoverOff(){
         addComponent.setOpacity(1.0);
     }
-
     public void editButton_Hover(){
         editButton.setOpacity(0.5);
     }
-
     public void editButton_HoverOff(){
         editButton.setOpacity(1.0);
     }
     public void removeButton_Hover(){
         removeButton.setOpacity(0.5);
     }
-
     public void removeButton_HoverOff(){
         removeButton.setOpacity(1.0);
     }
     public void refreshROI_Hover(){
         refreshROI.setOpacity(0.5);
     }
-
     public void refreshROI_HoverOff(){
         refreshROI.setOpacity(1.0);
     }

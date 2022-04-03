@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -38,6 +39,8 @@ public class DashboardController implements Initializable {
     @FXML private TableView membersTable;
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> memberStatusColumn;
+
+    @FXML ImageView settingsBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -212,6 +215,13 @@ public class DashboardController implements Initializable {
     }
 
     public void archiveButton_onClick(Event actionEvent) {
+    }
+
+    public void settings_Hover(){
+        settingsBtn.setOpacity(0.5);
+    }
+    public void settings_HoverOff(){
+        settingsBtn.setOpacity(1.0);
     }
 
 }

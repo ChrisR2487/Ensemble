@@ -4,7 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<BorderPane fx:id="borderPane" prefHeight="1920" prefWidth="1080.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.customCompController">
+
+<BorderPane fx:id="borderPane" prefHeight="1920" prefWidth="1080.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.customCompController">
    <top>
       <HBox prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -15,13 +16,6 @@
                         <Font size="26.0" />
                      </font>
                   </Label>
-
-                  <!-- Exit button -->
-                  <Button fx:id="exitButton" layoutX="1866.0" layoutY="-1.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
 
                </children>
             </AnchorPane>
@@ -117,12 +111,12 @@
    <bottom>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="submit_Button" layoutX="1474.0" layoutY="88.0" mnemonicParsing="false" onAction="#submit_Button_onClick" prefHeight="45.0" prefWidth="300.0" text="Submit">
+            <Button fx:id="submit_Button" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" layoutX="1474.0" layoutY="88.0" mnemonicParsing="false" onAction="#submit_Button_onClick" prefHeight="45.0" prefWidth="300.0" text="Submit">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="cancelButton" layoutX="1159.0" layoutY="88.0" mnemonicParsing="false" onAction="#cancelButton_onClick" prefHeight="45.0" prefWidth="300.0" text="Cancel">
+            <Button fx:id="cancelButton" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" layoutX="1159.0" layoutY="88.0" mnemonicParsing="false" onAction="#cancelButton_onClick" prefHeight="45.0" prefWidth="300.0" text="Cancel">
                <font>
                   <Font size="16.0" />
                </font>
