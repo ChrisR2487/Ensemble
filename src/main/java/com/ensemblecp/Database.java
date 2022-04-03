@@ -123,6 +123,34 @@ public class Database {
         ResultSet rs = preparedStmt.executeQuery();
         return rs;
     }
+    public Integer getROI(HashMap<String, String> info) throws SQLException {
+        String charPid = Project.IDtoChars(Main.curProject.getPid());
+        //String currProj = "select * from " + databaseName + "." + charPid + ".Project";
+        //get tuple
+        String query  = "select avg(roi) from " + databaseName + ".Project where tag1 = ? and where complete = true ";
+        String query2 = "select avg(roi) from " + databaseName + ".Project where tag2 = ? and where complete = true ";
+        String query3 = "select avg(roi) from " + databaseName + ".Project where tag3 = ? and where complete = true ";
+        String query4 = "select avg(roi) from " + databaseName + ".Project where tag4 = ? and where complete = true ";
+        PreparedStatement preparedStmt1  = conn.prepareStatement(query);
+        PreparedStatement preparedStmt2 = conn.prepareStatement(query2);
+        PreparedStatement preparedStmt3 = conn.prepareStatement(query3);
+        PreparedStatement preparedStmt4 = conn.prepareStatement(query4);
+        //PreparedStatement preparedStmt1 = conn.prepareStatement(currProj);
+        preparedStmt1.setString(1, info.get("tag1"));
+        preparedStmt2.setString(2, info.get("tag2"));
+        preparedStmt2.setString(3, info.get("tag3"));
+        preparedStmt4.setString(4, info.get("tag4"));
+        ResultSet rs1 = preparedStmt1.executeQuery();
+        ResultSet rs2 = preparedStmt2.executeQuery();
+        ResultSet rs3 = preparedStmt3.executeQuery();
+        ResultSet rs4 = preparedStmt4.executeQuery();
+        Integer roi1 = rs1.getInt("");
+        Integer roi2 = rs2.getInt("");
+        Integer roi3 = rs3.getInt("");
+        Integer roi4 = rs4.getInt("");
+
+        return (roi1 + roi2 + roi3 + roi4)/4;
+    }
 
     public ResultSet createTask(HashMap<String, String> info) throws SQLException{
         //insert record
@@ -300,8 +328,6 @@ public class Database {
                 pid = rs.getInt("pid");
                 String charPid = Project.IDtoChars(pid);
                 String baseQuery = "SELECT * FROM " + charPid + "_Issues WHERE seen = false AND done = false";
-
-
             }while (rs.next());
 
         }

@@ -48,6 +48,7 @@ public class ProjEditorController implements Initializable {
 
     @FXML
     public void modifyProject_onClick(Event e) throws SQLException, IOException {
+        Database db = new Database();
         // Get data
         HashMap<String, String> info = new HashMap<>();
         info.put("pid", String.valueOf(Main.curProject.getPid()));
@@ -66,8 +67,6 @@ public class ProjEditorController implements Initializable {
         info.put("complete", "false");
         info.put("manid", String.valueOf(Main.curProject.getManid())); // Use existing manid value
 
-        // Get roi
-        info.put("roi", "0"); // TODO: Fix this to get predicated ROI, set as value of hashmap
 
         // Get issue score
         float newIssueScore = Main.curProject.getIssueScore();
@@ -86,8 +85,11 @@ public class ProjEditorController implements Initializable {
         }
         info.put("issueScore", String.valueOf(newIssueScore));
 
+        // Get roi
+        int roi = db.getROI(info);
+        info.put("roi", Integer.toString(roi));
+
         // Update project row
-        Database db = new Database();
         ResultSet rs = db.updateProject(info);
         Main.curProject.update(rs);
         db.closeDB();

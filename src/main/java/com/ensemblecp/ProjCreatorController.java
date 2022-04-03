@@ -170,10 +170,6 @@ public class ProjCreatorController implements Initializable {
         info.put("tag4", tag4Field.getText());
         info.put("complete", "false");
 
-        // Get roi
-        // completed proj with the same tags find the avg roi of those
-        info.put("roi", "0"); // TODO: Fix this to get predicated ROI, set as value of hashmap
-
         // Get issue score
         float score = 0.0f; // Base score
         score += IssueScore.checkOverdue(info.get("deadline"));
@@ -182,6 +178,10 @@ public class ProjCreatorController implements Initializable {
 
         // Get manager ID
         info.put("manid", String.valueOf(Main.account.getId()));
+
+        // Get roi
+        int roi = db.getROI(info);
+        info.put("roi", Integer.toString(roi));
 
         // Add data record
         ResultSet rs = db.createProject(info);
