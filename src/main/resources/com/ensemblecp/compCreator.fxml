@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CompController">
-   <Label layoutX="54.0" layoutY="75.0" text="Select an Option:" textFill="WHITE">
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CompController">
+   <Label layoutX="74.0" layoutY="75.0" text="Select an Option:" textFill="WHITE">
       <font>
          <Font size="32.0" />
       </font>
    </Label>
-   <RadioButton layoutX="960.0" layoutY="152.0" mnemonicParsing="false" onAction="#showComps" text="Use Existing Template" textFill="WHITE">
-      <font>
-         <Font size="24.0" />
-      </font>
-   </RadioButton>
-   <RadioButton layoutX="153.0" layoutY="152.0" mnemonicParsing="false" onAction="#showCustomComp" text="Edit Custom Templates" textFill="WHITE">
-      <font>
-         <Font size="24.0" />
-      </font>
-   </RadioButton>
-   <Label layoutX="8.0" layoutY="6.0" text="E N S E M B L E" textFill="WHITE">
+   <Label layoutX="25.0" layoutY="19.0" text="E N S E M B L E" textFill="WHITE">
       <font>
          <Font name="System Bold" size="26.0" />
       </font>
@@ -31,7 +26,7 @@
          <Font size="36.0" />
       </font>
    </Button>
-   <VBox layoutX="55.0" layoutY="322.0" prefHeight="399.0" prefWidth="1864.0">
+   <VBox layoutX="69.0" layoutY="322.0" prefHeight="530.0" prefWidth="1799.0">
       <children>
          <TableView fx:id="existingTable" prefHeight="370.0" prefWidth="1361.0" visible="false"> <!-- Width=606 -->
             <columns>
@@ -41,9 +36,23 @@
          </TableView>
       </children>
    </VBox>
-   <Button fx:id="cancelButton" layoutX="1502.0" layoutY="1007.0" mnemonicParsing="false" onAction="#cancelButton_onClick" prefHeight="51.0" prefWidth="390.0" text="Cancel">
+   <Button fx:id="cancelButton" contentDisplay="TOP" layoutX="1616.0" layoutY="935.0" mnemonicParsing="false" onAction="#cancelButton_onClick" prefHeight="51.0" prefWidth="218.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
       <font>
-         <Font size="24.0" />
+         <Font name="System Bold" size="24.0" />
       </font>
    </Button>
+   <VBox layoutX="82.0" layoutY="136.0" prefHeight="139.0" prefWidth="336.0" style="-fx-background-color: #000000;">
+      <children>
+         <RadioButton mnemonicParsing="false" onAction="#showCustomComp" prefHeight="92.0" prefWidth="336.0" text="Edit Custom Templates" textFill="WHITE">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </RadioButton>
+         <RadioButton contentDisplay="TOP" mnemonicParsing="false" onAction="#showComps" prefHeight="106.0" prefWidth="429.0" text="Use Existing Template" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </RadioButton>
+      </children>
+   </VBox>
 </AnchorPane>

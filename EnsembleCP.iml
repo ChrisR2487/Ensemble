@@ -10,113 +10,24 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.28.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.28.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="ikonli-javafx-12.2.0" level="project" />
     <orderEntry type="library" name="ikonli-core-12.2.0" level="project" />
     <orderEntry type="library" name="flexganttfx-core-11.12.4" level="project" />
     <orderEntry type="library" name="ikonli-materialdesign-pack-12.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:17.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:17.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:17.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:17.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:mac:17.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/Gantt_Chart_Dependencies/Gantt Chart Dependencies/controlsfx-11.0.3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/Gantt_Chart_Dependencies/Gantt Chart Dependencies/flexganttfx-core-11.12.4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/Gantt_Chart_Dependencies/Gantt Chart Dependencies/flexganttfx-extras-11.12.4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/Gantt_Chart_Dependencies/Gantt Chart Dependencies/flexganttfx-model-11.12.4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/Gantt_Chart_Dependencies/Gantt Chart Dependencies/flexganttfx-view-11.12.4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/Gantt_Chart_Dependencies/Gantt Chart Dependencies/ikonli-materialdesign-pack-12.3.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/Gantt_Chart_Dependencies/Gantt Chart Dependencies/ikonli-materialdesign2-pack-12.3.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/Gantt_Chart_Dependencies/Gantt Chart Dependencies/license4j-1.4.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="mysql-connector-java-8.0.28" level="project" />
   </component>
 </module>
