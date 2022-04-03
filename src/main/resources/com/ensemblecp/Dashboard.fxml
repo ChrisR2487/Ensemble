@@ -79,6 +79,7 @@
             <Font size="26.0" />
          </font>
       </Label>
+      <Pane prefHeight="200.0" prefWidth="200.0" />
 
       <!-- Project stuff -->
       <TableView fx:id="projectTable" layoutX="212.0" layoutY="798.0" prefHeight="200.0" prefWidth="1181.0">
@@ -115,7 +116,7 @@
          <Image url="@../button_imgs/settings-icon.png" />
       </image>
       </ImageView>
-      <Button fx:id="exitButton" layoutX="1807.0" layoutY="33.0" mnemonicParsing="false" onMouseEntered="#settings_Hover" onMouseExited="#settings_HoverOff" onMouseClicked="#exitButton_onClick" prefHeight="46.0" prefWidth="66.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" textFill="WHITE">
+      <Button fx:id="exitButton" layoutX="1807.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" onMouseEntered="#settings_Hover" onMouseExited="#settings_HoverOff" prefHeight="46.0" prefWidth="66.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" textFill="WHITE">
          <font>
             <Font size="30.0" />
          </font>
