@@ -77,9 +77,31 @@ public class DashboardController implements Initializable {
             // Failed to load dashboard
             System.out.println("Unable to load company timeline, end execution.");
         }
+
+        //Setup Notifcations
+        int tryCount3 = 0;
+        while (tryCount3 < Main.ATTEMPT_LIMIT) {
+            try {
+                setupCompanyTimeline(db);
+                break;
+            } catch (SQLException e) {
+                System.out.println("Failed to load company timeline, trying again...");
+                tryCount3++;
+            }
+        }
+        if (tryCount3 == Main.ATTEMPT_LIMIT) {
+            // Failed to load dashboard
+            System.out.println("Unable to load company timeline, end execution.");
+        }
         try {
             db.closeDB();
         } catch (NullPointerException | SQLException ignored) { }
+    }
+
+    private void setupNotifactaions(Database db) throws SQLException, IOException {
+        // Get ResultSet data
+        ResultSet rs = db.getProjectsWithManagerName();
+
     }
 
     private void setupProjectList(Database db) throws SQLException, IOException {
