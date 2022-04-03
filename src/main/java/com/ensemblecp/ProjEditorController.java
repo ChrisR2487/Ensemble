@@ -7,6 +7,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import org.controlsfx.control.ToggleSwitch;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +29,8 @@ public class ProjEditorController implements Initializable {
     @FXML TextField tag3Field;
     @FXML TextField tag4Field;
     @FXML TextField budgetField;
+
+    @FXML ToggleSwitch archiveSwitch;
 
     String initialTitle;
 
@@ -125,7 +128,7 @@ public class ProjEditorController implements Initializable {
         info.put("tag2", tag2Field.getText());
         info.put("tag3", tag3Field.getText());
         info.put("tag4", tag4Field.getText());
-        info.put("complete", "false");
+        info.put("complete", String.valueOf(archiveSwitch.isSelected()));
         info.put("manid", String.valueOf(Main.curProject.getManid())); // Use existing manid value
 
         // Get roi
