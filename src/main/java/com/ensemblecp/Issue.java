@@ -65,15 +65,44 @@ class IssueState {
     public final static int DONE = 2;
 }
 
+class IssueSeverity {
+    public final static int INSIGNIFICANT = 0;
+    public final static int TOLERABLE = 1;
+    public final static int SERIOUS = 2;
+    public final static int CATASTROPHIC = 3;
+}
+
+class IssueProbability {
+    public final static int VERY_LOW = 0;
+    public final static int LOW = 1;
+    public final static int MODERATE = 2;
+    public final static int HIGH = 3;
+    public final static int VERY_HIGH = 4;
+}
+
 class IssueScore {
-    public final static float PROJECT_OVERBUDGET = 10.0f; // TODO: Fix to proper values
+    // Type ODO: Fix to proper values
+    public final static float PROJECT_OVERBUDGET = 10.0f; // Fix
     public final static float PROJECT_OVERDUE = 10.0f; // Fix
     public final static float TASK_OVERDUE = 10.0f; // Fix
     public final static float ISSUE_BUDGET = 10.0f; // Fix
     public final static float ISSUE_TIMELINE = 10.0f; // Fix
     public final static float ISSUE_TEAM = 10.0f; // Fix
     public final static float ISSUE_TASK = 10.0f; // Fix
-    public final static float NO_SCORE = 0.0f; // TODO: Make sure this name is good
+    public final static float NO_SCORE = 0.0f;
+
+    // Severity
+    public final static float INSIGNIFICANT = 10.0f; // Fix
+    public final static float TOLERABLE = 10.0f; // Fix
+    public final static float SERIOUS = 10.0f; // Fix
+    public final static float CATASTROPHIC = 10.0f; // Fix
+
+    // Probability
+    public final static float VERY_LOW = 10.0f; // Fix
+    public final static float LOW = 10.0f; // Fix
+    public final static float MODERATE = 10.0f; // Fix
+    public final static float HIGH = 10.0f; // Fix
+    public final static float VERY_HIGH = 10.0f; // Fix
 
     public static float checkOverdue(String deadline) {
         // Check for overdue

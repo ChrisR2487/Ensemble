@@ -151,6 +151,10 @@ public class Project {
         setTag4(tag4);
     }
 
+    public void addIssueScore(float score) {
+        this.issueScore += score;
+    }
+
     /* Getters & Setters */
     public int getPid() {
         return pid;

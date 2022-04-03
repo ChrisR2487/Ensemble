@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CreateIssueController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CreateIssueController">
     <children>
         <!-- Create issue label -->
-        <Label layoutX="225.0" layoutY="138.0" prefHeight="43.0" prefWidth="214.0" text="Create Issue" textFill="WHITE">
+        <Label layoutX="203.0" layoutY="126.0" prefHeight="43.0" prefWidth="214.0" text="Create Issue" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
@@ -32,8 +25,8 @@
          </font>
         </Button>
 
-        <!-- Issue fields -->
-        <TitledPane animated="false" collapsible="false" layoutX="229.0" layoutY="414.0" prefHeight="487.0" prefWidth="1509.0" text="Description">
+            <!-- Issue fields -->
+        <TitledPane animated="false" collapsible="false" layoutX="229.0" layoutY="426.0" prefHeight="487.0" prefWidth="1509.0" text="Description">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="1193.0">
                <children>
@@ -53,27 +46,28 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </TitledPane>
-      <Label layoutX="228.0" layoutY="186.0" prefHeight="18.0" prefWidth="202.0" text="Issue Type" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-        <!-- Issue type selection-->
-      <VBox layoutX="235.0" layoutY="225.0" prefHeight="145.0" prefWidth="175.0">
+
+        <!-- Issue type stuff -->
+        <Label layoutX="228.0" layoutY="188.0" prefHeight="18.0" prefWidth="202.0" text="Issue Type" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <VBox layoutX="235.0" layoutY="225.0" prefHeight="145.0" prefWidth="175.0">
          <children>
-            <RadioButton fx:id="tb1" mnemonicParsing="false" text="No score" textFill="#a1a1a1">
+            <RadioButton fx:id="noScoreRB" mnemonicParsing="false" text="No Score" textFill="#a1a1a1">
                <font>
                   <Font size="16.0" />
                </font>
                <toggleGroup>
-                  <ToggleGroup fx:id="Type" />
+                  <ToggleGroup fx:id="type" />
                </toggleGroup></RadioButton>
             <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
-            <RadioButton fx:id="tb2" mnemonicParsing="false" text="Timeline" textFill="#a1a1a1" toggleGroup="$Type">
+            <RadioButton fx:id="timelineScoreRB" mnemonicParsing="false" text="Timeline" textFill="#a1a1a1" toggleGroup="$type">
                <font>
                   <Font size="16.0" />
                </font></RadioButton>
@@ -82,7 +76,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <RadioButton fx:id="tb5" mnemonicParsing="false" text="Team" textFill="#a1a1a1" toggleGroup="$Type">
+            <RadioButton fx:id="teamScoreRB" mnemonicParsing="false" text="Team" textFill="#a1a1a1" toggleGroup="$type">
                <font>
                   <Font size="16.0" />
                </font></RadioButton>
@@ -91,7 +85,7 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <RadioButton fx:id="tb4" mnemonicParsing="false" text="Task" textFill="#a1a1a1" toggleGroup="$Type">
+            <RadioButton fx:id="taskScoreRB" mnemonicParsing="false" text="Task" textFill="#a1a1a1" toggleGroup="$type">
                <font>
                   <Font size="16.0" />
                </font></RadioButton>
@@ -100,12 +94,119 @@
                   <Font size="10.0" />
                </font>
             </Label>
-            <RadioButton fx:id="tb3" mnemonicParsing="false" text="Budget" textFill="#a1a1a1" toggleGroup="$Type">
+            <RadioButton fx:id="budgetScoreRB" mnemonicParsing="false" text="Budget" textFill="#a1a1a1" toggleGroup="$type">
                <font>
                   <Font size="16.0" />
                </font></RadioButton>
          </children>
       </VBox>
 
+        <!-- Issue severity stuff -->
+        <Label layoutX="439.0" layoutY="188.0" prefHeight="18.0" prefWidth="202.0" text="Issue Severity" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <VBox layoutX="453.0" layoutY="225.0" prefHeight="145.0" prefWidth="175.0">
+         <children>
+             <RadioButton fx:id="insignificantRB" mnemonicParsing="false" text="Insignificant" textFill="#a1a1a1">
+                 <font>
+                     <Font size="16.0" />
+                 </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="severity" />
+               </toggleGroup>
+             </RadioButton>
+             <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+                 <font>
+                     <Font size="10.0" />
+                 </font>
+             </Label>
+             <RadioButton fx:id="tolerableScoreRB" mnemonicParsing="false" text="Tolerable" textFill="#a1a1a1" toggleGroup="$severity">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </RadioButton>
+            <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="seriousScoreRB" mnemonicParsing="false" text="Serious" textFill="#a1a1a1" toggleGroup="$severity">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </RadioButton>
+            <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="catastrophicScoreRB" mnemonicParsing="false" text="Catastrophic" textFill="#a1a1a1" toggleGroup="$severity">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </RadioButton>
+         </children>
+      </VBox>
+
+        <!-- Issue probability stuff -->
+        <Label layoutX="670.0" layoutY="187.0" prefHeight="18.0" prefWidth="202.0" text="Issue Probability" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <VBox layoutX="684.0" layoutY="224.0" prefHeight="145.0" prefWidth="175.0">
+            <children>
+                <RadioButton fx:id="veryLowRB" mnemonicParsing="false" text="Very Low" textFill="#a1a1a1">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+               <toggleGroup>
+                        <ToggleGroup fx:id="probability" />
+               </toggleGroup>
+                </RadioButton>
+                <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+                <RadioButton fx:id="lowRB" mnemonicParsing="false" text="Low" textFill="#a1a1a1" toggleGroup="$probability">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </RadioButton>
+                <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+                <RadioButton fx:id="moderateRB" mnemonicParsing="false" text="Moderate" textFill="#a1a1a1" toggleGroup="$probability">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </RadioButton>
+                <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+                <RadioButton fx:id="highRB" mnemonicParsing="false" text="High" textFill="#a1a1a1" toggleGroup="$probability">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </RadioButton>
+                <Label prefHeight="3.0" prefWidth="100.0" textFill="WHITE">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Label>
+                <RadioButton fx:id="veryHighRB" mnemonicParsing="false" text="Very High" textFill="#a1a1a1" toggleGroup="$probability">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </RadioButton>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>

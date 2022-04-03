@@ -54,8 +54,7 @@ public class DashboardController implements Initializable {
         }
         if (tryCount == Main.ATTEMPT_LIMIT) {
             // Failed to load dashboard
-            System.out.println("Unable to initialize dashboard with database info, stopping program.");
-            System.exit(ExitStatusType.FAILED_LOAD);
+            System.out.println("Unable to initialize dashboard with database info, end execution.");
         }
 
         // Setup company timeline

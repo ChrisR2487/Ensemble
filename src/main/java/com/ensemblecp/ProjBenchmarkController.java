@@ -202,11 +202,11 @@ public class ProjBenchmarkController implements Initializable {
     public void onTaskAction(Task task, int action) throws SQLException, IOException {
         switch(action) {
             case TaskAction.MODIFY_TASK -> {
-                // TODO: Save task object to ModifyTaskController
+                TaskEditorController.task = task;
                 Main.show("taskEditor");
             }
             case TaskAction.DELETE_TASK -> {
-                // TODO: Save task object to ModifyTaskController
+                TaskDeleteController.task = task;
                 Main.show("taskDelete");
             }
             case TaskAction.MARK_TASK -> {
@@ -229,7 +229,6 @@ public class ProjBenchmarkController implements Initializable {
                         System.out.println("Failed to mark task as incomplete.");
                     }
                 });
-
             }
             case TaskAction.UNMARK_TASK -> {
                 // Update record
