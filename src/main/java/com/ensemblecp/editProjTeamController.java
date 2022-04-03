@@ -30,6 +30,7 @@ public class editProjTeamController implements Initializable {
     @FXML private Label investmentCostsLabel;
     @FXML private Label titleLabel;
     @FXML private Label issueScoreLabel;
+    @FXML private Label descLabel;
 
     @FXML private TableView<MemberRow> memberTable;
     @FXML private TableColumn<MemberRow, String> positionColumn;
@@ -58,6 +59,7 @@ public class editProjTeamController implements Initializable {
         budgetLabel.setText(budgetLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getBudget()));
         kickoffLabel.setText(kickoffLabel.getText() + "\n\t" + Main.curProject.getKickoff().toString());
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
+        descLabel.setText(Main.curProject.getDescription());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
         issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
         titleLabel.setText(Main.curProject.getTitle());
