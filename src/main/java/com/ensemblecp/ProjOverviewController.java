@@ -22,6 +22,7 @@ public class ProjOverviewController implements Initializable {
     @FXML Label investmentCostsLabel;
     @FXML Label titleLabel;
     @FXML Label issueScoreLabel;
+    @FXML Label descLabel;
 
     @FXML ImageView removeButton;
     @FXML ImageView editButton;
@@ -42,6 +43,8 @@ public class ProjOverviewController implements Initializable {
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
         issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
+        descLabel.setMaxWidth(390.0);
+        descLabel.setText(Main.curProject.getDescription());
         titleLabel.setText(Main.curProject.getTitle());
 
         // Set component data

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.chart.BubbleChart?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjOverviewController">
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjOverviewController">
     <children>
         <!-- Side nav bar -->
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -86,7 +86,7 @@
         </Label>
 
         <!-- Insights content -->
-        <VBox layoutX="1453.0" layoutY="155.0" prefHeight="331.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+        <VBox layoutX="1453.0" layoutY="155.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
          <children>
             <Label text=" " textFill="WHITE">
                <font>
@@ -163,6 +163,24 @@
                      <Font size="10.0" />
                  </font>
              </Label>
+            <Label layoutX="10.0" layoutY="295.0" text="    Description" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="descLabel" text=" " textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="40.0" right="20.0" />
+               </VBox.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="325.0" opacity="0" text=" " textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
          </children></VBox>
         <Label layoutX="1453.0" layoutY="94.0" text="Insights" textFill="WHITE">
             <font>
@@ -233,7 +251,7 @@
                 <Image url="@../button_imgs/Remove.png" />
             </image>
         </ImageView>
-        <Button layoutX="1388.0" layoutY="108.0" mnemonicParsing="false" onMouseEntered="#removeButton_Hover" onMouseExited="#removeButton_HoverOff" onAction="#removeProjectButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R">
+        <Button layoutX="1388.0" layoutY="108.0" mnemonicParsing="false" onAction="#removeProjectButton_onClick" onMouseEntered="#removeButton_Hover" onMouseExited="#removeButton_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="38.0" text="R">
             <tooltip>
                 <Tooltip text="Remove Project" />
             </tooltip>
@@ -244,7 +262,7 @@
                 <Image url="@../button_imgs/Edit.png" />
             </image>
         </ImageView>
-        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onMouseEntered="#editButton_Hover" onMouseExited="#editButton_HoverOff" onAction="#editProjectButton_onClick" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E">
+        <Button layoutX="1344.0" layoutY="113.0" mnemonicParsing="false" onAction="#editProjectButton_onClick" onMouseEntered="#editButton_Hover" onMouseExited="#editButton_HoverOff" opacity="0.0" prefHeight="29.0" prefWidth="31.0" text="E">
             <tooltip>
                 <Tooltip text="Edit Project" />
             </tooltip>
@@ -255,7 +273,7 @@
                 <Image url="@../button_imgs/AddCom.png" />
             </image>
         </ImageView>
-        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onMouseEntered="#addComponent_Hover" onMouseExited="#addComponent_HoverOff" onAction="#addComponentButton_onClick" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C">
+        <Button layoutX="1291.0" layoutY="109.0" mnemonicParsing="false" onAction="#addComponentButton_onClick" onMouseEntered="#addComponent_Hover" onMouseExited="#addComponent_HoverOff" opacity="0.0" prefHeight="36.0" prefWidth="31.0" text="C">
             <tooltip>
                 <Tooltip text="Add Component" />
             </tooltip>
