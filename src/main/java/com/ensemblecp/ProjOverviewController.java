@@ -64,14 +64,19 @@ public class ProjOverviewController implements Initializable {
         titleLabel.setText(Main.curProject.getTitle());
 
         // Set file data
+        Database db = null;
         int tryCount = 0;
         while (tryCount < Main.ATTEMPT_LIMIT) {
             try {
-                setupFileList();
+                db = new Database();
+                setupFileList(db);
                 break;
             } catch (SQLException e) {
                 System.out.println("Failed to load file list, trying again...");
                 tryCount++;
+                try {
+                    db.closeDB();
+                } catch (NullPointerException | SQLException ignored) { }
             }
         }
         if (tryCount == Main.ATTEMPT_LIMIT) {
@@ -89,10 +94,11 @@ public class ProjOverviewController implements Initializable {
         int tryCount2 = 0;
         while (tryCount2 < Main.ATTEMPT_LIMIT) {
             try {
-                setupTimeline();
+                setupTimeline(db);
                 break;
             } catch (SQLException e) {
                 System.out.println("Failed to load timeline, trying again...");
+                e.printStackTrace();
                 tryCount2++;
             }
         }
@@ -100,15 +106,16 @@ public class ProjOverviewController implements Initializable {
             // Failed to load file list
             System.out.println("Unable to load timeline.");
         }
+        try {
+            db.closeDB();
+        } catch (NullPointerException | SQLException ignored) { }
     }
 
-    private void setupTimeline() throws SQLException {
+    private void setupTimeline(Database db) throws SQLException {
         // Get ResultSet data
         if (Main.curProject.getTasks() == null) {
-            Database db = new Database();
             ResultSet rs = db.getProjectTasks(Main.curProject.getPid());
             Main.curProject.parseAndSaveTasks(rs); // Store tasks locally
-            db.closeDB();
         }
 
         // Create root timeline
@@ -145,7 +152,7 @@ public class ProjOverviewController implements Initializable {
         parentPane.getChildren().add(gantt);
     }
 
-    private void setupFileList() throws SQLException {
+    private void setupFileList(Database db) throws SQLException {
         // Check if already saved
         if (Main.curProject.getLinks() != null) {
             Hyperlink[] arr = new Hyperlink[Main.curProject.getLinks().size()];
@@ -156,7 +163,6 @@ public class ProjOverviewController implements Initializable {
         }
 
         // Get files
-        Database db = new Database();
         ResultSet rs = db.getProjectFiles(Main.curProject.getPid());
         ArrayList<Hyperlink> links = new ArrayList<>();
         while(rs.next()) {
@@ -184,7 +190,6 @@ public class ProjOverviewController implements Initializable {
             });
             links.add(link);
         }
-        db.closeDB();
         Main.curProject.setLinks(links);
         Hyperlink[] arr = new Hyperlink[links.size()];
         links.toArray(arr);

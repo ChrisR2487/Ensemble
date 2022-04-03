@@ -52,11 +52,11 @@ public class Component {
     }
 
     /* Class Methods */
-        // TODO: Finish documentation comments
     /**
      * Update the component data
      *
-     * @param compInfo
+     * @param compInfo New component information
+     * @param db Database object to use for queryies
      */
     public void update(ResultSet compInfo, Database db) throws SQLException {
         for (Part part: parts) {
@@ -111,13 +111,12 @@ public class Component {
         private int tableWidth;
 
         /* Constructors */
-            // TODO: Finish documentation comments
         /**\
          * Constructor used for most part types
          *
-         * @param partid
-         * @param type
-         * @param data
+         * @param partid Id of part
+         * @param type Type of part
+         * @param data Data of part
          */
         public Part(int partid, char type, String data) {
             this.partid = partid;
@@ -146,12 +145,12 @@ public class Component {
         }
 
         /* Class Methods */
-            // TODO: Finish documentation comments
         /**
+         * Update part data table
          *
-         * @param tData
+         * @param tData Table data
          */
-        private void updateTable(ResultSet tData) throws SQLException { // TODO: Confirm this works
+        private void updateTable(ResultSet tData) throws SQLException {
             // Update table
             ArrayList<ArrayList<String>> newTable = new ArrayList<>();
             while(tData.next()) {

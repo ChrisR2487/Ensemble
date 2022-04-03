@@ -42,14 +42,19 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Setup project list
+        Database db = null;
         int tryCount = 0;
         while (tryCount < Main.ATTEMPT_LIMIT) {
             try {
-                setupProjectList();
+                db = new Database();
+                setupProjectList(db);
                 break;
             } catch (SQLException | IOException e) {
                 System.out.println("Failed to start dashboard, trying again...");
                 tryCount++;
+                try {
+                    db.closeDB();
+                } catch (NullPointerException | SQLException ignored) { }
             }
         }
         if (tryCount == Main.ATTEMPT_LIMIT) {
@@ -61,7 +66,7 @@ public class DashboardController implements Initializable {
         int tryCount2 = 0;
         while (tryCount2 < Main.ATTEMPT_LIMIT) {
             try {
-                setupCompanyTimeline();
+                setupCompanyTimeline(db);
                 break;
             } catch (SQLException e) {
                 System.out.println("Failed to load company timeline, trying again...");
@@ -72,11 +77,13 @@ public class DashboardController implements Initializable {
             // Failed to load dashboard
             System.out.println("Unable to load company timeline, end execution.");
         }
+        try {
+            db.closeDB();
+        } catch (NullPointerException | SQLException ignored) { }
     }
 
-    private void setupProjectList() throws SQLException, IOException {
+    private void setupProjectList(Database db) throws SQLException, IOException {
         ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
-        Database db = new Database();
         ResultSet rs = db.getProjects();
         while (rs.next()) {
             ProjectRow pr = new ProjectRow();
@@ -88,7 +95,6 @@ public class DashboardController implements Initializable {
             pr.setPid(String.valueOf(rs.getInt("pid")));
             rowArrayList.add(pr);
         }
-        db.closeDB();
 
         // Convert to array
         ProjectRow[] rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
@@ -125,9 +131,8 @@ public class DashboardController implements Initializable {
         });
     }
 
-    private void setupCompanyTimeline() throws SQLException {
+    private void setupCompanyTimeline(Database db) throws SQLException {
         // Get ResultSet data
-        Database db = new Database();
         ResultSet rs = db.getTimelines();
 
         // Create root timeline
@@ -146,7 +151,6 @@ public class DashboardController implements Initializable {
             pj.addActivity(allLayer, new Timeline(new TimelineData(rs))); // Set ProjectTimeline data with Timeline
             timelines.add(pj); // Add ProjectTimeline to timelines collection
         }
-        db.closeDB(); // Close database
 
         // Add ProjectTimeline collection to CompanyTimeline
         ct.getChildren().addAll(timelines);

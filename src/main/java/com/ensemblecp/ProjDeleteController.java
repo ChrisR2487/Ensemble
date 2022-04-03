@@ -72,7 +72,7 @@ public class ProjDeleteController implements Initializable {
 
     //verify login
     public boolean verifyLogin() throws IOException, SQLException, NoSuchAlgorithmException
-    { // TODO: Confirm this works
+    {
         // Get user input
         String pass = passwordField.getText();
         String user = usernameField.getText();
@@ -112,7 +112,7 @@ public class ProjDeleteController implements Initializable {
         return false;
     }
 
-    private String hashInput(String input) throws NoSuchAlgorithmException { // TODO: Confirm this works
+    private String hashInput(String input) throws NoSuchAlgorithmException {
         MessageDigest hash = MessageDigest.getInstance("SHA-256");
         byte[] inputByteHash = hash.digest(input.getBytes());
         return new String(inputByteHash);

@@ -31,23 +31,13 @@ public class MemberRow {
         return position;
     }
 
-    private StringProperty photo; // TODO: Store as correct property type, likely object
+    private StringProperty photo;
     public void setPhoto(String value) { photoProperty().set(value); }
     public String getPhoto() { return photoProperty().get(); }
     public StringProperty photoProperty() {
         if (photo == null) photo = new SimpleStringProperty(this, "photo");
         return photo;
     }
-
-    /*
-    private boolean select = false;
-    public Boolean getSelect() {
-        return this.select;
-    }
-    public void setSelect(Boolean value) {
-        this.select = value;
-    }
-     */
 
     private CheckBox select = new CheckBox();
     public CheckBox getSelect() {

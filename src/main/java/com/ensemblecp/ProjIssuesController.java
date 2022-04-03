@@ -64,7 +64,7 @@ public class ProjIssuesController implements Initializable {
         issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
         titleLabel.setText(Main.curProject.getTitle());
 
-        // Hookup issues table (temp) TODO: Change to better display format
+        // Hookup issues table
         int tryCount = 0;
         while (tryCount < Main.ATTEMPT_LIMIT) {
             try {

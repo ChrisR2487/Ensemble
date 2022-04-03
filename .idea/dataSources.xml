@@ -15,6 +15,8 @@
       <jdbc-url>jdbc:bigquery://https://www.googleapis.com/bigquery/v2:</jdbc-url>
       <jdbc-additional-properties>
         <property name="ProjectId" value="ensemble-340721" />
+        <property name="OAuthServiceAcctEmail" value="intelijconnect@ensemble-340721.iam.gserviceaccount.com" />
+        <property name="OAuthPvtKeyPath" value="C:\Users\hello\IdeaProjects\EnsembleCP\src\main\resources\database\ensemble-creds.json" />
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>

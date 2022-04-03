@@ -37,7 +37,6 @@ public class ProjTeamController implements Initializable {
     @FXML private TableColumn<MemberRow, String> positionColumn;
     @FXML private TableColumn<MemberRow, String> memidColumn;
     @FXML private TableColumn<MemberRow, String> nameColumn;
-    @FXML private TableColumn<MemberRow, String> photoColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
 
     @FXML ImageView removeButton;
@@ -88,7 +87,7 @@ public class ProjTeamController implements Initializable {
             mr.setName(rs.getString("name"));
             mr.setMemid(String.valueOf(rs.getInt("memid")));
             mr.setPosition(rs.getString("position"));
-            mr.setPhoto("N/A"); // TODO: Get correct file for member photo
+            mr.setPhoto("N/A");
             mr.setStatus(rs.getString("status"));
 
             rowArrayList.add(mr);
@@ -106,7 +105,6 @@ public class ProjTeamController implements Initializable {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         memidColumn.setCellValueFactory(new PropertyValueFactory<>("memid"));
-        photoColumn.setCellValueFactory(new PropertyValueFactory<>("photo"));
         positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
         memberTable.setItems(memberRows);
     }

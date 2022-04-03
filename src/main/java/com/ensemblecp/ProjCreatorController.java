@@ -55,23 +55,31 @@ public class ProjCreatorController implements Initializable {
         deadlineField.setValue(LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
 
         // fill memberRow list
-        try {
-            Database db = new Database();
-            ResultSet rs = db.getMembers();
-            while (rs.next()) {
-                MemberRow mr = new MemberRow();
-                mr.setName(rs.getString("name"));
-                mr.setPosition(rs.getString("position"));
-                mr.setMemid(String.valueOf(rs.getInt("memid")));
-                mr.setStatus(String.valueOf(rs.getInt("status")));
-                mr.setSelect(new CheckBox());
+        int tryCount = 0;
+        while (tryCount < Main.ATTEMPT_LIMIT) {
+            try {
+                Database db = new Database();
+                ResultSet rs = db.getMembers();
+                while (rs.next()) {
+                    MemberRow mr = new MemberRow();
+                    mr.setName(rs.getString("name"));
+                    mr.setPosition(rs.getString("position"));
+                    mr.setMemid(String.valueOf(rs.getInt("memid")));
+                    mr.setStatus(String.valueOf(rs.getInt("status")));
+                    mr.setSelect(new CheckBox());
 
-                rowArrayList.add(mr);
+                    rowArrayList.add(mr);
+                }
+                db.closeDB();
+                break;
+            } catch (SQLException e) {
+                    System.out.println("Failed to load available members, trying again...");
+                    tryCount++;
+                }
             }
-            db.closeDB();
-        }
-        catch (SQLException e) {
-            e.printStackTrace(); // TODO: Add better handling for loop
+        if (tryCount == Main.ATTEMPT_LIMIT) {
+            // Failed to load dashboard
+            System.out.println("Unable to load available members, end execution.");
         }
 
         // Convert to array
@@ -83,8 +91,6 @@ public class ProjCreatorController implements Initializable {
 
         // Set row data
         memberTable.setEditable(true);
-        //selectColumn.setCellValueFactory( cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().getSelect()));
-        //selectColumn.setCellFactory(CheckBoxTableCell.<MemberRow>forTableColumn(selectColumn));
         selectColumn.setCellValueFactory(new PropertyValueFactory("select"));
         selectColumn.setEditable(true);
         nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
@@ -171,7 +177,7 @@ public class ProjCreatorController implements Initializable {
         info.put("complete", "false");
 
         // Get roi
-        info.put("roi", "0"); // TODO: Fix this to get predicated ROI, set as value of hashmap
+        info.put("roi", "0");
 
         // Get issue score
         float score = 0.0f; // Base score

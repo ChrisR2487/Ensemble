@@ -110,7 +110,7 @@ public class CompDeleteController implements Initializable {
         return false;
     }
 
-    private String hashInput(String input) throws NoSuchAlgorithmException { // TODO: Confirm this works
+    private String hashInput(String input) throws NoSuchAlgorithmException {
         MessageDigest hash = MessageDigest.getInstance("SHA-256");
         byte[] inputByteHash = hash.digest(input.getBytes());
         return new String(inputByteHash);

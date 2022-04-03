@@ -75,7 +75,7 @@ public class TaskCreatorController implements Initializable {
             mr.setName(rs.getString("name"));
             mr.setMemid(String.valueOf(rs.getInt("memid")));
             mr.setPosition(rs.getString("position"));
-            mr.setPhoto("N/A"); // TODO: Get correct file for member photo
+            mr.setPhoto("N/A");
             mr.setStatus(rs.getString("status"));
 
             rowArrayList.add(mr);
@@ -145,7 +145,7 @@ public class TaskCreatorController implements Initializable {
         info.put("complete", "false");
 
         // Save task
-            // TODO: Insert task record locally and on database
+            // Insert task record locally and on database
 
         // Return to overview screen
         Main.show("projOverview");

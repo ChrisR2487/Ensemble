@@ -51,12 +51,12 @@ public class ProjEditorController implements Initializable {
         // Get data
         HashMap<String, String> info = new HashMap<>();
         info.put("pid", String.valueOf(Main.curProject.getPid()));
-        info.put("title", titleField.getText());                            //TODO - ensure not a duplicate project name
+        info.put("title", titleField.getText());
 
         info.put("description", descriptionField.getText());
 
-        info.put("investmentCosts", investmentCostsField.getText());        //TODO - ensure proper data type
-        info.put("budget", budgetField.getText());                          //TODO - ensure proper data type
+        info.put("investmentCosts", investmentCostsField.getText());
+        info.put("budget", budgetField.getText());
         info.put("kickoff", kickoffField.getValue().toString());
         info.put("deadline", deadlineField.getValue().toString());
         info.put("tag1", tag1Field.getText());
@@ -67,7 +67,7 @@ public class ProjEditorController implements Initializable {
         info.put("manid", String.valueOf(Main.curProject.getManid())); // Use existing manid value
 
         // Get roi
-        info.put("roi", "0"); // TODO: Fix this to get predicated ROI, set as value of hashmap
+        info.put("roi", "0");
 
         // Get issue score
         float newIssueScore = Main.curProject.getIssueScore();

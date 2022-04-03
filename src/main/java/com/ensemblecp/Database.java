@@ -204,32 +204,29 @@ public class Database {
 
     public void removeProject(int pid) throws SQLException {
         // Delete record
+        String charPid = Project.IDtoChars(pid);
         String query = " delete from " + databaseName + ".Project where pid = ?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, pid);
         preparedStmt.execute();
+        query = "select * from " + databaseName + "." + charPid + "_Components;";
+        ResultSet rs = preparedStmt.executeQuery(query);
 
-        String charPid = Project.IDtoChars(pid);
-        String dropTable;
-        Statement stmt = conn.createStatement();
         // Delete related tables
-        dropTable = "drop table " + databaseName + "." + charPid + "_Components;";
-        stmt.execute(dropTable);
-
-        dropTable = "drop table " + databaseName + "." + charPid + "_Team;";
-        stmt.execute(dropTable);
-
-        dropTable = "drop table " + databaseName + "." + charPid + "_Tasks;";
-        stmt.execute(dropTable);
-
-        dropTable = "drop table " + databaseName + "." + charPid + "_Issues;";
-        stmt.execute(dropTable);
-
-        dropTable = "drop table " + databaseName + "." + charPid + "_Files;";
-        stmt.execute(dropTable);
-
+        String dropTable = "";
+        dropTable += "drop table " + databaseName + "." + charPid + "_Components;";
+        dropTable += "drop table " + databaseName + "." + charPid + "_Team;";
+        dropTable += "drop table " + databaseName + "." + charPid + "_Tasks;";
+        dropTable += "drop table " + databaseName + "." + charPid + "_Issues;";
+        dropTable += "drop table " + databaseName + "." + charPid + "_Files;";
         // Remove all component tables
-            // TODO: implement this
+
+        while (!rs.next()) {
+            // Drop component table info
+            String charCid = Project.IDtoChars(rs.getInt("cid"));
+            dropTable += "drop table " + databaseName + "." + charPid + "_" + charCid + "_Data;";
+        }
+        preparedStmt.execute(dropTable);
     }
 
     public void removeComponent(int pid, int cid) throws SQLException {
@@ -271,7 +268,7 @@ public class Database {
         conn.close();
     }
 
-    public ResultSet getComponentData(int pid, int cid) throws SQLException { // TODO: Confirm this works
+    public ResultSet getComponentData(int pid, int cid) throws SQLException {
         String charPid = Project.IDtoChars(pid);
         String charCid = Project.IDtoChars(cid);
         String query = "select * from " + databaseName + "." + charPid + "_" + charCid + "_Data";
@@ -280,7 +277,7 @@ public class Database {
         return rs;
     }
 
-    public ResultSet getComponentTablePart(int pid, int cid, int partid) throws SQLException { // TODO: Confirm this works
+    public ResultSet getComponentTablePart(int pid, int cid, int partid) throws SQLException {
         String charPid = Project.IDtoChars(pid);
         String charCid = Project.IDtoChars(cid);
         String charPartid = Project.IDtoChars(partid);
@@ -369,7 +366,7 @@ public class Database {
 
     }
 
-    public ResultSet createIssue(HashMap<String, String> info) throws SQLException { // TODO: Confirm this works
+    public ResultSet createIssue(HashMap<String, String> info) throws SQLException {
         String charPid = Project.IDtoChars(Main.curProject.getPid());
         String query = "insert into " + databaseName + "." + charPid + "_Issues values (?, ?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);

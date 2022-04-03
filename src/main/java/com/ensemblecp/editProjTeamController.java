@@ -35,7 +35,6 @@ public class editProjTeamController implements Initializable {
     @FXML private TableColumn<MemberRow, String> positionColumn;
     @FXML private TableColumn<MemberRow, String> memidColumn;
     @FXML private TableColumn<MemberRow, String> nameColumn;
-    @FXML private TableColumn<MemberRow, String> photoColumn;
     @FXML private TableColumn<MemberRow, CheckBox> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
 
@@ -90,7 +89,7 @@ public class editProjTeamController implements Initializable {
             mr.setMemid(String.valueOf(rs.getInt("memid")));
             mr.setPosition(rs.getString("position"));
             mr.setStatus(rs.getString("status"));
-            mr.setPhoto("N/A"); // TODO: Get correct file for member photo
+            mr.setPhoto("N/A");
 
             rowArrayList.add(mr);
         }
@@ -121,7 +120,6 @@ public class editProjTeamController implements Initializable {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         memidColumn.setCellValueFactory(new PropertyValueFactory<>("memid"));
-        photoColumn.setCellValueFactory(new PropertyValueFactory<>("photo"));
         positionColumn.setCellValueFactory(new PropertyValueFactory<>("position"));
         memberTable.setItems(memberRows);
     }

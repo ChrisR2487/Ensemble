@@ -52,20 +52,30 @@ public class CompSelectorController implements Initializable {
         // Create componentRow list
         createCustomPane.setVisible(false);
         ArrayList<ComponentRow> rowArrayList = new ArrayList<>();
-        try {
-            Database db = new Database();
-            ResultSet rs = db.getComponents();
-            while (rs.next()) {
-                ComponentRow pr = new ComponentRow();
-                pr.setTitle(rs.getString("title"));
-                pr.setCid(String.valueOf(rs.getInt("cid")));
-                pr.setTemplate(rs.getString("template"));
-                rowArrayList.add(pr);
+        int tryCount = 0;
+        while (tryCount < Main.ATTEMPT_LIMIT) {
+            try {
+                Database db = new Database();
+                ResultSet rs = db.getComponents();
+                while (rs.next()) {
+                    ComponentRow pr = new ComponentRow();
+                    pr.setTitle(rs.getString("title"));
+                    pr.setCid(String.valueOf(rs.getInt("cid")));
+                    pr.setTemplate(rs.getString("template"));
+                    rowArrayList.add(pr);
+                }
+                db.closeDB();
+                break;
             }
-            db.closeDB();
+            catch (SQLException e) {
+                System.out.println("Failed to get component data, trying again...");
+                tryCount++;
+            }
         }
-        catch (SQLException e) {
-            e.printStackTrace(); // TODO: Add better handling for loop
+        if (tryCount == Main.ATTEMPT_LIMIT) {
+            // Failed to load dashboard
+            System.out.println("Unable to get component data, end execution.");
+            return;
         }
 
         // Convert to array
@@ -83,11 +93,22 @@ public class CompSelectorController implements Initializable {
         // On select, go to data screen
         TableView.TableViewSelectionModel<ComponentRow> compSelectModel = existingTable.getSelectionModel();
         ObservableList<ComponentRow> sel = compSelectModel.getSelectedItems();
+
         sel.addListener((ListChangeListener<ComponentRow>) change -> {
-            try {
-                onSelectTemplate(change);
-            } catch (IOException e) {
-                e.printStackTrace(); // TODO: Handle error better
+            int tryCount2 = 0;
+            while (tryCount2 < Main.ATTEMPT_LIMIT) {
+                try {
+                    onSelectTemplate(change);
+                    break;
+                } catch (IOException e) {
+                    System.out.println("Failed to find template, trying again...");
+                    tryCount2++;
+                }
+            }
+            if (tryCount2 == Main.ATTEMPT_LIMIT) {
+                // Failed to choose template
+                System.out.println("Unable to find template, end execution.");
+                return;
             }
         });
 
