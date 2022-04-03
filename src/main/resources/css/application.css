@@ -6,6 +6,7 @@
 /* Scroll bar */
 .scroll-pane {
     -fx-background-color: #1D1D1E;
+    -fx-background: #1D1D1E;
 }
 
 .scroll-bar:horizontal, .scroll-bar:vertical{

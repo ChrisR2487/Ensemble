@@ -2,6 +2,7 @@
     -fx-font-size: 24px;
     -fx-background-color: #1D1D1E;
     -fx-text-fill: white;
+    -fx-padding: 0 0 0 0;
 }
 
 .form-btn-class:hover {

@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import com.sun.javafx.scene.control.ContextMenuContent.ArrowMenuItem?>
 <AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjBenchmarkController">
     <children>
         <!-- Side nav bar -->
@@ -258,6 +257,11 @@
                 <Font size="26.0" />
             </font>
         </Label>
+        <Button layoutX="1210.0" layoutY="155.0" mnemonicParsing="false" onAction="#addTask_onClick" style="-fx-background-color: transparent; -fx-padding: 0 0 0 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="+" textFill="WHITE">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Button>
 
         <!-- Task details -->
         <Label fx:id="detailLabel" layoutX="217.0" layoutY="720.0" text="Details" textFill="WHITE" visible="false">

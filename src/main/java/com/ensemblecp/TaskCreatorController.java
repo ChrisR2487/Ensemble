@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class taskCreatorController implements Initializable {
+public class TaskCreatorController implements Initializable {
     @FXML  Button cancelButton;
     @FXML  Button submitButton;
     @FXML  TextField taskTitle;
@@ -40,18 +40,13 @@ public class taskCreatorController implements Initializable {
     @FXML private TableColumn<MemberRow, CheckBox> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
 
-    private final Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
-            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1.5)));
-
-    ArrayList<MemberRow> rowArrayList = new ArrayList<MemberRow>();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //default date values
         LocalDate ld = LocalDate.now();
-        kickoffDate.setValue(LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
+        kickoffDate.setValue(ProjCreatorController.LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
         ld = ld.plusMonths(1);
-        deadlineDate.setValue(LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
+        deadlineDate.setValue(ProjCreatorController.LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
 
         // Create memberRow list
         int tryCount = 0;
@@ -106,11 +101,6 @@ public class taskCreatorController implements Initializable {
         memberTable.setItems(memberRows);
     }
 
-    public static LocalDate LOCAL_DATE (String dateString){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(dateString, formatter);
-    }
-
     public void createTask_onClick(Event e) throws SQLException, IOException{
 
         //reset error borders
@@ -129,7 +119,7 @@ public class taskCreatorController implements Initializable {
         String title = taskTitle.getText();
         if(title.equals("")){
             //empty input
-            taskTitle.setBorder(INVALID_BORDER);
+            taskTitle.setBorder(LoginController.INVALID_BORDER);
             return;
         }
         info.put("title", title);
@@ -138,8 +128,8 @@ public class taskCreatorController implements Initializable {
         LocalDate kickOff = kickoffDate.getValue();
         LocalDate deadline = deadlineDate.getValue();
         if(kickOff.compareTo(deadline) >= 0){
-            kickoffDate.setBorder(INVALID_BORDER);
-            deadlineDate.setBorder(INVALID_BORDER);
+            kickoffDate.setBorder(LoginController.INVALID_BORDER);
+            deadlineDate.setBorder(LoginController.INVALID_BORDER);
             return;
         }
         info.put("kickoff", kickOff.toString());
@@ -148,12 +138,16 @@ public class taskCreatorController implements Initializable {
         //validate input for desc
         String desc = taskDesc.getText();
         if (taskDesc.getText().equals("")){
-            taskDesc.setBorder(INVALID_BORDER);
+            taskDesc.setBorder(LoginController.INVALID_BORDER);
             return;
         }
         info.put("desc", desc);
         info.put("complete", "false");
 
+        // Save task
+            // TODO: Insert task record locally and on database
+
+        // Return to overview screen
         Main.show("projOverview");
     }
 
