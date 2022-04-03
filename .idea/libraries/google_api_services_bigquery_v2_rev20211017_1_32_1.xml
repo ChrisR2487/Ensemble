@@ -1,0 +1,69 @@
+<component name="libraryTable">
+  <library name="google-api-services-bigquery-v2-rev20211017-1.32.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/animal-sniffer-annotations-1.20.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/annotations-4.1.1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/api-common-2.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/auto-value-annotations-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/avro-1.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/commons-codec-1.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/commons-compress-1.21.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/conscrypt-openjdk-uber-2.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/error_prone_annotations-2.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/failureaccess-1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/gax-2.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/gax-grpc-2.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/google-api-client-1.32.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/google-api-services-bigquery-v2-rev20211017-1.32.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/google-auth-library-credentials-1.4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/google-auth-library-oauth2-http-1.4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/google-cloud-bigquerystorage-2.8.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/google-cloud-core-2.4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/google-http-client-1.41.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/google-http-client-apache-v2-1.40.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/google-http-client-gson-1.41.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/google-oauth-client-1.32.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/GoogleBigQueryJDBC42.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-alts-1.44.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-api-1.44.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-auth-1.44.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-context-1.44.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-core-1.44.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-google-cloud-bigquerystorage-v1-2.8.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-google-cloud-bigquerystorage-v1beta1-0.132.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-google-cloud-bigquerystorage-v1beta2-0.132.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-grpclb-1.44.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-netty-shaded-1.44.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-protobuf-1.44.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-protobuf-lite-1.44.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/grpc-stub-1.44.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/gson-2.8.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/guava-31.0.1-jre.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/httpclient-4.5.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/httpcore-4.4.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/j2objc-annotations-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/jackson-annotations-2.12.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/jackson-core-2.12.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/jackson-databind-2.12.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/javax.annotation-api-1.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/joda-time-2.10.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/json-20200518.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/jsr305-3.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/opencensus-api-0.31.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/opencensus-contrib-http-util-0.31.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/perfmark-api-0.23.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/proto-google-cloud-bigquerystorage-v1-2.8.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/proto-google-cloud-bigquerystorage-v1beta1-0.132.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/proto-google-cloud-bigquerystorage-v1beta2-0.132.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/proto-google-common-protos-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/proto-google-iam-v1-1.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/protobuf-java-3.19.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/protobuf-java-util-3.19.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/slf4j-api-1.7.32.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BigQuery/threetenbp-1.5.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

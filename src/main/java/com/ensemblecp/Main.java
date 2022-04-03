@@ -36,6 +36,7 @@ public class Main extends Application {
         // Show startup screen
         show("login");
         mainStage.show();
+        Database db = new Database(true);
     }
 
     public static void show(String screenName) throws IOException {

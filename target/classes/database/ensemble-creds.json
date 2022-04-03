@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ensemble-340721",
+  "private_key_id": "3414796abebf573d33412d0027839f2a1120de8c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC56wJoNZ4sohea\njFNgY/zCxQbjQQS5n49NLDaoiu7IzM34CMKEOijjDklwuXWbHBWT7NacQU0pKd8I\nJE9RlqLH1U5QYQAcTQo4qW8W6V04KTUqqOabZzYNzkXuwMmbfxR3vfilQa/St3SF\nXMIQXQHDkHEMwhduGWOgsBfiORFmjldp5Iu0ytKjVn5PmGNl6nDODGScJQSGejkX\no8MHYS+xcX81Wv19FCRITbVb7n7u/nFOXnvuHMPaEDMvA/7Qa5qoRhKtRfc+9mR3\nwXzw6X7/7BY0shGtFqhsj+lRsxae+j5oMFg96UpMUgDAoxR/V86+S8CKUAGz+sOx\nOMF2LjVTAgMBAAECggEAAkpZ12hD6xhLArSUawuHaZakXOoIFu0eW+Pd1L2eUrJq\nyLxtHQ1bfJgr9uS4PgbJKJnghWtJMwNY4Feink2InYVMRb/Jgp34IlKuRUqZtQMH\nLHxQUMRcPyyEU+4ONOXRngLr9xsCVubXzUJcOz8K+T4WQDwKytpjxsRJ8NCXR+Yz\niU8JFJf/gR96HdTu71ITyzfeGXrwMnB94pqgLBCLyO/fVgw/g+kCoue/UXEmX9Sr\n7Zv2C2ShPtP86A8n9Y3PjldzsjqnEoymKYRPwDThg2uYwjW2VvLHbycHE/fLvdcB\nffQ4R5c9KkNrDJVAoo6xZ5XL5PGGgyttOUOFCXa9QQKBgQDh9Cw0HG1vAmXwccdV\nXi0V7I0sDnTPxZpH9UoDFu94wPMHkYKj/Dr0TvGGLg/pis5elumg1fQvp6P96XTq\nd1CSHb6Drk5Y4X+pOz4gACzDa4BTDR0CuKK8wBnmGcypn4sdbo5iGyngLGPdltLF\nYNVQly15IKx9kVRcMcL58lQMQQKBgQDSo/RbTmRMZCfps6FbUK4L46FLHXxhDxQn\n4wDY0mTnPtBKdwp2Tn8STUMrpiNFKSmmS3nT0A66l/PXHyxk2lUTTvhsjc2U2/4/\nYo1sqjevzjLhG9ecMc3CcN0X6t/Fc/MsA9FFn0fMJuWiyMPANyep8ZxAPNn19HuL\nnnA0qdAskwKBgGc9IVVOB9JIzjrmQaWHuiHiSz5t/IFSUAPA12hB+ni58FDs8zvp\n6yXlTAV61lpmyZP+cBDEsSV0+0DwgjL/ARlB7eJMqg+COMoh/2ivq8Q+QguwWij8\nI58KRssTzqdR9kYkVXoN3zxGC/sbBoKYk96WtHg7rZRR6rGVKvj4994BAoGBALKa\nRGpbGN5RGiqlng6AZWM9WpkHYlwl3fBIIYK3Osl80D4jm6Jewo4xJuBO2Z8d3Ovd\nGWqJAsQibaYdD5ZgLjzV+/yHbCZpNrZmCQZ3ego+a5PF+Na+v/m7myxZge25eBn9\nDqfa+5TV8mZJlvlXivElJViugB11dIAZEokE57ezAoGAVDBxMfv7g0ROLWJaWs6d\nbpFZrvZYXYHHkRNYwEKSPUtRfJMcFUlprwZURNbCZ1VByW4QBoyKkcxktx6QWdWJ\nWf9mwSSsYNtpeN4qV0YTmptXVvbLsqyqwvnItc6C4cVp0wFO7/mHx9YX0WG2YSf4\ncf6ZBwjom2xuKnu2XR0wL6U=\n-----END PRIVATE KEY-----\n",
+  "client_email": "intelijconnect@ensemble-340721.iam.gserviceaccount.com",
+  "client_id": "112624250676237358938",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/intelijconnect%40ensemble-340721.iam.gserviceaccount.com"
+}

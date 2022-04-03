@@ -31,7 +31,7 @@ public class Database {
             Properties p = new Properties();
             p.setProperty("ProjectId", "ensemble-340721");
             p.setProperty("OAuthServiceAcctEmail", "intelijconnect@ensemble-340721.iam.gserviceaccount.com");
-            p.setProperty("OAuthPvtKeyPath", "C:/Users/hello/IdeaProjects/ensemble-creds.json");
+            p.setProperty("OAuthPvtKeyPath", "src/main/resources/database/ensemble-creds.json");
             this.conn = DriverManager.getConnection("jdbc:bigquery://https://www.googleapis.com/bigquery/v2:", p);
         }
         else {
