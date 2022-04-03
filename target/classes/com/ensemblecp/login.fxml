@@ -16,7 +16,7 @@
          </font>
       </Label>
       <!-- Close button -->
-      <Button fx:id="exitButton" layoutX="754.0" layoutY="7.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="29.0" prefWidth="40.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="7.0">
+      <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -36,9 +36,9 @@
          </font>
       </Label>
       <!-- Login button -->
-      <Button id="login" layoutX="350.0" layoutY="315.0" onAction="#verifyLogin" text="Login" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="315.0">
+      <Button id="login" onAction="#verifyLogin" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Login" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="310.0">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Button>
    </children>

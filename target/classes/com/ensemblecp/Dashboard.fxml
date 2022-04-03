@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="root" prefHeight="1080" prefWidth="1920" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.DashboardController">
+<AnchorPane fx:id="root" prefHeight="1080" prefWidth="1920" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.DashboardController">
    <children>
       <!-- Side nav bar -->
       <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -74,6 +74,7 @@
             <Font size="26.0" />
          </font>
       </Label>
+      <Pane prefHeight="200.0" prefWidth="200.0" />
 
       <!-- Project stuff -->
       <TableView fx:id="projectTable" layoutX="212.0" layoutY="798.0" prefHeight="200.0" prefWidth="1181.0">
@@ -105,9 +106,14 @@
       </TableView>
 
       <!-- Close button -->
-      <Button fx:id="exitButton" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
+      <ImageView fx:id="settingsBtn" fitHeight="46.0" fitWidth="58.0" layoutX="1818.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../button_imgs/settings-icon.png" />
+      </image>
+      </ImageView>
+      <Button fx:id="exitButton" layoutX="1807.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" onMouseEntered="#settings_Hover" onMouseExited="#settings_HoverOff" prefHeight="46.0" prefWidth="66.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" textFill="WHITE">
          <font>
-            <Font size="36.0" />
+            <Font size="30.0" />
          </font>
       </Button>
    </children>

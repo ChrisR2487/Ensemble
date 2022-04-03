@@ -13,6 +13,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import org.controlsfx.control.*?>
+
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjEditorController">
    <children>
       <Label layoutX="14.0" prefHeight="74.0" prefWidth="1920.0" text="   E N S E M B L E" textFill="WHITE">
@@ -114,7 +116,20 @@
             <VBox prefHeight="970.0" prefWidth="150.0" />
             <VBox prefHeight="970.0" prefWidth="785.0">
                <children>
-                  <Pane prefHeight="100.0" prefWidth="725.0" />
+                  <Pane prefHeight="100.0" prefWidth="725.0">
+                     <children>
+                        <Label layoutY="72.0" prefHeight="26.0" prefWidth="786.0" text="Archive Project" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <ToggleSwitch fx:id="archiveSwitch" layoutX="104.0" layoutY="75.0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </ToggleSwitch>
+                     </children>
+                  </Pane>
                   <Label prefHeight="26.0" prefWidth="786.0" text="Current Cost" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
