@@ -324,7 +324,8 @@ public class ProjOverviewController implements Initializable {
         Main.show("projList");
     }
 
-    public void archiveButton_onClick(Event mouseEvent) {
+    public void archiveButton_onClick(Event mouseEvent) throws IOException {
+        Main.show("archiveList");
     }
 
     public void addFile_onClick(ActionEvent actionEvent) throws SQLException {

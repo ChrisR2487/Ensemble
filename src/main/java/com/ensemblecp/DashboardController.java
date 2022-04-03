@@ -206,7 +206,8 @@ public class DashboardController implements Initializable {
         Main.show("projList");
     }
 
-    public void archiveButton_onClick(Event actionEvent) {
+    public void archiveButton_onClick(Event mouseEvent) throws IOException {
+        Main.show("archiveList");
     }
 
 }

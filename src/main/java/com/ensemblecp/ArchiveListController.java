@@ -19,8 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ProjListController implements Initializable {
-    @FXML private TableView<ProjectRow> projectTable;
+public class ArchiveListController implements Initializable {
+    @FXML
+    private TableView<ProjectRow> projectTable;
     @FXML private TableColumn<ProjectRow, String> issueScoreColumn;
     @FXML private TableColumn<ProjectRow, String> pidColumn;
     @FXML private TableColumn<ProjectRow, String> managerNameColumn;
@@ -54,25 +55,27 @@ public class ProjListController implements Initializable {
         ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
         Database db = new Database();
         ResultSet rs = db.getProjectsWithManagerName();
-        while (rs.next()) {
-            ProjectRow pr = new ProjectRow();
-            pr.setTitle(rs.getString("title"));
-            pr.setComplete(String.valueOf(rs.getBoolean("complete")));
-            pr.setKickoff(rs.getDate("kickoff").toString());
-            pr.setDeadline(rs.getDate("deadline").toString());
-            pr.setPid(String.valueOf(rs.getInt("pid")));
-            pr.setIssueScore(String.valueOf(rs.getFloat("issueScore")));
-            pr.setManagerName(rs.getString("name"));
+       while (rs.next()) {
+           if(rs.getBoolean("complete")) {
+               ProjectRow pr = new ProjectRow();
+               pr.setTitle(rs.getString("title"));
+               pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+               pr.setKickoff(rs.getDate("kickoff").toString());
+               pr.setDeadline(rs.getDate("deadline").toString());
+               pr.setPid(String.valueOf(rs.getInt("pid")));
+               pr.setIssueScore(String.valueOf(rs.getFloat("issueScore")));
+               pr.setManagerName(rs.getString("name"));
 
-            String tags = rs.getString("tag1");
-            for (int i = 2; i < 5; i++) {
-                String nextTag = rs.getString("tag"+String.valueOf(i));
-                if (nextTag == null) break;
-                tags += ", " + nextTag;
-            }
-            pr.setTags(tags);
+               String tags = rs.getString("tag1");
+               for (int i = 2; i < 5; i++) {
+                   String nextTag = rs.getString("tag" + String.valueOf(i));
+                   if (nextTag == null) break;
+                   tags += ", " + nextTag;
+               }
+               pr.setTags(tags);
 
-            rowArrayList.add(pr);
+               rowArrayList.add(pr);
+           }
         }
         db.closeDB();
 

@@ -7,6 +7,5 @@
     <database id="2" parent="1" name="ensemble-340721">
       <Current>1</Current>
     </database>
-    <schema id="3" parent="2" name="EnsembleDS"/>
   </database-model>
 </dataSource>
