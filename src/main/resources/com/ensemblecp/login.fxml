@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane fx:id="root" prefHeight="450" prefWidth="800" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.LoginController">
+
+<AnchorPane fx:id="root" prefHeight="450" prefWidth="800" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.LoginController">
    <children>
       <!-- Software title -->
       <Label alignment="CENTER" text="E N S E M B L E" textFill="WHITE" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
@@ -12,7 +13,7 @@
          </font>
       </Label>
       <!-- Close button -->
-      <Button fx:id="exitButton" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css"  AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" text="X" textFill="WHITE">
+      <Button fx:id="exitButton" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
          <font>
             <Font size="36.0" />
          </font>
@@ -21,20 +22,20 @@
       <TextField id="usernameField" fx:id="usernameField" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="150.0" />
       <PasswordField fx:id="passwordField" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="250.0" />
       <!-- Login labels -->
-      <Label text="Username" textFill="WHITE" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="120.0" >
+      <Label text="Username" textFill="WHITE" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="120.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label text="Password" textFill="WHITE" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="220.0" >
+      <Label text="Password" textFill="WHITE" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="220.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <!-- Login button -->
-      <Button id="login" text="Login" onAction="#verifyLogin" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="310.0">
+      <Button id="login" onAction="#verifyLogin" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Login" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="310.0">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Button>
    </children>

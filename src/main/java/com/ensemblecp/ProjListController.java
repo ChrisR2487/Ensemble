@@ -6,18 +6,20 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.time.LocalDate;
+import java.util.*;
 
 public class ProjListController implements Initializable {
     @FXML private TableView<ProjectRow> projectTable;
@@ -29,6 +31,25 @@ public class ProjListController implements Initializable {
     @FXML private TableColumn<ProjectRow, String> titleColumn;
     @FXML private TableColumn<ProjectRow, String> kickoffColumn;
     @FXML private TableColumn<ProjectRow, String> deadlineColumn;
+
+    @FXML private RadioButton statusRadio;
+    @FXML private RadioButton issueRadio;
+    @FXML private RadioButton titleRadio;
+    @FXML private RadioButton projRadio;
+    @FXML private RadioButton sDateRadio;
+    @FXML private RadioButton deadlineRadio;
+    @FXML private RadioButton pManagerRadio;
+    @FXML private RadioButton tagsRadio;
+
+    @FXML private Pane radioPane;
+
+    ArrayList<RadioButton> radioList = new ArrayList<>();
+
+    ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
+    ArrayList<ProjectRow> unSortedList = new ArrayList<>();
+
+    private final Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
+            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1.5)));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,10 +69,18 @@ public class ProjListController implements Initializable {
             System.out.println("Unable to initialize project list, stopping program.");
             System.exit(ExitStatusType.FAILED_LOAD);
         }
+        radioList.add(statusRadio);
+        radioList.add(issueRadio);
+        radioList.add(titleRadio);
+        radioList.add(projRadio);
+        radioList.add(sDateRadio);
+        radioList.add(deadlineRadio);
+        radioList.add(pManagerRadio);
+        radioList.add(tagsRadio);
     }
 
     private void setupProjectList() throws SQLException, IOException {
-        ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
+
         Database db = new Database();
         ResultSet rs = db.getProjectsWithManagerName();
         while (rs.next()) {
@@ -73,6 +102,7 @@ public class ProjListController implements Initializable {
             pr.setTags(tags);
 
             rowArrayList.add(pr);
+            unSortedList.add(pr);
         }
         db.closeDB();
 
@@ -92,7 +122,8 @@ public class ProjListController implements Initializable {
         issueScoreColumn.setCellValueFactory(new PropertyValueFactory<>("issueScore"));
         tagsColumn.setCellValueFactory(new PropertyValueFactory<>("tags"));
         pidColumn.setCellValueFactory(new PropertyValueFactory<>("pid"));
-        projectTable.setItems(projectRows);
+        //projectTable.setItems(projectRows);
+        projectTable.getItems().addAll(projectRows);
 
         TableView.TableViewSelectionModel<ProjectRow> mod = projectTable.getSelectionModel();
         ObservableList<ProjectRow> sel = mod.getSelectedItems();
@@ -114,8 +145,91 @@ public class ProjListController implements Initializable {
         });
     }
 
-    public void exitButton_onClick(MouseEvent mouseEvent) {
-        System.exit(-1);
+    public void sortButton_onClick(Event actionEvent) {
+        radioPane.setBorder(null);
+
+        Comparator <ProjectRow> statusComp = (ProjectRow r1, ProjectRow r2) -> { return r1.getComplete().compareTo(r2.getComplete());};
+        Comparator <ProjectRow> issueComp = (ProjectRow r1, ProjectRow r2) -> { return r1.getIssueScore().compareTo(r2.getIssueScore());};
+        Comparator <ProjectRow> titleComp = (ProjectRow r1, ProjectRow r2) -> { return r1.getTitle().compareTo(r2.getTitle());};
+        Comparator <ProjectRow> pidComp = (ProjectRow r1, ProjectRow r2) -> { return Integer.compare(Integer.parseInt(r1.getPid()), Integer.parseInt(r2.getPid()));};
+        Comparator <ProjectRow> kickoffComp = (ProjectRow r1, ProjectRow r2) -> { return LocalDate.parse(r1.getKickoff()).compareTo(LocalDate.parse(r2.getKickoff()));};
+        Comparator <ProjectRow> deadlineComp = (ProjectRow r1, ProjectRow r2) -> { return LocalDate.parse(r1.getDeadline()).compareTo(LocalDate.parse(r2.getDeadline()));};
+        Comparator <ProjectRow> managerComp = (ProjectRow r1, ProjectRow r2) -> { return r1.getManagerName().compareTo(r2.getManagerName());};
+        Comparator <ProjectRow> tagsComp = (ProjectRow r1, ProjectRow r2) -> { return r1.getTags().compareTo(r2.getTags());};
+
+        int numberSelected = 0;
+        int selectedIndex= 0;
+        //check to make sure a check option is selected and mark which ones are
+        for(int i = 0; i < radioList.size(); i++){
+            if(radioList.get(i).isSelected()){
+                selectedIndex = i;
+                numberSelected++;
+            }
+        }
+        if(numberSelected != 1){
+            //user has selected an invalid number of radio buttons
+            radioPane.setBorder(INVALID_BORDER);
+            return;
+        }
+
+        //sort the arrayList depending on which radiobutton is checked
+        switch(selectedIndex){
+            case 0:
+                //sort by status
+                rowArrayList.sort(statusComp);
+                break;
+            case 1:
+                //sort by issue score
+                rowArrayList.sort(issueComp);
+                break;
+            case 2:
+                //sort by title
+                rowArrayList.sort(titleComp);
+                break;
+            case 3:
+                //sort by project id
+                rowArrayList.sort(pidComp);
+                break;
+            case 4:
+                //sort by kickoff
+                rowArrayList.sort(kickoffComp);
+                break;
+            case 5:
+                //sort by deadline
+                rowArrayList.sort(deadlineComp);
+                break;
+            case 6:
+                //sort by manager
+                rowArrayList.sort(managerComp);
+                break;
+            case 7:
+                //sort by tags
+                rowArrayList.sort(tagsComp);
+                break;
+            default:
+                System.out.println("ERROR SORTING PROJECT TABLE");
+        }
+
+        // Convert to array
+        ProjectRow[] rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
+        // Cast to ObservableList
+        List<ProjectRow> rows = List.of(rowList);
+        ObservableList<ProjectRow> projectRows = FXCollections.observableList(rows);
+
+        //clear project table data and fill with sorted list
+        projectTable.getItems().clear();
+        projectTable.getItems().addAll(projectRows);
+    }
+
+    public void unsortButton_onClick(Event actionEvent) {
+        // Convert to array
+        ProjectRow[] rowList = unSortedList.toArray(new ProjectRow[unSortedList.size()]);
+        // Cast to ObservableList
+        List<ProjectRow> rows = List.of(rowList);
+        ObservableList<ProjectRow> projectRows = FXCollections.observableList(rows);
+
+        projectTable.getItems().clear();
+        projectTable.getItems().addAll(projectRows);
     }
 
     public void dashButton_onClick(Event actionEvent) throws IOException {
@@ -131,5 +245,9 @@ public class ProjListController implements Initializable {
 
     public void add_onClick() throws IOException {
         Main.show("projCreator");
+    }
+
+    public void exitButton_onClick(MouseEvent mouseEvent) {
+        System.exit(-1);
     }
 }

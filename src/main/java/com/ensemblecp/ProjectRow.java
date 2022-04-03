@@ -68,6 +68,12 @@ public class ProjectRow {
         return issueScore;
     }
 
+    /*
+    private float issueScore;
+    public void setIssueScore(float d) { issueScore = d; }
+    public float getIssueScore() { return issueScore; }
+    */
+
     private StringProperty remain;
     public void setRemain(String value) { remainProperty().set(value); }
     public String getRemain() { return remainProperty().get(); }
