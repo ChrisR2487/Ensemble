@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.taskCreatorController">
+   <top>
+      <HBox prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="E N S E M B L E" textFill="WHITE">
+               <font>
+                  <Font size="26.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="11.0" />
+               </padding>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="856.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="35.0" prefWidth="218.0" text="Create A New Task:" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <AnchorPane prefHeight="606.0" prefWidth="1920.0">
+               <children>
+                  <Label layoutX="63.0" layoutY="14.0" prefHeight="35.0" prefWidth="141.0" text="Task Name" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="taskTitle" layoutX="63.0" layoutY="48.0" prefHeight="37.0" prefWidth="730.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TitledPane animated="false" layoutX="63.0" layoutY="140.0" text="Timeline">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="730.0">
+                           <children>
+                              <Label layoutX="14.0" layoutY="14.0" text="Kickoff">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="343.0" layoutY="14.0" text="Deadline">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font></Label>
+                              <DatePicker fx:id="kickoffDate" layoutX="14.0" layoutY="48.0" prefWidth="300.0" />
+                              <DatePicker fx:id="deadlineDate" layoutX="343.0" layoutY="46.0" prefHeight="33.0" prefWidth="300.0" />
+                           </children></AnchorPane>
+                    </content>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane animated="false" layoutX="63.0" layoutY="386.0" text="Task Description">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="730.0">
+                           <children>
+                              <ScrollPane prefHeight="301.0" prefWidth="731.0">
+                                 <content>
+                                    <TextField fx:id="taskDesc" alignment="TOP_LEFT" prefHeight="300.0" prefWidth="730.0" promptText="Enter Description Here">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </TextField>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </TitledPane>
+                  <VBox layoutX="949.0" layoutY="14.0" prefHeight="709.0" prefWidth="946.0">
+                     <children>
+                        <Label text="Assign Task" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="memberTable" prefHeight="507.0" prefWidth="875.0">
+                          <columns>
+                            <TableColumn fx:id="selectColumn" prefWidth="75.0" text="Include" />
+                              <TableColumn fx:id="photoColumn" prefWidth="118.0" text="Photo" />
+                            <TableColumn fx:id="nameColumn" prefWidth="307.0" text="Name" />
+                              <TableColumn fx:id="positionColumn" prefWidth="170.0" text="Postion" />
+                              <TableColumn fx:id="memIDColumn" prefWidth="101.0" text="Member ID" />
+                              <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="178.0" text="Status" />
+                          </columns>
+                        </TableView>
+                        <Pane prefHeight="194.0" prefWidth="875.0" />
+                        <HBox prefHeight="7.0" prefWidth="875.0">
+                           <children>
+                              <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="225.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="175.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Pane prefHeight="51.0" prefWidth="155.0" />
+                              <Button fx:id="submitButton" mnemonicParsing="false" onAction="#createTask_onClick" prefHeight="50.0" prefWidth="225.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Create Task">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children></VBox>
+   </center>
+</BorderPane>

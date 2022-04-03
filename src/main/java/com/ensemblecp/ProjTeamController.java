@@ -158,6 +158,10 @@ public class ProjTeamController implements Initializable {
         Main.show("editProjTeam");
     }
 
+    public void viewTaskCreator_onClick(ActionEvent event) throws IOException {
+        Main.show("taskCreator");
+    }
+
     public void addComponent_Hover(){
         addComponent.setOpacity(0.5);
     }

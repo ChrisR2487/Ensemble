@@ -124,6 +124,28 @@ public class Database {
         return rs;
     }
 
+    public ResultSet createTask(HashMap<String, String> info) throws SQLException{
+        //insert record
+        String charPid = Project.IDtoChars(Main.curProject.getPid());
+        String query = "insert into " + databaseName + "." + charPid + "_Tasks values (?, ?, ?, ? ,?, ?)";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, Integer.parseInt(info.get("tid")));
+        preparedStmt.setString(2, info.get("title"));
+        preparedStmt.setInt(3, Integer.parseInt(info.get("memid")));
+        preparedStmt.setString(4, info.get("desc"));
+        preparedStmt.setDate(5, Date.valueOf(info.get("kickoff")));
+        preparedStmt.setDate(6, Date.valueOf(info.get("deadline")));
+        preparedStmt.setBoolean(7, Boolean.parseBoolean(info.get("complete")));
+        preparedStmt.execute(query);
+
+        // Get tuple
+        query = "select * from " + databaseName + "." + charPid + "_Tasks where tid=?";
+        preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, Integer.parseInt(info.get("tid")));
+        ResultSet rs = preparedStmt.executeQuery();
+        return rs;
+    }
+
     public void addMembers(HashMap<String, HashMap<String, String>> info, String charPid) throws SQLException {
         //save project team
         String teamQuery = " insert into " + databaseName + "." + charPid + "_Team"
