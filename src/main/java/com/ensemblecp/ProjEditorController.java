@@ -45,6 +45,9 @@ public class ProjEditorController implements Initializable {
         initialTitle = Main.curProject.getTitle();
         kickoffField.setValue(LOCAL_DATE(Main.curProject.getKickoff().toString()));
         deadlineField.setValue(LOCAL_DATE(Main.curProject.getDeadline().toString()));
+        if(Main.curProject.isComplete()){
+            archiveSwitch.setSelected(true);
+        }
         tag1Field.setText(Main.curProject.getTag1());
         tag2Field.setText(Main.curProject.getTag2());
         tag3Field.setText(Main.curProject.getTag3());

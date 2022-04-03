@@ -175,14 +175,7 @@
             <font>
                 <Font size="35.0" />
             </font>
-        </Label> <!-- Insights label -->
-
-        <!--Close button -->
-        <Button fx:id="exitButton" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
-            <font>
-                <Font size="36.0" />
-            </font>
-        </Button>
+        </Label>
 
         <!-- Project team table -->
         <TableView fx:id="memberTable" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1150.0" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="170.0">
