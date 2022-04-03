@@ -45,12 +45,7 @@ public class ProjListController implements Initializable {
 
     ArrayList<RadioButton> radioList = new ArrayList<>();
 
-    private boolean filterOn = false;
-    private boolean sorted = false;
-
     ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
-    ArrayList<ProjectRow> unSortedList = new ArrayList<>();
-    ArrayList<ProjectRow> unFilteredList = new ArrayList<>();
     ArrayList<ProjectRow> backupList = new ArrayList<>();
 
 
@@ -108,8 +103,6 @@ public class ProjListController implements Initializable {
             pr.setTags(tags);
 
             rowArrayList.add(pr);
-            unSortedList.add(pr);
-            unFilteredList.add(pr);
             backupList.add(pr);
         }
         db.closeDB();
@@ -185,43 +178,34 @@ public class ProjListController implements Initializable {
             case 0:
                 //sort by status
                 rowArrayList.sort(statusComp);
-                sorted = true;
                 break;
             case 1:
                 //sort by issue score
                 rowArrayList.sort(issueComp);
-                sorted = true;
                 break;
             case 2:
                 //sort by title
                 rowArrayList.sort(titleComp);
-                sorted = true;
                 break;
             case 3:
                 //sort by project id
                 rowArrayList.sort(pidComp);
-                sorted = true;
                 break;
             case 4:
                 //sort by kickoff
                 rowArrayList.sort(kickoffComp);
-                sorted = true;
                 break;
             case 5:
                 //sort by deadline
                 rowArrayList.sort(deadlineComp);
-                sorted = true;
-
                 break;
             case 6:
                 //sort by manager
                 rowArrayList.sort(managerComp);
-                sorted = true;
                 break;
             case 7:
                 //sort by tags
                 rowArrayList.sort(tagsComp);
-                sorted = true;
                 break;
             default:
                 System.out.println("ERROR SORTING PROJECT TABLE");
@@ -238,63 +222,34 @@ public class ProjListController implements Initializable {
         projectTable.getItems().addAll(projectRows);
     }
 
-    public void unsortButton_onClick(Event actionEvent) {
+    public void incompleteButton_onClick(Event actionEvent) {
+        //remove all projects which aren't incomplete
         ProjectRow[] rowList;
-        if(filterOn == true){
-            rowArrayList = unSortedList;
-            rowList = unSortedList.toArray(new ProjectRow[unSortedList.size()]);
-        }
-        else{
-            rowArrayList = backupList;
-            rowList = backupList.toArray(new ProjectRow[unSortedList.size()]);
-        }
 
+        for (Iterator<ProjectRow> it = rowArrayList.iterator(); it.hasNext(); )
+            //todo - change "false" to status stored in database whenever changed
+            if (!it.next().getComplete().equals("false")) {
+                it.remove();
+            }
+        rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
         // Cast to ObservableList
         List<ProjectRow> rows = List.of(rowList);
         ObservableList<ProjectRow> projectRows = FXCollections.observableList(rows);
 
         projectTable.getItems().clear();
         projectTable.getItems().addAll(projectRows);
-    }
-
-    public void incompleteButton_onClick(Event actionEvent) {
-        //remove all projects which aren't incomplete
-        filterOn = true;
-
-        if(sorted == true){
-
-        }
-        else{
-
-        }
-
     }
 
     public void overdueButton_onClick(Event actionEvent) {
         //remove all projects which are not overdue from the list
-        filterOn = true;
-
-        if(sorted == true){
-
-        }
-        else{
-
-        }
-    }
-
-    public void removeFiltersButton_onClick(Event actionEvent) {
-        //remove filters from list
         ProjectRow[] rowList;
-        filterOn = false;
 
-        if(sorted == true){
-            rowArrayList = unFilteredList;
-            rowList = unFilteredList.toArray(new ProjectRow[unSortedList.size()]);
-        }
-        else{
-            rowArrayList = backupList;
-            rowList = backupList.toArray(new ProjectRow[unSortedList.size()]);
-        }
+        for (Iterator<ProjectRow> it = rowArrayList.iterator(); it.hasNext(); )
+            if (LocalDate.parse(it.next().getDeadline()).compareTo(LocalDate.now()) > 0) {
+                it.remove();
+            }
+        rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
+
         // Cast to ObservableList
         List<ProjectRow> rows = List.of(rowList);
         ObservableList<ProjectRow> projectRows = FXCollections.observableList(rows);
@@ -302,6 +257,21 @@ public class ProjListController implements Initializable {
         projectTable.getItems().clear();
         projectTable.getItems().addAll(projectRows);
     }
+
+    public void resetTableButton_onClick(Event actionEvent) {
+        //remove filters from list
+        ProjectRow[] rowList;
+        rowArrayList = backupList;
+        rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
+        // Cast to ObservableList
+        List<ProjectRow> rows = List.of(rowList);
+        ObservableList<ProjectRow> projectRows = FXCollections.observableList(rows);
+
+        projectTable.getItems().clear();
+        projectTable.getItems().addAll(projectRows);
+    }
+
+    //todo - add more filters - discuss with the team which ones to add
 
 
     public void dashButton_onClick(Event actionEvent) throws IOException {

@@ -144,14 +144,9 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="unsortButton" layoutX="1590.0" layoutY="430.0" mnemonicParsing="false" onMouseClicked="#unsortButton_onClick" prefHeight="30.0" prefWidth="165.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Unsort" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Button>
 
       <!-- pane for filter options -->
-      <Pane fx:id="filterPane" layoutX="1590.0" layoutY="510.0" prefHeight="200.0" prefWidth="165.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+      <Pane fx:id="filterPane" layoutX="1590.0" layoutY="475.0" prefHeight="120.0" prefWidth="165.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
          <children>
             <Label layoutX="53.0" prefHeight="27.0" prefWidth="143.0" text="Filter:" textFill="WHITE">
                <font>
@@ -160,12 +155,13 @@
             </Label>
             <Button fx:id="incFilterButton" layoutX="5.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#incompleteButton_onClick" prefHeight="25.0" prefWidth="153.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Incomplete Projects" />
             <Button fx:id="overdueFilterButton" layoutX="5.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#overdueButton_onClick" prefHeight="25.0" prefWidth="153.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Overdue Projects" />
-            <Button fx:id="removeFiltersButton" layoutX="5.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#removeFiltersButton_onClick" prefHeight="25.0" prefWidth="153.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Remove Filters">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Button>
+
          </children>
       </Pane>
+      <Button fx:id="resetTableButton" layoutX="1590.0" layoutY="600.0" mnemonicParsing="false" onMouseClicked="#resetTableButton_onClick" prefHeight="25.0" prefWidth="165.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Reset Table">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
 
    </children>
 </AnchorPane>
