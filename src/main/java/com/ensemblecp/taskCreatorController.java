@@ -54,6 +54,7 @@ public class taskCreatorController implements Initializable {
         deadlineDate.setValue(LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
 
         // Create memberRow list
+
         int tryCount = 0;
         while (tryCount < Main.ATTEMPT_LIMIT) {
             try {
@@ -72,7 +73,6 @@ public class taskCreatorController implements Initializable {
 
     public void setupTeamList() throws SQLException {
         // Setup members table
-        ArrayList<MemberRow> rowArrayList = new ArrayList<>();
         Database db = new Database();
         ResultSet rs = db.getProjectMembers(Main.curProject.getPid());
         while (rs.next()) {
@@ -151,10 +151,55 @@ public class taskCreatorController implements Initializable {
             taskDesc.setBorder(INVALID_BORDER);
             return;
         }
+
+        //get memid
+        HashMap<String, HashMap<String, String>> members = getSelectedMembers();
+        HashMap<String,String> row = members.get(String.valueOf(1));
+        int memid = Integer.parseInt(row.get("memid"));
+        info.put("memid", Integer.toString(memid));
+
+        //get desc
         info.put("desc", desc);
         info.put("complete", "false");
 
+        ResultSet taskRS = db.createTask(info);
+        taskRS.next();
+        Task newTask = new Task(taskRS);
+        db.closeDB();
+
+
         Main.show("projOverview");
+    }
+
+    public HashMap<String, HashMap<String, String>> getSelectedMembers(){
+        HashMap<String, HashMap<String, String>> retVal = new HashMap<>();
+        int memberNum = 1;
+        for(MemberRow r: rowArrayList){
+            if(r.getSelect().isSelected()){
+                HashMap<String, String> cell = new HashMap<>();
+                //member ID
+                cell.put("memid", String.valueOf(r.getMemid()));
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member name
+                cell.put("name", r.getName());
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member position
+                cell.put("position", r.getPosition());
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member status
+                cell.put("status", String.valueOf(r.getStatus()));
+                retVal.put(String.valueOf(memberNum), cell);
+
+                //member active
+                cell.put("active", "true");
+                retVal.put(String.valueOf(memberNum), cell);
+                memberNum++;
+            }
+        }
+        return retVal;
     }
 
     public void cancelCreate_onClick(Event e) throws IOException {
