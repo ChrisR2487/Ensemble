@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -42,6 +43,7 @@ public class ProjListController implements Initializable {
     @FXML private RadioButton tagsRadio;
 
     @FXML private Pane radioPane;
+    @FXML private TextField searchField;
 
     ArrayList<RadioButton> radioList = new ArrayList<>();
 
@@ -259,10 +261,9 @@ public class ProjListController implements Initializable {
     }
 
     public void resetTableButton_onClick(Event actionEvent) {
-        //remove filters from list
-        ProjectRow[] rowList;
-        rowArrayList = backupList;
-        rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
+        rowArrayList.clear();
+        rowArrayList.addAll(backupList);
+        ProjectRow[] rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
         // Cast to ObservableList
         List<ProjectRow> rows = List.of(rowList);
         ObservableList<ProjectRow> projectRows = FXCollections.observableList(rows);
@@ -273,6 +274,25 @@ public class ProjListController implements Initializable {
 
     //todo - add more filters - discuss with the team which ones to add
 
+    public void searchButton_onClick(Event actionEvent){
+        //filter table to contain only projects with search query in title name
+        String term = searchField.getText().toLowerCase();
+
+        ProjectRow[] rowList;
+        for (Iterator<ProjectRow> it = rowArrayList.iterator(); it.hasNext(); )
+            if (!it.next().getTitle().toLowerCase().contains(term)) {
+                it.remove();
+            }
+        rowList = rowArrayList.toArray(new ProjectRow[rowArrayList.size()]);
+
+        // Cast to ObservableList
+        List<ProjectRow> rows = List.of(rowList);
+        ObservableList<ProjectRow> projectRows = FXCollections.observableList(rows);
+
+        projectTable.getItems().clear();
+        projectTable.getItems().addAll(projectRows);
+
+    }
 
     public void dashButton_onClick(Event actionEvent) throws IOException {
         Main.show("Dashboard");
