@@ -171,6 +171,7 @@ public class ProjCreatorController implements Initializable {
         info.put("complete", "false");
 
         // Get roi
+        // completed proj with the same tags find the avg roi of those
         info.put("roi", "0"); // TODO: Fix this to get predicated ROI, set as value of hashmap
 
         // Get issue score

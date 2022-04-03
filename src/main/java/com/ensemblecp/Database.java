@@ -127,7 +127,7 @@ public class Database {
     public ResultSet createTask(HashMap<String, String> info) throws SQLException{
         //insert record
         String charPid = Project.IDtoChars(Main.curProject.getPid());
-        String query = "insert into " + databaseName + "." + charPid + "_Tasks values (?, ?, ?, ? ,?, ?)";
+        String query = "insert into " + databaseName + "." + charPid + "_Tasks" + " values (?,?,?,?,?,?,?);";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Integer.parseInt(info.get("tid")));
         preparedStmt.setString(2, info.get("title"));
@@ -136,7 +136,7 @@ public class Database {
         preparedStmt.setDate(5, Date.valueOf(info.get("kickoff")));
         preparedStmt.setDate(6, Date.valueOf(info.get("deadline")));
         preparedStmt.setBoolean(7, Boolean.parseBoolean(info.get("complete")));
-        preparedStmt.execute(query);
+        preparedStmt.execute();
 
         // Get tuple
         query = "select * from " + databaseName + "." + charPid + "_Tasks where tid=?";
@@ -284,6 +284,31 @@ public class Database {
         return rs;
     }
 
+    public ResultSet getManIssuses(int id) throws SQLException {
+        int pid;
+        String query = "select * from " + databaseName + ".Project where mainid=?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        ResultSet rs = preparedStmt.executeQuery();
+        if (!rs.next()){
+            String emptyQuery = "select 1 where false ";
+            PreparedStatement preparedStmt1 = conn.prepareStatement(emptyQuery);
+            ResultSet emptyRs = preparedStmt1.executeQuery();
+            return emptyRs;
+        }else {
+            do
+            {
+                pid = rs.getInt("pid");
+                String charPid = Project.IDtoChars(pid);
+                String baseQuery = "SELECT * FROM " + charPid + "_Issues WHERE seen = false AND done = false";
+
+
+            }while (rs.next());
+
+        }
+
+        return rs;
+    }
+
 
     public ResultSet getProjectByName(String title) throws SQLException{
         String query = "select * from " + databaseName + ".Project where pid=?";
@@ -293,7 +318,6 @@ public class Database {
         System.out.println("Success on querying projects with matching titles");
         return rs;
     }
-
 
     public ResultSet getTimelines() throws SQLException {
         String query = "select title, kickoff, deadline from " + databaseName + ".Project";
