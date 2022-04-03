@@ -89,7 +89,14 @@ public class editProjTeamController implements Initializable {
             mr.setName(rs.getString("name"));
             mr.setMemid(String.valueOf(rs.getInt("memid")));
             mr.setPosition(rs.getString("position"));
-            mr.setStatus(rs.getString("status"));
+
+            int status = Integer.parseInt(rs.getString("status"));
+            switch(status){
+                case MemberState.AVAILABLE:
+                    mr.setStatus("Available");
+                    break;
+                //todo - add more statuses
+            }
             mr.setPhoto("N/A"); // TODO: Get correct file for member photo
 
             rowArrayList.add(mr);
@@ -148,22 +155,6 @@ public class editProjTeamController implements Initializable {
                 HashMap<String, String> cell = new HashMap<>();
                 //member ID
                 cell.put("memid", String.valueOf(r.getMemid()));
-                retVal.put(String.valueOf(memberNum), cell);
-
-                //member name
-                cell.put("name", r.getName());
-                retVal.put(String.valueOf(memberNum), cell);
-
-                //member position
-                cell.put("position", r.getPosition());
-                retVal.put(String.valueOf(memberNum), cell);
-
-                //member status
-                cell.put("status", String.valueOf(r.getStatus()));
-                retVal.put(String.valueOf(memberNum), cell);
-
-                //member active
-                cell.put("active", "true");
                 retVal.put(String.valueOf(memberNum), cell);
                 memberNum++;
             }

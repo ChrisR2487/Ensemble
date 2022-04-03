@@ -81,11 +81,7 @@ public class Database {
 
         //create project team table
         createTable = "create table " + databaseName + "." + charPid + "_Team("
-                + "memid int primary key,"
-                + "name varchar(20) not null,"
-                + "position varchar(20) not null,"
-                + "status int not null,"
-                + "active boolean not null)";
+                + "memid int primary key)";
         stmt.execute(createTable);
 
         createTable = "create table " + databaseName + "." + charPid + "_Tasks("
@@ -117,7 +113,7 @@ public class Database {
     public void addMembers(HashMap<String, HashMap<String, String>> info, String charPid) throws SQLException {
         //save project team
         String teamQuery = " insert into " + databaseName + "." + charPid + "_Team"
-                + " values (?, ?, ?, ?, ?)";
+                + " values (?)";
         PreparedStatement preparedTeamStmt = conn.prepareStatement(teamQuery);
 
         //add each row to the database
@@ -126,10 +122,6 @@ public class Database {
 
             //populate data and save row
             preparedTeamStmt.setInt(1, Integer.parseInt(row.get("memid")));
-            preparedTeamStmt.setString(2, row.get("name"));
-            preparedTeamStmt.setString(3, row.get("position"));
-            preparedTeamStmt.setInt(4, Integer.parseInt(row.get("status")));
-            preparedTeamStmt.setBoolean(5, Boolean.parseBoolean(row.get("active")));
             preparedTeamStmt.execute();
         }
     }

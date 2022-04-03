@@ -92,8 +92,13 @@ public class ProjTeamController implements Initializable {
             mr.setPosition(rs.getString("position"));
             mr.setPhoto("N/A"); // TODO: Get correct file for member photo
 
-
-            mr.setStatus(rs.getString("status"));
+            int status = Integer.parseInt(rs.getString("status"));
+            switch(status){
+                case MemberState.AVAILABLE:
+                    mr.setStatus("Available");
+                    break;
+                    //todo - add more statuses
+            }
 
             rowArrayList.add(mr);
         }
