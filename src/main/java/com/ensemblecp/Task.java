@@ -25,6 +25,7 @@ public class Task {
 
     /* Class Methods */
     public void update(ResultSet rs) throws SQLException {
+        this.title = rs.getString("title");
         this.memid = rs.getInt("memid");
         this.description = rs.getString("description");
         this.kickoff = rs.getDate("kickoff");

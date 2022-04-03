@@ -1,7 +1,6 @@
 package com.ensemblecp;// Imports
 
 import java.io.*;
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -123,7 +122,7 @@ public class Database {
     public ResultSet createTask(HashMap<String, String> info) throws SQLException{
         //insert record
         String charPid = Project.IDtoChars(Main.curProject.getPid());
-        String query = "insert into " + databaseName + "." + charPid + "_Tasks values (?, ?, ?, ? ,?, ?)";
+        String query = "insert into " + databaseName + "." + charPid + "_Tasks values (?, ?, ?, ? ,?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Integer.parseInt(info.get("tid")));
         preparedStmt.setString(2, info.get("title"));
@@ -132,7 +131,7 @@ public class Database {
         preparedStmt.setDate(5, Date.valueOf(info.get("kickoff")));
         preparedStmt.setDate(6, Date.valueOf(info.get("deadline")));
         preparedStmt.setBoolean(7, Boolean.parseBoolean(info.get("complete")));
-        preparedStmt.execute(query);
+        preparedStmt.execute();
 
         // Get tuple
         query = "select * from " + databaseName + "." + charPid + "_Tasks where tid=?";
@@ -634,6 +633,33 @@ public class Database {
         query = "SELECT * FROM " + databaseName + "." + charPid + "_" + charCid + "_Data";
         preparedStmt = conn.prepareStatement(query);
         return preparedStmt.executeQuery();
+    }
+
+    public void removeTask(int pid, int tid) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "delete from " + databaseName + "." + charPid + "_Tasks where tid = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1, tid);
+        preparedStatement.execute();
+    }
+
+    public ResultSet updateProjectTask(int pid, int tid, HashMap<String, String> info) throws SQLException {
+        String charPid = Project.IDtoChars(pid);
+        String query = "update " + databaseName + "." + charPid + "_Tasks set title = ?, memid = ?, description = ?, kickoff = ?, deadline = ? where tid = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setString(1, info.get("title"));
+        preparedStatement.setInt(2, Integer.parseInt(info.get("memid")));
+        preparedStatement.setString(3, info.get("desc"));
+        preparedStatement.setDate(4, Date.valueOf(info.get("kickoff")));
+        preparedStatement.setDate(5, Date.valueOf(info.get("deadline")));
+        preparedStatement.setInt(6, tid);
+        preparedStatement.execute();
+
+        // Return new task
+        query = "select * from " + databaseName + "." + charPid + "_Tasks where tid = ?";
+        preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setInt(1, tid);
+        return preparedStatement.executeQuery();
     }
 }
 // End of Database Class

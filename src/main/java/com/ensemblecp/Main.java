@@ -3,6 +3,7 @@ package com.ensemblecp;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuButton;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -36,7 +37,6 @@ public class Main extends Application {
         // Show startup screen
         show("login");
         mainStage.show();
-        Database db = new Database(true);
     }
 
     public static void show(String screenName) throws IOException {

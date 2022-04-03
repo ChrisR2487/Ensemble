@@ -94,8 +94,6 @@ public class ProjDeleteController implements Initializable {
             String inputHash = hashInput(userMatches.getString("salt") + pass);
 
             // Check for password equality
-            System.out.println(userMatches.getString("password"));
-            System.out.println(inputHash);
             if (inputHash.equals(userMatches.getString("password"))) {
                 // Account found
                 //Main.setCredentials(userMatches.getInt("id")); // Set account info

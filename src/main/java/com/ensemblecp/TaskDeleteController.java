@@ -6,8 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,16 +18,16 @@ import java.util.ResourceBundle;
 
 import static com.ensemblecp.Main.curProject;
 
-public class CompDeleteController implements Initializable {
+public class TaskDeleteController implements Initializable {
     @FXML CheckBox remCheckBox;
     @FXML TextField logBox;
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    public static Component component;
+    public static Task task;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        remCheckBox.setText(remCheckBox.getText() + component.getTitle() + "?");
+        remCheckBox.setText(remCheckBox.getText() + task.getTitle() + "?");
     }
 
     public void onSubmit_onClick(Event e) throws IOException, SQLException, InterruptedException, NoSuchAlgorithmException {
@@ -52,20 +50,20 @@ public class CompDeleteController implements Initializable {
         HashMap<String, String> log = new HashMap<>();
         log.put("pid", String.valueOf(Main.curProject.getPid()));
         log.put("manid", String.valueOf(Main.account.getId()));
-        log.put("message", "Delete component " + component.getTitle() + " from project, reason: " + logBox.getText());
+        log.put("message", "Delete task " + task.getTitle() + " from project, reason: " + logBox.getText());
         db.createLog(log);
 
-        // Delete component from database
-        db.removeComponent(curProject.getPid(), component.getCid());
+        // Delete task from database
+        db.removeTask(curProject.getPid(), task.getTid());
         db.closeDB();
-        // Delete component from project object
-        Main.curProject.getComponents().remove(component);
+        // Delete task from project object
+        Main.curProject.getTasks().remove(task);
         // Go to dashboard
-        Main.show("projOverview");
+        Main.show("projBenchmark");
     }
 
     public void onCancel_onClick(Event e) throws IOException {
-        Main.show("projOverview");
+        Main.show("projBenchmark");
     }
 
     //verify login

@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.TaskCreatorController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.TaskEditorController">
     <children>
         <!-- Labels -->
-        <Label layoutX="25.0" layoutY="22.0" text="Create A New Task:" textFill="WHITE">
+        <Label layoutX="25.0" layoutY="22.0" text="Modify Task:" textFill="WHITE">
             <font>
                 <Font size="36.0" />
             </font>
@@ -93,12 +93,12 @@
         </Pane>
 
         <!-- Cancel and submit buttons -->
-        <Button fx:id="cancelButton" layoutX="1114.0" layoutY="708.0" mnemonicParsing="false" onAction="#cancelCreate_onClick" prefHeight="50.0" prefWidth="225.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
+        <Button fx:id="cancelButton" layoutX="1114.0" layoutY="708.0" mnemonicParsing="false" onAction="#cancelModify_onClick" prefHeight="50.0" prefWidth="225.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
-        <Button fx:id="submitButton" layoutX="1410.0" layoutY="708.0" mnemonicParsing="false" onAction="#createTask_onClick" prefHeight="50.0" prefWidth="225.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Create Task">
+        <Button fx:id="submitButton" layoutX="1410.0" layoutY="708.0" mnemonicParsing="false" onAction="#modifyTask_onClick" prefHeight="50.0" prefWidth="225.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Modify Task">
             <font>
                 <Font size="24.0" />
             </font>

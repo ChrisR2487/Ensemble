@@ -83,7 +83,6 @@
                 <TableView fx:id="memberTable" layoutY="106.0" prefHeight="507.0" prefWidth="875.0">
                     <columns>
                         <TableColumn fx:id="selectColumn" prefWidth="75.0" text="Include" />
-                        <TableColumn fx:id="photoColumn" prefWidth="118.0" text="Photo" />
                         <TableColumn fx:id="nameColumn" prefWidth="307.0" text="Name" />
                         <TableColumn fx:id="positionColumn" prefWidth="170.0" text="Postion" />
                         <TableColumn fx:id="memIDColumn" prefWidth="101.0" text="Member ID" />

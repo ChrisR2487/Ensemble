@@ -202,11 +202,11 @@ public class ProjBenchmarkController implements Initializable {
     public void onTaskAction(Task task, int action) throws SQLException, IOException {
         switch(action) {
             case TaskAction.MODIFY_TASK -> {
-                //TaskEditorController.task = task;
+                TaskEditorController.task = task;
                 Main.show("taskEditor");
             }
             case TaskAction.DELETE_TASK -> {
-                //TaskDeleteController.task = task;
+                TaskDeleteController.task = task;
                 Main.show("taskDelete");
             }
             case TaskAction.MARK_TASK -> {

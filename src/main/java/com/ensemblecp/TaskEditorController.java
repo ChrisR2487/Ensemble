@@ -6,12 +6,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class TaskCreatorController implements Initializable {
+public class TaskEditorController implements Initializable {
     @FXML  Button cancelButton;
     @FXML  Button submitButton;
     @FXML  TextField taskTitle;
@@ -39,17 +34,17 @@ public class TaskCreatorController implements Initializable {
     @FXML private TableColumn<MemberRow, CheckBox> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
     ArrayList<MemberRow> rowArrayList = new ArrayList<>();
+    public static Task task;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //default date values
-        LocalDate ld = LocalDate.now();
-        kickoffDate.setValue(ProjCreatorController.LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
-        ld = ld.plusMonths(1);
-        deadlineDate.setValue(ProjCreatorController.LOCAL_DATE(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(ld)));
+        // Set saved values
+        kickoffDate.setValue(ProjCreatorController.LOCAL_DATE(task.getKickoff().toString()));
+        deadlineDate.setValue(ProjCreatorController.LOCAL_DATE(task.getDeadline().toString()));
+        taskDesc.setText(task.getDescription());
+        taskTitle.setText(task.getTitle());
 
         // Create memberRow list
-
         int tryCount = 0;
         while (tryCount < Main.ATTEMPT_LIMIT) {
             try {
@@ -77,8 +72,15 @@ public class TaskCreatorController implements Initializable {
             mr.setPosition(rs.getString("position"));
             mr.setPhoto("N/A");
             mr.setStatus(rs.getString("status"));
-
             rowArrayList.add(mr);
+        }
+
+        // Set active members of project to already selected
+        for (MemberRow mr: rowArrayList){
+            if(Integer.parseInt(mr.getMemid()) == task.getMemid()){
+                mr.getSelect().setSelected(true);
+                break;
+            }
         }
         db.closeDB();
 
@@ -100,8 +102,7 @@ public class TaskCreatorController implements Initializable {
         memberTable.setItems(memberRows);
     }
 
-    public void createTask_onClick(Event e) throws SQLException, IOException{
-
+    public void modifyTask_onClick(Event e) throws SQLException, IOException{
         //reset error borders
         kickoffDate.setBorder(null);
         deadlineDate.setBorder(null);
@@ -110,9 +111,6 @@ public class TaskCreatorController implements Initializable {
         // Get data
         Database db = new Database();
         HashMap<String, String> info = new HashMap<String, String>();
-
-        //get task id
-        info.put("tid", String.valueOf(Math.abs(taskTitle.getText().hashCode())));
 
         //validate input for title
         String title = taskTitle.getText();
@@ -141,21 +139,19 @@ public class TaskCreatorController implements Initializable {
             return;
         }
 
-        //get memid
+        // get memid
         HashMap<String, HashMap<String, String>> members = getSelectedMembers();
-        HashMap<String,String> row = members.get(String.valueOf(1));
+        HashMap<String,String> row = members.get("1");
         int memid = Integer.parseInt(row.get("memid"));
         info.put("memid", Integer.toString(memid));
-
         //get desc
         info.put("desc", desc);
         info.put("complete", "false");
 
         // Save task
-        ResultSet taskRS = db.createTask(info);
+        ResultSet taskRS = db.updateProjectTask(Main.curProject.getPid(), task.getTid(), info);
         taskRS.next();
-        Task newTask = new Task(taskRS);
-        Main.curProject.getTasks().add(newTask);
+        task.update(taskRS);
         db.closeDB();
 
         // Move back to benchmark
@@ -193,7 +189,7 @@ public class TaskCreatorController implements Initializable {
         return retVal;
     }
 
-    public void cancelCreate_onClick(Event e) throws IOException {
+    public void cancelModify_onClick(Event e) throws IOException {
         // Cancel project creation
         Main.show("projBenchmark");
     }
