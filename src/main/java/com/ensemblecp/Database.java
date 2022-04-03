@@ -76,7 +76,7 @@ public class Database {
 
         String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
         String createTable;
-        Statement stmt = conn.createStatement();;
+        Statement stmt = conn.createStatement();
         // Add related tables
         createTable = "create table " + databaseName + "." + charPid + "_Components("
                 + " cid int not null, template varchar(128) not null, constraint " + charPid + "_Component_pk primary key (cid));";
@@ -84,11 +84,7 @@ public class Database {
 
         //create project team table
         createTable = "create table " + databaseName + "." + charPid + "_Team("
-                + "memid int primary key,"
-                + "name varchar(20) not null,"
-                + "position varchar(20) not null,"
-                + "status int not null,"
-                + "active boolean not null)";
+                + "memid int primary key)";
         stmt.execute(createTable);
 
         createTable = "create table " + databaseName + "." + charPid + "_Tasks("
