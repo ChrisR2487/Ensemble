@@ -145,7 +145,7 @@ public class Database {
     public void addMembers(HashMap<String, HashMap<String, String>> info, String charPid) throws SQLException {
         //save project team
         String teamQuery = " insert into " + databaseName + "." + charPid + "_Team"
-                + " values (?, ?, ?, ?, ?)";
+                + " values (?)";
         PreparedStatement preparedTeamStmt = conn.prepareStatement(teamQuery);
 
         //add each row to the database
@@ -154,16 +154,12 @@ public class Database {
 
             //populate data and save row
             preparedTeamStmt.setInt(1, Integer.parseInt(row.get("memid")));
-            preparedTeamStmt.setString(2, row.get("name"));
-            preparedTeamStmt.setString(3, row.get("position"));
-            preparedTeamStmt.setInt(4, Integer.parseInt(row.get("status")));
-            preparedTeamStmt.setBoolean(5, Boolean.parseBoolean(row.get("active")));
             preparedTeamStmt.execute();
         }
     }
 
     public void dropMembers(String charPid) throws SQLException {
-        String dropQuery = " delete from " + databaseName + "." + charPid + "_Team where true";
+        String dropQuery = " delete from " + databaseName + "." + charPid + "_Team";
         PreparedStatement preparedStatement = conn.prepareStatement(dropQuery);
         preparedStatement.execute();
     }

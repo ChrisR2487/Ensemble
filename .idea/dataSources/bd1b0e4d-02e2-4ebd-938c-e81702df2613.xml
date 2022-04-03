@@ -1264,995 +1264,989 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="315" parent="274" name="GDBGEJDDC_Components">
+    <table id="315" parent="274" name="GDBGEJDDC_CCAIFGDDH_Data">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="316" parent="274" name="GDBGEJDDC_Files">
+    <table id="316" parent="274" name="GDBGEJDDC_Components">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="317" parent="274" name="GDBGEJDDC_Issues">
+    <table id="317" parent="274" name="GDBGEJDDC_Files">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="318" parent="274" name="GDBGEJDDC_Tasks">
+    <table id="318" parent="274" name="GDBGEJDDC_IAFJIEHHB_Data">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="319" parent="274" name="GDBGEJDDC_Team">
+    <table id="319" parent="274" name="GDBGEJDDC_Issues">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="320" parent="274" name="HCEEFDDJI_Components">
+    <table id="320" parent="274" name="GDBGEJDDC_Tasks">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="321" parent="274" name="HCEEFDDJI_Files">
+    <table id="321" parent="274" name="GDBGEJDDC_Team">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="322" parent="274" name="HCEEFDDJI_Issues">
+    <table id="322" parent="274" name="HCEEFDDJI_Components">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="323" parent="274" name="HCEEFDDJI_Tasks">
+    <table id="323" parent="274" name="HCEEFDDJI_DFFGEJI_Data">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="324" parent="274" name="HCEEFDDJI_Team">
+    <table id="324" parent="274" name="HCEEFDDJI_Files">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="325" parent="274" name="Log">
+    <table id="325" parent="274" name="HCEEFDDJI_Issues">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="326" parent="274" name="Project">
+    <table id="326" parent="274" name="HCEEFDDJI_Tasks">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="327" parent="274" name="ProjectManager">
+    <table id="327" parent="274" name="HCEEFDDJI_Team">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="328" parent="274" name="ProjectMember">
+    <table id="328" parent="274" name="Log">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="329" parent="296" name="id">
+    <table id="329" parent="274" name="Project">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="330" parent="274" name="ProjectManager">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="331" parent="274" name="ProjectMember">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="332" parent="296" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="330" parent="296" name="username">
+    <column id="333" parent="296" name="username">
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="331" parent="296" name="salt">
+    <column id="334" parent="296" name="salt">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="332" parent="296" name="password">
+    <column id="335" parent="296" name="password">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <index id="333" parent="296" name="Account_username_uindex">
+    <index id="336" parent="296" name="Account_username_uindex">
       <ColNames>username</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="334" parent="296" name="PRIMARY">
+    <key id="337" parent="296" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="335" parent="296" name="Account_username_uindex">
+    <key id="338" parent="296" name="Account_username_uindex">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>Account_username_uindex</UnderlyingIndexName>
     </key>
-    <column id="336" parent="297" name="cid">
+    <column id="339" parent="297" name="cid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="337" parent="297" name="template">
+    <column id="340" parent="297" name="template">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <key id="338" parent="297" name="PRIMARY">
+    <key id="341" parent="297" name="PRIMARY">
       <ColNames>cid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="339" parent="298" name="filid">
+    <column id="342" parent="298" name="filid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="340" parent="298" name="private">
+    <column id="343" parent="298" name="private">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <foreign-key id="341" parent="298" name="BACJHIIBEI_Files_fk">
+    <foreign-key id="344" parent="298" name="BACJHIIBEI_Files_fk">
       <ColNames>filid</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>filid</RefColNames>
       <RefTableName>Files</RefTableName>
     </foreign-key>
-    <key id="342" parent="298" name="PRIMARY">
+    <key id="345" parent="298" name="PRIMARY">
       <ColNames>filid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="343" parent="299" name="memid">
+    <column id="346" parent="299" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="344" parent="299" name="message">
+    <column id="347" parent="299" name="message">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="345" parent="299" name="type">
+    <column id="348" parent="299" name="type">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="346" parent="299" name="state">
+    <column id="349" parent="299" name="state">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <key id="347" parent="299" name="PRIMARY">
+    <key id="350" parent="299" name="PRIMARY">
       <ColNames>memid
 message</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="348" parent="300" name="tid">
+    <column id="351" parent="300" name="tid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="349" parent="300" name="title">
+    <column id="352" parent="300" name="title">
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="350" parent="300" name="memid">
+    <column id="353" parent="300" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="351" parent="300" name="description">
+    <column id="354" parent="300" name="description">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="352" parent="300" name="kickoff">
+    <column id="355" parent="300" name="kickoff">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="353" parent="300" name="deadline">
+    <column id="356" parent="300" name="deadline">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="354" parent="300" name="complete">
+    <column id="357" parent="300" name="complete">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <index id="355" parent="300" name="BACJHIIBEI_Tasks_title_uindex">
+    <index id="358" parent="300" name="BACJHIIBEI_Tasks_title_uindex">
       <ColNames>title</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="356" parent="300" name="BGGDBCBIFI_Tasks_title_uindex">
+    <index id="359" parent="300" name="BGGDBCBIFI_Tasks_title_uindex">
       <ColNames>title</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="357" parent="300" name="PRIMARY">
+    <key id="360" parent="300" name="PRIMARY">
       <ColNames>tid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="358" parent="300" name="BACJHIIBEI_Tasks_title_uindex">
+    <key id="361" parent="300" name="BACJHIIBEI_Tasks_title_uindex">
       <ColNames>title</ColNames>
       <UnderlyingIndexName>BACJHIIBEI_Tasks_title_uindex</UnderlyingIndexName>
     </key>
-    <key id="359" parent="300" name="BGGDBCBIFI_Tasks_title_uindex">
+    <key id="362" parent="300" name="BGGDBCBIFI_Tasks_title_uindex">
       <ColNames>title</ColNames>
       <UnderlyingIndexName>BGGDBCBIFI_Tasks_title_uindex</UnderlyingIndexName>
     </key>
-    <column id="360" parent="301" name="memid">
+    <column id="363" parent="301" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <key id="361" parent="301" name="PRIMARY">
+    <key id="364" parent="301" name="PRIMARY">
       <ColNames>memid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="362" parent="302" name="cid">
+    <column id="365" parent="302" name="cid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="363" parent="302" name="template">
+    <column id="366" parent="302" name="template">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <key id="364" parent="302" name="PRIMARY">
+    <key id="367" parent="302" name="PRIMARY">
       <ColNames>cid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="365" parent="303" name="filid">
+    <column id="368" parent="303" name="filid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="366" parent="303" name="private">
+    <column id="369" parent="303" name="private">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <foreign-key id="367" parent="303" name="BGGDBCBIFI_Files_fk">
+    <foreign-key id="370" parent="303" name="BGGDBCBIFI_Files_fk">
       <ColNames>filid</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>filid</RefColNames>
       <RefTableName>Files</RefTableName>
     </foreign-key>
-    <key id="368" parent="303" name="PRIMARY">
+    <key id="371" parent="303" name="PRIMARY">
       <ColNames>filid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="369" parent="304" name="memid">
+    <column id="372" parent="304" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="370" parent="304" name="message">
+    <column id="373" parent="304" name="message">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="371" parent="304" name="type">
+    <column id="374" parent="304" name="type">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="372" parent="304" name="state">
+    <column id="375" parent="304" name="state">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <key id="373" parent="304" name="PRIMARY">
+    <key id="376" parent="304" name="PRIMARY">
       <ColNames>memid
 message</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="374" parent="305" name="tid">
+    <column id="377" parent="305" name="tid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="375" parent="305" name="title">
+    <column id="378" parent="305" name="title">
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="376" parent="305" name="memid">
+    <column id="379" parent="305" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="377" parent="305" name="description">
+    <column id="380" parent="305" name="description">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="378" parent="305" name="kickoff">
+    <column id="381" parent="305" name="kickoff">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="379" parent="305" name="deadline">
+    <column id="382" parent="305" name="deadline">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="380" parent="305" name="complete">
+    <column id="383" parent="305" name="complete">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <key id="381" parent="305" name="PRIMARY">
+    <key id="384" parent="305" name="PRIMARY">
       <ColNames>tid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="382" parent="306" name="memid">
+    <column id="385" parent="306" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="383" parent="306" name="name">
-      <DataType>varchar(20)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="384" parent="306" name="position">
-      <DataType>varchar(20)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="385" parent="306" name="status">
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="386" parent="306" name="active">
-      <DataType>tinyint(1)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <key id="387" parent="306" name="PRIMARY">
+    <key id="386" parent="306" name="PRIMARY">
       <ColNames>memid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="388" parent="307" name="cid">
+    <column id="387" parent="307" name="cid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="389" parent="307" name="template">
+    <column id="388" parent="307" name="template">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <key id="390" parent="307" name="PRIMARY">
+    <key id="389" parent="307" name="PRIMARY">
       <ColNames>cid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="391" parent="308" name="filid">
+    <column id="390" parent="308" name="filid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="392" parent="308" name="private">
+    <column id="391" parent="308" name="private">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <foreign-key id="393" parent="308" name="BIBECHFEJF_Files_fk">
+    <foreign-key id="392" parent="308" name="BIBECHFEJF_Files_fk">
       <ColNames>filid</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>filid</RefColNames>
       <RefTableName>Files</RefTableName>
     </foreign-key>
-    <key id="394" parent="308" name="PRIMARY">
+    <key id="393" parent="308" name="PRIMARY">
       <ColNames>filid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="395" parent="309" name="memid">
+    <column id="394" parent="309" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="396" parent="309" name="message">
+    <column id="395" parent="309" name="message">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="397" parent="309" name="type">
+    <column id="396" parent="309" name="type">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="398" parent="309" name="state">
+    <column id="397" parent="309" name="state">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <key id="399" parent="309" name="PRIMARY">
+    <key id="398" parent="309" name="PRIMARY">
       <ColNames>memid
 message</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="400" parent="310" name="tid">
+    <column id="399" parent="310" name="tid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="401" parent="310" name="title">
+    <column id="400" parent="310" name="title">
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="402" parent="310" name="memid">
+    <column id="401" parent="310" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="403" parent="310" name="description">
+    <column id="402" parent="310" name="description">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="404" parent="310" name="kickoff">
+    <column id="403" parent="310" name="kickoff">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="405" parent="310" name="deadline">
+    <column id="404" parent="310" name="deadline">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="406" parent="310" name="complete">
+    <column id="405" parent="310" name="complete">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <index id="407" parent="310" name="BIBECHFEJF_Tasks_uq">
+    <index id="406" parent="310" name="BIBECHFEJF_Tasks_uq">
       <ColNames>title</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="408" parent="310" name="PRIMARY">
+    <key id="407" parent="310" name="PRIMARY">
       <ColNames>tid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="409" parent="310" name="BIBECHFEJF_Tasks_uq">
+    <key id="408" parent="310" name="BIBECHFEJF_Tasks_uq">
       <ColNames>title</ColNames>
       <UnderlyingIndexName>BIBECHFEJF_Tasks_uq</UnderlyingIndexName>
     </key>
-    <column id="410" parent="311" name="memid">
+    <column id="409" parent="311" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="411" parent="311" name="name">
-      <DataType>varchar(20)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="412" parent="311" name="position">
-      <DataType>varchar(20)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="413" parent="311" name="status">
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="414" parent="311" name="active">
-      <DataType>tinyint(1)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <key id="415" parent="311" name="PRIMARY">
+    <key id="410" parent="311" name="PRIMARY">
       <ColNames>memid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="416" parent="312" name="cid">
+    <column id="411" parent="312" name="cid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="417" parent="312" name="title">
+    <column id="412" parent="312" name="title">
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="418" parent="312" name="template">
+    <column id="413" parent="312" name="template">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <key id="419" parent="312" name="PRIMARY">
+    <key id="414" parent="312" name="PRIMARY">
       <ColNames>cid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="420" parent="313" name="filid">
+    <column id="415" parent="313" name="filid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="421" parent="313" name="filename">
+    <column id="416" parent="313" name="filename">
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="422" parent="313" name="extension">
+    <column id="417" parent="313" name="extension">
       <DataType>varchar(5)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="423" parent="313" name="file">
+    <column id="418" parent="313" name="file">
       <DataType>mediumblob|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <index id="424" parent="313" name="Files_filename_uindex">
+    <index id="419" parent="313" name="Files_filename_uindex">
       <ColNames>filename</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="425" parent="313" name="PRIMARY">
+    <key id="420" parent="313" name="PRIMARY">
       <ColNames>filid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="426" parent="313" name="Files_filename_uindex">
+    <key id="421" parent="313" name="Files_filename_uindex">
       <ColNames>filename</ColNames>
       <UnderlyingIndexName>Files_filename_uindex</UnderlyingIndexName>
     </key>
-    <column id="427" parent="314" name="partid">
+    <column id="422" parent="314" name="partid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="428" parent="314" name="value">
+    <column id="423" parent="314" name="value">
       <DataType>varchar(256)|0s</DataType>
       <Position>2</Position>
     </column>
-    <key id="429" parent="314" name="PRIMARY">
+    <key id="424" parent="314" name="PRIMARY">
       <ColNames>partid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="430" parent="315" name="cid">
+    <column id="425" parent="315" name="partid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="431" parent="315" name="template">
+    <column id="426" parent="315" name="value">
+      <DataType>varchar(256)|0s</DataType>
+      <Position>2</Position>
+    </column>
+    <key id="427" parent="315" name="PRIMARY">
+      <ColNames>partid</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="428" parent="316" name="cid">
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="429" parent="316" name="template">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <key id="432" parent="315" name="PRIMARY">
+    <key id="430" parent="316" name="PRIMARY">
       <ColNames>cid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="433" parent="316" name="filid">
+    <column id="431" parent="317" name="filid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="434" parent="316" name="private">
+    <column id="432" parent="317" name="private">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <foreign-key id="435" parent="316" name="GDBGEJDDC_Files_fk">
+    <foreign-key id="433" parent="317" name="GDBGEJDDC_Files_fk">
       <ColNames>filid</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>filid</RefColNames>
       <RefTableName>Files</RefTableName>
     </foreign-key>
-    <key id="436" parent="316" name="PRIMARY">
+    <key id="434" parent="317" name="PRIMARY">
       <ColNames>filid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="437" parent="317" name="memid">
+    <column id="435" parent="318" name="partid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="438" parent="317" name="message">
+    <column id="436" parent="318" name="value">
+      <DataType>varchar(256)|0s</DataType>
+      <Position>2</Position>
+    </column>
+    <key id="437" parent="318" name="PRIMARY">
+      <ColNames>partid</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="438" parent="319" name="memid">
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="439" parent="319" name="message">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="439" parent="317" name="type">
+    <column id="440" parent="319" name="type">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="440" parent="317" name="state">
+    <column id="441" parent="319" name="state">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <key id="441" parent="317" name="PRIMARY">
+    <key id="442" parent="319" name="PRIMARY">
       <ColNames>memid
 message</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="442" parent="318" name="tid">
+    <column id="443" parent="320" name="tid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="443" parent="318" name="title">
+    <column id="444" parent="320" name="title">
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="444" parent="318" name="memid">
+    <column id="445" parent="320" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="445" parent="318" name="description">
+    <column id="446" parent="320" name="description">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="446" parent="318" name="kickoff">
+    <column id="447" parent="320" name="kickoff">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="447" parent="318" name="deadline">
+    <column id="448" parent="320" name="deadline">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="448" parent="318" name="complete">
+    <column id="449" parent="320" name="complete">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <index id="449" parent="318" name="GDBGEJDDC_Tasks_title_uindex">
+    <index id="450" parent="320" name="GDBGEJDDC_Tasks_title_uindex">
       <ColNames>title</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="450" parent="318" name="PRIMARY">
+    <key id="451" parent="320" name="PRIMARY">
       <ColNames>tid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="451" parent="318" name="GDBGEJDDC_Tasks_title_uindex">
+    <key id="452" parent="320" name="GDBGEJDDC_Tasks_title_uindex">
       <ColNames>title</ColNames>
       <UnderlyingIndexName>GDBGEJDDC_Tasks_title_uindex</UnderlyingIndexName>
     </key>
-    <column id="452" parent="319" name="memid">
+    <column id="453" parent="321" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <key id="453" parent="319" name="PRIMARY">
+    <key id="454" parent="321" name="PRIMARY">
       <ColNames>memid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="454" parent="320" name="cid">
+    <column id="455" parent="322" name="cid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="455" parent="320" name="template">
+    <column id="456" parent="322" name="template">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <key id="456" parent="320" name="PRIMARY">
+    <key id="457" parent="322" name="PRIMARY">
       <ColNames>cid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="457" parent="321" name="filid">
+    <column id="458" parent="323" name="partid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="458" parent="321" name="private">
+    <column id="459" parent="323" name="value">
+      <DataType>varchar(256)|0s</DataType>
+      <Position>2</Position>
+    </column>
+    <key id="460" parent="323" name="PRIMARY">
+      <ColNames>partid</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="461" parent="324" name="filid">
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="462" parent="324" name="private">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <foreign-key id="459" parent="321" name="HCEEFDDJI_Files_fk">
+    <foreign-key id="463" parent="324" name="HCEEFDDJI_Files_fk">
       <ColNames>filid</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>filid</RefColNames>
       <RefTableName>Files</RefTableName>
     </foreign-key>
-    <key id="460" parent="321" name="PRIMARY">
+    <key id="464" parent="324" name="PRIMARY">
       <ColNames>filid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="461" parent="322" name="memid">
+    <column id="465" parent="325" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="462" parent="322" name="message">
+    <column id="466" parent="325" name="message">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="463" parent="322" name="type">
+    <column id="467" parent="325" name="type">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="464" parent="322" name="state">
+    <column id="468" parent="325" name="state">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <key id="465" parent="322" name="PRIMARY">
+    <key id="469" parent="325" name="PRIMARY">
       <ColNames>memid
 message</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="466" parent="323" name="tid">
+    <column id="470" parent="326" name="tid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="467" parent="323" name="title">
+    <column id="471" parent="326" name="title">
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="468" parent="323" name="memid">
+    <column id="472" parent="326" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="469" parent="323" name="description">
+    <column id="473" parent="326" name="description">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="470" parent="323" name="kickoff">
+    <column id="474" parent="326" name="kickoff">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="471" parent="323" name="deadline">
+    <column id="475" parent="326" name="deadline">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="472" parent="323" name="complete">
+    <column id="476" parent="326" name="complete">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <index id="473" parent="323" name="HCEEFDDJI_Tasks_title_uindex">
+    <index id="477" parent="326" name="HCEEFDDJI_Tasks_title_uindex">
       <ColNames>title</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="474" parent="323" name="PRIMARY">
+    <key id="478" parent="326" name="PRIMARY">
       <ColNames>tid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="475" parent="323" name="HCEEFDDJI_Tasks_title_uindex">
+    <key id="479" parent="326" name="HCEEFDDJI_Tasks_title_uindex">
       <ColNames>title</ColNames>
       <UnderlyingIndexName>HCEEFDDJI_Tasks_title_uindex</UnderlyingIndexName>
     </key>
-    <column id="476" parent="324" name="memid">
+    <column id="480" parent="327" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="477" parent="324" name="name">
-      <DataType>varchar(20)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="478" parent="324" name="position">
-      <DataType>varchar(20)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="479" parent="324" name="status">
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="480" parent="324" name="active">
-      <DataType>tinyint(1)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <key id="481" parent="324" name="PRIMARY">
+    <key id="481" parent="327" name="PRIMARY">
       <ColNames>memid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="482" parent="325" name="manid">
+    <column id="482" parent="328" name="manid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="483" parent="325" name="pid">
+    <column id="483" parent="328" name="pid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="484" parent="325" name="time">
+    <column id="484" parent="328" name="time">
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="485" parent="325" name="message">
+    <column id="485" parent="328" name="message">
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <key id="486" parent="325" name="PRIMARY">
+    <key id="486" parent="328" name="PRIMARY">
       <ColNames>time</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="487" parent="326" name="pid">
+    <column id="487" parent="329" name="pid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="488" parent="326" name="title">
+    <column id="488" parent="329" name="title">
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="489" parent="326" name="description">
+    <column id="489" parent="329" name="description">
       <DataType>varchar(256)|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="490" parent="326" name="investmentCosts">
+    <column id="490" parent="329" name="investmentCosts">
       <DataType>decimal(14,2 digit)|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="491" parent="326" name="budget">
+    <column id="491" parent="329" name="budget">
       <DataType>decimal(14,2 digit)|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="492" parent="326" name="roi">
+    <column id="492" parent="329" name="roi">
       <DataType>decimal(8,4 digit)|0s</DataType>
       <Position>6</Position>
     </column>
-    <column id="493" parent="326" name="kickoff">
+    <column id="493" parent="329" name="kickoff">
       <DataType>date|0s</DataType>
       <Position>7</Position>
     </column>
-    <column id="494" parent="326" name="deadline">
+    <column id="494" parent="329" name="deadline">
       <DataType>date|0s</DataType>
       <Position>8</Position>
     </column>
-    <column id="495" parent="326" name="issueScore">
+    <column id="495" parent="329" name="issueScore">
       <DataType>decimal(5,2 digit)|0s</DataType>
       <Position>9</Position>
     </column>
-    <column id="496" parent="326" name="tag1">
+    <column id="496" parent="329" name="tag1">
       <DataType>varchar(30)|0s</DataType>
       <Position>10</Position>
     </column>
-    <column id="497" parent="326" name="tag2">
+    <column id="497" parent="329" name="tag2">
       <DataType>varchar(30)|0s</DataType>
       <Position>11</Position>
     </column>
-    <column id="498" parent="326" name="tag3">
+    <column id="498" parent="329" name="tag3">
       <DataType>varchar(30)|0s</DataType>
       <Position>12</Position>
     </column>
-    <column id="499" parent="326" name="tag4">
+    <column id="499" parent="329" name="tag4">
       <DataType>varchar(30)|0s</DataType>
       <Position>13</Position>
     </column>
-    <column id="500" parent="326" name="complete">
+    <column id="500" parent="329" name="complete">
       <DataType>tinyint(1)|0s</DataType>
       <Position>14</Position>
     </column>
-    <column id="501" parent="326" name="manid">
+    <column id="501" parent="329" name="manid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>15</Position>
     </column>
-    <index id="502" parent="326" name="Project_title_uindex">
+    <index id="502" parent="329" name="Project_title_uindex">
       <ColNames>title</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="503" parent="326" name="PRIMARY">
+    <key id="503" parent="329" name="PRIMARY">
       <ColNames>pid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="504" parent="326" name="Project_title_uindex">
+    <key id="504" parent="329" name="Project_title_uindex">
       <ColNames>title</ColNames>
       <UnderlyingIndexName>Project_title_uindex</UnderlyingIndexName>
     </key>
-    <column id="505" parent="327" name="manid">
+    <column id="505" parent="330" name="manid">
       <DataType>int(11)|0s</DataType>
       <Position>1</Position>
     </column>
-    <column id="506" parent="327" name="name">
+    <column id="506" parent="330" name="name">
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="507" parent="327" name="position">
+    <column id="507" parent="330" name="position">
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="508" parent="327" name="status">
+    <column id="508" parent="330" name="status">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="509" parent="327" name="active">
+    <column id="509" parent="330" name="active">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <foreign-key id="510" parent="327" name="ProjectManager_Account_id_fk">
+    <foreign-key id="510" parent="330" name="ProjectManager_Account_id_fk">
       <ColNames>manid</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>Account</RefTableName>
     </foreign-key>
-    <index id="511" parent="327" name="ProjectManager_Account_id_fk">
+    <index id="511" parent="330" name="ProjectManager_Account_id_fk">
       <ColNames>manid</ColNames>
       <Type>btree</Type>
     </index>
-    <column id="512" parent="328" name="memid">
+    <column id="512" parent="331" name="memid">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="513" parent="328" name="name">
+    <column id="513" parent="331" name="name">
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="514" parent="328" name="position">
+    <column id="514" parent="331" name="position">
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="515" parent="328" name="status">
+    <column id="515" parent="331" name="status">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="516" parent="328" name="active">
+    <column id="516" parent="331" name="active">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <foreign-key id="517" parent="328" name="ProjectMember_Account_id_fk">
+    <foreign-key id="517" parent="331" name="ProjectMember_Account_id_fk">
       <ColNames>memid</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>Account</RefTableName>
     </foreign-key>
-    <index id="518" parent="328" name="ProjectMember_Account_id_fk">
+    <index id="518" parent="331" name="ProjectMember_Account_id_fk">
       <ColNames>memid</ColNames>
       <Type>btree</Type>
     </index>
