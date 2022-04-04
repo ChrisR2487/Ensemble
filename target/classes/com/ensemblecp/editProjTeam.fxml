@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.editProjTeamController">
     <children>
         <!-- Side nav bar -->
@@ -82,7 +74,7 @@
         </Label> <!-- Project title -->
 
         <!-- Insights content -->
-        <VBox layoutX="1453.0" layoutY="155.0" prefHeight="331.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+        <VBox layoutX="1453.0" layoutY="155.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
          <children>
             <Label text=" " textFill="WHITE">
                <font>
@@ -159,22 +151,33 @@
                      <Font size="10.0" />
                  </font>
              </Label>
+             <Label layoutX="10.0" layoutY="295.0" text="    Description" textFill="WHITE">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+             </Label>
+             <Label fx:id="descLabel" text=" " textFill="WHITE" wrapText="true">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+                 <VBox.margin>
+                     <Insets left="40.0" right="20.0" />
+                 </VBox.margin>
+             </Label>
+             <Label layoutX="10.0" layoutY="325.0" opacity="0" text=" " textFill="WHITE">
+                 <font>
+                     <Font size="10.0" />
+                 </font>
+             </Label>
          </children></VBox> <!-- Insights -->
         <Label layoutX="1453.0" layoutY="94.0" text="Insights" textFill="WHITE">
             <font>
                 <Font size="35.0" />
             </font>
-        </Label> <!-- Insights label -->
-
-        <!--Close button -->
-        <Button fx:id="exitButton" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
-            <font>
-                <Font size="36.0" />
-            </font>
-        </Button>
+        </Label>
 
         <!-- Project team table -->
-        <TableView fx:id="memberTable" layoutX="217.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1178.0" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="170.0">
+        <TableView fx:id="memberTable" layoutX="217.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1178.0" styleClass="table-class" stylesheets="@../../css/application.css" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="170.0">
             <columns>
                 <TableColumn fx:id="selectColumn" prefWidth="59.0" text="Include" /> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
                     <TableColumn fx:id="nameColumn" prefWidth="253.0" text="Name" />

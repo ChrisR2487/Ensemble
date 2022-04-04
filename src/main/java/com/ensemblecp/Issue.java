@@ -82,27 +82,27 @@ class IssueProbability {
 
 class IssueScore {
     // Type ODO: Fix to proper values
-    public final static float PROJECT_OVERBUDGET = 10.0f; // Fix
-    public final static float PROJECT_OVERDUE = 10.0f; // Fix
-    public final static float TASK_OVERDUE = 10.0f; // Fix
-    public final static float ISSUE_BUDGET = 10.0f; // Fix
-    public final static float ISSUE_TIMELINE = 10.0f; // Fix
-    public final static float ISSUE_TEAM = 10.0f; // Fix
-    public final static float ISSUE_TASK = 10.0f; // Fix
+    public final static float PROJECT_OVERBUDGET = 10.0f;
+    public final static float PROJECT_OVERDUE = 10.0f;
+    public final static float TASK_OVERDUE = 5.0f;
+    public final static float ISSUE_BUDGET = 2.0f;
+    public final static float ISSUE_TIMELINE = 2.0f;
+    public final static float ISSUE_TEAM = 1.0f;
+    public final static float ISSUE_TASK = 1.0f;
     public final static float NO_SCORE = 0.0f;
 
     // Severity
-    public final static float INSIGNIFICANT = 10.0f; // Fix
-    public final static float TOLERABLE = 10.0f; // Fix
-    public final static float SERIOUS = 10.0f; // Fix
-    public final static float CATASTROPHIC = 10.0f; // Fix
+    public final static float INSIGNIFICANT = 0.8f;
+    public final static float TOLERABLE = 1.0f;
+    public final static float SERIOUS = 1.75f;
+    public final static float CATASTROPHIC = 2.5f;
 
     // Probability
-    public final static float VERY_LOW = 10.0f; // Fix
-    public final static float LOW = 10.0f; // Fix
-    public final static float MODERATE = 10.0f; // Fix
-    public final static float HIGH = 10.0f; // Fix
-    public final static float VERY_HIGH = 10.0f; // Fix
+    public final static float VERY_LOW = 0.5f;
+    public final static float LOW = 0.75f;
+    public final static float MODERATE = 1.0f;
+    public final static float HIGH = 1.25f;
+    public final static float VERY_HIGH = 1.5f;
 
     public static float checkOverdue(String deadline) {
         // Check for overdue

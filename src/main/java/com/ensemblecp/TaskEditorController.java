@@ -13,7 +13,6 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +30,7 @@ public class TaskEditorController implements Initializable {
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> positionColumn;
     @FXML private TableColumn<MemberRow, Integer> memIDColumn;
-    @FXML private TableColumn<MemberRow, CheckBox> selectColumn;
+    @FXML private TableColumn<MemberRow, RadioButton> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
     ArrayList<MemberRow> rowArrayList = new ArrayList<>();
     public static Task task;
@@ -72,13 +71,14 @@ public class TaskEditorController implements Initializable {
             mr.setPosition(rs.getString("position"));
             mr.setPhoto("N/A");
             mr.setStatus(rs.getString("status"));
+            mr.getAssigned().setToggleGroup(MemberRow.assignGroup);
             rowArrayList.add(mr);
         }
 
         // Set active members of project to already selected
         for (MemberRow mr: rowArrayList){
             if(Integer.parseInt(mr.getMemid()) == task.getMemid()){
-                mr.getSelect().setSelected(true);
+                MemberRow.assignGroup.selectToggle(mr.getAssigned());
                 break;
             }
         }
@@ -93,7 +93,7 @@ public class TaskEditorController implements Initializable {
 
         // Set row data
         memberTable.setEditable(true);
-        selectColumn.setCellValueFactory(new PropertyValueFactory("select"));
+        selectColumn.setCellValueFactory(new PropertyValueFactory("assigned"));
         selectColumn.setEditable(true);
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -132,6 +132,17 @@ public class TaskEditorController implements Initializable {
         info.put("kickoff", kickOff.toString());
         info.put("deadline", deadline.toString());
 
+        // Check if task is overdue
+        float newIssueScore = Main.curProject.getIssueScore();
+        if (IssueScore.checkOverdue(Main.curProject.getDeadline().toString()) > 0.1f) { // Is old deadline already overdue?
+            newIssueScore += IssueScore.checkOverdue(deadline.toString()) - IssueScore.TASK_OVERDUE; // No change if overdue still, remove penalty otherwise
+            db.updateIssueScore(Main.curProject.getPid(), newIssueScore);
+        }
+        else { // Old deadline not overdue, check normally
+            newIssueScore += IssueScore.checkOverdue(deadline.toString());
+            db.updateIssueScore(Main.curProject.getPid(), newIssueScore);
+        }
+
         //validate input for desc
         String desc = taskDesc.getText();
         if (taskDesc.getText().equals("")){
@@ -140,7 +151,7 @@ public class TaskEditorController implements Initializable {
         }
 
         // get memid
-        HashMap<String, HashMap<String, String>> members = getSelectedMembers();
+        HashMap<String, HashMap<String, String>> members = getAssignedMember();
         HashMap<String,String> row = members.get("1");
         int memid = Integer.parseInt(row.get("memid"));
         info.put("memid", Integer.toString(memid));
@@ -158,11 +169,11 @@ public class TaskEditorController implements Initializable {
         Main.show("projBenchmark");
     }
 
-    public HashMap<String, HashMap<String, String>> getSelectedMembers(){
+    public HashMap<String, HashMap<String, String>> getAssignedMember(){
         HashMap<String, HashMap<String, String>> retVal = new HashMap<>();
         int memberNum = 1;
         for(MemberRow r: rowArrayList){
-            if(r.getSelect().isSelected()){
+            if(r.getAssigned().isSelected()){
                 HashMap<String, String> cell = new HashMap<>();
                 //member ID
                 cell.put("memid", String.valueOf(r.getMemid()));

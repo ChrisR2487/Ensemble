@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import org.controlsfx.control.ToggleSwitch;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,13 +30,24 @@ public class ProjEditorController implements Initializable {
     @FXML TextField tag4Field;
     @FXML TextField budgetField;
 
+    @FXML ToggleSwitch archiveSwitch;
+
+    String initialTitle;
+
+    private final Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
+            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1.5)));
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         investmentCostsField.setText(String.valueOf(Main.curProject.getInvestmentCosts()));
         descriptionField.setText(Main.curProject.getDescription());
         titleField.setText(Main.curProject.getTitle());
+        initialTitle = Main.curProject.getTitle();
         kickoffField.setValue(LOCAL_DATE(Main.curProject.getKickoff().toString()));
         deadlineField.setValue(LOCAL_DATE(Main.curProject.getDeadline().toString()));
+        if(Main.curProject.isComplete()){
+            archiveSwitch.setSelected(true);
+        }
         tag1Field.setText(Main.curProject.getTag1());
         tag2Field.setText(Main.curProject.getTag2());
         tag3Field.setText(Main.curProject.getTag3());
@@ -48,26 +62,77 @@ public class ProjEditorController implements Initializable {
 
     @FXML
     public void modifyProject_onClick(Event e) throws SQLException, IOException {
+        //reset error borders
+        kickoffField.setBorder(null);
+        deadlineField.setBorder(null);
+        investmentCostsField.setBorder(null);
+        budgetField.setBorder(null);
+        titleField.setBorder(null);
+
         // Get data
         HashMap<String, String> info = new HashMap<>();
         info.put("pid", String.valueOf(Main.curProject.getPid()));
         info.put("title", titleField.getText());
 
+        String title = titleField.getText();
+        Database db = new Database();
+        if(title.equals("")){
+            //empty input
+            titleField.setBorder(INVALID_BORDER);
+            return;
+        }
+        else if(db.getProjectByName(title).isBeforeFirst() && !title.equals(initialTitle)){
+            //duplicate found
+            System.out.println("duplicate title found");
+            titleField.setBorder(INVALID_BORDER);
+            return;
+        }
+        info.put("title", title);
         info.put("description", descriptionField.getText());
 
-        info.put("investmentCosts", investmentCostsField.getText());
-        info.put("budget", budgetField.getText());
+        //validate input for investment
+        String investment = investmentCostsField.getText();
+        try{
+            Float cast = Float.parseFloat(investment);
+        }
+        catch(Exception investError){
+            investmentCostsField.setBorder(INVALID_BORDER);
+            System.out.println("INVALID INVESTMENT FIELD");
+            return;
+        }
+        info.put("investmentCosts", investment);
+
+        //validate input for budget
+        String budget = budgetField.getText();
+        try{
+            Float cast = Float.parseFloat(budget);
+        }
+        catch(Exception budgetError){
+            budgetField.setBorder(INVALID_BORDER);
+            System.out.println("INVALID BUDGET FIELD");
+            return;
+        }
+        info.put("budget", budget);
+
+        //error checking for date range
+        LocalDate kickOff = kickoffField.getValue();
+        LocalDate deadline = deadlineField.getValue();
+        if(kickOff.compareTo(deadline) >= 0){
+            kickoffField.setBorder(INVALID_BORDER);
+            deadlineField.setBorder(INVALID_BORDER);
+            //cancel project creation
+            return;
+        }
         info.put("kickoff", kickoffField.getValue().toString());
         info.put("deadline", deadlineField.getValue().toString());
+
         info.put("tag1", tag1Field.getText());
         info.put("tag2", tag2Field.getText());
         info.put("tag3", tag3Field.getText());
         info.put("tag4", tag4Field.getText());
-        info.put("complete", "false");
+        info.put("complete", String.valueOf(archiveSwitch.isSelected()));
         info.put("manid", String.valueOf(Main.curProject.getManid())); // Use existing manid value
 
-        // Get roi
-        info.put("roi", "0");
 
         // Get issue score
         float newIssueScore = Main.curProject.getIssueScore();
@@ -86,8 +151,11 @@ public class ProjEditorController implements Initializable {
         }
         info.put("issueScore", String.valueOf(newIssueScore));
 
+        // Get roi
+        Float roi = db.getROI(info);
+        info.put("roi", Float.toString(roi));
+
         // Update project row
-        Database db = new Database();
         ResultSet rs = db.updateProject(info);
         Main.curProject.update(rs);
         db.closeDB();

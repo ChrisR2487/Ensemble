@@ -176,9 +176,6 @@ public class ProjCreatorController implements Initializable {
         info.put("tag4", tag4Field.getText());
         info.put("complete", "false");
 
-        // Get roi
-        info.put("roi", "0");
-
         // Get issue score
         float score = 0.0f; // Base score
         score += IssueScore.checkOverdue(info.get("deadline"));
@@ -187,6 +184,10 @@ public class ProjCreatorController implements Initializable {
 
         // Get manager ID
         info.put("manid", String.valueOf(Main.account.getId()));
+
+        // Get roi
+        Float roi = db.getROI(info);
+        info.put("roi", Float.toString(roi));
 
         // Add data record
         ResultSet rs = db.createProject(info);

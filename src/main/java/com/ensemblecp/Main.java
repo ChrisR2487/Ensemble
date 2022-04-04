@@ -2,8 +2,8 @@ package com.ensemblecp;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuButton;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -46,7 +46,14 @@ public class Main extends Application {
 
         // Determine scene data
         Scene newScene;
-        if (screenName.equals("login")) newScene = new Scene(fxmlLoader.load(), 800, 450);
+        if (screenName.equals("login")) {
+            // Center the screen
+            newScene = new Scene(fxmlLoader.load(), 600, 400);
+            double centerX = (screen.getWidth() - 600) * (1.0f / 2);
+            double centerY = (screen.getHeight() - 400) * (1.0f / 3);
+            mainStage.setX(centerX);
+            mainStage.setY(centerY);
+        }
         else newScene = new Scene(fxmlLoader.load(), screen.getWidth(), screen.getHeight());
         mainStage.setScene(newScene);
     }

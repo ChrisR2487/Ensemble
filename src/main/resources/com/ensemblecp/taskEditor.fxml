@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.*?>
-
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.TaskEditorController">
     <children>
         <!-- Labels -->
@@ -82,7 +82,7 @@
                 </Label>
                 <TableView fx:id="memberTable" layoutY="106.0" prefHeight="507.0" prefWidth="875.0">
                     <columns>
-                        <TableColumn fx:id="selectColumn" prefWidth="75.0" text="Include" />
+                        <TableColumn fx:id="selectColumn" prefWidth="75.0" text="Assign" />
                         <TableColumn fx:id="nameColumn" prefWidth="307.0" text="Name" />
                         <TableColumn fx:id="positionColumn" prefWidth="170.0" text="Postion" />
                         <TableColumn fx:id="memIDColumn" prefWidth="101.0" text="Member ID" />

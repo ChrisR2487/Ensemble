@@ -7,15 +7,18 @@ import com.flexganttfx.view.GanttChart;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +29,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
-    @FXML private Button exitButton;
     @FXML private AnchorPane root;
     @FXML private TableView<ProjectRow> projectTable;
     @FXML private TableColumn<ProjectRow, String> statusColumn;
@@ -38,6 +40,12 @@ public class DashboardController implements Initializable {
     @FXML private TableView membersTable;
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> memberStatusColumn;
+
+    @FXML ImageView settingsBtn;
+    @FXML MenuButton settingsButton;
+
+    private ArrayList<Pane> notificationPanes;
+    @FXML VBox notificationVBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,31 +86,75 @@ public class DashboardController implements Initializable {
             System.out.println("Unable to load company timeline, end execution.");
         }
 
-        //Setup Notifcations
+        //Setup Notifications
         int tryCount3 = 0;
         while (tryCount3 < Main.ATTEMPT_LIMIT) {
             try {
-                setupCompanyTimeline(db);
+                setupNotifications(db);
                 break;
             } catch (SQLException e) {
-                System.out.println("Failed to load company timeline, trying again...");
+                System.out.println("Failed to load notifications, trying again...");
                 tryCount3++;
             }
         }
         if (tryCount3 == Main.ATTEMPT_LIMIT) {
             // Failed to load dashboard
-            System.out.println("Unable to load company timeline, end execution.");
+            System.out.println("Unable to load notifications, end execution.");
         }
         try {
             db.closeDB();
         } catch (NullPointerException | SQLException ignored) { }
     }
 
-    private void setupNotifactaions(Database db) throws SQLException, IOException {
-        // Get ResultSet data
-        ResultSet rs = db.getProjectsWithManagerName();
+    private void setupNotifications(Database db) throws SQLException {
+        // List notifications (Create list and add onClick listeners)
+        notificationPanes = new ArrayList<>();
+        int manid = Main.account.getId();
+        ResultSet issue = db.getManagerIssues(manid);
+
+        while(issue.next()) {
+            // Setup each pane
+            Label paneProjName = new Label(issue.getString("title"));
+            paneProjName.setFont(new Font(20.0));
+            paneProjName.setLayoutX(6.0);
+            paneProjName.setLayoutY(6.0);
+            paneProjName.setTextFill(Paint.valueOf("white"));
+
+            Label paneMessage = new Label(issue.getString("message"));
+            paneMessage.setFont(new Font(14.0));
+            paneMessage.setLayoutX(6.0);
+            paneMessage.setLayoutY(34.0);
+            paneMessage.setTextFill(Paint.valueOf("white"));
+
+            Pane notificationPane = new Pane();
+            notificationPane.setMinWidth(406.0);
+            notificationPane.setMinHeight(60.0);
+            notificationPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#2A2A2A"), new CornerRadii(0), new Insets(0))));
+            VBox.setMargin(notificationPane, new Insets(10.0, 10.0, 10.0, 10.0));
+            notificationPane.getChildren().addAll(paneProjName, paneMessage);
+
+            // Add to pane list
+            notificationPanes.add(notificationPane);
+        }
+        notificationVBox.getChildren().addAll(notificationPanes); // Add panes to vbox
+
+        // Setup scroll pane
+
+        ScrollPane sp = new ScrollPane();
+        sp.setStyle("-fx-background: #1D1D1E; -fx-background-color: #1D1D1E");
+        sp.setLayoutX(1439.0);
+        sp.setLayoutY(103.0);
+        sp.setPrefWidth(443.0);
+        sp.setPrefHeight(600.0);
+        sp.setContent(notificationVBox);
+        //sp.setBackground(new Background(new BackgroundFill(Paint.valueOf("#1D1D1E"), new CornerRadii(0), new Insets(0))));
+
+        // Add scrollpane to view
+        root.getChildren().add(sp);
+        db.closeDB();
 
     }
+
 
     private void setupProjectList(Database db) throws SQLException, IOException {
         ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
@@ -110,7 +162,16 @@ public class DashboardController implements Initializable {
         while (rs.next()) {
             ProjectRow pr = new ProjectRow();
             pr.setTitle(rs.getString("title"));
-            pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+
+            if(rs.getBoolean("complete")){
+                //if project complete = true, set display to "Complete"
+                pr.setComplete("Complete");
+            }
+            else{
+                pr.setComplete("Incomplete");
+            }
+            //pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+
             pr.setRemain(String.valueOf(rs.getInt("budget") - rs.getInt("investmentCosts")));
             pr.setKickoff(rs.getDate("kickoff").toString());
             pr.setDeadline(rs.getDate("deadline").toString());
@@ -216,7 +277,7 @@ public class DashboardController implements Initializable {
         Main.show("projOverview");
     }
 
-    public void exitButton_onClick(MouseEvent mouseEvent) {
+    public void exitButton_onClick(ActionEvent mouseEvent) {
         System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
@@ -229,6 +290,34 @@ public class DashboardController implements Initializable {
     }
 
     public void archiveButton_onClick(Event actionEvent) {
+    }
+
+    public void updateStatus_onClick(Event actionEvent) throws SQLException {
+        String status  = ((MenuItem) (actionEvent.getSource())).getText();
+        int newStatus = switch(status) {
+            case "Available" -> StatusType.AVAILABLE;
+            case "Busy" -> StatusType.BUSY;
+            case "Away" -> StatusType.AWAY;
+            default -> -1;
+        };
+        Database db = new Database();
+        db.updateMemberStatus(Main.account.getId(), newStatus, Main.account.getType());
+        Main.account.setStatus(status);
+        db.closeDB();
+    }
+
+    public void logout_onClick(ActionEvent actionEvent) throws IOException {
+        Main.account = null;
+        Main.projects.clear();
+        Main.curProject = null;
+        Main.show("login");
+    }
+
+    public void settings_Hover(){
+        settingsBtn.setOpacity(0.5);
+    }
+    public void settings_HoverOff(){
+        settingsBtn.setOpacity(1.0);
     }
 
 }

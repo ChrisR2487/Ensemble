@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjIssuesController">
     <children>
             <!-- Project actions -->
@@ -131,7 +123,7 @@
         </Label>
 
         <!-- Insights content -->
-        <VBox layoutX="1453.0" layoutY="155.0" prefHeight="331.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
+        <VBox layoutX="1453.0" layoutY="155.0" prefWidth="408.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
          <children>
             <Label text=" " textFill="WHITE">
                <font>
@@ -208,6 +200,24 @@
                      <Font size="10.0" />
                  </font>
              </Label>
+             <Label layoutX="10.0" layoutY="295.0" text="    Description" textFill="WHITE">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+             </Label>
+             <Label fx:id="descLabel" text=" " textFill="WHITE" wrapText="true">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+                 <VBox.margin>
+                     <Insets left="40.0" right="20.0" />
+                 </VBox.margin>
+             </Label>
+            <Label layoutX="10.0" layoutY="325.0" opacity="0" text=" " textFill="WHITE">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
          </children></VBox>
         <Label layoutX="1453.0" layoutY="94.0" text="Insights" textFill="WHITE">
             <font>
@@ -216,12 +226,25 @@
         </Label>
 
         <!-- Exit button -->
-        <Button fx:id="exitButton" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
+        <!-- Settings button -->
+        <ImageView fx:id="settingsBtn" fitHeight="46.0" fitWidth="58.0" layoutX="1818.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../button_imgs/settings-icon.png" />
+            </image>
+        </ImageView>
+        <MenuButton fx:id="settingsButton" graphicTextGap="0.0" layoutX="1818.0" layoutY="42.0" mnemonicParsing="false" onMouseEntered="#settings_Hover" onMouseExited="#settings_HoverOff" prefHeight="46.0" prefWidth="46.0" style="-fx-opacity: 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" textFill="WHITE">
             <font>
-                <Font size="36.0" />
+                <Font size="1.0" />
             </font>
-        </Button>
-
+            <items>
+                <MenuItem onAction="#updateStatus_onClick" text="Available" />
+                <MenuItem onAction="#updateStatus_onClick" text="Busy" />
+                <MenuItem onAction="#updateStatus_onClick" text="Away" />
+                <MenuItem text="——————————" />
+                <MenuItem onAction="#logout_onClick" text="Logout" />
+                <MenuItem onAction="#exitButton_onClick" text="Quit" />
+            </items>
+        </MenuButton>
         <!-- Project nav bar -->
         <Button layoutX="174.0" layoutY="93.0" mnemonicParsing="false" onAction="#viewOverview_onClick" prefHeight="66.0" prefWidth="229.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Overview" textFill="#a1a1a1">
          <opaqueInsets>
