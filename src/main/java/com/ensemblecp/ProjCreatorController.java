@@ -180,8 +180,8 @@ public class ProjCreatorController implements Initializable {
         info.put("manid", String.valueOf(Main.account.getId()));
 
         // Get roi
-        int roi = db.getROI(info);
-        info.put("roi", Integer.toString(roi));
+        Float roi = db.getROI(info);
+        info.put("roi", Float.toString(roi));
 
         // Add data record
         ResultSet rs = db.createProject(info);

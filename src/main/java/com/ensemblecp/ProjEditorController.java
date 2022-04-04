@@ -86,8 +86,8 @@ public class ProjEditorController implements Initializable {
         info.put("issueScore", String.valueOf(newIssueScore));
 
         // Get roi
-        int roi = db.getROI(info);
-        info.put("roi", Integer.toString(roi));
+        Float roi = db.getROI(info);
+        info.put("roi", Float.toString(roi));
 
         // Update project row
         ResultSet rs = db.updateProject(info);

@@ -10,12 +10,13 @@ import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,6 +39,9 @@ public class DashboardController implements Initializable {
     @FXML private TableView membersTable;
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> memberStatusColumn;
+
+    private ArrayList<Pane> notificationPanes;
+    @FXML VBox notificationVBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -74,29 +78,75 @@ public class DashboardController implements Initializable {
             System.out.println("Unable to load company timeline, end execution.");
         }
 
-        //Setup Notifcations
+        //Setup Notifications
         int tryCount3 = 0;
         while (tryCount3 < Main.ATTEMPT_LIMIT) {
             try {
-                setupCompanyTimeline();
+                setupNotifications();
                 break;
             } catch (SQLException e) {
-                System.out.println("Failed to load company timeline, trying again...");
+                e.printStackTrace();
+                System.out.println("Failed to load Notifications, trying again...");
                 tryCount3++;
             }
         }
         if (tryCount3 == Main.ATTEMPT_LIMIT) {
             // Failed to load dashboard
-            System.out.println("Unable to load company timeline, end execution.");
+            System.out.println("Unable to load Notifications, end execution.");
         }
+
     }
 
-    private void setupNotifactaions() throws SQLException, IOException {
-        // Get ResultSet data
+    private void setupNotifications() throws SQLException {
+        // List notifications (Create list and add onClick listeners)
         Database db = new Database();
-        ResultSet rs = db.getProjectsWithManagerName();
+        notificationPanes = new ArrayList<>();
+        int manid = Main.account.getId();
+        ResultSet issue = db.getManagerIssues(manid);
+
+        while(issue.next()) {
+            // Setup each pane
+            Label paneProjName = new Label(issue.getString("title"));
+            paneProjName.setFont(new Font(20.0));
+            paneProjName.setLayoutX(6.0);
+            paneProjName.setLayoutY(6.0);
+            paneProjName.setTextFill(Paint.valueOf("white"));
+
+            Label paneMessage = new Label(issue.getString("message"));
+            paneMessage.setFont(new Font(14.0));
+            paneMessage.setLayoutX(6.0);
+            paneMessage.setLayoutY(34.0);
+            paneMessage.setTextFill(Paint.valueOf("white"));
+
+            Pane notificationPane = new Pane();
+            notificationPane.setMinWidth(406.0);
+            notificationPane.setMinHeight(60.0);
+            notificationPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#2A2A2A"), new CornerRadii(0), new Insets(0))));
+            VBox.setMargin(notificationPane, new Insets(10.0, 10.0, 10.0, 10.0));
+            notificationPane.getChildren().addAll(paneProjName, paneMessage);
+
+            // Add to pane list
+            notificationPanes.add(notificationPane);
+        }
+        notificationVBox.getChildren().addAll(notificationPanes); // Add panes to vbox
+
+        // Setup scroll pane
+
+        ScrollPane sp = new ScrollPane();
+        sp.setStyle("-fx-background: #1D1D1E; -fx-background-color: #1D1D1E");
+        sp.setLayoutX(1439.0);
+        sp.setLayoutY(103.0);
+        sp.setPrefWidth(443.0);
+        sp.setPrefHeight(600.0);
+        sp.setContent(notificationVBox);
+        //sp.setBackground(new Background(new BackgroundFill(Paint.valueOf("#1D1D1E"), new CornerRadii(0), new Insets(0))));
+
+        // Add scrollpane to view
+        root.getChildren().add(sp);
+        db.closeDB();
 
     }
+
 
     private void setupProjectList() throws SQLException, IOException {
         ArrayList<ProjectRow> rowArrayList = new ArrayList<>();

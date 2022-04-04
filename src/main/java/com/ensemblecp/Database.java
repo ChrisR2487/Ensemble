@@ -91,6 +91,7 @@ public class Database {
                 + "active boolean not null)";
         stmt.execute(createTable);
 
+        //create task table
         createTable = "create table " + databaseName + "." + charPid + "_Tasks("
                 + "tid int primary key,"
                 + "title varchar(64) not null,"
@@ -102,6 +103,7 @@ public class Database {
                 + "constraint " + charPid + "_Tasks_uq unique(title))";
         stmt.execute(createTable);
 
+        //create Issues table
         createTable = "create table " + databaseName + "." + charPid + "_Issues("
                 + "memid int not null,"
                 + "message varchar(128) not null,"
@@ -110,6 +112,7 @@ public class Database {
                 + "constraint " + charPid + "_Issues_pk primary key (memid, message))";
         stmt.execute(createTable);
 
+        //crete files table
         createTable = "create table " + databaseName + "." + charPid + "_Files("
                 + "filid int not null,"
                 + "private boolean not null,"
@@ -123,7 +126,8 @@ public class Database {
         ResultSet rs = preparedStmt.executeQuery();
         return rs;
     }
-    public Integer getROI(HashMap<String, String> info) throws SQLException {
+
+    public Float getROI(HashMap<String, String> info) throws SQLException {
         String charPid = Project.IDtoChars(Main.curProject.getPid());
         //String currProj = "select * from " + databaseName + "." + charPid + ".Project";
         //get tuple
@@ -144,10 +148,10 @@ public class Database {
         ResultSet rs2 = preparedStmt2.executeQuery();
         ResultSet rs3 = preparedStmt3.executeQuery();
         ResultSet rs4 = preparedStmt4.executeQuery();
-        Integer roi1 = rs1.getInt("");
-        Integer roi2 = rs2.getInt("");
-        Integer roi3 = rs3.getInt("");
-        Integer roi4 = rs4.getInt("");
+        Float roi1 = rs1.getFloat("");
+        Float roi2 = rs2.getFloat("");
+        Float roi3 = rs3.getFloat("");
+        Float roi4 = rs4.getFloat("");
 
         return (roi1 + roi2 + roi3 + roi4)/4;
     }
@@ -312,10 +316,12 @@ public class Database {
         return rs;
     }
 
-    public ResultSet getManIssuses(int id) throws SQLException {
-        int pid;
-        String query = "select * from " + databaseName + ".Project where mainid=?";
+    public ResultSet getManagerIssues(int id) throws SQLException {
+        ResultSet retVal;
+        String baseQuery = "";
+        String query = "select * from " + databaseName + ".Project where manid=?";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, id);
         ResultSet rs = preparedStmt.executeQuery();
         if (!rs.next()){
             String emptyQuery = "select 1 where false ";
@@ -323,18 +329,21 @@ public class Database {
             ResultSet emptyRs = preparedStmt1.executeQuery();
             return emptyRs;
         }else {
-            do
+            int pid = rs.getInt("pid");
+            String charPid = Project.IDtoChars(pid);
+            baseQuery = "SELECT * FROM " + databaseName + "." + charPid + "_Issues , (select title from " + databaseName + ".Project where pid = " + pid + ") as " + charPid + " WHERE state = " + IssueState.NEW;
+            while (rs.next())
             {
                 pid = rs.getInt("pid");
-                String charPid = Project.IDtoChars(pid);
-                String baseQuery = "SELECT * FROM " + charPid + "_Issues WHERE seen = false AND done = false";
-            }while (rs.next());
-
+                charPid = Project.IDtoChars(pid);
+                baseQuery += " union all SELECT * FROM " + databaseName + "." + charPid + "_Issues , (select title from " + databaseName + ".Project where pid = " + pid + ") as " + charPid + " WHERE state = " + IssueState.NEW;
+            }
+            baseQuery = "select * from (" + baseQuery + ") as notifications order by posted desc";
+            PreparedStatement preparedStmt1 = conn.prepareStatement(baseQuery);
+            retVal = preparedStmt1.executeQuery();
         }
-
-        return rs;
+        return retVal;
     }
-
 
     public ResultSet getProjectByName(String title) throws SQLException{
         String query = "select * from " + databaseName + ".Project where pid=?";
