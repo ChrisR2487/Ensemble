@@ -53,7 +53,7 @@
    </Pane>
 
    <!-- Custom template creator -->
-   <Pane fx:id="createCustomPane" layoutX="681.0" layoutY="180.0" prefHeight="768.0" prefWidth="400.0" visible="true">
+   <Pane fx:id="createCustomPane" layoutX="681.0" layoutY="180.0" prefHeight="768.0" prefWidth="400.0" visible="false">
       <children>
          <Label layoutX="101.0" layoutY="25.0" prefHeight="38.0" prefWidth="198.0" text="Create Template" textFill="WHITE">
             <font>

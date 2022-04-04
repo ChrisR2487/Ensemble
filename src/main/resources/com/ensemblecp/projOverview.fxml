@@ -57,22 +57,12 @@
             </children>
         </VBox>
 
-        <!-- Project timeline TODO: Fix this to gantt -->
-        <BubbleChart layoutX="197.0" layoutY="164.0" prefHeight="268.0" prefWidth="1239.0">
-            <xAxis>
-                <NumberAxis side="BOTTOM" />
-            </xAxis>
-            <yAxis>
-                <NumberAxis side="LEFT" />
-            </yAxis>
-        </BubbleChart>
-
         <!-- Software and project name -->
         <Label layoutX="14.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
             <font>
                 <Font size="26.0" />
             </font></Label>
-        <Label fx:id="titleLabel" layoutX="212.0" layoutY="65.0" prefHeight="38.0" prefWidth="1024.0" text="Project Name" textFill="WHITE">
+        <Label fx:id="titleLabel" layoutX="212.0" layoutY="61.0" prefHeight="38.0" text="Project Name" textFill="WHITE">
             <font>
                 <Font size="26.0" />
             </font>
@@ -97,6 +87,16 @@
                </font>
             </Label>
              <Label fx:id="budgetLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Budget" textFill="WHITE">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+             </Label>
+             <Label text=" " textFill="WHITE">
+                 <font>
+                     <Font size="10.0" />
+                 </font>
+             </Label>
+             <Label fx:id="issueScoreLabel" minHeight="-Infinity" minWidth="-Infinity" text="    Issue Score" textFill="WHITE">
                  <font>
                      <Font size="20.0" />
                  </font>
@@ -313,35 +313,5 @@
                 <Font size="35.0" />
             </font>
         </Button>
-      <VBox layoutX="232.0" layoutY="1045.0" prefHeight="200.0" prefWidth="1198.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
-         <children>
-            <HBox prefHeight="26.0" prefWidth="1198.0" />
-            <Label text="     Comp1" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <Label layoutX="226.0" layoutY="989.0" prefHeight="53.0" prefWidth="244.0" text="Comp1" textFill="WHITE">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
-      <VBox layoutX="233.0" layoutY="1332.0" prefHeight="200.0" prefWidth="1198.0" style="-fx-background-color: #1D1D1E#1D1D1E;">
-         <children>
-            <HBox prefHeight="26.0" prefWidth="443.0" />
-            <Label text="     Comp2" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <Label layoutX="226.0" layoutY="1274.0" prefHeight="53.0" prefWidth="244.0" text="Comp2" textFill="WHITE">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
     </children>
 </AnchorPane>

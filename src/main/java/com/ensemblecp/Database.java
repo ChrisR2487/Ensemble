@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
@@ -130,10 +129,10 @@ public class Database {
     public Float getROI(HashMap<String, String> info) throws SQLException {
         String charPid = Project.IDtoChars(Main.curProject.getPid());
         //get tuple
-        String query  = "select avg(roi) as r1 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
-        String query2 = "select avg(roi) as r2 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
-        String query3 = "select avg(roi) as r3 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
-        String query4 = "select avg(roi) as r4 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
+        String query  = "select avg(roi) as r1 from " + databaseName + ".Project where (tag1 like ? or tag2 like ? or tag3 like ? or tag4 like ?) and complete = true ";
+        String query2 = "select avg(roi) as r2 from " + databaseName + ".Project where (tag1 like ? or tag2 like ? or tag3 like ? or tag4 like ?) and complete = true ";
+        String query3 = "select avg(roi) as r3 from " + databaseName + ".Project where (tag1 like ? or tag2 like ? or tag3 like ? or tag4 like ?) and complete = true ";
+        String query4 = "select avg(roi) as r4 from " + databaseName + ".Project where (tag1 like ? or tag2 like ? or tag3 like ? or tag4 like ?) and complete = true ";
         PreparedStatement preparedStmt1 = conn.prepareStatement(query);
         PreparedStatement preparedStmt2 = conn.prepareStatement(query2);
         PreparedStatement preparedStmt3 = conn.prepareStatement(query3);
@@ -370,7 +369,6 @@ public class Database {
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Math.abs(title.hashCode()));
         ResultSet rs = preparedStmt.executeQuery();
-        System.out.println("Success on querying projects with matching titles");
         return rs;
     }
 
@@ -436,7 +434,7 @@ public class Database {
 
     public ResultSet createIssue(HashMap<String, String> info) throws SQLException {
         String charPid = Project.IDtoChars(Main.curProject.getPid());
-        String query = "insert into " + databaseName + "." + charPid + "_Issues values (?, ?, ?, ?)";
+        String query = "insert into " + databaseName + "." + charPid + "_Issues values (?, ?, ?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Main.account.getId());
         preparedStmt.setString(2, info.get("message"));
@@ -472,7 +470,6 @@ public class Database {
         preparedStmt = conn.prepareStatement("select * from " + databaseName + ".Component where cid = ?");
         preparedStmt.setInt(1, Integer.parseInt(info.get("cid")));
         ResultSet rs = preparedStmt.executeQuery();
-        System.out.println("Success on create Component");
         return rs;
     }
 
@@ -604,7 +601,6 @@ public class Database {
             blob.setBytes(1, arr);
         } catch (IOException e) {
             System.out.println("File does not exist, exiting program");
-            e.printStackTrace();
             System.exit(ExitStatusType.FAILED_FILE_LOAD);
         }
 
