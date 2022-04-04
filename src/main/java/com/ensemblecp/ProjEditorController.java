@@ -69,9 +69,6 @@ public class ProjEditorController implements Initializable {
         budgetField.setBorder(null);
         titleField.setBorder(null);
 
-
-
-        Database db = new Database();
         // Get data
         HashMap<String, String> info = new HashMap<>();
         info.put("pid", String.valueOf(Main.curProject.getPid()));
