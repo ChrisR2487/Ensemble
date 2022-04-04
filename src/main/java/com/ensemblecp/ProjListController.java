@@ -239,6 +239,9 @@ public class ProjListController implements Initializable {
         //remove all projects which aren't incomplete
         ProjectRow[] rowList;
 
+        rowArrayList.clear();
+        rowArrayList.addAll(backupList);
+
         for (Iterator<ProjectRow> it = rowArrayList.iterator(); it.hasNext(); )
             if (it.next().getComplete().equals("Complete")) {
                 it.remove();
@@ -255,6 +258,9 @@ public class ProjListController implements Initializable {
     public void overdueButton_onClick(Event actionEvent) {
         //remove all projects which are not overdue from the list
         ProjectRow[] rowList;
+
+        rowArrayList.clear();
+        rowArrayList.addAll(backupList);
 
         for (Iterator<ProjectRow> it = rowArrayList.iterator(); it.hasNext(); )
             if (LocalDate.parse(it.next().getDeadline()).compareTo(LocalDate.now()) > 0) {

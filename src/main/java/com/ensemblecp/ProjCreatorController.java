@@ -113,6 +113,10 @@ public class ProjCreatorController implements Initializable {
         investmentCostsField.setBorder(null);
         budgetField.setBorder(null);
         titleField.setBorder(null);
+        tag1Field.setBorder(null);
+        tag2Field.setBorder(null);
+        tag3Field.setBorder(null);
+        tag4Field.setBorder(null);
 
         // Get data
         Database db = new Database();
@@ -170,10 +174,22 @@ public class ProjCreatorController implements Initializable {
         info.put("kickoff", kickOff.toString());
         info.put("deadline", deadline.toString());
 
-        info.put("tag1", tag1Field.getText());
-        info.put("tag2", tag2Field.getText());
-        info.put("tag3", tag3Field.getText());
-        info.put("tag4", tag4Field.getText());
+        String tag1 = tag1Field.getText().trim();
+        String tag2 = tag2Field.getText().trim();
+        String tag3 = tag3Field.getText().trim();
+        String tag4 = tag4Field.getText().trim();
+        if(tag1.equals("") && tag2.equals("") && tag3.equals("") && tag4.equals("")){
+            tag1Field.setBorder(INVALID_BORDER);
+            tag2Field.setBorder(INVALID_BORDER);
+            tag3Field.setBorder(INVALID_BORDER);
+            tag4Field.setBorder(INVALID_BORDER);
+            return;
+        }
+        info.put("tag1", tag1);
+        info.put("tag2", tag2);
+        info.put("tag3", tag3);
+        info.put("tag4", tag4);
+
         info.put("complete", "false");
 
         // Get issue score

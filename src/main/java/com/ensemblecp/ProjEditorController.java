@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -29,6 +30,9 @@ public class ProjEditorController implements Initializable {
     @FXML TextField tag3Field;
     @FXML TextField tag4Field;
     @FXML TextField budgetField;
+    @FXML TextField profitField;
+
+    @FXML Label profitLabel;
 
     @FXML ToggleSwitch archiveSwitch;
 
@@ -47,6 +51,10 @@ public class ProjEditorController implements Initializable {
         deadlineField.setValue(LOCAL_DATE(Main.curProject.getDeadline().toString()));
         if(Main.curProject.isComplete()){
             archiveSwitch.setSelected(true);
+            profitField.setVisible(true);
+            profitLabel.setVisible(true);
+            profitField.setText(String.valueOf(Main.curProject.getInvestmentCosts() * Main.curProject.getRoi()));
+            profitField.setEditable(true);
         }
         tag1Field.setText(Main.curProject.getTag1());
         tag2Field.setText(Main.curProject.getTag2());
@@ -68,6 +76,10 @@ public class ProjEditorController implements Initializable {
         investmentCostsField.setBorder(null);
         budgetField.setBorder(null);
         titleField.setBorder(null);
+        tag1Field.setBorder(null);
+        tag2Field.setBorder(null);
+        tag3Field.setBorder(null);
+        tag4Field.setBorder(null);
 
         // Get data
         HashMap<String, String> info = new HashMap<>();
@@ -126,10 +138,52 @@ public class ProjEditorController implements Initializable {
         info.put("kickoff", kickoffField.getValue().toString());
         info.put("deadline", deadlineField.getValue().toString());
 
-        info.put("tag1", tag1Field.getText());
-        info.put("tag2", tag2Field.getText());
-        info.put("tag3", tag3Field.getText());
-        info.put("tag4", tag4Field.getText());
+        String tag1 = tag1Field.getText().trim();
+        String tag2 = tag2Field.getText().trim();
+        String tag3 = tag3Field.getText().trim();
+        String tag4 = tag4Field.getText().trim();
+        if(tag1.equals("") && tag2.equals("") && tag3.equals("") && tag4.equals("")){
+            tag1Field.setBorder(INVALID_BORDER);
+            tag2Field.setBorder(INVALID_BORDER);
+            tag3Field.setBorder(INVALID_BORDER);
+            tag4Field.setBorder(INVALID_BORDER);
+            return;
+        }
+        info.put("tag1", tag1);
+        info.put("tag2", tag2);
+        info.put("tag3", tag3);
+        info.put("tag4", tag4);
+
+        //if project is marked as completed, handle it differently
+        if(archiveSwitch.isSelected()){
+            Float roi;
+            Float fProfit;
+            String profit = profitField.getText();
+
+            if(profit.equals("")){
+                profitField.setBorder(INVALID_BORDER);
+                return;
+            }
+
+            //ensure proper input type
+            try{
+                fProfit = Float.parseFloat(profit);
+            }
+            catch (Exception invalidTypeException){
+                profitField.setBorder(INVALID_BORDER);
+                return;
+            }
+
+            //with proper input type, calculate ROI
+            roi = fProfit / Float.parseFloat(investment);
+            info.put("roi", Float.toString(roi));
+        }
+        else{
+            // Get roi
+            Float roi = db.getROI(info);
+            info.put("roi", Float.toString(roi));
+        }
+
         info.put("complete", String.valueOf(archiveSwitch.isSelected()));
         info.put("manid", String.valueOf(Main.curProject.getManid())); // Use existing manid value
 
@@ -151,10 +205,6 @@ public class ProjEditorController implements Initializable {
         }
         info.put("issueScore", String.valueOf(newIssueScore));
 
-        // Get roi
-        Float roi = db.getROI(info);
-        info.put("roi", Float.toString(roi));
-
         // Update project row
         ResultSet rs = db.updateProject(info);
         Main.curProject.update(rs);
@@ -166,6 +216,17 @@ public class ProjEditorController implements Initializable {
     public void cancelModify_onClick(Event e) throws IOException {
         // Cancel project modification
         Main.show("projOverview");
+    }
+
+    public void toggleProfitField(Event e){
+        if(profitField.isVisible()){
+            profitField.setVisible(false);
+            profitLabel.setVisible(false);
+        }
+        else{
+            profitField.setVisible(true);
+            profitLabel.setVisible(true);
+        }
     }
 
 }
