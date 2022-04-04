@@ -5,6 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane fx:id="root" prefHeight="1080" prefWidth="1920" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.DashboardController">
    <children>
       <!-- Side nav bar -->
@@ -61,6 +62,7 @@
             </HBox>
          </children>
       </VBox>
+
       <!-- Software and screen names -->
       <Label layoutX="14.0" layoutY="23.0" prefHeight="38.0" prefWidth="198.0" text="E N S E M B L E" textFill="WHITE">
          <font>
@@ -73,7 +75,7 @@
       </Label>
 
       <!-- Notifications stuff -->
-      <Label layoutX="1439.0" layoutY="119.0" text="Notifications" textFill="WHITE">
+      <Label layoutX="1439.0" layoutY="61.0" text="Notifications" textFill="WHITE">
          <font>
             <Font size="26.0" />
          </font>
@@ -93,6 +95,15 @@
          <font>
             <Font size="26.0" />
          </font>
+
+      </Label>
+
+      <!-- notification list -->
+      <VBox fx:id="notificationVBox" prefHeight="27.0" prefWidth="329.0" style="-fx-background-color: #1D1D1E;" /> <!-- Add children in code -->
+      <Label layoutX="1140.0" layoutY="164.0" text="Tasks" textFill="WHITE">
+          <font>
+              <Font size="26.0" />
+          </font>
       </Label>
 
       <!-- Member list -->

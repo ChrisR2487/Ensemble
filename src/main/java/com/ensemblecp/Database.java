@@ -129,30 +129,43 @@ public class Database {
 
     public Float getROI(HashMap<String, String> info) throws SQLException {
         String charPid = Project.IDtoChars(Main.curProject.getPid());
-        //String currProj = "select * from " + databaseName + "." + charPid + ".Project";
         //get tuple
-        String query  = "select avg(roi) from " + databaseName + ".Project where tag1 = ? and where complete = true ";
-        String query2 = "select avg(roi) from " + databaseName + ".Project where tag2 = ? and where complete = true ";
-        String query3 = "select avg(roi) from " + databaseName + ".Project where tag3 = ? and where complete = true ";
-        String query4 = "select avg(roi) from " + databaseName + ".Project where tag4 = ? and where complete = true ";
-        PreparedStatement preparedStmt1  = conn.prepareStatement(query);
+        String query  = "select avg(roi) as r1 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
+        String query2 = "select avg(roi) as r2 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
+        String query3 = "select avg(roi) as r3 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
+        String query4 = "select avg(roi) as r4 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
+        PreparedStatement preparedStmt1 = conn.prepareStatement(query);
         PreparedStatement preparedStmt2 = conn.prepareStatement(query2);
         PreparedStatement preparedStmt3 = conn.prepareStatement(query3);
         PreparedStatement preparedStmt4 = conn.prepareStatement(query4);
-        //PreparedStatement preparedStmt1 = conn.prepareStatement(currProj);
         preparedStmt1.setString(1, info.get("tag1"));
+        preparedStmt1.setString(2, info.get("tag1"));
+        preparedStmt1.setString(3, info.get("tag1"));
+        preparedStmt1.setString(4, info.get("tag1"));
+        preparedStmt2.setString(1, info.get("tag2"));
         preparedStmt2.setString(2, info.get("tag2"));
-        preparedStmt2.setString(3, info.get("tag3"));
+        preparedStmt2.setString(3, info.get("tag2"));
+        preparedStmt2.setString(4, info.get("tag2"));
+        preparedStmt3.setString(1, info.get("tag3"));
+        preparedStmt3.setString(2, info.get("tag3"));
+        preparedStmt3.setString(3, info.get("tag3"));
+        preparedStmt3.setString(4, info.get("tag3"));
+        preparedStmt4.setString(1, info.get("tag4"));
+        preparedStmt4.setString(2, info.get("tag4"));
+        preparedStmt4.setString(3, info.get("tag4"));
         preparedStmt4.setString(4, info.get("tag4"));
         ResultSet rs1 = preparedStmt1.executeQuery();
         ResultSet rs2 = preparedStmt2.executeQuery();
         ResultSet rs3 = preparedStmt3.executeQuery();
         ResultSet rs4 = preparedStmt4.executeQuery();
-        Float roi1 = rs1.getFloat("");
-        Float roi2 = rs2.getFloat("");
-        Float roi3 = rs3.getFloat("");
-        Float roi4 = rs4.getFloat("");
-
+        rs1.next();
+        Float roi1 = rs1.getFloat("r1");
+        rs2.next();
+        Float roi2 = rs2.getFloat("r2");
+        rs3.next();
+        Float roi3 = rs3.getFloat("r3");
+        rs4.next();
+        Float roi4 = rs4.getFloat("r4");
         return (roi1 + roi2 + roi3 + roi4)/4;
     }
 
