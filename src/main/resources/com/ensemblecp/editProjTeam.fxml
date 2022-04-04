@@ -177,7 +177,7 @@
         </Label>
 
         <!-- Project team table -->
-        <TableView fx:id="memberTable" layoutX="217.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1178.0" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="170.0">
+        <TableView fx:id="memberTable" layoutX="217.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1178.0" styleClass="table-class" stylesheets="@../../css/application.css" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="170.0">
             <columns>
                 <TableColumn fx:id="selectColumn" prefWidth="59.0" text="Include" /> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
                     <TableColumn fx:id="nameColumn" prefWidth="253.0" text="Name" />

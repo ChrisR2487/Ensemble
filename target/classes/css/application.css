@@ -34,6 +34,12 @@
 .scroll-pane > .corner {
     -fx-background-color: #1D1D1E;
 }
+/* Tables */
+.table-class {
+    -fx-font-size: 20px;
+    -fx-background-color: #1D1D1E;
+    -fx-text-fill: white;
+}
 
 /* Dialogs */
 .dialog-pane{
