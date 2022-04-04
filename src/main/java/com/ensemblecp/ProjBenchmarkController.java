@@ -313,7 +313,8 @@ public class ProjBenchmarkController implements Initializable {
         Main.show("projList");
     }
 
-    public void archiveButton_onClick(Event mouseEvent) {
+    public void archiveButton_onClick(Event mouseEvent) throws IOException {
+        Main.show("archiveList");
     }
 
     public void updateStatus_onClick(Event actionEvent) throws SQLException {

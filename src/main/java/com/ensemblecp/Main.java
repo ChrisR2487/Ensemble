@@ -90,7 +90,6 @@ public class Main extends Application {
             account = new Account(rs, AccountType.MANAGER);
         }
         db.closeDB(); // Close db connection
-
     }
 
     public static void trimCache() {
