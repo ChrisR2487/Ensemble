@@ -71,6 +71,7 @@ public class ProjEditorController implements Initializable {
 
 
 
+        Database db = new Database();
         // Get data
         HashMap<String, String> info = new HashMap<>();
         info.put("pid", String.valueOf(Main.curProject.getPid()));
@@ -135,8 +136,6 @@ public class ProjEditorController implements Initializable {
         info.put("complete", String.valueOf(archiveSwitch.isSelected()));
         info.put("manid", String.valueOf(Main.curProject.getManid())); // Use existing manid value
 
-        // Get roi
-        info.put("roi", "0");
 
         // Get issue score
         float newIssueScore = Main.curProject.getIssueScore();
@@ -155,8 +154,11 @@ public class ProjEditorController implements Initializable {
         }
         info.put("issueScore", String.valueOf(newIssueScore));
 
+        // Get roi
+        Float roi = db.getROI(info);
+        info.put("roi", Float.toString(roi));
+
         // Update project row
-        //Database db = new Database();
         ResultSet rs = db.updateProject(info);
         Main.curProject.update(rs);
         db.closeDB();

@@ -90,6 +90,7 @@ public class Database {
                 + "memid int primary key)";
         stmt.execute(createTable);
 
+        //create task table
         createTable = "create table " + databaseName + "." + charPid + "_Tasks("
                 + "tid int primary key,"
                 + "title varchar(64) not null,"
@@ -101,6 +102,7 @@ public class Database {
                 + "constraint " + charPid + "_Tasks_uq unique(title))";
         stmt.execute(createTable);
 
+        //create Issues table
         createTable = "create table " + databaseName + "." + charPid + "_Issues("
                 + "memid int not null,"
                 + "message varchar(128) not null,"
@@ -110,6 +112,7 @@ public class Database {
                 + "constraint " + charPid + "_Issues_pk primary key (memid, message))";
         stmt.execute(createTable);
 
+        //crete files table
         createTable = "create table " + databaseName + "." + charPid + "_Files("
                 + "filid int not null,"
                 + "private boolean not null,"
@@ -124,10 +127,52 @@ public class Database {
         return rs;
     }
 
+    public Float getROI(HashMap<String, String> info) throws SQLException {
+        String charPid = Project.IDtoChars(Main.curProject.getPid());
+        //get tuple
+        String query  = "select avg(roi) as r1 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
+        String query2 = "select avg(roi) as r2 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
+        String query3 = "select avg(roi) as r3 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
+        String query4 = "select avg(roi) as r4 from " + databaseName + ".Project where (tag1 = ? or tag2 = ? or tag3 = ? or tag4 = ?) and complete = true ";
+        PreparedStatement preparedStmt1 = conn.prepareStatement(query);
+        PreparedStatement preparedStmt2 = conn.prepareStatement(query2);
+        PreparedStatement preparedStmt3 = conn.prepareStatement(query3);
+        PreparedStatement preparedStmt4 = conn.prepareStatement(query4);
+        preparedStmt1.setString(1, info.get("tag1"));
+        preparedStmt1.setString(2, info.get("tag1"));
+        preparedStmt1.setString(3, info.get("tag1"));
+        preparedStmt1.setString(4, info.get("tag1"));
+        preparedStmt2.setString(1, info.get("tag2"));
+        preparedStmt2.setString(2, info.get("tag2"));
+        preparedStmt2.setString(3, info.get("tag2"));
+        preparedStmt2.setString(4, info.get("tag2"));
+        preparedStmt3.setString(1, info.get("tag3"));
+        preparedStmt3.setString(2, info.get("tag3"));
+        preparedStmt3.setString(3, info.get("tag3"));
+        preparedStmt3.setString(4, info.get("tag3"));
+        preparedStmt4.setString(1, info.get("tag4"));
+        preparedStmt4.setString(2, info.get("tag4"));
+        preparedStmt4.setString(3, info.get("tag4"));
+        preparedStmt4.setString(4, info.get("tag4"));
+        ResultSet rs1 = preparedStmt1.executeQuery();
+        ResultSet rs2 = preparedStmt2.executeQuery();
+        ResultSet rs3 = preparedStmt3.executeQuery();
+        ResultSet rs4 = preparedStmt4.executeQuery();
+        rs1.next();
+        Float roi1 = rs1.getFloat("r1");
+        rs2.next();
+        Float roi2 = rs2.getFloat("r2");
+        rs3.next();
+        Float roi3 = rs3.getFloat("r3");
+        rs4.next();
+        Float roi4 = rs4.getFloat("r4");
+        return (roi1 + roi2 + roi3 + roi4)/4;
+    }
+
     public ResultSet createTask(HashMap<String, String> info) throws SQLException{
         //insert record
         String charPid = Project.IDtoChars(Main.curProject.getPid());
-        String query = "insert into " + databaseName + "." + charPid + "_Tasks values (?, ?, ?, ? ,?, ?, ?)";
+        String query = "insert into " + databaseName + "." + charPid + "_Tasks" + " values (?,?,?,?,?,?, ?);";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Integer.parseInt(info.get("tid")));
         preparedStmt.setString(2, info.get("title"));
@@ -291,6 +336,34 @@ public class Database {
         return rs;
     }
 
+    public ResultSet getManagerIssues(int id) throws SQLException {
+        ResultSet retVal;
+        String baseQuery = "";
+        String query = "select * from " + databaseName + ".Project where manid=?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setInt(1, id);
+        ResultSet rs = preparedStmt.executeQuery();
+        if (!rs.next()){
+            String emptyQuery = "select 1 where false ";
+            PreparedStatement preparedStmt1 = conn.prepareStatement(emptyQuery);
+            ResultSet emptyRs = preparedStmt1.executeQuery();
+            return emptyRs;
+        }else {
+            int pid = rs.getInt("pid");
+            String charPid = Project.IDtoChars(pid);
+            baseQuery = "SELECT * FROM " + databaseName + "." + charPid + "_Issues , (select title from " + databaseName + ".Project where pid = " + pid + ") as " + charPid + " WHERE state = " + IssueState.NEW;
+            while (rs.next())
+            {
+                pid = rs.getInt("pid");
+                charPid = Project.IDtoChars(pid);
+                baseQuery += " union all SELECT * FROM " + databaseName + "." + charPid + "_Issues , (select title from " + databaseName + ".Project where pid = " + pid + ") as " + charPid + " WHERE state = " + IssueState.NEW;
+            }
+            baseQuery = "select * from (" + baseQuery + ") as notifications order by posted desc";
+            PreparedStatement preparedStmt1 = conn.prepareStatement(baseQuery);
+            retVal = preparedStmt1.executeQuery();
+        }
+        return retVal;
+    }
 
     public ResultSet getProjectByName(String title) throws SQLException{
         String query = "select * from " + databaseName + ".Project where pid=?";
@@ -300,7 +373,6 @@ public class Database {
         System.out.println("Success on querying projects with matching titles");
         return rs;
     }
-
 
     public ResultSet getTimelines() throws SQLException {
         String query = "select title, kickoff, deadline from " + databaseName + ".Project";
