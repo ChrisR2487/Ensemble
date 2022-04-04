@@ -2,7 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-213.6777.52">
     <data-source name="G6 Database" uuid="bd1b0e4d-02e2-4ebd-938c-e81702df2613">
-      <database-info product="MySQL" version="8.0.18-google" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.18" exact-driver-version="8.0">
+      <database-info product="MySQL" version="8.0.18-google" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.28 (Revision: 7ff2161da3899f379fb3171b6538b191b1c5c7e2)" dbms="MYSQL" exact-version="8.0.18" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>

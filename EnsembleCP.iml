@@ -23,6 +23,8 @@
     <orderEntry type="library" name="ikonli-core-12.2.0" level="project" />
     <orderEntry type="library" name="flexganttfx-core-11.12.4" level="project" />
     <orderEntry type="library" name="ikonli-materialdesign-pack-12.3.0" level="project" />
+    <orderEntry type="library" name="google-api-services-bigquery-v2-rev20211017-1.32.1" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.28" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:18" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:18" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:18" level="project" />
@@ -37,7 +39,5 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.2" level="project" />
-    <orderEntry type="library" name="google-api-services-bigquery-v2-rev20211017-1.32.1" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.28" level="project" />
   </component>
 </module>
