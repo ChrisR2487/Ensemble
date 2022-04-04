@@ -170,35 +170,6 @@
                      </font>
                   </TextField>
                   <Pane layoutX="10.0" layoutY="10.0" prefHeight="61.0" prefWidth="785.0" />
-                  <TitledPane animated="false" collapsible="false" prefHeight="355.0" prefWidth="785.0" text="Project Files">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <ScrollPane layoutY="35.0" prefHeight="290.0" prefWidth="785.0" vbarPolicy="ALWAYS">
-                                 <content>
-                                    <VBox prefHeight="266.0" prefWidth="765.0">
-                                       <children>
-                                          <TextField fx:id="fileField" prefHeight="27.0" prefWidth="704.0" />
-                                       </children>
-                                    </VBox>
-                                 </content></ScrollPane>
-                              <Label layoutX="42.0" layoutY="2.0" prefHeight="26.0" prefWidth="769.0" text="Name ">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Button alignment="TOP_LEFT" layoutX="11.0" layoutY="3.0" mnemonicParsing="false" text="+">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font>
-                  </TitledPane>
                   <VBox prefHeight="297.0" prefWidth="725.0">
                      <children>
                         <HBox prefHeight="183.0" prefWidth="725.0">

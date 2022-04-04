@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -30,6 +31,7 @@ import java.util.ResourceBundle;
 
 // ProjViewScreen Class
 public class ProjOverviewController implements Initializable {
+    @FXML Button addFileLabel;
     @FXML Pane parentPane;
     @FXML ScrollPane sp;
     @FXML ListView<Hyperlink> fileList;
@@ -357,11 +359,13 @@ public class ProjOverviewController implements Initializable {
 
     public void addFile_onClick(ActionEvent actionEvent) throws SQLException {
         // Browse for file
+        addFileLabel.setTextFill(Paint.valueOf("white"));
         File file = Main.browseForFile();
         if (file == null) return;
         if (file.length() > Main.FILE_SIZE_LIMIT) {
             // File too large, display error
-                // TODO: Implement error check
+            addFileLabel.setTextFill(Paint.valueOf("red"));
+            return;
         }
 
         // Get privacy level
@@ -371,19 +375,20 @@ public class ProjOverviewController implements Initializable {
         dialog.setContentText("Would you like this file to be public or private? (Only project managers can view private files)");
         dialog.getItems().add("Private");
         dialog.getItems().add("Public");
-        boolean isPrivate = dialog.showAndWait().get().equals("Private");;
+        boolean isPrivate = dialog.showAndWait().get().equals("Private");
 
         // Upon receiving file, check extension and try to upload
         String fullName = file.getName();
         int period = fullName.lastIndexOf('.');
         String extension = fullName.substring(period+1);
         switch(extension) {
-            case "pdf", "txt", "png", "jpg", "doc", "docx" -> {
+            case "pdf", "txt", "png", "jpg", "doc", "docx", "csv" -> {
                 // Valid type, save file
                 Database db = new Database();
                 db.createFile(file);
                 // Add file to project
                 db.addFiles(Main.curProject.getPid(), new int[] {fullName.hashCode()}, new boolean[] {isPrivate});
+                db.closeDB();
 
                 // Setup hyperlink and add to project object
                 Hyperlink link = new Hyperlink(fullName);
@@ -413,7 +418,7 @@ public class ProjOverviewController implements Initializable {
             }
             default -> {
                 // Invalid file type, display error
-                    // TODO: Implement error check
+                addFileLabel.setTextFill(Paint.valueOf("red"));
             }
         }
     }
@@ -476,6 +481,16 @@ public class ProjOverviewController implements Initializable {
     }
     public void settings_HoverOff(){
         settingsBtn.setOpacity(1.0);
+    }
+
+    public void addFile_onEnter(MouseEvent mouseEvent) {
+        if (addFileLabel.getTextFill().equals(Paint.valueOf("red"))) addFileLabel.setTextFill(Paint.valueOf("#8B0000"));
+        else addFileLabel.setTextFill(Paint.valueOf("gray"));
+    }
+
+    public void addFile_onExit(MouseEvent mouseEvent) {
+        if (addFileLabel.getTextFill().equals(Paint.valueOf("#8B0000"))) addFileLabel.setTextFill(Paint.valueOf("red"));
+        else addFileLabel.setTextFill(Paint.valueOf("white"));
     }
 }
 

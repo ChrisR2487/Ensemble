@@ -95,7 +95,12 @@ public class ProjTeamController implements Initializable {
                 case StatusType.AVAILABLE:
                     mr.setStatus("Available");
                     break;
-                    //todo - add more statuses
+                case StatusType.AWAY:
+                    mr.setStatus("Away");
+                    break;
+                case StatusType.BUSY:
+                    mr.setStatus("Busy");
+                    break;
             }
 
             rowArrayList.add(mr);

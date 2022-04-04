@@ -201,7 +201,7 @@
                             <Font size="35.0" />
                         </font>
                     </Label>
-                    <Button layoutX="84.0" layoutY="269.0" mnemonicParsing="false" onAction="#addFile_onClick" style="-fx-background-color: transparent; -fx-padding: 0 0 0 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="+" textFill="WHITE" wrapText="true">
+                    <Button fx:id="addFileLabel" layoutX="84.0" layoutY="269.0" mnemonicParsing="false" onAction="#addFile_onClick" style="-fx-background-color: transparent; -fx-padding: 0 0 0 0;" text="+" textFill="WHITE" onMouseEntered="#addFile_onEnter" onMouseExited="#addFile_onExit" wrapText="true">
                         <font>
                             <Font size="40.0" />
                         </font>

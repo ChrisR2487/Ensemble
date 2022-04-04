@@ -288,8 +288,6 @@ public class ProjListController implements Initializable {
         projectTable.getItems().addAll(projectRows);
     }
 
-    //todo - add more filters - discuss with the team which ones to add
-
     public void searchButton_onClick(Event actionEvent){
         //filter table to contain only projects with search query in title name
         String term = searchField.getText().toLowerCase();

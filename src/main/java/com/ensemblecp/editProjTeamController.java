@@ -96,7 +96,12 @@ public class editProjTeamController implements Initializable {
                 case StatusType.AVAILABLE:
                     mr.setStatus("Available");
                     break;
-                //todo - add more statuses
+                case StatusType.AWAY:
+                    mr.setStatus("Away");
+                    break;
+                case StatusType.BUSY:
+                    mr.setStatus("Busy");
+                    break;
             }
             mr.setPhoto("N/A");
 
