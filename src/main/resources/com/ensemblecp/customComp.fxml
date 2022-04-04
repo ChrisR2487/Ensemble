@@ -94,7 +94,7 @@
             </HBox>
             <ScrollPane prefHeight="567.0" prefWidth="1878.0">
                <content>
-                  <VBox fx:id="fieldVBox" maxHeight="900.0" prefHeight="407.0" prefWidth="1927.0">
+                  <VBox fx:id="fieldVBox" maxHeight="900.0" prefHeight="564.0" prefWidth="1927.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="92.0" prefWidth="1901.0">
                            <children>

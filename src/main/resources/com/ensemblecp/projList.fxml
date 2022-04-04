@@ -80,7 +80,7 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <TableView fx:id="projectTable" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="120.0">
+      <TableView fx:id="projectTable" minHeight="-Infinity" minWidth="-Infinity" styleClass="table-class" stylesheets="@../../css/application.css" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="120.0">
         <columns> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
            <TableColumn fx:id="statusColumn" prefWidth="130.0" text="Status" />
            <TableColumn fx:id="issueScoreColumn" prefWidth="100.0" text="Issue Score" />
