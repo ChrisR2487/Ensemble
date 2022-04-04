@@ -93,7 +93,7 @@ public class editProjTeamController implements Initializable {
 
             int status = Integer.parseInt(rs.getString("status"));
             switch(status){
-                case MemberState.AVAILABLE:
+                case StatusType.AVAILABLE:
                     mr.setStatus("Available");
                     break;
                 //todo - add more statuses

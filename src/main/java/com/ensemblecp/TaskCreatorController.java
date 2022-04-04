@@ -6,12 +6,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,7 +31,7 @@ public class TaskCreatorController implements Initializable {
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> positionColumn;
     @FXML private TableColumn<MemberRow, Integer> memIDColumn;
-    @FXML private TableColumn<MemberRow, CheckBox> selectColumn;
+    @FXML private TableColumn<MemberRow, RadioButton> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
     ArrayList<MemberRow> rowArrayList = new ArrayList<>();
 
@@ -77,7 +72,7 @@ public class TaskCreatorController implements Initializable {
             mr.setPosition(rs.getString("position"));
             mr.setPhoto("N/A");
             mr.setStatus(rs.getString("status"));
-
+            mr.getAssigned().setToggleGroup(MemberRow.assignGroup);
             rowArrayList.add(mr);
         }
         db.closeDB();
@@ -91,7 +86,7 @@ public class TaskCreatorController implements Initializable {
 
         // Set row data
         memberTable.setEditable(true);
-        selectColumn.setCellValueFactory(new PropertyValueFactory("select"));
+        selectColumn.setCellValueFactory(new PropertyValueFactory("assigned"));
         selectColumn.setEditable(true);
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -126,13 +121,19 @@ public class TaskCreatorController implements Initializable {
         //error checking for date range
         LocalDate kickOff = kickoffDate.getValue();
         LocalDate deadline = deadlineDate.getValue();
-        if(kickOff.compareTo(deadline) >= 0){
+        if(kickOff.compareTo(deadline) >= 0) {
             kickoffDate.setBorder(LoginController.INVALID_BORDER);
             deadlineDate.setBorder(LoginController.INVALID_BORDER);
             return;
         }
         info.put("kickoff", kickOff.toString());
         info.put("deadline", deadline.toString());
+
+        // Check if task is overdue
+        if (IssueScore.checkOverdue(deadline.toString()) > 0.0f) {
+            db.updateIssueScore(Main.curProject.getPid(), Main.curProject.getIssueScore() + IssueScore.TASK_OVERDUE);
+            Main.curProject.addIssueScore(Main.curProject.getIssueScore() + IssueScore.TASK_OVERDUE);
+        }
 
         //validate input for desc
         String desc = taskDesc.getText();
@@ -142,7 +143,7 @@ public class TaskCreatorController implements Initializable {
         }
 
         //get memid
-        HashMap<String, HashMap<String, String>> members = getSelectedMembers();
+        HashMap<String, HashMap<String, String>> members = getAssignedMember();
         HashMap<String,String> row = members.get(String.valueOf(1));
         int memid = Integer.parseInt(row.get("memid"));
         info.put("memid", Integer.toString(memid));
@@ -162,11 +163,11 @@ public class TaskCreatorController implements Initializable {
         Main.show("projBenchmark");
     }
 
-    public HashMap<String, HashMap<String, String>> getSelectedMembers(){
+    public HashMap<String, HashMap<String, String>> getAssignedMember(){
         HashMap<String, HashMap<String, String>> retVal = new HashMap<>();
         int memberNum = 1;
         for(MemberRow r: rowArrayList){
-            if(r.getSelect().isSelected()){
+            if(r.getAssigned().isSelected()){
                 HashMap<String, String> cell = new HashMap<>();
                 //member ID
                 cell.put("memid", String.valueOf(r.getMemid()));

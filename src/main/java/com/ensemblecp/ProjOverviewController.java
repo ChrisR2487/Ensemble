@@ -3,7 +3,6 @@ package com.ensemblecp;
 import com.flexganttfx.model.Layer;
 import com.flexganttfx.view.GanttChart;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -12,11 +11,13 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +48,9 @@ public class ProjOverviewController implements Initializable {
     @FXML ImageView editButton;
     @FXML ImageView addComponent;
     @FXML ImageView refreshROI;
+
+    @FXML ImageView settingsBtn;
+    @FXML MenuButton settingsButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -315,7 +319,7 @@ public class ProjOverviewController implements Initializable {
         }
     }
 
-    public void exitButton_onClick(MouseEvent mouseEvent) {
+    public void exitButton_onClick(Event mouseEvent) {
         System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
@@ -328,6 +332,27 @@ public class ProjOverviewController implements Initializable {
     }
 
     public void archiveButton_onClick(Event mouseEvent) {
+    }
+
+    public void updateStatus_onClick(Event actionEvent) throws SQLException {
+        String status  = ((MenuItem) (actionEvent.getSource())).getText();
+        int newStatus = switch(status) {
+            case "Available" -> StatusType.AVAILABLE;
+            case "Busy" -> StatusType.BUSY;
+            case "Away" -> StatusType.AWAY;
+            default -> -1;
+        };
+        Database db = new Database();
+        db.updateMemberStatus(Main.account.getId(), newStatus, Main.account.getType());
+        Main.account.setStatus(status);
+        db.closeDB();
+    }
+
+    public void logout_onClick(ActionEvent actionEvent) throws IOException {
+        Main.account = null;
+        Main.projects.clear();
+        Main.curProject = null;
+        Main.show("login");
     }
 
     public void addFile_onClick(ActionEvent actionEvent) throws SQLException {
@@ -446,6 +471,11 @@ public class ProjOverviewController implements Initializable {
     public void refreshROI_HoverOff(){
         refreshROI.setOpacity(1.0);
     }
-
+    public void settings_Hover(){
+        settingsBtn.setOpacity(0.5);
+    }
+    public void settings_HoverOff(){
+        settingsBtn.setOpacity(1.0);
+    }
 }
 

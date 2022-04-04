@@ -3,14 +3,13 @@ package com.ensemblecp;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -49,6 +48,10 @@ public class ProjListController implements Initializable {
 
     ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
     ArrayList<ProjectRow> backupList = new ArrayList<>();
+
+    @FXML
+    ImageView settingsBtn;
+    @FXML MenuButton settingsButton;
 
 
     private final Border INVALID_BORDER = new Border(new BorderStroke(Color.RED,
@@ -313,11 +316,38 @@ public class ProjListController implements Initializable {
     public void archiveButton_onClick(Event actionEvent) {
     }
 
+    public void updateStatus_onClick(Event actionEvent) throws SQLException {
+        String status  = ((MenuItem) (actionEvent.getSource())).getText();
+        int newStatus = switch(status) {
+            case "Available" -> StatusType.AVAILABLE;
+            case "Busy" -> StatusType.BUSY;
+            case "Away" -> StatusType.AWAY;
+            default -> -1;
+        };
+        Database db = new Database();
+        db.updateMemberStatus(Main.account.getId(), newStatus, Main.account.getType());
+        Main.account.setStatus(status);
+        db.closeDB();
+    }
+
+    public void logout_onClick(ActionEvent actionEvent) throws IOException {
+        Main.account = null;
+        Main.projects.clear();
+        Main.curProject = null;
+        Main.show("login");
+    }
+
     public void add_onClick() throws IOException {
         Main.show("projCreator");
     }
 
-    public void exitButton_onClick(MouseEvent mouseEvent) {
-        System.exit(-1);
+    public void exitButton_onClick(Event mouseEvent) {
+        System.exit(ExitStatusType.EXIT_BUTTON);
+    }
+    public void settings_Hover(){
+        settingsBtn.setOpacity(0.5);
+    }
+    public void settings_HoverOff(){
+        settingsBtn.setOpacity(1.0);
     }
 }

@@ -7,15 +7,13 @@ import com.flexganttfx.view.GanttChart;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -27,7 +25,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
-    @FXML private Button exitButton;
     @FXML private AnchorPane root;
     @FXML private TableView<ProjectRow> projectTable;
     @FXML private TableColumn<ProjectRow, String> statusColumn;
@@ -41,6 +38,7 @@ public class DashboardController implements Initializable {
     @FXML private TableColumn<MemberRow, String> memberStatusColumn;
 
     @FXML ImageView settingsBtn;
+    @FXML MenuButton settingsButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,27 +79,27 @@ public class DashboardController implements Initializable {
             System.out.println("Unable to load company timeline, end execution.");
         }
 
-        //Setup Notifcations
+        //Setup Notifications
         int tryCount3 = 0;
         while (tryCount3 < Main.ATTEMPT_LIMIT) {
             try {
-                setupCompanyTimeline(db);
+                setupNotifications(db);
                 break;
-            } catch (SQLException e) {
-                System.out.println("Failed to load company timeline, trying again...");
+            } catch (IOException | SQLException e) {
+                System.out.println("Failed to load notifications, trying again...");
                 tryCount3++;
             }
         }
         if (tryCount3 == Main.ATTEMPT_LIMIT) {
             // Failed to load dashboard
-            System.out.println("Unable to load company timeline, end execution.");
+            System.out.println("Unable to load notifications, end execution.");
         }
         try {
             db.closeDB();
         } catch (NullPointerException | SQLException ignored) { }
     }
 
-    private void setupNotifactaions(Database db) throws SQLException, IOException {
+    private void setupNotifications(Database db) throws SQLException, IOException {
         // Get ResultSet data
         ResultSet rs = db.getProjectsWithManagerName();
 
@@ -228,7 +226,7 @@ public class DashboardController implements Initializable {
         Main.show("projOverview");
     }
 
-    public void exitButton_onClick(MouseEvent mouseEvent) {
+    public void exitButton_onClick(ActionEvent mouseEvent) {
         System.exit(ExitStatusType.EXIT_BUTTON);
     }
 
@@ -241,6 +239,27 @@ public class DashboardController implements Initializable {
     }
 
     public void archiveButton_onClick(Event actionEvent) {
+    }
+
+    public void updateStatus_onClick(Event actionEvent) throws SQLException {
+        String status  = ((MenuItem) (actionEvent.getSource())).getText();
+        int newStatus = switch(status) {
+            case "Available" -> StatusType.AVAILABLE;
+            case "Busy" -> StatusType.BUSY;
+            case "Away" -> StatusType.AWAY;
+            default -> -1;
+        };
+        Database db = new Database();
+        db.updateMemberStatus(Main.account.getId(), newStatus, Main.account.getType());
+        Main.account.setStatus(status);
+        db.closeDB();
+    }
+
+    public void logout_onClick(ActionEvent actionEvent) throws IOException {
+        Main.account = null;
+        Main.projects.clear();
+        Main.curProject = null;
+        Main.show("login");
     }
 
     public void settings_Hover(){

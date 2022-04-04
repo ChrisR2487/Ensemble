@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.*?>
-
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.CompSelectorController">
    <!-- Selection stuff -->
    <Label layoutX="760.0" layoutY="75.0" text="Select an Option:" textFill="WHITE">

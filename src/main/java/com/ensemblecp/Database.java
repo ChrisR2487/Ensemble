@@ -1,8 +1,12 @@
 package com.ensemblecp;// Imports
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
@@ -102,6 +106,7 @@ public class Database {
                 + "message varchar(128) not null,"
                 + "type int not null,"
                 + "state int not null,"
+                + "posted timestamp not null,"
                 + "constraint " + charPid + "_Issues_pk primary key (memid, message))";
         stmt.execute(createTable);
 
@@ -365,6 +370,7 @@ public class Database {
         preparedStmt.setString(2, info.get("message"));
         preparedStmt.setInt(3, Integer.parseInt(info.get("type")));
         preparedStmt.setInt(4, IssueState.NEW); // Set issue as new (not seen or done)
+        preparedStmt.setTimestamp(5, Timestamp.from(Instant.now())); // Set current date
         preparedStmt.execute();
 
         query = "select * from " + databaseName + "." + charPid + "_Issues where memid=? and message=?";
@@ -660,6 +666,23 @@ public class Database {
         preparedStatement = conn.prepareStatement(query);
         preparedStatement.setInt(1, tid);
         return preparedStatement.executeQuery();
+    }
+
+    public void updateMemberStatus(int memid, int newStatus, int accountType) throws SQLException {
+        if (accountType == AccountType.MANAGER) {
+            String query = "update " + databaseName + ".ProjectManager set status = ? where manid = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, newStatus);
+            preparedStatement.setInt(2, memid);
+            preparedStatement.execute();
+        }
+        else if (accountType == AccountType.MEMBER) {
+            String query = "update " + databaseName + ".ProjectMember set status = ? where memid = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, newStatus);
+            preparedStatement.setInt(2, memid);
+            preparedStatement.execute();
+        }
     }
 }
 // End of Database Class

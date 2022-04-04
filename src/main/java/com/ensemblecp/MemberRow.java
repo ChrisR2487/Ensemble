@@ -3,13 +3,17 @@ package com.ensemblecp;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 
 public class MemberRow {
-    private StringProperty memid;
+    // Static values
+    public static ToggleGroup assignGroup = new ToggleGroup();
 
+    // Properties
+    private StringProperty memid;
     public void setMemid(String value) { memidProperty().set(value); }
     public String getMemid() { return memidProperty().get(); }
-
     public StringProperty memidProperty() {
         if (memid == null) memid = new SimpleStringProperty(this, "memid");
         return memid;
@@ -47,6 +51,14 @@ public class MemberRow {
         this.select = value;
     }
 
+    private RadioButton assigned = new RadioButton();
+    public RadioButton getAssigned() {
+        return this.assigned;
+    }
+    public void setAssigned(RadioButton value) {
+        this.assigned = value;
+    }
+
     private StringProperty status;
     public void setStatus(String value) { statusProperty().set(value); }
     public String getStatus() { return statusProperty().get(); }
@@ -54,9 +66,4 @@ public class MemberRow {
         if (status == null) status = new SimpleStringProperty(this, "status");
         return status;
     }
-}
-
-class MemberState {
-    public final static int AVAILABLE = 0;
-    //todo - add more statuses
 }
