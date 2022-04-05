@@ -43,6 +43,8 @@ public class ProjListController implements Initializable {
     @FXML private Pane radioPane;
     @FXML private TextField searchField;
 
+    @FXML private ToggleGroup sorts;
+
     ArrayList<RadioButton> radioList = new ArrayList<>();
 
     ArrayList<ProjectRow> rowArrayList = new ArrayList<>();
@@ -291,6 +293,9 @@ public class ProjListController implements Initializable {
     public void searchButton_onClick(Event actionEvent){
         //filter table to contain only projects with search query in title name
         String term = searchField.getText().toLowerCase();
+
+        rowArrayList.clear();
+        rowArrayList.addAll(backupList);
 
         ProjectRow[] rowList;
         for (Iterator<ProjectRow> it = rowArrayList.iterator(); it.hasNext(); )

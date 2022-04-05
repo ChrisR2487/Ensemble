@@ -5,6 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane prefHeight="1080" prefWidth="1920" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjListController">
    <children>
       <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -121,36 +122,40 @@
                   <Font size="24.0" />
                </font>
             </Label>
-
-            <RadioButton fx:id="statusRadio" layoutX="5.0" layoutY="40.0" mnemonicParsing="false" text="Status" textFill="WHITE">
+            
+            <RadioButton fx:id="statusRadio" layoutX="5.0" layoutY="40.0" mnemonicParsing="false" text="Status" textFill="WHITE" toggleGroup="$sorts">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="sorts" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="issueRadio" layoutX="5.0" layoutY="65.0" mnemonicParsing="false" text="Issue Score" textFill="WHITE" toggleGroup="$sorts">
                <font>
                   <Font size="14.0" />
                </font></RadioButton>
-            <RadioButton fx:id="issueRadio" layoutX="5.0" layoutY="65.0" mnemonicParsing="false" text="Issue Score" textFill="WHITE">
+            <RadioButton fx:id="titleRadio" layoutX="5.0" layoutY="90.0" mnemonicParsing="false" text="Title" textFill="WHITE" toggleGroup="$sorts">
                <font>
                   <Font size="14.0" />
                </font></RadioButton>
-            <RadioButton fx:id="titleRadio" layoutX="5.0" layoutY="90.0" mnemonicParsing="false" text="Title" textFill="WHITE">
+            <RadioButton fx:id="projRadio" layoutX="5.0" layoutY="115.0" mnemonicParsing="false" text="Project ID" textFill="WHITE" toggleGroup="$sorts">
                <font>
                   <Font size="14.0" />
                </font></RadioButton>
-            <RadioButton fx:id="projRadio" layoutX="5.0" layoutY="115.0" mnemonicParsing="false" text="Project ID" textFill="WHITE">
+            <RadioButton fx:id="sDateRadio" layoutX="5.0" layoutY="140.0" mnemonicParsing="false" text="Start Date" textFill="WHITE" toggleGroup="$sorts">
                <font>
                   <Font size="14.0" />
                </font></RadioButton>
-            <RadioButton fx:id="sDateRadio" layoutX="5.0" layoutY="140.0" mnemonicParsing="false" text="Start Date" textFill="WHITE">
+            <RadioButton fx:id="deadlineRadio" layoutX="5.0" layoutY="165.0" mnemonicParsing="false" text="End Date" textFill="WHITE" toggleGroup="$sorts">
                <font>
                   <Font size="14.0" />
                </font></RadioButton>
-            <RadioButton fx:id="deadlineRadio" layoutX="5.0" layoutY="165.0" mnemonicParsing="false" text="End Date" textFill="WHITE">
+            <RadioButton fx:id="pManagerRadio" layoutX="5.0" layoutY="190.0" mnemonicParsing="false" text="Project Manager" textFill="WHITE" toggleGroup="$sorts">
                <font>
                   <Font size="14.0" />
                </font></RadioButton>
-            <RadioButton fx:id="pManagerRadio" layoutX="5.0" layoutY="190.0" mnemonicParsing="false" text="Project Manager" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font></RadioButton>
-            <RadioButton fx:id="tagsRadio" layoutX="5.0" layoutY="215.0" mnemonicParsing="false" text="Tags" textFill="WHITE">
+            <RadioButton fx:id="tagsRadio" layoutX="5.0" layoutY="215.0" mnemonicParsing="false" text="Tags" textFill="WHITE" toggleGroup="$sorts">
                <font>
                   <Font size="14.0" />
                </font></RadioButton>
@@ -185,8 +190,7 @@
       <!-- pane for search bar -->
       <Pane layoutX="820.0" layoutY="65.0" prefHeight="45.0" prefWidth="750.0">
          <children>
-            <Button layoutX="500.0" mnemonicParsing="false" onMouseClicked="#searchButton_onClick" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="Search" />
-            <TextField fx:id="searchField" layoutX="550.0" prefWidth="200.0" promptText="Search by Title" />
+            <TextField fx:id="searchField" layoutX="550.0" onAction="#searchButton_onClick" prefWidth="200.0" promptText="Search by Title" />
          </children></Pane>
 
    </children>
