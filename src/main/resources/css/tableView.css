@@ -1,0 +1,31 @@
+/* Tables */
+.table-view {
+    -fx-background-color:black;
+    -fx-background-radius: 10;
+
+}
+.table-view .column-header-background {
+    -fx-background-color:#1D1D1E;
+    -fx-background-radius: 10;
+    -fx-effect: drop shadow(two-pass-box, gray);
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-font-weight:bold;
+    -fx-font-size: 20;
+    -fx-border-width: 0 0 10 0;
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #A1A1A1;
+}
+
+.table-view .table-cell{
+    -fx-font-weight:bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+}
+.table-row-cell:hover {
+    -fx-background-color:orange;
+}

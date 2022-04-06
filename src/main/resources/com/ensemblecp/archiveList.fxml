@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080" prefWidth="1920" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ArchiveListController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1080" prefWidth="1920" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ArchiveListController">
     <children>
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
             <children>
                 <HBox onMouseClicked="#dashButton_onClick" prefHeight="25.0" prefWidth="160.0">
                     <children>
                         <ImageView fitHeight="36.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 9;">
-                            <Image url="@../button_imgs/dashboard-icon.png"/>
+                            <Image url="@../button_imgs/dashboard-icon.png" />
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
@@ -73,18 +80,6 @@
                 <Font size="26.0" />
             </font>
         </Label>
-        <TableView fx:id="projectTable" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.leftAnchor="245.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="120.0">
-            <columns> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
-                <TableColumn fx:id="statusColumn" prefWidth="130.0" text="Status" />
-                <TableColumn fx:id="issueScoreColumn" prefWidth="100.0" text="Issue Score" />
-                <TableColumn fx:id="titleColumn" prefWidth="200.0" text="Title" />
-                <TableColumn fx:id="pidColumn" prefWidth="75.0" text="Project ID" />
-                <TableColumn fx:id="kickoffColumn" prefWidth="125.0" text="Start Date" />
-                <TableColumn fx:id="deadlineColumn" prefWidth="125.0" text="End Date" />
-                <TableColumn fx:id="managerNameColumn" prefWidth="200.0" text="Project Manager" />
-                <TableColumn fx:id="tagsColumn" prefWidth="368.0" text="Tags" />
-            </columns>
-        </TableView>
 
         <!-- Exit button -->
         <Button fx:id="exitButton" layoutX="1803.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#exitButton_onClick" prefHeight="51.0" prefWidth="50.0" style="-fx-background-color: transparent;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="X" textFill="WHITE">
@@ -94,10 +89,22 @@
         </Button>
 
         <!-- Add project button-->
-        <Button layoutX="314.0" layoutY="49.0" mnemonicParsing="false" onAction="#add_onClick" style="-fx-background-color: transparent; -fx-padding: 0 0 0 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="+" textFill="WHITE" wrapText="true">
+        <Button layoutX="316.0" layoutY="52.0" mnemonicParsing="false" onAction="#add_onClick" style="-fx-background-color: transparent; -fx-padding: 0 0 0 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" text="+" textFill="WHITE" wrapText="true">
             <font>
                 <Font size="40.0" />
             </font>
         </Button>
+      <TableView fx:id="projectTable1" editable="true" layoutX="219.0" layoutY="121.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1352.0" stylesheets="@../../css/tableView.css">
+         <columns>
+            <TableColumn fx:id="statusColumn1" prefWidth="152.22305297851562" text="Status" />
+            <TableColumn fx:id="issueScoreColumn1" prefWidth="140.16152954101562" text="Issue Score" />
+            <TableColumn fx:id="titleColumn1" prefWidth="121.33837890625" text="Title" />
+            <TableColumn fx:id="pidColumn1" prefWidth="124.78460693359375" text="Project ID" />
+            <TableColumn fx:id="kickoffColumn1" prefWidth="164.60791015625" text="Start Date" />
+            <TableColumn fx:id="deadlineColumn1" prefWidth="147.39215087890625" text="End Date" />
+            <TableColumn fx:id="managerNameColumn1" prefWidth="321.669189453125" text="Project Manager" />
+            <TableColumn fx:id="tagsColumn1" prefWidth="153.02294921875" text="Tags" />
+         </columns>
+      </TableView>
     </children>
 </AnchorPane>

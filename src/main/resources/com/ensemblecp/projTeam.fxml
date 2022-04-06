@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjTeamController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjTeamController">
     <children>
         <!-- Side nav bar -->
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -197,12 +207,12 @@
         </MenuButton>
 
         <!-- Project team table -->
-        <TableView fx:id="memberTable" layoutX="216.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1205.0" styleClass="table-class" stylesheets="@../../css/application.css" AnchorPane.leftAnchor="216.0" AnchorPane.topAnchor="170.0">
+        <TableView fx:id="memberTable" layoutX="216.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1205.0" styleClass="table-class" stylesheets="@../../css/tableView.css" AnchorPane.leftAnchor="216.0" AnchorPane.topAnchor="170.0">
             <columns> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
-                <TableColumn fx:id="nameColumn" prefWidth="334.0" text="Name" />
-                <TableColumn fx:id="memidColumn" prefWidth="136.0" text="Member ID" />
-                <TableColumn fx:id="positionColumn" prefWidth="280.0" text="Position" />
-            <TableColumn fx:id="statusColumn" prefWidth="280.0" text="Status" />
+                <TableColumn fx:id="nameColumn" prefWidth="304.10394287109375" text="Name" />
+                <TableColumn fx:id="memidColumn" prefWidth="201.39608764648438" text="Member ID" />
+                <TableColumn fx:id="positionColumn" prefWidth="397.1680908203125" text="Position" />
+            <TableColumn fx:id="statusColumn" prefWidth="299.5789794921875" text="Status" />
             </columns>
         </TableView>
 
