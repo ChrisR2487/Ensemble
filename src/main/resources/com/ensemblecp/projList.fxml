@@ -105,7 +105,7 @@
             <Image url="@../button_imgs/settings-icon.png" />
          </image>
       </ImageView>
-      <MenuButton fx:id="settingsButton" graphicTextGap="0.0" layoutX="1830.0" layoutY="60.0" mnemonicParsing="false" onMouseEntered="#settings_Hover" onMouseExited="#settings_HoverOff" prefHeight="28.0" prefWidth="34.0" style="-fx-opacity: 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" textFill="WHITE">
+      <MenuButton fx:id="settingsButton" graphicTextGap="0.0" layoutX="1830.0" layoutY="50.0" mnemonicParsing="false" onMouseEntered="#settings_Hover" onMouseExited="#settings_HoverOff" prefHeight="38.0" prefWidth="34.0" style="-fx-opacity: 0;" styleClass="my-btn-class" stylesheets="@../../css/buttonHoverStyle.css" textFill="WHITE">
          <font>
             <Font size="1.0" />
          </font>
@@ -127,7 +127,7 @@
       </Button>
 
       <!-- Pane to hold radio buttons for sorting-->
-      <Pane fx:id="radioPane" layoutX="1590.0" layoutY="273.0" prefHeight="344.0" prefWidth="232.0" style="-fx-background-color: #1D1D1E#1D1D1E; -fx-background-radius: 5;">
+      <Pane fx:id="radioPane" layoutX="1590.0" layoutY="273.0" prefHeight="347.0" prefWidth="232.0" style="-fx-background-color: #1D1D1E#1D1D1E; -fx-background-radius: 5;">
          <children>
             <Label layoutX="18.0" layoutY="13.0" prefHeight="27.0" prefWidth="143.0" text="Sort by" textFill="WHITE">
                <font>
@@ -179,7 +179,7 @@
          </opaqueInsets>
       </Pane>
 
-      <Button fx:id="sortButton" layoutX="1590.0" layoutY="638.0" mnemonicParsing="false" onMouseClicked="#sortButton_onClick" prefHeight="30.0" prefWidth="105.0" styleClass="sort-btn" stylesheets="@../../css/formButtonStyle.css" text="Sort" textFill="WHITE">
+      <Button fx:id="sortButton" layoutX="1590.0" layoutY="640.0" mnemonicParsing="false" onMouseClicked="#sortButton_onClick" prefHeight="30.0" prefWidth="105.0" styleClass="sort-btn" stylesheets="@../../css/formButtonStyle.css" text="Sort" textFill="WHITE">
          <font>
             <Font size="10.0" />
          </font>
@@ -206,7 +206,7 @@
 
          </children>
       </Pane>
-      <Button fx:id="resetTableButton" layoutX="1716.0" layoutY="639.0" mnemonicParsing="false" onMouseClicked="#resetTableButton_onClick" prefHeight="30.0" prefWidth="105.0" styleClass="sort-btn" stylesheets="@../../css/formButtonStyle.css" text="Clear">
+      <Button fx:id="resetTableButton" layoutX="1716.0" layoutY="641.0" mnemonicParsing="false" onMouseClicked="#resetTableButton_onClick" prefHeight="30.0" prefWidth="105.0" styleClass="sort-btn" stylesheets="@../../css/formButtonStyle.css" text="Clear">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>

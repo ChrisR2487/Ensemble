@@ -290,7 +290,7 @@
       </Button>
 
         <!-- Issue table -->
-        <TableView fx:id="issueTable" layoutX="215.0" layoutY="165.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1215.0" stylesheets="@../../css/tableView.css">
+        <TableView fx:id="issueTable" layoutX="215.0" layoutY="165.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="1215.0" stylesheets="@../../css/tableView.css">
          <columns>
             <TableColumn fx:id="markColumn" prefWidth="146.29005432128906" text="Mark" />
             <!-- <TableColumn fx:id="dateColumn" prefWidth="190.0" text="Time Posted" /> -->

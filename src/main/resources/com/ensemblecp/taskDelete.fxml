@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.TaskDeleteController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.TaskDeleteController">
    <children>
       <Label layoutX="14.0" prefHeight="74.0" prefWidth="1920.0" text="   E N S E M B L E" textFill="WHITE">
          <font>
@@ -15,68 +25,72 @@
             <VBox prefHeight="970.0" prefWidth="360.0" />
             <VBox prefHeight="970.0" prefWidth="1000.0">
                <children>
-                  <Pane prefHeight="137.0" prefWidth="1000.0">
+                  <Pane prefHeight="112.0" prefWidth="1000.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="1000.0" text="Delete a Task" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>
                         </Label>
-                        <CheckBox fx:id="remCheckBox" alignment="CENTER" contentDisplay="CENTER" layoutX="348.0" layoutY="53.0" mnemonicParsing="false" prefHeight="64.0" text="Delete " textAlignment="CENTER" textFill="WHITE">
+                        <CheckBox fx:id="remCheckBox" alignment="CENTER" contentDisplay="CENTER" layoutX="444.0" layoutY="45.0" mnemonicParsing="false" prefHeight="64.0" text="Delete " textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </CheckBox>
                      </children>
                   </Pane>
-                  <Pane prefHeight="161.0" prefWidth="1000.0">
+                  <Pane prefHeight="223.0" prefWidth="1000.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="1000.0" text="Verify Identity" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="usernameField" layoutX="406.0" layoutY="48.0" prefHeight="22.0" prefWidth="280.0" promptText="USERNAME">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </TextField>
-                        <PasswordField fx:id="passwordField" layoutX="406.0" layoutY="97.0" prefHeight="30.0" prefWidth="280.0" promptText="PASSWORD">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </PasswordField>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="315.0" layoutY="44.0" prefHeight="38.0" prefWidth="91.0" text="Username:" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="315.0" layoutY="93.0" prefHeight="38.0" prefWidth="91.0" text="Password:" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                        </Label>
+                        <Pane layoutX="1.0" layoutY="1.0" prefHeight="217.0" prefWidth="1000.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-7.0" layoutY="2.0" prefHeight="38.0" prefWidth="1000.0" text="Verify Identity" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="usernameField1" layoutX="352.0" layoutY="77.0" prefHeight="30.0" prefWidth="280.0" promptText="USERNAME">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </TextField>
+                              <PasswordField fx:id="passwordField1" layoutX="352.0" layoutY="152.0" prefHeight="30.0" prefWidth="280.0" promptText="PASSWORD">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </PasswordField>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="343.0" layoutY="38.0" prefHeight="38.0" prefWidth="91.0" text="Username" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="341.0" layoutY="114.0" prefHeight="38.0" prefWidth="91.0" text="Password" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
                      </children>
                   </Pane>
                   <Pane prefHeight="373.0" prefWidth="1000.0">
                      <children>
-                        <TitledPane animated="false" collapsible="false" layoutX="203.0" prefHeight="349.0" prefWidth="595.0" text="Removal Log">
+                        <TitledPane animated="false" collapsible="false" layoutX="203.0" prefHeight="349.0" prefWidth="595.0" stylesheets="@../../css/titledPane.css" text="Removal Log" textFill="WHITE">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="351.0" prefWidth="593.0">
                                  <children>
-                                    <Label contentDisplay="CENTER" layoutX="14.0" layoutY="-1.0" prefHeight="30.0" prefWidth="587.0" text="Detail Reason for Deletion:" textAlignment="CENTER">
+                                    <Label contentDisplay="CENTER" layoutX="14.0" layoutY="-1.0" prefHeight="30.0" prefWidth="587.0" text="Detail Reason for Deletion:" textAlignment="CENTER" textFill="WHITE">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font size="16.0" />
                                        </font>
                                     </Label>
                                     <ScrollPane layoutY="28.0" prefHeight="288.0" prefWidth="595.0" vbarPolicy="ALWAYS">
                                        <content>
-                                          <TextField fx:id="logBox" prefHeight="286.0" prefWidth="573.0" />
+                                          <TextField fx:id="logBox" prefHeight="286.0" prefWidth="573.0" style="-fx-background-color: #1D1D1E#1D1D1E;" />
                                        </content></ScrollPane>
                                  </children></AnchorPane>
                           </content>
                            <font>
-                              <Font size="16.0" />
+                              <Font size="20.0" />
                            </font>
                         </TitledPane>
                      </children>

@@ -34,16 +34,16 @@
         </TextField>
 
         <!-- Task timeline -->
-        <TitledPane animated="false" layoutX="63.0" layoutY="204.0" text="Timeline">
+        <TitledPane animated="false" layoutX="63.0" layoutY="204.0" stylesheets="@../../css/titledPane.css" text="Timeline">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="730.0">
                     <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="Kickoff">
+                        <Label layoutX="14.0" layoutY="14.0" text="Kickoff" textFill="WHITE">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label layoutX="343.0" layoutY="14.0" text="Deadline">
+                        <Label layoutX="343.0" layoutY="14.0" text="Deadline" textFill="WHITE">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -59,13 +59,13 @@
         </TitledPane>
 
         <!-- Task description -->
-        <TitledPane animated="false" layoutX="63.0" layoutY="450.0" text="Task Description">
+        <TitledPane animated="false" layoutX="63.0" layoutY="450.0" stylesheets="@../../css/titledPane.css" text="Task Description" textFill="WHITE">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="730.0">
                     <children>
                         <ScrollPane prefHeight="301.0" prefWidth="731.0">
                             <content>
-                                <TextField fx:id="taskDesc" alignment="TOP_LEFT" prefHeight="300.0" prefWidth="730.0" promptText="Enter Description Here">
+                                <TextField fx:id="taskDesc" alignment="TOP_LEFT" prefHeight="300.0" prefWidth="730.0" promptText="Enter Description Here" style="-fx-background-color: #1D1D1E#1D1D1E;">
                                     <font>
                                         <Font size="18.0" />
                                     </font>

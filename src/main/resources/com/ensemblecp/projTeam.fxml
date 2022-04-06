@@ -299,7 +299,7 @@
                 <Font size="35.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1123.0" layoutY="600.0" mnemonicParsing="false" onAction="#editTeam_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Modify Team">
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1123.0" layoutY="590.0" mnemonicParsing="false" onAction="#editTeam_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Modify Team">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>

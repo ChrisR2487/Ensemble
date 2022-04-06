@@ -1,12 +1,11 @@
 /* Tables */
 .table-view {
     -fx-background-color:black;
-    -fx-background-radius: 10;
-
+    -fx-background-radius:5;
 }
 .table-view .column-header-background {
     -fx-background-color:#1D1D1E;
-    -fx-background-radius: 10;
+    -fx-background-radius: 5;
     -fx-effect: drop shadow(two-pass-box, gray);
 }
 
@@ -18,14 +17,17 @@
 }
 
 .table-view .column-header .label {
-    -fx-text-fill: #A1A1A1;
+    -fx-text-fill: white;
 }
 
-.table-view .table-cell{
+.table-row-cell {
     -fx-font-weight:bold;
     -fx-font-size: 18px;
     -fx-text-fill: white;
 }
-.table-row-cell:hover {
-    -fx-background-color:orange;
+
+.table-row-cell:odd{
+    -fx-font-weight:bold;
+    -fx-text-fill: #1D1D1E;
+    -fx-font-size: 18px;
 }

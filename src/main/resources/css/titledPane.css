@@ -1,0 +1,19 @@
+/* Titled Pane */
+.titled-pane
+{
+-fx-background-color: black;
+-fx-text-fill: white;
+}
+
+.titled-pane > .title
+{
+-fx-font-size: 20;
+-fx-background-color: black, #1D1D1E, #1D1D1E;
+-fx-background-radius: 5;
+}
+
+.titled-pane > *.content
+{
+-fx-background-color: black, #1D1D1E, #1D1D1E;
+-fx-text-fill: white;
+ }
