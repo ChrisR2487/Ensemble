@@ -5,7 +5,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.editProjTeamController">
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.editProjTeamController">
     <children>
         <!-- Side nav bar -->
         <VBox layoutX="27.0" layoutY="126.0" prefHeight="575.0" prefWidth="191.0" AnchorPane.leftAnchor="27.0">
@@ -172,13 +173,13 @@
         </Label>
 
         <!-- Project team table -->
-        <TableView fx:id="memberTable" layoutX="217.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1178.0" styleClass="table-class" stylesheets="@../../css/application.css" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="170.0">
+        <TableView fx:id="memberTable" layoutX="216.0" layoutY="170.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1203.5" styleClass="table-class" stylesheets="@../../css/tableView.css" AnchorPane.leftAnchor="217.0" AnchorPane.topAnchor="170.0">
             <columns>
-                <TableColumn fx:id="selectColumn" prefWidth="59.0" text="Include" /> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
-                    <TableColumn fx:id="nameColumn" prefWidth="253.0" text="Name" />
-                    <TableColumn fx:id="positionColumn" prefWidth="259.0" text="Position" />
-                    <TableColumn fx:id="memidColumn" prefWidth="175.0" text="Member ID" />
-                <TableColumn fx:id="statusColumn" prefWidth="309.0" text="Status" />
+                <TableColumn fx:id="selectColumn" prefWidth="77.0" text="Include" /> <!-- Width = 1325 for rightAnchor=350.0, leftAnchor=245.0 -->
+                <TableColumn fx:id="statusColumn" prefWidth="150.0" text="Status" />
+                <TableColumn fx:id="nameColumn" prefWidth="389.0" text="Name" />
+                    <TableColumn fx:id="positionColumn" prefWidth="386.0" text="Position" />
+                    <TableColumn fx:id="memidColumn" prefWidth="200.0" text="Member ID" />
             </columns>
         </TableView>
 
@@ -265,7 +266,7 @@
                 <Font size="35.0" />
             </font>
         </Button>
-        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1095.0" layoutY="600.0" mnemonicParsing="false" onAction="#editTeamSubmit_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Submit">
+        <Button alignment="CENTER" contentDisplay="TOP" layoutX="1200.0" layoutY="590.0" mnemonicParsing="false" onAction="#editTeamSubmit_onClick" prefHeight="50.0" prefWidth="212.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Submit">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
@@ -273,7 +274,7 @@
                 <Insets left="25.0" top="60.0" />
             </HBox.margin>
         </Button>
-      <Button alignment="CENTER" contentDisplay="TOP" layoutX="750.0" layoutY="600.0" mnemonicParsing="false" onAction="#viewTeam_onClick" prefHeight="50.0" prefWidth="300.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
+      <Button alignment="CENTER" contentDisplay="TOP" layoutX="965.0" layoutY="590.0" mnemonicParsing="false" onAction="#viewTeam_onClick" prefHeight="50.0" prefWidth="212.0" styleClass="form-btn-class" stylesheets="@../../css/formButtonStyle.css" text="Cancel">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

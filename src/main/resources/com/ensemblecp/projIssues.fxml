@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjIssuesController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.ProjIssuesController">
     <children>
             <!-- Project actions -->
         <!-- Refresh ROI -->
@@ -292,12 +283,12 @@
         <!-- Issue table -->
         <TableView fx:id="issueTable" layoutX="215.0" layoutY="165.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="1215.0" stylesheets="@../../css/tableView.css">
          <columns>
-            <TableColumn fx:id="markColumn" prefWidth="146.29005432128906" text="Mark" />
-            <!-- <TableColumn fx:id="dateColumn" prefWidth="190.0" text="Time Posted" /> -->
-             <TableColumn fx:id="stateColumn" prefWidth="117.20989990234375" text="State" />
-             <TableColumn fx:id="originColumn" prefWidth="251.7652587890625" text="Origin Member" />
-             <TableColumn fx:id="typeColumn" prefWidth="264.73468017578125" text="Focus" />
-             <TableColumn fx:id="descriptionColumn" prefWidth="435.21533203125" text="Description" />
+            <TableColumn fx:id="markColumn" prefWidth="56.0" text="Mark" />
+            <TableColumn fx:id="dateColumn" prefWidth="208.0" text="Time Posted" />
+             <TableColumn fx:id="stateColumn" prefWidth="102.0" text="State" />
+             <TableColumn fx:id="originColumn" prefWidth="157.0" text="Origin Member" />
+             <TableColumn fx:id="typeColumn" prefWidth="97.0" text="Focus" />
+             <TableColumn fx:id="descriptionColumn" prefWidth="593.0" text="Description" />
          </columns>
       </TableView>
         <!-- Create issue -->

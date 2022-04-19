@@ -140,12 +140,11 @@ public class CompSelectorController implements Initializable {
         }
         else {
             // Set items
-            ComboBox<String> m = new ComboBox<String>();
-            m.getItems().addAll("Text", "Whole Number", "Real Number", "List");
+            ComboBox<String> m = new ComboBox<>();
+            m.getItems().addAll("Text","Whole Number","Real Number","List");
             // Set layout
             m.setPrefWidth(360.0);
             m.setPrefHeight(50.0);
-            m.setStyle("-fx-font-size: 16.0; -fx-text-alignment: center;");
             VBox.setMargin(m, new Insets(9.0, 9.0, 9.0, 9.0));
             // Set parent
             partMenuList.getChildren().add(m);
@@ -173,6 +172,8 @@ public class CompSelectorController implements Initializable {
     }
 
     public void createTemplate_onClick(ActionEvent actionEvent) throws SQLException, IOException {
+        if (lastUsedIndex == -1 || templateTitle.getText() == null || templateTitle.getText().equals("")) return;
+
         // Insert template record into database
         String newTemplateString = "";
         for (int i = 0; i <= lastUsedIndex; i++) {

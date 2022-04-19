@@ -23,7 +23,6 @@ import java.util.*;
 public class ProjListController implements Initializable {
     @FXML private TableView<ProjectRow> projectTable;
     @FXML private TableColumn<ProjectRow, String> issueScoreColumn;
-    @FXML private TableColumn<ProjectRow, String> pidColumn;
     @FXML private TableColumn<ProjectRow, String> managerNameColumn;
     @FXML private TableColumn<ProjectRow, String> tagsColumn;
     @FXML private TableColumn<ProjectRow, String> statusColumn;
@@ -112,7 +111,7 @@ public class ProjListController implements Initializable {
             String tags = rs.getString("tag1");
             for (int i = 2; i < 5; i++) {
                 String nextTag = rs.getString("tag"+String.valueOf(i));
-                if (nextTag == null) break;
+                if (nextTag == null || nextTag.equals("")) break;
                 tags += ", " + nextTag;
             }
             pr.setTags(tags);
@@ -137,7 +136,6 @@ public class ProjListController implements Initializable {
         managerNameColumn.setCellValueFactory(new PropertyValueFactory<>("managerName"));
         issueScoreColumn.setCellValueFactory(new PropertyValueFactory<>("issueScore"));
         tagsColumn.setCellValueFactory(new PropertyValueFactory<>("tags"));
-        pidColumn.setCellValueFactory(new PropertyValueFactory<>("pid"));
         //projectTable.setItems(projectRows);
         projectTable.getItems().addAll(projectRows);
 

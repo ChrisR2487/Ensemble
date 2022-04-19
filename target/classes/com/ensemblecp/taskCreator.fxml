@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.TaskCreatorController">
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ensemblecp.TaskCreatorController">
     <children>
         <!-- Labels -->
         <Label layoutX="25.0" layoutY="22.0" text="Create A New Task:" textFill="WHITE">
@@ -26,18 +34,18 @@
         </TextField>
 
         <!-- Task timeline -->
-        <TitledPane animated="false" layoutX="63.0" layoutY="204.0" text="Timeline">
+        <TitledPane animated="false" layoutX="63.0" layoutY="204.0" stylesheets="@../../css/titledPane.css" text="Timeline" textFill="WHITE">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="730.0">
                     <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="Kickoff">
+                        <Label layoutX="14.0" layoutY="14.0" text="Kickoff" textFill="WHITE">
                             <font>
-                                <Font size="16.0" />
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label layoutX="343.0" layoutY="14.0" text="Deadline">
+                        <Label layoutX="343.0" layoutY="14.0" text="Deadline" textFill="WHITE">
                             <font>
-                                <Font size="16.0" />
+                                <Font size="18.0" />
                             </font>
                         </Label>
                         <DatePicker fx:id="kickoffDate" layoutX="14.0" layoutY="48.0" prefWidth="300.0" />
@@ -46,20 +54,20 @@
                 </AnchorPane>
             </content>
             <font>
-                <Font name="System Bold" size="16.0" />
+                <Font name="System Bold" size="20.0" />
             </font>
         </TitledPane>
 
         <!-- Task description -->
-        <TitledPane animated="false" layoutX="63.0" layoutY="450.0" text="Task Description">
+        <TitledPane animated="false" layoutX="63.0" layoutY="450.0" stylesheets="@../../css/titledPane.css" text="Task Description" textFill="WHITE">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="730.0">
                     <children>
                         <ScrollPane prefHeight="301.0" prefWidth="731.0">
                             <content>
-                                <TextField fx:id="taskDesc" alignment="TOP_LEFT" prefHeight="300.0" prefWidth="730.0" promptText="Enter Description Here">
+                                <TextField fx:id="taskDesc" alignment="TOP_LEFT" prefHeight="300.0" prefWidth="730.0" promptText="Enter Description Here" style="-fx-background-color: #1D1D1E#1D1D1E;">
                                     <font>
-                                        <Font size="14.0" />
+                                        <Font size="18.0" />
                                     </font>
                                 </TextField>
                             </content>
@@ -68,7 +76,7 @@
                 </AnchorPane>
             </content>
             <font>
-                <Font name="System Bold" size="16.0" />
+                <Font name="System Bold" size="20.0" />
             </font>
         </TitledPane>
 
@@ -80,13 +88,13 @@
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
-                <TableView fx:id="memberTable" layoutY="106.0" prefHeight="507.0" prefWidth="875.0">
+                <TableView fx:id="memberTable" layoutY="106.0" prefHeight="507.0" prefWidth="875.0" stylesheets="@../../css/tableView.css">
                     <columns>
-                        <TableColumn fx:id="selectColumn" prefWidth="75.0" text="Assign" />
-                        <TableColumn fx:id="nameColumn" prefWidth="307.0" text="Name" />
-                        <TableColumn fx:id="positionColumn" prefWidth="170.0" text="Position" />
-                        <TableColumn fx:id="memIDColumn" prefWidth="101.0" text="Member ID" />
-                        <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="178.0" text="Status" />
+                        <TableColumn fx:id="selectColumn" prefWidth="135.48541259765625" text="Assign" />
+                        <TableColumn fx:id="nameColumn" prefWidth="186.5146484375" text="Name" />
+                        <TableColumn fx:id="positionColumn" prefWidth="230.4854736328125" text="Position" />
+                        <TableColumn fx:id="memIDColumn" prefWidth="180.7308349609375" text="Member ID" />
+                        <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="136.769287109375" text="Status" />
                     </columns>
                 </TableView>
             </children>

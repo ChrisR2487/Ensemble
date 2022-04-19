@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 public class ProjCreatorController implements Initializable {
 
     @FXML TextField investmentCostsField;
-    @FXML TextField descriptionField;
+    @FXML TextArea descriptionField;
     @FXML TextField budgetField;
     @FXML TextField titleField;
     @FXML DatePicker kickoffField;
@@ -37,7 +37,6 @@ public class ProjCreatorController implements Initializable {
     @FXML private TableView<MemberRow> memberTable;
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> positionColumn;
-    @FXML private TableColumn<MemberRow, Integer> memIDColumn;
     @FXML private TableColumn<MemberRow, CheckBox> selectColumn;
     @FXML private TableColumn<MemberRow, String> statusColumn;
 
@@ -65,7 +64,20 @@ public class ProjCreatorController implements Initializable {
                     mr.setName(rs.getString("name"));
                     mr.setPosition(rs.getString("position"));
                     mr.setMemid(String.valueOf(rs.getInt("memid")));
-                    mr.setStatus(String.valueOf(rs.getInt("status")));
+
+                    int status = Integer.parseInt(rs.getString("status"));
+                    switch(status){
+                        case StatusType.AVAILABLE:
+                            mr.setStatus("Available");
+                            break;
+                        case StatusType.AWAY:
+                            mr.setStatus("Away");
+                            break;
+                        case StatusType.BUSY:
+                            mr.setStatus("Busy");
+                            break;
+                    }
+
                     mr.setSelect(new CheckBox());
 
                     rowArrayList.add(mr);
@@ -95,7 +107,6 @@ public class ProjCreatorController implements Initializable {
         selectColumn.setEditable(true);
         nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
         positionColumn.setCellValueFactory(new PropertyValueFactory("position"));
-        memIDColumn.setCellValueFactory(new PropertyValueFactory("memid"));
         statusColumn.setCellValueFactory(new PropertyValueFactory("status"));
         memberTable.setItems(memberRows);
     }

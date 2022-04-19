@@ -221,23 +221,6 @@
                         <items>
                         </items>
                     </ListView>
-
-                    <!-- Issues stuff -->
-                    <VBox layoutX="10.0" layoutY="585.0" prefHeight="200.0" prefWidth="1200.0" style="-fx-background-color: #1D1D1E;">
-                        <children>
-                            <HBox prefHeight="26.0" prefWidth="443.0" />
-                            <Label text="    Recent Issues" textFill="WHITE">
-                                <font>
-                                    <Font size="20.0" />
-                                </font>
-                            </Label>
-                        </children>
-                    </VBox>
-                    <Label layoutX="10.0" layoutY="535.0" prefHeight="53.0" text="Issues" textFill="WHITE">
-                        <font>
-                            <Font size="35.0" />
-                        </font>
-                    </Label>
                 </children>
             </Pane>
         </ScrollPane>

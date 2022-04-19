@@ -3,12 +3,16 @@ package com.ensemblecp;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -20,10 +24,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ArchiveListController implements Initializable {
+    @FXML ImageView settingsBtn;
+    @FXML MenuButton settingsButton;
     @FXML
     private TableView<ProjectRow> projectTable;
     @FXML private TableColumn<ProjectRow, String> issueScoreColumn;
-    @FXML private TableColumn<ProjectRow, String> pidColumn;
     @FXML private TableColumn<ProjectRow, String> managerNameColumn;
     @FXML private TableColumn<ProjectRow, String> tagsColumn;
     @FXML private TableColumn<ProjectRow, String> statusColumn;
@@ -59,7 +64,13 @@ public class ArchiveListController implements Initializable {
            if(rs.getBoolean("complete")) {
                ProjectRow pr = new ProjectRow();
                pr.setTitle(rs.getString("title"));
-               pr.setComplete(String.valueOf(rs.getBoolean("complete")));
+               if(rs.getBoolean("complete")){
+                   //if project complete = true, set display to "Complete"
+                   pr.setComplete("Complete");
+               }
+               else{
+                   pr.setComplete("Incomplete");
+               }
                pr.setKickoff(rs.getDate("kickoff").toString());
                pr.setDeadline(rs.getDate("deadline").toString());
                pr.setPid(String.valueOf(rs.getInt("pid")));
@@ -94,7 +105,6 @@ public class ArchiveListController implements Initializable {
         managerNameColumn.setCellValueFactory(new PropertyValueFactory<>("managerName"));
         issueScoreColumn.setCellValueFactory(new PropertyValueFactory<>("issueScore"));
         tagsColumn.setCellValueFactory(new PropertyValueFactory<>("tags"));
-        pidColumn.setCellValueFactory(new PropertyValueFactory<>("pid"));
         projectTable.setItems(projectRows);
 
         TableView.TableViewSelectionModel<ProjectRow> mod = projectTable.getSelectionModel();
@@ -117,10 +127,6 @@ public class ArchiveListController implements Initializable {
         });
     }
 
-    public void exitButton_onClick(MouseEvent mouseEvent) {
-        System.exit(-1);
-    }
-
     public void dashButton_onClick(Event actionEvent) throws IOException {
         Main.show("Dashboard");
     }
@@ -133,7 +139,34 @@ public class ArchiveListController implements Initializable {
         Main.show("archiveList");
     }
 
-    public void add_onClick() throws IOException {
-        Main.show("projCreator");
+    public void exitButton_onClick(Event mouseEvent) {
+        System.exit(ExitStatusType.EXIT_BUTTON);
+    }
+    public void settings_Hover(){
+        settingsBtn.setOpacity(0.5);
+    }
+    public void settings_HoverOff(){
+        settingsBtn.setOpacity(1.0);
+    }
+
+    public void updateStatus_onClick(Event actionEvent) throws SQLException {
+        String status  = ((MenuItem) (actionEvent.getSource())).getText();
+        int newStatus = switch(status) {
+            case "Available" -> StatusType.AVAILABLE;
+            case "Busy" -> StatusType.BUSY;
+            case "Away" -> StatusType.AWAY;
+            default -> -1;
+        };
+        Database db = new Database();
+        db.updateMemberStatus(Main.account.getId(), newStatus, Main.account.getType());
+        Main.account.setStatus(status);
+        db.closeDB();
+    }
+
+    public void logout_onClick(ActionEvent actionEvent) throws IOException {
+        Main.account = null;
+        Main.projects.clear();
+        Main.curProject = null;
+        Main.show("login");
     }
 }

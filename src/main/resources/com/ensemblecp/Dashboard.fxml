@@ -87,11 +87,11 @@
       <!-- Project stuff -->
       <TableView fx:id="projectTable" layoutX="212.0" layoutY="798.0" prefHeight="200.0" prefWidth="1181.0" styleClass="table-class" stylesheets="@../../css/tableView.css">
         <columns>
-           <TableColumn fx:id="statusColumn" prefWidth="181.5329132080078" text="Status" />
-           <TableColumn fx:id="titleColumn" prefWidth="330.4670715332031" text="Title" />
-           <TableColumn fx:id="remainColumn" prefWidth="274.5428771972656" text="Remaining Budget" />
-           <TableColumn fx:id="kickoffColumn" prefWidth="192.0462646484375" text="Start Date" />
-           <TableColumn fx:id="deadlineColumn" prefWidth="195.6646728515625" text="End Date" />
+           <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Status" />
+           <TableColumn fx:id="titleColumn" prefWidth="494.0" text="Title" />
+           <TableColumn fx:id="remainColumn" prefWidth="300.0" text="Remaining Budget" />
+           <TableColumn fx:id="kickoffColumn" prefWidth="125.0" text="Start Date" />
+           <TableColumn fx:id="deadlineColumn" prefWidth="125.0" text="End Date" />
         </columns>
       </TableView>
       <Label layoutX="212.0" layoutY="752.0" prefHeight="38.0" prefWidth="141.0" text="Projects" textFill="WHITE">
@@ -117,8 +117,8 @@
       </Label>
       <TableView fx:id="membersTable" layoutX="1439.0" layoutY="798.0" prefHeight="200.0" prefWidth="443.0" styleClass="table-class" stylesheets="@../../css/tableView.css">
          <columns>
-            <TableColumn fx:id="nameColumn" prefWidth="286.7498779296875" text="Name" />
-            <TableColumn fx:id="memberStatusColumn" minWidth="0.0" prefWidth="155.2498779296875" text="Status" />
+            <TableColumn fx:id="nameColumn" prefWidth="287.0" text="Name" />
+            <TableColumn fx:id="memberStatusColumn" prefWidth="153.0" text="Status" />
          </columns>
       </TableView>
 

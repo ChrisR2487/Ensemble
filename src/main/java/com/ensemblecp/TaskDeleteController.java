@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ import static com.ensemblecp.Main.curProject;
 
 public class TaskDeleteController implements Initializable {
     @FXML CheckBox remCheckBox;
-    @FXML TextField logBox;
+    @FXML TextArea logBox;
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     public static Task task;

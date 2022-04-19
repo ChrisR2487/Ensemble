@@ -36,7 +36,7 @@ public class DashboardController implements Initializable {
     @FXML private TableColumn<ProjectRow, String> kickoffColumn;
     @FXML private TableColumn<ProjectRow, String> deadlineColumn;
 
-    @FXML private TableView membersTable;
+    @FXML private TableView<MemberRow> membersTable;
     @FXML private TableColumn<MemberRow, String> nameColumn;
     @FXML private TableColumn<MemberRow, String> memberStatusColumn;
 
@@ -85,6 +85,21 @@ public class DashboardController implements Initializable {
             System.out.println("Unable to load company timeline, end execution.");
         }
 
+        int tryCount4 = 0;
+        while (tryCount4 < Main.ATTEMPT_LIMIT) {
+            try {
+                setupMembers(db);
+                break;
+            } catch (SQLException e) {
+                System.out.println("Failed to load members, trying again...");
+                tryCount4++;
+            }
+        }
+        if (tryCount4 == Main.ATTEMPT_LIMIT) {
+            // Failed to load dashboard
+            System.out.println("Unable to load members, end execution.");
+        }
+
         //Setup Notifications
         int tryCount3 = 0;
         while (tryCount3 < Main.ATTEMPT_LIMIT) {
@@ -103,6 +118,40 @@ public class DashboardController implements Initializable {
         try {
             db.closeDB();
         } catch (NullPointerException | SQLException ignored) { }
+    }
+
+    private void setupMembers(Database db) throws SQLException {
+        ArrayList<MemberRow> rowArrayList = new ArrayList<>();
+        ResultSet rs = db.getMembers();
+        while (rs.next()) {
+            MemberRow mr = new MemberRow();
+            mr.setName(rs.getString("name"));
+            int status = Integer.parseInt(rs.getString("status"));
+            switch(status){
+                case StatusType.AVAILABLE:
+                    mr.setStatus("Available");
+                    break;
+                case StatusType.AWAY:
+                    mr.setStatus("Away");
+                    break;
+                case StatusType.BUSY:
+                    mr.setStatus("Busy");
+                    break;
+            }
+            rowArrayList.add(mr);
+        }
+
+        // Convert to array
+        MemberRow[] rowList = rowArrayList.toArray(new MemberRow[rowArrayList.size()]);
+
+        // Cast to ObservableList
+        List<MemberRow> rows = List.of(rowList);
+        ObservableList<MemberRow> projectRows = FXCollections.observableList(rows);
+
+        // Set row data
+        memberStatusColumn.setCellValueFactory(new PropertyValueFactory("status"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
+        membersTable.setItems(projectRows);
     }
 
     private void setupNotifications(Database db) throws SQLException {
@@ -144,7 +193,7 @@ public class DashboardController implements Initializable {
         sp.setLayoutX(1439.0);
         sp.setLayoutY(103.0);
         sp.setPrefWidth(443.0);
-        sp.setPrefHeight(600.0);
+        sp.setPrefHeight(638.0);
         sp.setContent(notificationVBox);
         //sp.setBackground(new Background(new BackgroundFill(Paint.valueOf("#1D1D1E"), new CornerRadii(0), new Insets(0))));
 
@@ -248,6 +297,17 @@ public class DashboardController implements Initializable {
         gantt.setLayoutY(103.0);
         gantt.setPrefHeight(638.0);
         gantt.setPrefWidth(1181.0);
+
+        // Setup css
+        ///System.out.println(gantt.getTimeline().getEventline().getUserAgentStylesheet());
+        ///System.out.println(gantt.getGraphics().getUserAgentStylesheet());
+        ///System.out.println(gantt.getTimeline().getDateline().getUserAgentStylesheet());
+        ///System.out.println(gantt.getStylesheets().toString());
+
+        /*gantt.getStylesheets().clear(); // Remove old
+        gantt.getStylesheets().add("file:src/main/resources/css/ganttchart.css"); // Add new
+        gantt.applyCss();*/
+
         root.getChildren().add(gantt);
     }
 

@@ -4,6 +4,19 @@
     -fx-text-fill: white;
     -fx-padding: 0 0 0 0;
 }
+.sort-btn {
+    -fx-font-size: 18px;
+    -fx-background-color: #EBECF0;
+    -fx-text-fill: black;
+    -fx-padding: 0 0 0 0;
+}
+
+.filter-btn {
+    -fx-font-size: 18px;
+    -fx-background-color: #1D1D1E;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 0 0;
+}
 
 .form-btn-class:hover {
     -fx-font-size: 24px;

@@ -27,7 +27,7 @@
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #2A2A2A;
+    -fx-background-color: #363636;
     -fx-background-radius: 5em;
 }
 
@@ -53,4 +53,75 @@
 .dialog-pane .header-panel .label{
     -fx-font-size: 18px;
     -fx-font-style: italic;
+}
+
+/* List views */
+.list-view {
+    -fx-background-color: #1d1d1d;
+}
+.list-cell {
+    -fx-font-size: 16px;
+    -fx-background-color: #1d1d1d;
+    -fx-border-color: #2a2a2a;
+}
+
+/* Hyperlinks */
+.hyperlink:pressed {
+    -fx-text-fill: #0088CC;
+}
+.hyperlink:visited {
+    -fx-text-fill: #551A8B;
+}
+
+/* Textfields and Textareas */
+.text-field {
+    -fx-text-fill: #EEEEEE;
+    -fx-background-color: #1d1d1e;
+    -fx-font-size: 18px;
+    -fx-border-color: #575757;
+}
+.text-area {
+    -fx-wrap-text: true;
+    -fx-text-fill: #EEEEEE;
+    -fx-background-color: #1d1d1e;
+    -fx-font-size: 18px;
+}
+.text-area .content {
+    -fx-background-color: #1d1d1e;
+    -fx-border-color: #575757;
+}
+
+/* Combobox */
+.combo-box {
+    -fx-background-color: #1d1d1e;
+}
+.combo-box .cell:selected {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+.combo-box-popup .list-view .list-cell
+{
+    -fx-background-color: #1d1d1e;
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+.combo-box-popup .list-view .list-cell:hover
+{
+    -fx-background-color: #2a2a2a;
+}
+
+/* Menus */
+.menu-item {
+    -fx-background-color: #1d1d1e;
+}
+.menu-item .label{
+    -fx-background-color: transparent;
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+.menu-item:focused{
+    -fx-background-color: #2a2a2a;
+}
+.context-menu {
+    -fx-background-color: #1d1d1e;
 }

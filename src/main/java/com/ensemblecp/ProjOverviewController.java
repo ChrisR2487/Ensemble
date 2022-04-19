@@ -209,7 +209,7 @@ public class ProjOverviewController implements Initializable {
         // Set component data
         sp.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(0), new Insets(0))));
         parentPane.setPadding(new Insets(10, 10, 10, 10));
-        double layY = 795.0;
+        double layY = 535.0;
         double layX = 10.0;
         for (Component comp: Main.curProject.getComponents()) {
             // Setup label

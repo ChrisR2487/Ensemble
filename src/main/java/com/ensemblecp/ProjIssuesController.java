@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ProjIssuesController implements Initializable {
+    @FXML TableColumn<IssueRow, String> dateColumn;
     @FXML TableView<IssueRow> issueTable;
-    //@FXML TableColumn<IssueRow, String> dateColumn;
     @FXML TableColumn<IssueRow, String> originColumn;
     @FXML TableColumn<IssueRow, String> descriptionColumn;
     @FXML TableColumn<IssueRow, String> typeColumn;
@@ -107,6 +107,8 @@ public class ProjIssuesController implements Initializable {
                 case IssueType.TASK -> type = "Task";
                 case IssueType.TIMELINE -> type = "Timeline";
             }
+
+            ir.setDate(rs.getTimestamp("posted").toString());
             ir.setType(type);
             rowArrayList.add(ir);
         }
@@ -127,6 +129,7 @@ public class ProjIssuesController implements Initializable {
         descriptionColumn.setCellValueFactory(new PropertyValueFactory("description"));
         typeColumn.setCellValueFactory(new PropertyValueFactory("type"));
         stateColumn.setCellValueFactory(new PropertyValueFactory("state"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory("date"));
         issueTable.setItems(issueRows);
     }
 
