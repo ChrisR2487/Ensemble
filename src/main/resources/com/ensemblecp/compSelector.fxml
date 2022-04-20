@@ -51,10 +51,10 @@
    <!-- Existing templates -->
    <Pane fx:id="chooseExistingPane" layoutX="201.0" layoutY="232.0" prefWidth="1361.0" visible="false">
       <children>
-         <TableView fx:id="existingTable" prefHeight="674.0" prefWidth="1361.0"> <!-- Width=606 -->
+         <TableView fx:id="existingTable" stylesheets="@../../css/tableView.css" prefHeight="674.0" prefWidth="1361.0"> <!-- Width=606 -->
             <columns>
                <TableColumn fx:id="titleColumn" prefWidth="400.0" text="Title" />
-               <TableColumn fx:id="templateColumn" prefWidth="960.0" text="Template" />
+               <TableColumn fx:id="templateColumn" prefWidth="959.0" text="Template" />
             </columns>
          </TableView>
       </children>

@@ -253,10 +253,11 @@ public class Database {
         ResultSet rs = preparedStmt.executeQuery(query);
 
         // Remove all component tables
+        ArrayList<String> charCids = new ArrayList<>();
+        while (rs.next()) charCids.add(Project.IDtoChars(rs.getInt("cid")));
         String dropTable = "";
-        while (rs.next()) {
+        for (Object charCid: charCids.toArray()) {
             // Drop component table info
-            String charCid = Project.IDtoChars(rs.getInt("cid"));
             dropTable = "drop table " + databaseName + "." + charPid + "_" + charCid + "_Data;";
             preparedStmt.execute(dropTable);
         }
