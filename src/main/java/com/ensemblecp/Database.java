@@ -127,7 +127,7 @@ public class Database {
     }
 
     public Float getROI(HashMap<String, String> info) throws SQLException {
-        String charPid = Project.IDtoChars(Main.curProject.getPid());
+        String charPid = Project.IDtoChars(Integer.parseInt(info.get("pid")));
         //get tuple
         String query  = "select avg(roi) as r1 from " + databaseName + ".Project where (tag1 like ? or tag2 like ? or tag3 like ? or tag4 like ?) and complete = true ";
         String query2 = "select avg(roi) as r2 from " + databaseName + ".Project where (tag1 like ? or tag2 like ? or tag3 like ? or tag4 like ?) and complete = true ";
@@ -252,20 +252,25 @@ public class Database {
         query = "select * from " + databaseName + "." + charPid + "_Components;";
         ResultSet rs = preparedStmt.executeQuery(query);
 
-        // Delete related tables
-        String dropTable = "";
-        dropTable += "drop table " + databaseName + "." + charPid + "_Components;";
-        dropTable += "drop table " + databaseName + "." + charPid + "_Team;";
-        dropTable += "drop table " + databaseName + "." + charPid + "_Tasks;";
-        dropTable += "drop table " + databaseName + "." + charPid + "_Issues;";
-        dropTable += "drop table " + databaseName + "." + charPid + "_Files;";
         // Remove all component tables
-
-        while (!rs.next()) {
+        String dropTable = "";
+        while (rs.next()) {
             // Drop component table info
             String charCid = Project.IDtoChars(rs.getInt("cid"));
-            dropTable += "drop table " + databaseName + "." + charPid + "_" + charCid + "_Data;";
+            dropTable = "drop table " + databaseName + "." + charPid + "_" + charCid + "_Data;";
+            preparedStmt.execute(dropTable);
         }
+
+        // Delete related tables
+        dropTable = "drop table " + databaseName + "." + charPid + "_Components;\n";
+        preparedStmt.execute(dropTable);
+        dropTable = "drop table " + databaseName + "." + charPid + "_Team;\n";
+        preparedStmt.execute(dropTable);
+        dropTable = "drop table " + databaseName + "." + charPid + "_Tasks;\n";
+        preparedStmt.execute(dropTable);
+        dropTable = "drop table " + databaseName + "." + charPid + "_Issues;\n";
+        preparedStmt.execute(dropTable);
+        dropTable = "drop table " + databaseName + "." + charPid + "_Files;\n";
         preparedStmt.execute(dropTable);
     }
 
