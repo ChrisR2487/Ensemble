@@ -56,6 +56,10 @@ public class TaskDeleteController implements Initializable {
 
         // Delete task from database
         db.removeTask(curProject.getPid(), task.getTid());
+        // Check if task was overdue and not complete
+        if (!task.isComplete() && IssueScore.checkOverdueTask(task.getDeadline().toString()) > 0.0f) {
+            db.updateIssueScore(curProject.getPid(), -1*IssueScore.TASK_OVERDUE);
+        }
         db.closeDB();
         // Delete task from project object
         Main.curProject.getTasks().remove(task);

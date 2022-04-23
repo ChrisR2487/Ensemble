@@ -52,13 +52,15 @@ public class ProjTeamController implements Initializable {
                 Main.curProject.getTag2() + "\n\t" +
                 Main.curProject.getTag3() + "\n\t" +
                 Main.curProject.getTag4());
-        roiLabel.setText(roiLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getRoi()));
+        if (Main.curProject.getRoi() == 0.0f) roiLabel.setText(roiLabel.getText() + "\n\t" + "N/A");
+        else roiLabel.setText(roiLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getRoi()));
         budgetLabel.setText(budgetLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getBudget()));
         kickoffLabel.setText(kickoffLabel.getText() + "\n\t" + Main.curProject.getKickoff().toString());
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
         descLabel.setText(Main.curProject.getDescription());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
-        issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
+        if (Main.curProject.getIssueScore() > 100.00f) issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(100.00f));
+        else issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
         titleLabel.setText(Main.curProject.getTitle());
 
         // Create memberRow list

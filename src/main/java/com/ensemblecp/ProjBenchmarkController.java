@@ -64,13 +64,15 @@ public class ProjBenchmarkController implements Initializable {
                 Main.curProject.getTag2() + "\n\t" +
                 Main.curProject.getTag3() + "\n\t" +
                 Main.curProject.getTag4());
-        roiLabel.setText(roiLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getRoi()));
+        if (Main.curProject.getRoi() == 0.0f) roiLabel.setText(roiLabel.getText() + "\n\t" + "N/A");
+        else roiLabel.setText(roiLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getRoi()));
         budgetLabel.setText(budgetLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getBudget()));
         kickoffLabel.setText(kickoffLabel.getText() + "\n\t" + Main.curProject.getKickoff().toString());
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
         descLabel.setText(Main.curProject.getDescription());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
-        issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
+        if (Main.curProject.getIssueScore() > 100.00f) issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(100.00f));
+        else issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
         titleLabel.setText(Main.curProject.getTitle());
 
         // Setup benchmark timeline
@@ -98,6 +100,7 @@ public class ProjBenchmarkController implements Initializable {
             paneTitle.setFont(new Font(20.0));
             paneTitle.setLayoutX(6.0);
             paneTitle.setLayoutY(6.0);
+            paneTitle.setMaxWidth(251.0);
             paneTitle.setTextFill(Paint.valueOf("white"));
 
             Label paneDeadline = new Label("Due: " + task.getDeadline().toString());
@@ -109,12 +112,12 @@ public class ProjBenchmarkController implements Initializable {
             Label paneComplete = new Label("✓");
             paneComplete.setFont(new Font(30.0));
             paneComplete.setLayoutY(8.0);
-            paneComplete.setLayoutX(200.0);
+            paneComplete.setLayoutX(215.0);
             paneComplete.setTextFill(Paint.valueOf("white"));
             if (!task.isComplete()) paneComplete.setVisible(false);
 
             Pane taskPane = new Pane();
-            taskPane.setPrefWidth(260.0);
+            taskPane.setMinWidth(257.0);
             taskPane.setPrefHeight(60.0); // 20.0 (title) + 14.0 (due) + ???
             taskPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("#2A2A2A"), new CornerRadii(0), new Insets(0))));
             if (indx == Main.curProject.getTasks().size()) VBox.setMargin(taskPane, new Insets(10.0, 10.0, 10.0, 10.0));
@@ -142,7 +145,7 @@ public class ProjBenchmarkController implements Initializable {
         sp.setLayoutX(1140.0);
         sp.setLayoutY(204.0);
         sp.setPrefWidth(280.0);
-        sp.setPrefHeight(800.0);
+        sp.setPrefHeight(810.0);
         sp.setContent(taskListVBox);
         sp.setBackground(new Background(new BackgroundFill(Paint.valueOf("#1D1D1E"), new CornerRadii(0), new Insets(0))));
 
@@ -154,6 +157,7 @@ public class ProjBenchmarkController implements Initializable {
         // Set data
         titleDetail.setText(task.getTitle());
         descriptionDetail.setText(task.getDescription());
+        descriptionDetail.setWrapText(true);
         kickoffDetail.setText("Kickoff: " + task.getKickoff().toString());
         deadlineDetail.setText("Deadline: " + task.getDeadline().toString());
         memberDetail.setText("Assigned to MEMID: " + String.valueOf(task.getMemid()));
@@ -216,6 +220,13 @@ public class ProjBenchmarkController implements Initializable {
                 // Update record
                 Database db = new Database();
                 db.markTask(Main.curProject.getPid(), task.getTid());
+                // Check issue score
+                if (IssueScore.checkOverdueTask(task.getDeadline().toString()) > 0.0f) {
+                    // Undo issue score and update score in db
+                    db.updateIssueScore(Main.curProject.getPid(), -1*IssueScore.TASK_OVERDUE);
+                    Main.curProject.addIssueScore(-1*IssueScore.TASK_OVERDUE);
+                    issueScoreLabel.setText(String.valueOf(Main.curProject.getIssueScore()));
+                }
                 db.closeDB();
 
                 // Update object & view
@@ -237,6 +248,13 @@ public class ProjBenchmarkController implements Initializable {
                 // Update record
                 Database db = new Database();
                 db.unmarkTask(Main.curProject.getPid(), task.getTid());
+                // Check issue score
+                if (IssueScore.checkOverdueTask(task.getDeadline().toString()) > 0.0f) {
+                    // Undo issue score and update score in db
+                    db.updateIssueScore(Main.curProject.getPid(), IssueScore.TASK_OVERDUE);
+                    Main.curProject.addIssueScore(IssueScore.TASK_OVERDUE);
+                    issueScoreLabel.setText(String.valueOf(Main.curProject.getIssueScore()));
+                }
                 db.closeDB();
 
                 // Update object & view

@@ -88,7 +88,7 @@
       <TableView fx:id="projectTable" layoutX="212.0" layoutY="798.0" prefHeight="200.0" prefWidth="1181.0" styleClass="table-class" stylesheets="@../../css/tableView.css">
         <columns>
            <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Status" />
-           <TableColumn fx:id="titleColumn" prefWidth="494.0" text="Title" />
+           <TableColumn fx:id="titleColumn" prefWidth="508.0" text="Title" />
            <TableColumn fx:id="remainColumn" prefWidth="300.0" text="Remaining Budget" />
            <TableColumn fx:id="kickoffColumn" prefWidth="125.0" text="Start Date" />
            <TableColumn fx:id="deadlineColumn" prefWidth="125.0" text="End Date" />

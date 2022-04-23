@@ -296,6 +296,13 @@ public class Project {
         return issues;
     }
 
+    public Issue findIssue(int memid, String message) {
+        for (Issue issue : issues) {
+            if (issue.getMessage().equals(message) && issue.getMemid() == memid) return issue;
+        }
+        return null;
+    }
+
     public void setIssues(ArrayList<Issue> issues) {
         this.issues = issues;
     }

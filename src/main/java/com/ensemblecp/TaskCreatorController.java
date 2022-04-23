@@ -130,7 +130,7 @@ public class TaskCreatorController implements Initializable {
         info.put("deadline", deadline.toString());
 
         // Check if task is overdue
-        if (IssueScore.checkOverdue(deadline.toString()) > 0.0f) {
+        if (IssueScore.checkOverdueTask(deadline.toString()) > 0.0f) {
             db.updateIssueScore(Main.curProject.getPid(), Main.curProject.getIssueScore() + IssueScore.TASK_OVERDUE);
             Main.curProject.addIssueScore(Main.curProject.getIssueScore() + IssueScore.TASK_OVERDUE);
         }

@@ -108,6 +108,7 @@ public class Database {
                 + "type int not null,"
                 + "state int not null,"
                 + "posted timestamp not null,"
+                + "score float not null,"
                 + "constraint " + charPid + "_Issues_pk primary key (memid, message))";
         stmt.execute(createTable);
 
@@ -438,15 +439,16 @@ public class Database {
 
     }
 
-    public ResultSet createIssue(HashMap<String, String> info) throws SQLException {
+    public ResultSet createIssue(HashMap<String, String> info, Timestamp posted) throws SQLException {
         String charPid = Project.IDtoChars(Main.curProject.getPid());
-        String query = "insert into " + databaseName + "." + charPid + "_Issues values (?, ?, ?, ?, ?)";
+        String query = "insert into " + databaseName + "." + charPid + "_Issues values (?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setInt(1, Main.account.getId());
         preparedStmt.setString(2, info.get("message"));
         preparedStmt.setInt(3, Integer.parseInt(info.get("type")));
         preparedStmt.setInt(4, IssueState.NEW); // Set issue as new (not seen or done)
-        preparedStmt.setTimestamp(5, Timestamp.from(Instant.now())); // Set current date
+        preparedStmt.setTimestamp(5, posted); // Set current date
+        preparedStmt.setFloat(6, Float.parseFloat(info.get("score")));
         preparedStmt.execute();
 
         query = "select * from " + databaseName + "." + charPid + "_Issues where memid=? and message=?";
@@ -545,6 +547,14 @@ public class Database {
             preparedStatement.setInt(2, Integer.parseInt(row.get("memid")));
             preparedStatement.setString(3, row.get("message"));
             preparedStatement.execute();
+
+            // update local data
+            Issue issue = Main.curProject.findIssue(Integer.parseInt(row.get("memid")), row.get("message"));
+            if (issue.getState() == IssueState.NEW) {
+                updateIssueScore(Main.curProject.getPid(), -1*issue.getScore());
+                Main.curProject.addIssueScore(-1*issue.getScore());
+            }
+            issue.setState(IssueState.SEEN);
         }
     }
 
@@ -561,6 +571,14 @@ public class Database {
             preparedStatement.setInt(2, Integer.parseInt(row.get("memid")));
             preparedStatement.setString(3, row.get("message"));
             preparedStatement.execute();
+
+            // update local data
+            Issue issue = Main.curProject.findIssue(Integer.parseInt(row.get("memid")), row.get("message"));
+            if (issue.getState() == IssueState.NEW) {
+                updateIssueScore(Main.curProject.getPid(), -1*issue.getScore());
+                Main.curProject.addIssueScore(-1*issue.getScore());
+            }
+            issue.setState(IssueState.DONE);
         }
     }
 
@@ -577,6 +595,14 @@ public class Database {
             preparedStatement.setInt(2, Integer.parseInt(row.get("memid")));
             preparedStatement.setString(3, row.get("message"));
             preparedStatement.execute();
+
+            // update local data
+            Issue issue = Main.curProject.findIssue(Integer.parseInt(row.get("memid")), row.get("message"));
+            if (issue.getState() == IssueState.DONE || issue.getState() == IssueState.SEEN) {
+                updateIssueScore(Main.curProject.getPid(), issue.getScore());
+                Main.curProject.addIssueScore(issue.getScore());
+            }
+            issue.setState(IssueState.NEW);
         }
     }
 

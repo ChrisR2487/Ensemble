@@ -105,7 +105,12 @@ public class ProjListController implements Initializable {
             pr.setKickoff(rs.getDate("kickoff").toString());
             pr.setDeadline(rs.getDate("deadline").toString());
             pr.setPid(String.valueOf(rs.getInt("pid")));
-            pr.setIssueScore(String.valueOf(rs.getFloat("issueScore")));
+
+            if (rs.getFloat("issueScore") > 100.00f) {
+                pr.setIssueScore(String.valueOf(100.0f));
+            }
+            else pr.setIssueScore(String.valueOf(rs.getFloat("issueScore")));
+
             pr.setManagerName(rs.getString("name"));
 
             String tags = rs.getString("tag1");

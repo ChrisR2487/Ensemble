@@ -56,13 +56,15 @@ public class ProjIssuesController implements Initializable {
                 Main.curProject.getTag2() + "\n\t" +
                 Main.curProject.getTag3() + "\n\t" +
                 Main.curProject.getTag4());
-        roiLabel.setText(roiLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getRoi()));
+        if (Main.curProject.getRoi() == 0.0f) roiLabel.setText(roiLabel.getText() + "\n\t" + "N/A");
+        else roiLabel.setText(roiLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getRoi()));
         budgetLabel.setText(budgetLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getBudget()));
         kickoffLabel.setText(kickoffLabel.getText() + "\n\t" + Main.curProject.getKickoff().toString());
         deadlineLabel.setText(deadlineLabel.getText() + "\n\t" + Main.curProject.getDeadline().toString());
         descLabel.setText(Main.curProject.getDescription());
         investmentCostsLabel.setText(investmentCostsLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getInvestmentCosts()));
-        issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
+        if (Main.curProject.getIssueScore() > 100.00f) issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(100.00f));
+        else issueScoreLabel.setText(issueScoreLabel.getText() + "\n\t" + String.valueOf(Main.curProject.getIssueScore()));
         titleLabel.setText(Main.curProject.getTitle());
 
         // Hookup issues table
@@ -83,36 +85,71 @@ public class ProjIssuesController implements Initializable {
     }
 
     private void setupIssuesList() throws SQLException {
-        Database db = new Database();
-        ResultSet rs = db.getProjectIssues(Main.curProject.getPid());
-        while (rs.next()) {
-            IssueRow ir = new IssueRow();
-            ir.setOrigin(String.valueOf(rs.getInt("memid")));
-            ir.setDescription(rs.getString("message"));
-            ir.setSelect(new CheckBox());
+        if (Main.curProject.getIssues() != null){
+            ArrayList<Issue> issues = Main.curProject.getIssues();
+            for (int i = 0; i < issues.size(); i++) {
+                IssueRow ir = new IssueRow();
+                ir.setOrigin(String.valueOf(issues.get(i).getMemid()));
+                ir.setDescription(issues.get(i).getMessage());
+                ir.setSelect(new CheckBox());
 
-            String state = "";
-            switch(rs.getInt("state")) {
-                case IssueState.NEW -> state = "New";
-                case IssueState.SEEN -> state = "Seen";
-                case IssueState.DONE -> state = "Done";
+                String state = "";
+                switch (issues.get(i).getState()) {
+                    case IssueState.NEW -> state = "New";
+                    case IssueState.SEEN -> state = "Seen";
+                    case IssueState.DONE -> state = "Done";
+                }
+                ir.setState(state);
+
+                String type = "";
+                switch (issues.get(i).getType()) {
+                    case IssueType.TEAM -> type = "Team";
+                    case IssueType.BUDGET -> type = "Budget";
+                    case IssueType.NO_SCORE -> type = "No Score";
+                    case IssueType.TASK -> type = "Task";
+                    case IssueType.TIMELINE -> type = "Timeline";
+                }
+
+                ir.setDate(issues.get(i).getPosted().toString());
+                ir.setType(type);
+                rowArrayList.add(ir);
             }
-            ir.setState(state);
-
-            String type = "";
-            switch(rs.getInt("type")) {
-                case IssueType.TEAM -> type = "Team";
-                case IssueType.BUDGET -> type = "Budget";
-                case IssueType.NO_SCORE -> type = "No Score";
-                case IssueType.TASK -> type = "Task";
-                case IssueType.TIMELINE -> type = "Timeline";
-            }
-
-            ir.setDate(rs.getTimestamp("posted").toString());
-            ir.setType(type);
-            rowArrayList.add(ir);
         }
-        db.closeDB();
+        else {
+            Database db = new Database();
+            ResultSet rs = db.getProjectIssues(Main.curProject.getPid());
+            ArrayList<Issue> issues = new ArrayList<>();
+            while (rs.next()) {
+                IssueRow ir = new IssueRow();
+                ir.setOrigin(String.valueOf(rs.getInt("memid")));
+                ir.setDescription(rs.getString("message"));
+                ir.setSelect(new CheckBox());
+
+                String state = "";
+                switch (rs.getInt("state")) {
+                    case IssueState.NEW -> state = "New";
+                    case IssueState.SEEN -> state = "Seen";
+                    case IssueState.DONE -> state = "Done";
+                }
+                ir.setState(state);
+
+                String type = "";
+                switch (rs.getInt("type")) {
+                    case IssueType.TEAM -> type = "Team";
+                    case IssueType.BUDGET -> type = "Budget";
+                    case IssueType.NO_SCORE -> type = "No Score";
+                    case IssueType.TASK -> type = "Task";
+                    case IssueType.TIMELINE -> type = "Timeline";
+                }
+
+                ir.setDate(rs.getTimestamp("posted").toString());
+                ir.setType(type);
+                rowArrayList.add(ir);
+                issues.add(new Issue(rs));
+            }
+            db.closeDB();
+            Main.curProject.setIssues(issues);
+        }
 
         // Convert to array
         IssueRow[] rowList = rowArrayList.toArray(new IssueRow[rowArrayList.size()]);
@@ -137,7 +174,8 @@ public class ProjIssuesController implements Initializable {
         Database db = new Database();
         String charPid = Project.IDtoChars(Main.curProject.getPid());
         //get selected rows by memid and message
-        db.markIssueResolved(getSelectedRows(), charPid);
+        HashMap<String, HashMap<String, String>> rows = getSelectedRows();
+        db.markIssueResolved(rows, charPid);
         db.closeDB();
         Main.show("projIssues");
     }
@@ -146,7 +184,8 @@ public class ProjIssuesController implements Initializable {
         Database db = new Database();
         String charPid = Project.IDtoChars(Main.curProject.getPid());
         //get selected rows by memid and message
-        db.markIssueSeen(getSelectedRows(), charPid);
+        HashMap<String, HashMap<String, String>> rows = getSelectedRows();
+        db.markIssueSeen(rows, charPid);
         db.closeDB();
         Main.show("projIssues");
     }
@@ -155,7 +194,8 @@ public class ProjIssuesController implements Initializable {
         Database db = new Database();
         String charPid = Project.IDtoChars(Main.curProject.getPid());
         //get selected rows by memid and message
-        db.markIssueNew(getSelectedRows(), charPid);
+        HashMap<String, HashMap<String, String>> rows = getSelectedRows();
+        db.markIssueNew(rows, charPid);
         db.closeDB();
         Main.show("projIssues");
     }

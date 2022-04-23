@@ -134,12 +134,12 @@ public class TaskEditorController implements Initializable {
 
         // Check if task is overdue
         float newIssueScore = Main.curProject.getIssueScore();
-        if (IssueScore.checkOverdue(Main.curProject.getDeadline().toString()) > 0.1f) { // Is old deadline already overdue?
-            newIssueScore += IssueScore.checkOverdue(deadline.toString()) - IssueScore.TASK_OVERDUE; // No change if overdue still, remove penalty otherwise
+        if (IssueScore.checkOverdueTask(Main.curProject.getDeadline().toString()) > 0.1f) { // Is old deadline already overdue?
+            newIssueScore += IssueScore.checkOverdueTask(deadline.toString()) - IssueScore.TASK_OVERDUE; // No change if overdue still, remove penalty otherwise
             db.updateIssueScore(Main.curProject.getPid(), newIssueScore);
         }
         else { // Old deadline not overdue, check normally
-            newIssueScore += IssueScore.checkOverdue(deadline.toString());
+            newIssueScore += IssueScore.checkOverdueTask(deadline.toString());
             db.updateIssueScore(Main.curProject.getPid(), newIssueScore);
         }
 

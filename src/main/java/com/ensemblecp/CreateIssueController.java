@@ -8,6 +8,8 @@ import javafx.scene.control.ToggleGroup;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashMap;
 
 public class CreateIssueController {
@@ -86,9 +88,6 @@ public class CreateIssueController {
             }
         }
 
-        // Create issue record
-        db.createIssue(info);
-
         // Calculate issue score
         float score = severityCost * probabilityCost * switch (getSelectedFieldType) { // Score to add to project
             case "No Score" -> IssueScore.NO_SCORE;
@@ -98,16 +97,17 @@ public class CreateIssueController {
             case "Team" -> IssueScore.ISSUE_TEAM;
             default -> -1;
         };
+        info.put("score", String.valueOf(score));
+        info.put("state", String.valueOf(IssueState.NEW));
+        info.put("memid", String.valueOf(Main.account.getId()));
 
-        // Update issue score
-        if (Main.curProject.getIssueScore() + score > 100.0f) {
-            db.updateIssueScore(Main.curProject.getPid(), 100.0f - Main.curProject.getIssueScore());
-            Main.curProject.addIssueScore(100.0f - Main.curProject.getIssueScore());
-        }
-        else {
-            db.updateIssueScore(Main.curProject.getPid(), score);
-            Main.curProject.addIssueScore(score);
-        }
+        // Update issue score & Create issue record
+        Timestamp posted = Timestamp.from(Instant.now());
+        db.createIssue(info, posted);
+        db.updateIssueScore(Main.curProject.getPid(), score);
+        Main.curProject.addIssueScore(score);
+        Main.curProject.getIssues().add(new Issue(info, posted));
+        db.closeDB();
 
         // Go back to issue list
         Main.show("projIssues");

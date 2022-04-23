@@ -191,11 +191,24 @@ public class ProjEditorController implements Initializable {
 
         // Get issue score
         float newIssueScore = Main.curProject.getIssueScore();
-        if (IssueScore.checkOverdue(Main.curProject.getDeadline().toString()) > 0.1f) { // Is old deadline already overdue?
-            newIssueScore += IssueScore.checkOverdue(deadlineField.getValue().toString()) - IssueScore.PROJECT_OVERDUE; // No change if overdue still, remove penalty otherwise
+        if (archiveSwitch.isSelected() != Main.curProject.isComplete()) {
+            // Completeness has changed
+            if (archiveSwitch.isSelected() && IssueScore.checkOverdue(Main.curProject.getDeadline().toString()) > 0.0f) {
+                newIssueScore += -1 * IssueScore.PROJECT_OVERDUE;
+            }
+            else {
+                // Now incomplete
+                if (IssueScore.checkOverdue(Main.curProject.getDeadline().toString()) > 0.0f) { // Is new deadline overdue?
+                    newIssueScore += IssueScore.checkOverdue(deadlineField.getValue().toString());
+                }
+            }
         }
-        else { // Old deadline not overdue, check normally
-            newIssueScore += IssueScore.checkOverdue(deadlineField.getValue().toString());
+        else if (!archiveSwitch.isSelected()) { // Not complete
+            if (IssueScore.checkOverdue(Main.curProject.getDeadline().toString()) > 0.0f) { // Is old deadline already overdue?
+                newIssueScore += IssueScore.checkOverdue(deadlineField.getValue().toString()) - IssueScore.PROJECT_OVERDUE; // No change if overdue still, remove penalty otherwise
+            } else { // Old deadline not overdue, check normally
+                newIssueScore += IssueScore.checkOverdue(deadlineField.getValue().toString());
+            }
         }
 
         if(IssueScore.checkOverbudget(Main.curProject.getInvestmentCosts(), Main.curProject.getBudget()) > 0.1f) { // Is old project overbudget?
