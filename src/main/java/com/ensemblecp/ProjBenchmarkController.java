@@ -225,7 +225,8 @@ public class ProjBenchmarkController implements Initializable {
                     // Undo issue score and update score in db
                     db.updateIssueScore(Main.curProject.getPid(), -1*IssueScore.TASK_OVERDUE);
                     Main.curProject.addIssueScore(-1*IssueScore.TASK_OVERDUE);
-                    issueScoreLabel.setText(String.valueOf(Main.curProject.getIssueScore()));
+                    if (Main.curProject.getIssueScore() > 100.00f) issueScoreLabel.setText("    Issue Score\n\t" + String.valueOf(100.00f));
+                    else issueScoreLabel.setText("    Issue Score\n\t" + String.valueOf(Main.curProject.getIssueScore()));
                 }
                 db.closeDB();
 
@@ -253,7 +254,8 @@ public class ProjBenchmarkController implements Initializable {
                     // Undo issue score and update score in db
                     db.updateIssueScore(Main.curProject.getPid(), IssueScore.TASK_OVERDUE);
                     Main.curProject.addIssueScore(IssueScore.TASK_OVERDUE);
-                    issueScoreLabel.setText(String.valueOf(Main.curProject.getIssueScore()));
+                    if (Main.curProject.getIssueScore() > 100.00f) issueScoreLabel.setText("    Issue Score\n\t" + String.valueOf(100.00f));
+                    else issueScoreLabel.setText("    Issue Score\n\t" + String.valueOf(Main.curProject.getIssueScore()));
                 }
                 db.closeDB();
 
